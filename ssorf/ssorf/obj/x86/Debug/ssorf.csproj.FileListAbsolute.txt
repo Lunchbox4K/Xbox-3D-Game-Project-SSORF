@@ -1,7 +1,0 @@
-E:\EDCC\2011\CS285\ssorf\ssorf\obj\x86\Debug\ResolveAssemblyReference.cache
-E:\EDCC\2011\CS285\ssorf\ssorf\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-E:\EDCC\2011\CS285\ssorf\ssorf\bin\x86\Debug\ssorf.exe
-E:\EDCC\2011\CS285\ssorf\ssorf\bin\x86\Debug\ssorf.pdb
-E:\EDCC\2011\CS285\ssorf\ssorf\obj\x86\Debug\ssorf.exe
-E:\EDCC\2011\CS285\ssorf\ssorf\obj\x86\Debug\ssorf.pdb
-E:\EDCC\2011\CS285\ssorf\ssorf\bin\x86\Debug\Content\800x600SplashScreen.xnb
