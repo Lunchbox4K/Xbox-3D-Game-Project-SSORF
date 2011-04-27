@@ -18,8 +18,11 @@ namespace SSORF.Objects
         Matrix rotationMtx;
         Vector3 position = Vector3.Zero;
         Vector3 lookVector = Vector3.Zero;
-        float power = 1.4f;
+        float speed = 1.4f;
         float yaw = 0.0f;
+        float wheelAngle = 0;
+        float wheelMaxAngle = (float).785;
+        int wheelBaseLength = 24;
         //vehicle still needs list of specs such as weight, name, etc
         //Also need a way to add upgrades to vehicles
 
@@ -27,51 +30,35 @@ namespace SSORF.Objects
         {
             geometry = content.Load<Model>("Models\\scooter" + vehicleID.ToString());
 
-        //This will also need to load vehicle specs from a file using vehicle ID
+            //Things to load here:
+            //value of wheelMaxAngle - DO IT IN RADIANS
+            //value of wheelBaseLength
+            //other vehicle specs
+            //upgrade specs
         }
 
 
         public void update(GameTime gameTime)
         {
-            //If XBOX use the joystick..
-#if XBOX
-            if (gamePadState.current.ThumbSticks.Left.X > 0.0f)
-                yaw += (float)gameTime.ElapsedGameTime.TotalMilliseconds *
-                     MathHelper.ToRadians(-0.2f) * gamePadState.current.ThumbSticks.Left.X;
+            //TODO: calculate velocity from accel/decel
+            //Get the integral of the vehicle's velocity
+            float tempDistance = speed *gamePadState.current.Triggers.Right;
+            //Find the vehicle's current turning radius
+            float turnRadius = wheelBaseLength/(float)Math.Tan(wheelAngle);
+            //Now use those to get the vehicle's yaw offset - i love radians
+            float tempYaw = tempDistance / turnRadius;
 
-            if (gamePadState.current.ThumbSticks.Left.X < 0.0f)
-                yaw += (float)gameTime.ElapsedGameTime.TotalMilliseconds *
-                    MathHelper.ToRadians(0.2f) * -gamePadState.current.ThumbSticks.Left.X;
-
+            //Update rotations
+            yaw += tempYaw;
             rotationMtx = Matrix.CreateFromYawPitchRoll(yaw, 0.0f, 0.0f);
 
-            if (gamePadState.current.ThumbSticks.Left.Y > 0.0f)
-                position += rotationMtx.Forward * power * gamePadState.current.ThumbSticks.Left.Y;
+            //Derive and update position
+            position += rotationMtx.Forward * tempDistance * (float)Math.Cos(tempYaw);
+            position += rotationMtx.Left * tempDistance * (float)Math.Sin(tempYaw);
 
-            if (gamePadState.current.ThumbSticks.Left.Y < 0.0f)
-                position -= rotationMtx.Forward * power * -gamePadState.current.ThumbSticks.Left.Y;
-#else
-            //Otherwise use the direction keys...
-
-            if (keyBoardState.current.IsKeyDown(Keys.Right))
-                yaw += (float)gameTime.ElapsedGameTime.TotalMilliseconds *
-                     MathHelper.ToRadians(-0.2f);
-
-            if (keyBoardState.current.IsKeyDown(Keys.Left))
-                yaw += (float)gameTime.ElapsedGameTime.TotalMilliseconds *
-                    MathHelper.ToRadians(0.2f);
-
-            //Update rotations so the player will move forward in 
-            //a different direction as they turn the vehicle
-            rotationMtx = Matrix.CreateFromYawPitchRoll(yaw, 0.0f, 0.0f);
-
-            if (keyBoardState.current.IsKeyDown(Keys.Up))
-                position += rotationMtx.Forward * power;
-
-            if (keyBoardState.current.IsKeyDown(Keys.Down))
-                position -= rotationMtx.Forward * power;
-
-#endif
+            //@TODO: calculate velocity by end of frame
+            //Capture the wheel angle for the next frame's worth of motion
+            wheelAngle = gamePadState.current.ThumbSticks.Left.X * wheelMaxAngle;
         }
  
         //Accessors and Mutators
