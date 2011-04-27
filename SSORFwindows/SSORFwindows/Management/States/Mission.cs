@@ -39,6 +39,9 @@ namespace SSORF.Management.States
         private SpriteFont largeFont;
         private SpriteFont smallFont;
 
+        // Sounds
+        AudioManager audioManager;
+
         //empty constructor for making missions without parameters
         public Mission()
         { }
@@ -51,6 +54,8 @@ namespace SSORF.Management.States
             camera.ProjMtx = Matrix.CreatePerspectiveFieldOfView(
                             MathHelper.ToRadians(45.0f),
                             aspectRatio, 1.0f, 1000.0f);
+
+            audioManager = new AudioManager(this);
         }
 
         //missionId can be used to load checkpoint coordinates for that mission
@@ -81,7 +86,7 @@ namespace SSORF.Management.States
 
                 //if we are playing update scooter/camera using player input
                 case MissionState.Playing :
-                    scooter.update(gameTime);
+                    scooter.update(gameTime, audioManager);
                     camera.update(scooter.Position, scooter.Yaw);
 #if XBOX
                     if (gamePadState.current.Buttons.Y == ButtonState.Pressed)

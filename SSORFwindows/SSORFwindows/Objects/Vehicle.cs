@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using SSORF.Management;
 
 //Contains 3D model and specs for a scooter
 namespace SSORF.Objects
@@ -23,6 +24,12 @@ namespace SSORF.Objects
         //vehicle still needs list of specs such as weight, name, etc
         //Also need a way to add upgrades to vehicles
 
+        // How long until we should play the next sound.
+        TimeSpan timeDelay = TimeSpan.Zero;
+
+        // Random number generator for choosing between sound variations.
+        static Random random = new Random();
+
         public void load(ContentManager content, short vehicleID)
         {
             geometry = content.Load<Model>("Models\\scooter" + vehicleID.ToString());
@@ -31,7 +38,7 @@ namespace SSORF.Objects
         }
 
 
-        public void update(GameTime gameTime)
+        public void update(GameTime gameTime, AudioManager audioManager)
         {
             //If XBOX use the joystick..
 #if XBOX
@@ -72,6 +79,22 @@ namespace SSORF.Objects
                 position -= rotationMtx.Forward * power;
 
 #endif
+            // Update Sounds
+            // If the time delay has run out, trigger another single-shot sound.
+            timeDelay -= gameTime.ElapsedGameTime;
+
+            if (timeDelay < TimeSpan.Zero)
+            {
+                // For variety, randomly choose between three slightly different
+                // variants of the sound (CatSound0, CatSound1, and CatSound2).
+                string soundName = "CatSound" + random.Next(3);
+
+                audioManager.Play3DSound(soundName, false, this);
+
+                timeDelay += TimeSpan.FromSeconds(1.25f);
+            }
+        
+        
         }
  
         //Accessors and Mutators

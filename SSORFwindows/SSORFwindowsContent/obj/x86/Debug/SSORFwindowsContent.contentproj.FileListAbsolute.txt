@@ -1,2 +1,3 @@
 C:\Users\Kemmish\Desktop\SSORFwindows\SSORFwindows\SSORFwindowsContent\obj\x86\Debug\ResolveAssemblyReference.cache
 E:\EDCC\2011\CS285\SSORFwindows\SSORFwindows\SSORFwindowsContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\GoogleCode\SSORFwindows\SSORFwindowsContent\obj\x86\Debug\ResolveAssemblyReference.cache
