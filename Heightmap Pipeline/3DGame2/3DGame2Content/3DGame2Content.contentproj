@@ -61,9 +61,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\Desktop\3dOnlineGame\ContentPipelineExtension1\3dOnlineGamePipeline.csproj">
+    <ProjectReference Include="..\..\terrainContentPipeline\TerrainPipeline.csproj">
       <Project>{C003D900-46C7-4AF5-AA99-A4B118EAC77D}</Project>
-      <Name>3dOnlineGamePipeline</Name>
+      <Name>TerrainPipeline</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
