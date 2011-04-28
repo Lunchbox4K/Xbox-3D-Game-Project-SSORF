@@ -1,10 +1,11 @@
 Content\font.xnb
 Content\missionFont.xnb
-Content\Textures\button1.xnb
-Content\Textures\button2.xnb
-Content\Textures\cursor.xnb
-Content\Textures\menu.xnb
-Content\Textures\title.xnb
 Content\Models\level1.xnb
 Content\Models\scooter1.xnb
 Content\Models\level2.xnb
+Content\Images\button1.xnb
+Content\Images\button2.xnb
+Content\Images\cursor.xnb
+Content\Images\menu.xnb
+Content\Images\title.xnb
+Content\Models\Textures\skytexture_0.xnb
