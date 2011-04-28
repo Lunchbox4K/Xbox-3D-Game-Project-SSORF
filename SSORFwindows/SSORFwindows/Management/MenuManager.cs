@@ -42,6 +42,30 @@ namespace SSORF.Management
         public MenuManager(ContentManager content)
         {
             Menus = new States.SubMenu[(int)Menu.NumMenus];
+            //Load Main
+            Menus[(int)Menu.Main] = new States.SubMenu(2); //mission menu has 2 buttons
+            Menus[(int)Menu.Main].BackGround = content.Load<Texture2D>("Images\\menu");
+            Menus[(int)Menu.Main].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
+            Menus[(int)Menu.Main].ButtonPosition[0] = new Vector2(100, 300);
+            Menus[(int)Menu.Main].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
+            Menus[(int)Menu.Main].ButtonPosition[1] = new Vector2(450, 300);
+
+            //Vehicleselect
+            Menus[(int)Menu.VehicleSelect] = new States.SubMenu(2); //mission menu has 2 buttons
+            Menus[(int)Menu.VehicleSelect].BackGround = content.Load<Texture2D>("Images\\menu");
+            Menus[(int)Menu.VehicleSelect].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
+            Menus[(int)Menu.VehicleSelect].ButtonPosition[0] = new Vector2(100, 300);
+            Menus[(int)Menu.VehicleSelect].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
+            Menus[(int)Menu.VehicleSelect].ButtonPosition[1] = new Vector2(450, 300);
+
+            //Dealership
+            Menus[(int)Menu.Dealership] = new States.SubMenu(2); //mission menu has 2 buttons
+            Menus[(int)Menu.Dealership].BackGround = content.Load<Texture2D>("Images\\menu");
+            Menus[(int)Menu.Dealership].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
+            Menus[(int)Menu.Dealership].ButtonPosition[0] = new Vector2(100, 300);
+            Menus[(int)Menu.Dealership].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
+            Menus[(int)Menu.Dealership].ButtonPosition[1] = new Vector2(450, 300);
+
             //load missionsMenu stuff
             Menus[(int)Menu.Missions] = new States.SubMenu(2); //mission menu has 2 buttons
             Menus[(int)Menu.Missions].BackGround = content.Load<Texture2D>("Images\\menu");
