@@ -121,8 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\3DGame2Content\3DGame2Content.contentproj">
-      <Name>_3DGame2Content</Name>
+      <Name>3DGame2Content %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{E82DFDAF-C28B-451D-95D6-055A58A5A00C}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,5 @@
+C:\Users\Smith\Desktop\3dOnlineGame\ContentPipelineExtension1\bin\x86\Debug\ContentPipelineExtension1.dll
+C:\Users\Smith\Desktop\3dOnlineGame\ContentPipelineExtension1\bin\x86\Debug\ContentPipelineExtension1.pdb
+C:\Users\Smith\Desktop\3dOnlineGame\ContentPipelineExtension1\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Smith\Desktop\3dOnlineGame\ContentPipelineExtension1\obj\x86\Debug\ContentPipelineExtension1.dll
+C:\Users\Smith\Desktop\3dOnlineGame\ContentPipelineExtension1\obj\x86\Debug\ContentPipelineExtension1.pdb
