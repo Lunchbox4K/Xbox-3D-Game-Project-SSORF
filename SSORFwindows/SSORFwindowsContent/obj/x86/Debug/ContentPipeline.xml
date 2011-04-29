@@ -7,8 +7,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\font.xnb</Output>
-      <Time>2011-04-27T14:37:34.4901772-07:00</Time>
+      <Output>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\font.xnb</Output>
+      <Time>2011-04-26T15:38:58.8195213-07:00</Time>
     </Item>
     <Item>
       <Source>missionFont.spritefont</Source>
@@ -16,8 +16,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\missionFont.xnb</Output>
-      <Time>2011-04-27T14:37:34.4901772-07:00</Time>
+      <Output>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\missionFont.xnb</Output>
+      <Time>2011-04-26T15:38:58.8195213-07:00</Time>
     </Item>
     <Item>
       <Source>Models\level1.fbx</Source>
@@ -25,24 +25,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Models\level1.xnb</Output>
-      <Time>2011-04-27T14:37:34.4745772-07:00</Time>
+      <Output>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Models\level1.xnb</Output>
+      <Time>2011-04-26T15:38:58.7571212-07:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\level1_0.xml</Key>
-        <Value>2011-04-28T15:41:49.2621823-07:00</Value>
-      </Dependency>
-    </Item>
-    <Item>
-      <Source>Models\scooter1.fbx</Source>
-      <Name>Models\scooter1</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Models\scooter1.xnb</Output>
-      <Time>2011-04-27T14:37:34.4901772-07:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\Models\scooter1_0.xml</Key>
-        <Value>2011-04-28T15:41:49.4649827-07:00</Value>
+        <Value>2011-04-28T17:15:52.7844231-07:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -51,13 +38,26 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Models\level2.xnb</Output>
-      <Time>2011-04-27T14:21:30-07:00</Time>
+      <Output>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Models\level2.xnb</Output>
+      <Time>2011-04-28T16:55:01.1273738-07:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\level2_0.xml</Key>
-        <Value>2011-04-28T15:43:16.7387404-07:00</Value>
+        <Value>2011-04-28T17:15:53.0496235-07:00</Value>
       </Dependency>
-      <Request>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Models\Textures\skytexture_0.xnb</Request>
+      <Request>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Models\Textures\skytexture_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\scooter1.fbx</Source>
+      <Name>Models\scooter1</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Models\scooter1.xnb</Output>
+      <Time>2011-04-26T15:38:58.7727212-07:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\scooter1_0.xml</Key>
+        <Value>2011-04-28T17:15:53.876425-07:00</Value>
+      </Dependency>
     </Item>
     <Item>
       <Source>Images\button1.png</Source>
@@ -65,8 +65,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\button1.xnb</Output>
-      <Time>2011-04-27T14:37:34.4901772-07:00</Time>
+      <Output>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\button1.xnb</Output>
+      <Time>2011-04-28T16:55:01.0593699-07:00</Time>
     </Item>
     <Item>
       <Source>Images\button2.png</Source>
@@ -74,8 +74,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\button2.xnb</Output>
-      <Time>2011-04-27T14:37:34.4901772-07:00</Time>
+      <Output>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\button2.xnb</Output>
+      <Time>2011-04-28T16:55:01.0763709-07:00</Time>
     </Item>
     <Item>
       <Source>Images\cursor.png</Source>
@@ -83,8 +83,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\cursor.xnb</Output>
-      <Time>2011-04-27T14:37:34.4901772-07:00</Time>
+      <Output>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\cursor.xnb</Output>
+      <Time>2011-04-28T16:55:01.0803712-07:00</Time>
     </Item>
     <Item>
       <Source>Images\menu.png</Source>
@@ -92,8 +92,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\menu.xnb</Output>
-      <Time>2011-04-27T14:37:34.4901772-07:00</Time>
+      <Output>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\menu.xnb</Output>
+      <Time>2011-04-28T16:55:01.0863715-07:00</Time>
     </Item>
     <Item>
       <Source>Images\title.png</Source>
@@ -101,29 +101,40 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\title.xnb</Output>
-      <Time>2011-04-27T14:37:34.4901772-07:00</Time>
+      <Output>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\title.xnb</Output>
+      <Time>2011-04-28T16:55:01.0923718-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\game menu.png</Source>
+      <Name>Images\game menu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\game menu.xnb</Output>
+      <Time>2011-04-28T16:55:09.0652244-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\senior scooter title screen.png</Source>
+      <Name>Images\senior scooter title screen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\senior scooter title screen.xnb</Output>
+      <Time>2011-04-28T16:55:09.0792252-07:00</Time>
     </Item>
     <Item>
       <Source>Models\level1.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\level1_0.xml</Output>
-      <Time>2011-04-27T14:37:34.4745772-07:00</Time>
-    </Item>
-    <Item>
-      <Source>Models\scooter1.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\Models\scooter1_0.xml</Output>
-      <Time>2011-04-27T14:37:34.4901772-07:00</Time>
+      <Time>2011-04-26T15:38:58.7571212-07:00</Time>
     </Item>
     <Item>
       <Source>Models\level2.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\level2_0.xml</Output>
-      <Time>2011-04-27T14:21:30-07:00</Time>
+      <Time>2011-04-28T16:55:01.1273738-07:00</Time>
     </Item>
     <Item>
       <Source>Models\Textures\skytexture.jpg</Source>
@@ -138,8 +149,15 @@
         <Data Key="PremultiplyAlpha" Type="bool">true</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Models\Textures\skytexture_0.xnb</Output>
-      <Time>2011-04-27T14:13:44-07:00</Time>
+      <Output>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Models\Textures\skytexture_0.xnb</Output>
+      <Time>2011-04-28T16:55:01.113373-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\scooter1.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\scooter1_0.xml</Output>
+      <Time>2011-04-26T15:38:58.7727212-07:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -147,10 +165,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindowsContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindows\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindowsContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindowsContent\</RootDirectory>
+      <LoggerRootDirectory>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\</LoggerRootDirectory>
+      <IntermediateDirectory>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindowsContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>E:\EDCC\2011\CS285\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -179,7 +197,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2011-04-05T16:23:32.0919346-07:00</Value>
+        <Value>2011-04-05T16:24:40.8346828-07:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
