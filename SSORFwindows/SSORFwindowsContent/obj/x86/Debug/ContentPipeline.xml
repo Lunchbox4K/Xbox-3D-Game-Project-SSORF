@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline" xmlns:Framework="Microsoft.Xna.Framework" xmlns:Processors="Microsoft.Xna.Framework.Content.Pipeline.Processors">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>font.spritefont</Source>
+      <Name>font</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\font.xnb</Output>
+      <Time>2011-04-28T15:57:38.3652198-07:00</Time>
+    </Item>
+    <Item>
+      <Source>missionFont.spritefont</Source>
+      <Name>missionFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\missionFont.xnb</Output>
+      <Time>2011-04-28T15:57:38.36822-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\level1.fbx</Source>
+      <Name>Models\level1</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Models\level1.xnb</Output>
+      <Time>2011-04-28T15:57:38.2962159-07:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\level1_0.xml</Key>
+        <Value>2011-04-28T16:49:11.7010555-07:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\level2.fbx</Source>
+      <Name>Models\level2</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Models\level2.xnb</Output>
+      <Time>2011-04-28T15:57:38.3012162-07:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\level2_0.xml</Key>
+        <Value>2011-04-28T16:49:11.8550643-07:00</Value>
+      </Dependency>
+      <Request>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Models\Textures\skytexture_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\scooter1.fbx</Source>
+      <Name>Models\scooter1</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Models\scooter1.xnb</Output>
+      <Time>2011-04-28T15:57:38.3102167-07:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\scooter1_0.xml</Key>
+        <Value>2011-04-28T16:49:12.5601046-07:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Images\button1.png</Source>
+      <Name>Images\button1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\button1.xnb</Output>
+      <Time>2011-04-28T15:57:38.1792092-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\button2.png</Source>
+      <Name>Images\button2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\button2.xnb</Output>
+      <Time>2011-04-28T15:57:38.1812093-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\cursor.png</Source>
+      <Name>Images\cursor</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\cursor.xnb</Output>
+      <Time>2011-04-28T15:57:38.1842095-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\menu.png</Source>
+      <Name>Images\menu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\menu.xnb</Output>
+      <Time>2011-04-28T15:57:38.2762147-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\title.png</Source>
+      <Name>Images\title</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\title.xnb</Output>
+      <Time>2011-04-28T15:57:38.2792149-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\game menu.png</Source>
+      <Name>Images\game menu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\game menu.xnb</Output>
+      <Time>2011-04-28T16:39:40.4393812-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\senior scooter title screen.png</Source>
+      <Name>Images\senior scooter title screen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\senior scooter title screen.xnb</Output>
+      <Time>2011-04-28T16:39:40.4423814-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\level1.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\level1_0.xml</Output>
+      <Time>2011-04-28T15:57:38.2962159-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\level2.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\level2_0.xml</Output>
+      <Time>2011-04-28T15:57:38.3012162-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Textures\skytexture.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Models\Textures\skytexture_0.xnb</Output>
+      <Time>2011-04-28T15:57:38.2912156-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\scooter1.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\scooter1_0.xml</Output>
+      <Time>2011-04-28T15:57:38.3102167-07:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>Reach</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindowsContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindowsContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2010-08-23T12:41:18-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2010-08-23T12:41:18-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2010-08-23T12:41:18-07:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2011-04-14T14:44:21.651449-07:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

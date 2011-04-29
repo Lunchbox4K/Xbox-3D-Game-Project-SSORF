@@ -1,0 +1,10 @@
+c:\users\smith\documents\visual studio 2010\Projects\3DGame2\3DGame2\3DGame2\bin\x86\Debug\3DGame2.exe
+c:\users\smith\documents\visual studio 2010\Projects\3DGame2\3DGame2\3DGame2\bin\x86\Debug\3DGame2.pdb
+c:\users\smith\documents\visual studio 2010\Projects\3DGame2\3DGame2\3DGame2\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\smith\documents\visual studio 2010\Projects\3DGame2\3DGame2\3DGame2\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+c:\users\smith\documents\visual studio 2010\Projects\3DGame2\3DGame2\3DGame2\obj\x86\Debug\3DGame2.exe
+c:\users\smith\documents\visual studio 2010\Projects\3DGame2\3DGame2\3DGame2\obj\x86\Debug\3DGame2.pdb
+c:\users\smith\documents\visual studio 2010\Projects\3DGame2\3DGame2\3DGame2\bin\x86\Debug\Content\box.xnb
+c:\users\smith\documents\visual studio 2010\Projects\3DGame2\3DGame2\3DGame2\bin\x86\Debug\Content\rocks.xnb
+c:\users\smith\documents\visual studio 2010\Projects\3DGame2\3DGame2\3DGame2\bin\x86\Debug\Content\terrain.xnb
+c:\users\smith\documents\visual studio 2010\Projects\3DGame2\3DGame2\3DGame2\bin\x86\Debug\Content\rocks_0.xnb
