@@ -3,7 +3,7 @@
   <Asset Type="Graphics:MeshContent">
     <Name>pCube1</Name>
     <Identity>
-      <SourceFilename>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindowsContent\Models\level1.fbx</SourceFilename>
+      <SourceFilename>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindowsContent\Models\level1.fbx</SourceFilename>
       <SourceTool>FbxImporter</SourceTool>
     </Identity>
     <Transform>1 0 0 0 0 1 0 0 0 0 1 0 0 50 0 1</Transform>
@@ -37,7 +37,7 @@
     <Resource ID="#Resource1" Type="Graphics:BasicMaterialContent">
       <Name>lambert3</Name>
       <Identity>
-        <SourceFilename>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindowsContent\Models\level1.fbx</SourceFilename>
+        <SourceFilename>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindowsContent\Models\level1.fbx</SourceFilename>
         <SourceTool>FbxImporter</SourceTool>
       </Identity>
       <OpaqueData>
@@ -50,7 +50,7 @@
     <Resource ID="#Resource2" Type="Graphics:BasicMaterialContent">
       <Name>lambert4</Name>
       <Identity>
-        <SourceFilename>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindowsContent\Models\level1.fbx</SourceFilename>
+        <SourceFilename>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindowsContent\Models\level1.fbx</SourceFilename>
         <SourceTool>FbxImporter</SourceTool>
       </Identity>
       <OpaqueData>

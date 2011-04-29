@@ -3,7 +3,7 @@
   <Asset Type="Graphics:NodeContent">
     <Name>group6</Name>
     <Identity>
-      <SourceFilename>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindowsContent\Models\scooter1.fbx</SourceFilename>
+      <SourceFilename>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindowsContent\Models\scooter1.fbx</SourceFilename>
       <SourceTool>FbxImporter</SourceTool>
     </Identity>
     <Transform>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</Transform>
@@ -242,7 +242,7 @@
     <Resource ID="#Resource1" Type="Graphics:BasicMaterialContent">
       <Name>lambert1</Name>
       <Identity>
-        <SourceFilename>C:\Users\Administrator\Desktop\SSORF CODE\SSORFwindows\SSORFwindowsContent\Models\scooter1.fbx</SourceFilename>
+        <SourceFilename>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindowsContent\Models\scooter1.fbx</SourceFilename>
         <SourceTool>FbxImporter</SourceTool>
       </Identity>
       <OpaqueData>
