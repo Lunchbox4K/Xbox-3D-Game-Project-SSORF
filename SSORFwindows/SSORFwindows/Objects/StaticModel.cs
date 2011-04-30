@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 
-namespace SSORF.Objects
+namespace _3DGame2.Objects
 {
     /// <summary>
     /// This is a game component that implements IUpdateable.
@@ -23,10 +23,11 @@ namespace SSORF.Objects
         protected string modelAsset;
         protected Vector3 location;
         protected Matrix orientation;
+        protected Matrix scale;
         protected BoundingBox boundingBox;
 
         public StaticModel(ContentManager Content, string AssetLocation, 
-            Vector3 Location, Matrix Orientation)
+            Vector3 Location, Matrix Orientation, Matrix Scale)
         {
             modelAsset = AssetLocation;
             content = Content;
@@ -34,6 +35,7 @@ namespace SSORF.Objects
             isLoaded = false;
             location = Location;
             orientation = Orientation;
+            scale = Scale;
         }
         public virtual void LoadModel()
         {
@@ -50,47 +52,52 @@ namespace SSORF.Objects
                 throw new InvalidCastException("Invalid Asset");
             }
         }
+
+        /// <summary>
+        /// Latest Update 4/26/11 - Fixed the calculator from only sending boxes
+        /// at coord (0,0,0).
+        /// 
+        /// Use getBoundingBox to get the value you need.
+        /// 
+        /// Only Calculates Location. Not Rotations (Orientation).
+        ///  >   Use the public rotate function to get a better result.
+        /// </summary>
         private void calcBoundingBox()
         {
-            Matrix[] boneTransforms = new Matrix[model.Bones.Count];
-            model.CopyAbsoluteBoneTransformsTo(boneTransforms);
+            // Initialize minimum and maximum corners of the bounding box to max and min values
+            Vector3 min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+            Vector3 max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
 
-            Vector3 modelMin = new Vector3(float.MinValue, float.MinValue, float.MinValue);
-            Vector3 modelMax = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+            // For each mesh of the model
             foreach (ModelMesh mesh in model.Meshes)
             {
-                Vector3 meshMin = new Vector3(float.MinValue, float.MinValue, float.MinValue);
-                Vector3 meshMax = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
-
                 foreach (ModelMeshPart part in mesh.MeshParts)
                 {
-                    //Stride is the size of the vertex in bytes
-                    int stride = part.VertexBuffer.VertexDeclaration.VertexStride;
-                    byte[] vertexData = new byte[stride * part.NumVertices];
-                    part.VertexBuffer.GetData(part.VertexOffset, vertexData, part.NumVertices, 1, stride);
+                    // Vertex buffer parameters
+                    int vertexStride = part.VertexBuffer.VertexDeclaration.VertexStride;
+                    int vertexBufferSize = part.NumVertices * vertexStride;
 
-                    Vector3 vertPosition=new Vector3();
-                    for (int ndx = 0; ndx < vertexData.Length; ndx += stride)
+                    // Get vertex data as float
+                    int vartexDataSize = vertexBufferSize / sizeof(float);
+                    float[] vertexData = new float[vartexDataSize];
+                    part.VertexBuffer.GetData<float>(vertexData);
+
+                    // Iterate through vertices (possibly) growing bounding box, all calculations are done in world space
+                    for (int i = 0; i < vartexDataSize; i += vertexStride / sizeof(float))
                     {
-                        vertPosition.X = BitConverter.ToSingle(vertexData, ndx);
-                        vertPosition.Y = BitConverter.ToSingle(vertexData, ndx + sizeof(float));
-                        vertPosition.Z = BitConverter.ToSingle(vertexData, ndx + sizeof(float) * 2);
+                        Vector3 transformedPosition = 
+                            Vector3.Transform(new Vector3(vertexData[i], vertexData[i + 1], vertexData[i + 2]), 
+                                              Matrix.CreateTranslation(location));
 
-                        // update our running values from this vertex
-                        meshMin = Vector3.Min(meshMin, vertPosition);
-                        meshMax = Vector3.Max(meshMax, vertPosition);
+                        min = Vector3.Min(min, transformedPosition);
+                        max = Vector3.Max(max, transformedPosition);
                     }
                 }
-                // transform by mesh bone transforms
-                meshMin = Vector3.Transform(meshMin, boneTransforms[mesh.ParentBone.Index]);
-                meshMax = Vector3.Transform(meshMax, boneTransforms[mesh.ParentBone.Index]);
-                // Expand model extents by the ones from this mesh
-                modelMin = Vector3.Min(modelMin, meshMin);
-                modelMax = Vector3.Max(modelMax, meshMax);
             }
-            // Create and return the model bounding box
-            boundingBox = new BoundingBox(modelMin, modelMax);
-        }
+            // Create and return bounding box
+            boundingBox =  new BoundingBox(min, max);
+        } 
+            
 
         public virtual void UnloadModel()
         {
@@ -107,7 +114,7 @@ namespace SSORF.Objects
 
                 Matrix[] boneTransforms = new Matrix[model.Bones.Count];
                 model.CopyAbsoluteBoneTransformsTo(boneTransforms);
-                Matrix worldMatrix = orientation * Matrix.CreateTranslation(location);
+                Matrix worldMatrix = scale * orientation * Matrix.CreateTranslation(location);
 
                 foreach (ModelMesh mesh in model.Meshes)
                 {
@@ -140,6 +147,16 @@ namespace SSORF.Objects
         {
             get { return location; }
             set { location = value; }
+        }
+        public Matrix Scale
+        {
+            get { return scale; }
+            set { scale = value; }
+        }
+        public Matrix Orientation
+        {
+            get { return orientation; }
+            set { orientation = value; }
         }
         public string ModelAsset
         {
