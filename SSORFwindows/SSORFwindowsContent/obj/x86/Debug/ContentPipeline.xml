@@ -159,6 +159,24 @@
       <Output>obj\x86\Debug\Models\scooter1_0.xml</Output>
       <Time>2011-04-28T15:57:38.3102167-07:00</Time>
     </Item>
+    <Item>
+      <Source>Images\TestButton.png</Source>
+      <Name>Images\TestButton</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\TestButton.xnb</Output>
+      <Time>2011-05-03T15:31:17.4864269-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\VehicleTest.png</Source>
+      <Name>Images\VehicleTest</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindows\bin\x86\Debug\Content\Images\VehicleTest.xnb</Output>
+      <Time>2011-05-03T15:28:08.6236246-07:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

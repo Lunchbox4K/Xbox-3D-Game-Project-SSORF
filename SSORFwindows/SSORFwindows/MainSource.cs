@@ -76,7 +76,10 @@ namespace SSORF
             if (keyBoardState.current.IsKeyDown(Keys.Escape))
                 this.Exit();
 #endif
+            keyBoardState.previous = keyBoardState.current;
             base.Update(gameTime);
+
+            
         }
 
         //Clears screen and automatically calls stateManager.Draw()
