@@ -44,27 +44,27 @@ namespace SSORF.Management
             Menus = new States.SubMenu[(int)Menu.NumMenus];
             //Load Main
             Menus[(int)Menu.Main] = new States.SubMenu(2); //mission menu has 2 buttons
-            Menus[(int)Menu.Main].BackGround = content.Load<Texture2D>("Images\\menu");
+            Menus[(int)Menu.Main].BackGround = content.Load<Texture2D>("Images\\game menu");
             Menus[(int)Menu.Main].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
             Menus[(int)Menu.Main].ButtonPosition[0] = new Vector2(100, 300);
             Menus[(int)Menu.Main].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
             Menus[(int)Menu.Main].ButtonPosition[1] = new Vector2(450, 300);
 
             //Vehicleselect
-            Menus[(int)Menu.VehicleSelect] = new States.SubMenu(2); //mission menu has 2 buttons
-            Menus[(int)Menu.VehicleSelect].BackGround = content.Load<Texture2D>("Images\\menu");
-            Menus[(int)Menu.VehicleSelect].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
-            Menus[(int)Menu.VehicleSelect].ButtonPosition[0] = new Vector2(100, 300);
-            Menus[(int)Menu.VehicleSelect].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
-            Menus[(int)Menu.VehicleSelect].ButtonPosition[1] = new Vector2(450, 300);
+            //Menus[(int)Menu.VehicleSelect] = new States.SubMenu(2); //mission menu has 2 buttons
+            //Menus[(int)Menu.VehicleSelect].BackGround = content.Load<Texture2D>("Images\\menu");
+            //Menus[(int)Menu.VehicleSelect].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
+            //Menus[(int)Menu.VehicleSelect].ButtonPosition[0] = new Vector2(100, 300);
+            //Menus[(int)Menu.VehicleSelect].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
+            //Menus[(int)Menu.VehicleSelect].ButtonPosition[1] = new Vector2(450, 300);
 
             //Dealership
-            Menus[(int)Menu.Dealership] = new States.SubMenu(2); //mission menu has 2 buttons
-            Menus[(int)Menu.Dealership].BackGround = content.Load<Texture2D>("Images\\menu");
-            Menus[(int)Menu.Dealership].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
-            Menus[(int)Menu.Dealership].ButtonPosition[0] = new Vector2(100, 300);
-            Menus[(int)Menu.Dealership].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
-            Menus[(int)Menu.Dealership].ButtonPosition[1] = new Vector2(450, 300);
+            //Menus[(int)Menu.Dealership] = new States.SubMenu(2); //mission menu has 2 buttons
+            //Menus[(int)Menu.Dealership].BackGround = content.Load<Texture2D>("Images\\menu");
+            //Menus[(int)Menu.Dealership].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
+            //Menus[(int)Menu.Dealership].ButtonPosition[0] = new Vector2(100, 300);
+            //Menus[(int)Menu.Dealership].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
+            //Menus[(int)Menu.Dealership].ButtonPosition[1] = new Vector2(450, 300);
 
             //load missionsMenu stuff
             Menus[(int)Menu.Missions] = new States.SubMenu(2); //mission menu has 2 buttons
@@ -78,7 +78,7 @@ namespace SSORF.Management
             CursorImage = content.Load<Texture2D>("Images\\cursor");
 
             //This should be changed to main menu once we have it working
-            CurrentMenu = Menu.Missions;
+            CurrentMenu = Menu.Main;
             
         }
 
@@ -90,6 +90,13 @@ namespace SSORF.Management
             //Here we could add logic to switch current menu if the back button is pressed, or return to main menu
             switch (CurrentMenu)
             { 
+
+                case Menu.Main :
+                    if (Menus[(int)Menu.Main].buttonPressed == 1)
+                        CurrentMenu = Menu.Missions;
+                    
+                    break;
+
                 case Menu.Missions :
 
                     //Note: buttonPressed = 0 means no button has been pressed
@@ -103,6 +110,10 @@ namespace SSORF.Management
                     }
 
                     
+                    break;
+
+                case Menu.Dealership :
+
                     break;
 
                 case Menu.VehicleSelect :
