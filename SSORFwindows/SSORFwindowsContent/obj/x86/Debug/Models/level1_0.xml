@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Graphics="Microsoft.Xna.Framework.Content.Pipeline.Graphics" xmlns:Framework="Microsoft.Xna.Framework">
+  <Asset Type="Graphics:MeshContent">
+    <Name>pCube1</Name>
+    <Identity>
+      <SourceFilename>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindowsContent\Models\level1.fbx</SourceFilename>
+      <SourceTool>FbxImporter</SourceTool>
+    </Identity>
+    <Transform>1 0 0 0 0 1 0 0 0 0 1 0 0 50 0 1</Transform>
+    <Positions>-150 -50 150 150 -50 150 -150 50 150 150 50 150 -150 50 -150 150 50 -150 -150 -50 -150 150 -50 -150</Positions>
+    <Geometry>
+      <Batch>
+        <Material>#Resource1</Material>
+        <Indices>2 1 0 0 3 2 6 5 4 4 7 6 10 9 8 8 11 10 14 13 12 12 15 14 18 17 16 16 19 18</Indices>
+        <Vertices>
+          <PositionIndices>0 2 3 1 2 4 5 3 4 6 7 5 1 3 5 7 6 4 2 0</PositionIndices>
+          <Channels>
+            <VertexChannel Name="Normal0" ElementType="Framework:Vector3">0 0 -0.99999994 0 0 -0.99999994 0 0 -0.99999994 0 0 -0.99999994 0 -0.99999994 0 0 -0.99999994 0 0 -0.99999994 0 0 -0.99999994 0 0 0 0.99999994 0 0 0.99999994 0 0 0.99999994 0 0 0.99999994 -0.99999994 0 0 -0.99999994 0 0 -0.99999994 0 0 -0.99999994 0 0 0.99999994 0 0 0.99999994 0 0 0.99999994 0 0 0.99999994 0 0</VertexChannel>
+            <VertexChannel Name="TextureCoordinate0" ElementType="Framework:Vector2">-5.97818947 7.18146133 -5.97818947 3.84073067 6.97818947 3.84073067 6.97818947 7.18146133 -5.97818947 3.84073067 -5.97818947 0.5 6.97818947 0.5 6.97818947 3.84073067 -5.97818947 0.5 -5.97818947 -2.84073067 6.97818947 -2.84073067 6.97818947 0.5 6.97818947 7.18146133 6.97818947 3.84073067 19.9345684 3.84073067 19.9345684 7.18146133 -18.9345684 7.18146133 -18.9345684 3.84073067 -5.97818947 3.84073067 -5.97818947 7.18146133</VertexChannel>
+          </Channels>
+        </Vertices>
+      </Batch>
+      <Batch>
+        <Material>#Resource2</Material>
+        <Indices>2 1 0 0 3 2</Indices>
+        <Vertices>
+          <PositionIndices>6 0 1 7</PositionIndices>
+          <Channels>
+            <VertexChannel Name="Normal0" ElementType="Framework:Vector3">0 0.99999994 0 0 0.99999994 0 0 0.99999994 0 0 0.99999994 0</VertexChannel>
+            <VertexChannel Name="TextureCoordinate0" ElementType="Framework:Vector2">-5.97818947 -2.84073067 -5.97818947 -6.18146133 6.97818947 -6.18146133 6.97818947 -2.84073067</VertexChannel>
+          </Channels>
+        </Vertices>
+      </Batch>
+    </Geometry>
+  </Asset>
+  <Resources>
+    <Resource ID="#Resource1" Type="Graphics:BasicMaterialContent">
+      <Name>lambert3</Name>
+      <Identity>
+        <SourceFilename>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindowsContent\Models\level1.fbx</SourceFilename>
+        <SourceTool>FbxImporter</SourceTool>
+      </Identity>
+      <OpaqueData>
+        <Data Key="DiffuseColor" Type="Framework:Vector3">0 0.2887187 0.632</Data>
+        <Data Key="EmissiveColor" Type="Framework:Vector3">0 0 0</Data>
+        <Data Key="Alpha" Type="float">1</Data>
+        <Data Key="SpecularColor" Type="Framework:Vector3">0 0 0</Data>
+      </OpaqueData>
+    </Resource>
+    <Resource ID="#Resource2" Type="Graphics:BasicMaterialContent">
+      <Name>lambert4</Name>
+      <Identity>
+        <SourceFilename>C:\Users\Administrator\Desktop\GoogleCode\SSORFwindows\SSORFwindowsContent\Models\level1.fbx</SourceFilename>
+        <SourceTool>FbxImporter</SourceTool>
+      </Identity>
+      <OpaqueData>
+        <Data Key="DiffuseColor" Type="Framework:Vector3">0.0757355 0.4736 0.0715136155</Data>
+        <Data Key="EmissiveColor" Type="Framework:Vector3">0 0 0</Data>
+        <Data Key="Alpha" Type="float">1</Data>
+        <Data Key="SpecularColor" Type="Framework:Vector3">0 0 0</Data>
+      </OpaqueData>
+    </Resource>
+  </Resources>
+</XnaContent>

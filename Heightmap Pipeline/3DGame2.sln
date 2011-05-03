@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3DGame2", "3DGame2\3DGame2\3DGame2.csproj", "{EF00DA55-3110-43E2-B3E2-6BE0F769630E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3DGame2Content", "3DGame2\3DGame2Content\3DGame2Content.contentproj", "{E82DFDAF-C28B-451D-95D6-055A58A5A00C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerrainPipeline", "terrainContentPipeline\TerrainPipeline.csproj", "{C003D900-46C7-4AF5-AA99-A4B118EAC77D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF00DA55-3110-43E2-B3E2-6BE0F769630E}.Debug|x86.ActiveCfg = Debug|x86
+		{EF00DA55-3110-43E2-B3E2-6BE0F769630E}.Debug|x86.Build.0 = Debug|x86
+		{EF00DA55-3110-43E2-B3E2-6BE0F769630E}.Release|x86.ActiveCfg = Release|x86
+		{EF00DA55-3110-43E2-B3E2-6BE0F769630E}.Release|x86.Build.0 = Release|x86
+		{E82DFDAF-C28B-451D-95D6-055A58A5A00C}.Debug|x86.ActiveCfg = Debug|x86
+		{E82DFDAF-C28B-451D-95D6-055A58A5A00C}.Release|x86.ActiveCfg = Release|x86
+		{C003D900-46C7-4AF5-AA99-A4B118EAC77D}.Debug|x86.ActiveCfg = Debug|x86
+		{C003D900-46C7-4AF5-AA99-A4B118EAC77D}.Debug|x86.Build.0 = Debug|x86
+		{C003D900-46C7-4AF5-AA99-A4B118EAC77D}.Release|x86.ActiveCfg = Debug|x86
+		{C003D900-46C7-4AF5-AA99-A4B118EAC77D}.Release|x86.Build.0 = Debug|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
