@@ -78,6 +78,22 @@ namespace SSORF.Management.States
                 else
                     selectedButton += 1;
 
+            //if we are at the last button go back to the first
+            if (keyBoardState.current.IsKeyDown(Keys.Up) &&
+                keyBoardState.previous.IsKeyUp(Keys.Up))
+                if (selectedButton == 1)
+                    selectedButton = numButtons;
+                else
+                    selectedButton -= 1;
+
+            //if we are at the first button we can jump to the last one
+            if (keyBoardState.current.IsKeyDown(Keys.Down) &&
+                keyBoardState.previous.IsKeyUp(Keys.Down))
+                if (selectedButton == numButtons)
+                    selectedButton = 1;
+                else
+                    selectedButton += 1;
+
             //update the cursor position so it is to the left of the button
             CursorPosition = buttonPosition[selectedButton - 1] + cursorOffset;
 
