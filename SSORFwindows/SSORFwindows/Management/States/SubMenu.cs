@@ -98,7 +98,7 @@ namespace SSORF.Management.States
             CursorPosition = buttonPosition[selectedButton - 1] + cursorOffset;
 
             //space bar will activate the button
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (keyBoardState.previous.IsKeyUp(Keys.Space) && keyBoardState.current.IsKeyDown(Keys.Space))
                 buttonPressed = selectedButton;
 #endif
 

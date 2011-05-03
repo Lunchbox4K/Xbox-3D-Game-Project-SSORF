@@ -62,7 +62,7 @@ namespace SSORF.Management
             font = Game.Content.Load<SpriteFont>("font");
             
             title = new States.Title();
-            title.Image = Game.Content.Load<Texture2D>("Images\\title");
+            title.Image = Game.Content.Load<Texture2D>("Images\\senior scooter title screen");
 
             menu = new MenuManager(Game.Content);
 

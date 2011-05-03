@@ -42,7 +42,7 @@ namespace SSORF.Objects
         {
             //TODO: calculate velocity from accel/decel
             //Get the integral of the vehicle's velocity
-            float tempDistance = speed * gamePadState.current.Triggers.Right;
+            float tempDistance = speed *gamePadState.current.Triggers.Right;
             //Find the vehicle's current turning radius
             float turnRadius = wheelBaseLength/(float)Math.Sin(wheelAngle);
             //Now use those to get the vehicle's yaw offset - i love radians
