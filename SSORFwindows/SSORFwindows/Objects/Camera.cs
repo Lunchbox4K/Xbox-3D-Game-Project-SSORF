@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace SSORF.Objects
 {
-    class ThirdPersonCamera
+    public class ThirdPersonCamera
     {
         private Matrix viewMtx;
         private Matrix projMtx;
