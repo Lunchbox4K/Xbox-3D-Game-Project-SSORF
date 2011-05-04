@@ -62,9 +62,9 @@ namespace SSORF.Management
             Menus[(int)Menu.VehicleSelect] = new States.SubMenu(2); //mission menu has 2 buttons
             Menus[(int)Menu.VehicleSelect].BackGround = content.Load<Texture2D>("Images\\VehicleTest");
             Menus[(int)Menu.VehicleSelect].ButtonImage[0] = content.Load<Texture2D>("Images\\TestButton");
-            Menus[(int)Menu.VehicleSelect].ButtonPosition[0] = new Vector2(100, 300);
+            Menus[(int)Menu.VehicleSelect].ButtonPosition[0] = new Vector2(100, 450);
             Menus[(int)Menu.VehicleSelect].ButtonImage[1] = content.Load<Texture2D>("Images\\TestButton");
-            Menus[(int)Menu.VehicleSelect].ButtonPosition[1] = new Vector2(450, 300);
+            Menus[(int)Menu.VehicleSelect].ButtonPosition[1] = new Vector2(450, 450);
 
             //Dealership
             //Menus[(int)Menu.Dealership] = new States.SubMenu(2); //mission menu has 2 buttons
