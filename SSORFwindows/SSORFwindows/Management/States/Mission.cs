@@ -18,7 +18,7 @@ namespace SSORF.Management.States
     //normally be used when all checkpoints are cleared
 
     public enum MissionState
-    { Starting, Playing, Ending }
+    { Starting, Playing, Ending, Paused }
 
     class Mission
     {
@@ -31,9 +31,12 @@ namespace SSORF.Management.States
 
         private Objects.Vehicle scooter;
         
-        private Model geometry;
+        private Objects.SimpleModel geometry;
 
         Objects.ThirdPersonCamera camera = new Objects.ThirdPersonCamera();
+
+        //One checkpoint for now...
+        
 
         //use these fonts to print strings
         private SpriteFont largeFont;
@@ -61,7 +64,8 @@ namespace SSORF.Management.States
             largeFont = content.Load<SpriteFont>("missionFont");
             smallFont = content.Load<SpriteFont>("font");
             //use IDnum to load the correct content
-            geometry = content.Load<Model>("Models\\level" + missionID.ToString());
+            geometry = new Objects.SimpleModel();
+            geometry.Mesh = content.Load<Model>("Models\\level" + missionID.ToString());
             //with IDnum we could also have a different starting positions for each mission
             scooter.Position = Vector3.Zero;
             scooter.Yaw = 0.0f;
@@ -108,55 +112,11 @@ namespace SSORF.Management.States
 
         public void draw(SpriteBatch spriteBatch)
         {
-            // Copy transforms
-            Matrix[] transforms = new Matrix[scooter.Geometry.Bones.Count];
-            geometry.CopyAbsoluteBoneTransformsTo(transforms);
+            geometry.draw(camera);
 
-            // Loop through each mesh in model and draw
-            foreach (ModelMesh mesh in geometry.Meshes)
-            {
-                // This is where the mesh orientation is set, as well 
-                // as our camera and projection.
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.EnableDefaultLighting();
+            scooter.Geometry.draw(camera);
 
-                    effect.World = transforms[mesh.ParentBone.Index] *
-                            Matrix.CreateFromYawPitchRoll(0.0f, 0.0f, 0.0f) *
-                            Matrix.CreateTranslation(new Vector3(0.0f, 0.0f, 0.0f));
-
-                    effect.View = camera.ViewMtx;
-
-                    effect.Projection = camera.ProjMtx;
-                }
-                // Draw mesh using the effects set in loop above
-                mesh.Draw();
-            }
-
-            scooter.Geometry.CopyAbsoluteBoneTransformsTo(transforms);
-
-            // Loop through each mesh in model and draw
-            foreach (ModelMesh mesh in scooter.Geometry.Meshes)
-            {
-                // This is where the mesh orientation is set, as well 
-                // as our camera and projection.
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-
-                    effect.EnableDefaultLighting();
-
-                    effect.World = transforms[mesh.ParentBone.Index] *
-                            Matrix.CreateFromYawPitchRoll(scooter.Yaw, 0.0f, 0.0f) *
-                            Matrix.CreateTranslation(scooter.Position);
-
-                    effect.View = camera.ViewMtx;
-
-                    effect.Projection = camera.ProjMtx;
-                }
-                // Draw mesh using the effects set in loop above
-                mesh.Draw();
-            }
-
+            
             //These setting allow us to print strings without screwing with the
             //3D rendering, but Carl told me it won't work with transparent objects
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, 
@@ -202,7 +162,7 @@ namespace SSORF.Management.States
         }
 
         //accessors and mutators
-        public Model Geometry { get { return geometry; } set { geometry = value; } }
+        public Objects.SimpleModel Geometry { get { return geometry; } set { geometry = value; } }
 
         public Objects.ThirdPersonCamera Camera { get { return camera; } 
             set { camera = value; } }

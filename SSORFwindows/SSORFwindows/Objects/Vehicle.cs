@@ -14,7 +14,7 @@ namespace SSORF.Objects
 {
     public class Vehicle
     {
-        Model geometry;
+        SimpleModel geometry;
         Matrix rotationMtx;
         Vector3 position = Vector3.Zero;
         Vector3 lookVector = Vector3.Zero;
@@ -28,7 +28,8 @@ namespace SSORF.Objects
 
         public void load(ContentManager content, short vehicleID)
         {
-            geometry = content.Load<Model>("Models\\scooter" + vehicleID.ToString());
+            geometry = new SimpleModel();
+            geometry.Mesh = content.Load<Model>("Models\\scooter" + vehicleID.ToString());
 
             //Things to load here:
             //value of wheelMaxAngle - DO IT IN RADIANS
@@ -50,7 +51,8 @@ namespace SSORF.Objects
 
             //Update rotations
             yaw += tempYaw;
-            rotationMtx = Matrix.CreateFromYawPitchRoll(yaw, 0.0f, 0.0f);
+
+            rotationMtx = Matrix.CreateRotationY(yaw);
 
             //Derive and update position
             position += rotationMtx.Forward * tempDistance * (float)Math.Cos(tempYaw);
@@ -59,10 +61,16 @@ namespace SSORF.Objects
             //@TODO: calculate velocity by end of frame
             //Capture the wheel angle for the next frame's worth of motion
             wheelAngle = gamePadState.current.ThumbSticks.Left.X * wheelMaxAngle;
+
+            //KeyBoard input to go forward
+            if (keyBoardState.current.IsKeyDown(Keys.Up))
+                position += rotationMtx.Forward * 1.5f;
+
+            geometry.WorldMtx = rotationMtx * Matrix.CreateTranslation(position);
         }
  
         //Accessors and Mutators
-        public Model Geometry { get { return geometry; } set { geometry = value; } }
+        public SimpleModel Geometry { get { return geometry; } set { geometry = value; } }
     
         public Matrix RotationMtx { get { return rotationMtx; } }
 
