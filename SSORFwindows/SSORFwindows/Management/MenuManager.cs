@@ -38,18 +38,25 @@ namespace SSORF.Management
         //if a mission other than zero is selected, state is switched
         //to a mission. If no mission is selected, menu is active. 
         public short selectedMission = 0;
-        public short selectedMenu = 0;
-
+       
         public MenuManager(ContentManager content)
         {
             Menus = new States.SubMenu[(int)Menu.NumMenus];
             //Load Main
-            Menus[(int)Menu.Main] = new States.SubMenu(2); //mission menu has 2 buttons
+            Menus[(int)Menu.Main] = new States.SubMenu(6); //mission menu has 2 buttons
             Menus[(int)Menu.Main].BackGround = content.Load<Texture2D>("Images\\game menu");
             Menus[(int)Menu.Main].ButtonImage[0] = content.Load<Texture2D>("Images\\TestButton");
             Menus[(int)Menu.Main].ButtonPosition[0] = new Vector2(35, 140);
             Menus[(int)Menu.Main].ButtonImage[1] = content.Load<Texture2D>("Images\\TestButton");
             Menus[(int)Menu.Main].ButtonPosition[1] = new Vector2(35, 190);
+            Menus[(int)Menu.Main].ButtonImage[2] = content.Load<Texture2D>("Images\\TestButton");
+            Menus[(int)Menu.Main].ButtonPosition[2] = new Vector2(35, 240);
+            Menus[(int)Menu.Main].ButtonImage[3] = content.Load<Texture2D>("Images\\TestButton");
+            Menus[(int)Menu.Main].ButtonPosition[3] = new Vector2(35, 290);
+            Menus[(int)Menu.Main].ButtonImage[4] = content.Load<Texture2D>("Images\\TestButton");
+            Menus[(int)Menu.Main].ButtonPosition[4] = new Vector2(35, 340);
+            Menus[(int)Menu.Main].ButtonImage[5] = content.Load<Texture2D>("Images\\TestButton");
+            Menus[(int)Menu.Main].ButtonPosition[5] = new Vector2(35, 390);
 
             //Vehicleselect
             Menus[(int)Menu.VehicleSelect] = new States.SubMenu(2); //mission menu has 2 buttons
