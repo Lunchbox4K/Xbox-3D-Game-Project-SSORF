@@ -107,6 +107,15 @@ namespace SSORF.Management
                             CurrentMenu = Menu.Missions;
                         else if (Menus[(int)Menu.Main].buttonPressed == 2)
                             CurrentMenu = Menu.VehicleSelect;
+                        //else if (Menus[(int)Menu.Main].buttonPressed == 3)
+                        //    CurrentMenu = Menu.VehicleSelect;
+                        //else if (Menus[(int)Menu.Main].buttonPressed == 4)
+                        //    CurrentMenu = Menu.VehicleSelect;
+                        //else if (Menus[(int)Menu.Main].buttonPressed == 5)
+                        //    CurrentMenu = Menu.VehicleSelect;
+                        //else if (Menus[(int)Menu.Main].buttonPressed == 6)
+                        //    CurrentMenu = Menu.VehicleSelect;
+
                     
                     break;
 
