@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 
-namespace _3DGame2.Objects
+namespace SSORF.Objects
 {
     /// <summary>
     /// This is a game component that implements IUpdateable.

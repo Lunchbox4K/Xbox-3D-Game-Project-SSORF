@@ -178,7 +178,7 @@ namespace SSORF.Objects
                        ContentManager contentManager, string Heightmap,
                        Vector3 location)
 
-            : base(contentManager, Heightmap, location, Matrix.Identity)
+            : base(contentManager, Heightmap, location, Matrix.Identity, Matrix.Identity)
         {
 
         }

@@ -112,7 +112,11 @@
     <Compile Include="Objects\LevelObject.cs" />
     <Compile Include="Management\States\Mission.cs" />
     <Compile Include="Management\MenuManager.cs" />
+    <Compile Include="Objects\ModelQuadTree.cs" />
     <Compile Include="Objects\Player.cs" />
+    <Compile Include="Objects\SimpleModel.cs" />
+    <Compile Include="Objects\StaticModel.cs" />
+    <Compile Include="Objects\Terrain.cs" />
     <Compile Include="Objects\Upgrade.cs" />
     <Compile Include="Objects\Vehicle.cs" />
     <Compile Include="Management\StateManager.cs" />
