@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Management\AudioManager.cs" />
     <Compile Include="Objects\Camera.cs" />
     <Compile Include="Objects\CheckPoint.cs" />
     <Compile Include="Objects\ModelCollection.cs" />
