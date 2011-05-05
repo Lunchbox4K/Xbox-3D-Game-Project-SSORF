@@ -16,9 +16,14 @@ namespace SSORF.Objects
         private Model model;
         private Matrix worldMtx = Matrix.Identity;
 
+        public void setPosition(Vector3 position)
+        {
+            worldMtx = Matrix.CreateTranslation(position);
+        }
+
         public void rotate(float yaw)
         {
-            worldMtx *= Matrix.CreateRotationY(yaw);
+            worldMtx = Matrix.CreateRotationY(yaw) * worldMtx;
 
         }
 

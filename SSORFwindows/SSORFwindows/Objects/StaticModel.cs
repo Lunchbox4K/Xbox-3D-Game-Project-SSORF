@@ -26,6 +26,27 @@ namespace SSORF.Objects
         protected Matrix scale;
         protected BoundingBox boundingBox;
 
+        //For some reason, bounding box collision detection was not working
+        //so I added this as a temporary fix...
+        public bool TemporaryCollisionDetection(StaticModel otherModel)
+        { 
+            Matrix thisWorld = scale * orientation * Matrix.CreateTranslation(location);
+            Matrix otherWorld = otherModel.Scale * otherModel.Orientation 
+                * Matrix.CreateTranslation(otherModel.Location);
+
+            //Loop through model meshes and compare bounding spheres
+            foreach (ModelMesh theseMeshes in model.Meshes)
+            {
+                foreach (ModelMesh otherMeshes in otherModel.Geometry.Meshes)
+                {
+                    if (theseMeshes.BoundingSphere.Transform(thisWorld).Intersects(
+                        otherMeshes.BoundingSphere.Transform(otherWorld)))
+                        return true;
+                }
+            }
+            return false;
+        }
+
         public StaticModel(ContentManager Content, string AssetLocation, 
             Vector3 Location, Matrix Orientation, Matrix Scale)
         {
@@ -138,6 +159,11 @@ namespace SSORF.Objects
                 }
             }
         }
+
+        //For temp collision detection
+        public Model Geometry
+        { get { return model; } }
+
 
         public BoundingBox getBoundingBox
         {

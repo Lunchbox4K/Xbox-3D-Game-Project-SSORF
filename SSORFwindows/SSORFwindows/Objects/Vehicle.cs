@@ -14,12 +14,9 @@ namespace SSORF.Objects
 {
     public class Vehicle
     {
-        SimpleModel geometry;
-        Matrix rotationMtx;
-        Vector3 position = Vector3.Zero;
-        Vector3 lookVector = Vector3.Zero;
+        StaticModel geometry;
         float speed = 1.4f;
-        float yaw = 0.0f;
+        float yaw;
         float wheelAngle = 0;
         float wheelMaxAngle = (float).785;
         int wheelBaseLength = 24;
@@ -28,8 +25,9 @@ namespace SSORF.Objects
 
         public void load(ContentManager content, short vehicleID)
         {
-            geometry = new SimpleModel();
-            geometry.Mesh = content.Load<Model>("Models\\scooter" + vehicleID.ToString());
+            geometry = new StaticModel(content, "Models\\scooter" + vehicleID.ToString(),
+                Vector3.Zero, Matrix.Identity, Matrix.Identity);
+            geometry.LoadModel();
 
             //Things to load here:
             //value of wheelMaxAngle - DO IT IN RADIANS
@@ -38,6 +36,12 @@ namespace SSORF.Objects
             //upgrade specs
         }
 
+        public void setStartingPosition(float startingYaw, Vector3 startingPosition)
+        {
+            yaw = startingYaw;
+            geometry.Orientation = Matrix.CreateRotationY(yaw);
+            geometry.Location = startingPosition;
+        }
 
         public void update(GameTime gameTime)
         {
@@ -52,29 +56,32 @@ namespace SSORF.Objects
             //Update rotations
             yaw += tempYaw;
 
-            rotationMtx = Matrix.CreateRotationY(yaw);
+            geometry.Orientation = Matrix.CreateRotationY(yaw);
 
             //Derive and update position
-            position += rotationMtx.Forward * tempDistance * (float)Math.Cos(tempYaw);
-            position += rotationMtx.Left * tempDistance * (float)Math.Sin(tempYaw);
+            geometry.Location += geometry.Orientation.Forward * tempDistance * (float)Math.Cos(tempYaw);
+            geometry.Location += geometry.Orientation.Left * tempDistance * (float)Math.Sin(tempYaw);
 
             //@TODO: calculate velocity by end of frame
             //Capture the wheel angle for the next frame's worth of motion
             wheelAngle = gamePadState.current.ThumbSticks.Left.X * wheelMaxAngle;
 
-            //KeyBoard input to go forward
+            //KeyBoard input
+            //NOTE: Don't delete this region!! I need to move to test collisions with checkpoints!!!
+            #region
             if (keyBoardState.current.IsKeyDown(Keys.Up))
-                position += rotationMtx.Forward * 1.5f;
+               geometry.Location += geometry.Orientation.Forward * 1.5f;
+            if (keyBoardState.current.IsKeyDown(Keys.Left))
+                yaw += 0.1f;
+            if (keyBoardState.current.IsKeyDown(Keys.Right))
+                yaw -= 0.1f;
 
-            geometry.WorldMtx = rotationMtx * Matrix.CreateTranslation(position);
+            geometry.Orientation = Matrix.CreateRotationY(yaw);
+            #endregion
         }
  
         //Accessors and Mutators
-        public SimpleModel Geometry { get { return geometry; } set { geometry = value; } }
-    
-        public Matrix RotationMtx { get { return rotationMtx; } }
-
-        public Vector3 Position { get { return position; } set { position = value; } }
+        public StaticModel Geometry { get { return geometry; } set { geometry = value; } }
 
         public float Yaw { get { return yaw; } set { yaw = value; } }
 

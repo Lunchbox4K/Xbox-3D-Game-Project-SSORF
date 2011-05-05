@@ -24,12 +24,24 @@ namespace SSORF.Management.States
     {
         public bool Active = true;
 
+        //was the mission completed successfully?
+        private bool missionComplete = false;
+
         private MissionState state = MissionState.Starting;
 
         //used for 3..2..1..go
         TimeSpan countDown = new TimeSpan(0,0,4);
+        TimeSpan timeLimit;
 
         private Objects.Vehicle scooter;
+
+        private Objects.StaticModel[] CheckPoints;
+
+        private short numCheckPoints = 0;
+
+        private short currentCheckPoint = 0;
+
+        private float checkPointYaw = 0.0f;
         
         private Objects.SimpleModel geometry;
 
@@ -66,10 +78,48 @@ namespace SSORF.Management.States
             //use IDnum to load the correct content
             geometry = new Objects.SimpleModel();
             geometry.Mesh = content.Load<Model>("Models\\level" + missionID.ToString());
-            //with IDnum we could also have a different starting positions for each mission
-            scooter.Position = Vector3.Zero;
-            scooter.Yaw = 0.0f;
+
+            //with missionID we can have a different starting positions, checkpoints, etc. for each mission
+            //We need to load the data for each mission from file using the missionID
+            if (missionID == 1)
+            {
+                numCheckPoints = 1;
+                timeLimit = new TimeSpan(0, 0, 4);
+                CheckPoints = new Objects.StaticModel[numCheckPoints];
+
+                for (int i = 0; i < numCheckPoints; i++)
+                {
+                    CheckPoints[i] = new Objects.StaticModel(content, "Models\\check",
+                        Vector3.Zero, Matrix.Identity, Matrix.Identity);
+                    CheckPoints[i].LoadModel();
+                }
+
+                CheckPoints[0].Location = new Vector3(60, 0, 0);
+
+                scooter.setStartingPosition(-0.45f, new Vector3(0, 0, 100));
+            }
+            else if (missionID == 2)
+            {
+                numCheckPoints = 2;
+                timeLimit = new TimeSpan(0, 0, 8);
+                CheckPoints = new Objects.StaticModel[numCheckPoints];
+
+                for (int i = 0; i < numCheckPoints; i++)
+                {
+                    CheckPoints[i] = new Objects.StaticModel(content, "Models\\check",
+                        Vector3.Zero, Matrix.Identity, Matrix.Identity);
+                    CheckPoints[i].LoadModel();
+                }
+
+                CheckPoints[0].Location = new Vector3(0, 0, -80);
+
+                CheckPoints[1].Location = new Vector3(0, 0, 100);
+
+                scooter.setStartingPosition(0.0f, new Vector3(0,0,40));
+            }
+            camera.update(scooter.Geometry.Location, scooter.Yaw);
         }
+
 
         public void update(GameTime gameTime)
         {
@@ -81,20 +131,71 @@ namespace SSORF.Management.States
                     countDown -= gameTime.ElapsedGameTime;
                     if (countDown.Milliseconds < 0)
                         state = MissionState.Playing;
+
+                    checkPointYaw += 0.05f;
+                    for (int i = currentCheckPoint; i < numCheckPoints; i++)
+                        CheckPoints[i].Orientation = Matrix.CreateRotationY(checkPointYaw);
+
+                break;
+
+                case MissionState.Paused :
+                    //no updates while paused
+#if XBOX
+                    if (gamePadState.current.Buttons.Y == ButtonState.Pressed)
+                        state = MissionState.Ending;
+                    if (gamePadState.current.Buttons.Start == ButtonState.Pressed && 
+                        gamePadState.current.Buttons.Start == ButtonState.Released) 
+                        state = MissionState.Paused;
+#else
+                if (keyBoardState.current.IsKeyDown(Keys.Q))
+                        state = MissionState.Ending;
+                    if (keyBoardState.current.IsKeyDown(Keys.Enter) &&
+                        keyBoardState.previous.IsKeyUp(Keys.Enter))
+                        state = MissionState.Playing;     
+#endif
                 break;
 
                 //if we are playing update scooter/camera using player input
                 case MissionState.Playing :
                     scooter.update(gameTime);
-                    camera.update(scooter.Position, scooter.Yaw);
+                    camera.update(scooter.Geometry.Location, scooter.Yaw);
+
+
+                    timeLimit -= gameTime.ElapsedGameTime;
+                    if (timeLimit.Milliseconds < 0)
+                        state = MissionState.Ending;
+
+                    checkPointYaw += 0.05f;
+                    for (int i = currentCheckPoint; i < numCheckPoints; i++)
+                        CheckPoints[i].Orientation = Matrix.CreateRotationY(checkPointYaw);
+
+                    //Collision Detection
+
+                    //bounding box did not work!
+
+                    
+                    if (CheckPoints[currentCheckPoint].TemporaryCollisionDetection(scooter.Geometry))
+                        currentCheckPoint += 1;
+                    
+
+                    if (currentCheckPoint == numCheckPoints)
+                    { 
+                        missionComplete = true;
+                        state = MissionState.Ending;
+                    }
+
 #if XBOX
-                    if (gamePadState.current.Buttons.Y == ButtonState.Pressed)
-                        state = MissionState.Ending;
+                    if (gamePadState.current.Buttons.Start == ButtonState.Pressed && 
+                        gamePadState.current.Buttons.Start == ButtonState.Released)  
+                        state = MissionState.Paused;
 #else
-                    if (keyBoardState.current.IsKeyDown(Keys.E))
-                        state = MissionState.Ending;
+
+                    if (keyBoardState.current.IsKeyDown(Keys.Enter) && 
+                        keyBoardState.previous.IsKeyUp(Keys.Enter))
+                        state = MissionState.Paused;     
 #endif
                 break;
+
 
                 //If mission has ended wait for user to confirm returning to menu
                 case MissionState.Ending :
@@ -110,11 +211,14 @@ namespace SSORF.Management.States
 
         }
 
-        public void draw(SpriteBatch spriteBatch)
+        public void draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             geometry.draw(camera);
 
-            scooter.Geometry.draw(camera);
+            scooter.Geometry.drawModel(gameTime, camera.ViewMtx, camera.ProjMtx);
+
+            for (int i = currentCheckPoint; i < numCheckPoints; i++)
+                CheckPoints[i].drawModel(gameTime, camera.ViewMtx, camera.ProjMtx);
 
             
             //These setting allow us to print strings without screwing with the
@@ -124,21 +228,22 @@ namespace SSORF.Management.States
                 RasterizerState.CullCounterClockwise);
 
             //display camera and scooter coordinates for testing
-            spriteBatch.DrawString(smallFont, "Scooter coordinates: " + scooter.Position.ToString(), new Vector2(10, 10), Color.Black);
-            spriteBatch.DrawString(smallFont, "Camera coordinates:  " + camera.Position.ToString(), new Vector2(10, 30), Color.Black);
+            //spriteBatch.DrawString(smallFont, "Scooter coordinates: " + scooter.Geometry.Location.ToString(), new Vector2(10, 10), Color.Black);
+            //spriteBatch.DrawString(smallFont, "Camera coordinates:  " + camera.Position.ToString(), new Vector2(10, 30), Color.Black);
             
             //This #if #else will change the on screen instructions when deployed on XBOX
 #if XBOX
             char endKey = 'Y';
             string returnKey = "START";
 #else
-            char endKey = 'E';
+            char endKey = 'Q';
             string returnKey = "ENTER";
 #endif
             //This switch statement prints different instructions depending on MissionState
             switch (state)
             { 
                 case MissionState.Starting :
+                    spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString(), new Vector2(200, 10), Color.Black);
                     spriteBatch.DrawString(smallFont, "Get ready to race!!!", new Vector2(300, 550), Color.Black);
                     if (countDown.Seconds > 0)
                         spriteBatch.DrawString(largeFont, countDown.Seconds.ToString(), new Vector2(340, 100), Color.Black);
@@ -146,12 +251,27 @@ namespace SSORF.Management.States
                         spriteBatch.DrawString(largeFont, "GO!", new Vector2(220, 100), Color.Black);
                 break;
 
+                case MissionState.Paused:
+                    spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString(), new Vector2(200, 10), Color.Black);
+                    spriteBatch.DrawString(largeFont, "paused", new Vector2(80, 100), Color.Black);
+                    spriteBatch.DrawString(smallFont, "Press [" + endKey + "] to quit mission", new Vector2(280, 530), Color.Black);
+                    spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to return to mission", new Vector2(280, 550), Color.Black);
+                break;
+
                 case MissionState.Playing :
-                    spriteBatch.DrawString(smallFont, "Press [" + endKey + "] to end mission", new Vector2(280, 550), Color.Black);
+                    spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString(), new Vector2(200, 10), Color.Black);
+                    spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to pause mission", new Vector2(280, 550), Color.Black);
                 break;
 
                 case MissionState.Ending :
+                if (missionComplete)
+                {
                     spriteBatch.DrawString(largeFont, "Finish!", new Vector2(60, 100), Color.Black);
+                    spriteBatch.DrawString(smallFont, "With " + timeLimit.TotalSeconds.ToString() + " seconds to spare!!!", new Vector2(200, 450), Color.Black);
+                }
+                else
+                    spriteBatch.DrawString(largeFont, "Fail!", new Vector2(200, 100), Color.Black);
+
                     spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to return to menu", new Vector2(240, 550), Color.Black);
                 break;
             

@@ -158,7 +158,7 @@ namespace SSORF.Management
                     break;
 
                 case GameState.MissionScreen:
-                    currentMission.draw(spriteBatch);
+                    currentMission.draw(spriteBatch, gameTime);
                     break;
             }
             

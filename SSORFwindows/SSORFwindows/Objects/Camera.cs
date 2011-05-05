@@ -23,7 +23,7 @@ namespace SSORF.Objects
         //constructor
         public ThirdPersonCamera()
         {
-            offset = new Vector3(0, 20, 60);
+            offset = new Vector3(0, 30, 60);
             cameraPosition = offset;
             viewMtx = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
         }
