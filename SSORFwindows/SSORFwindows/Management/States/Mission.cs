@@ -157,7 +157,24 @@ namespace SSORF.Management.States
 
                 //if we are playing update scooter/camera using player input
                 case MissionState.Playing :
-                    scooter.update(gameTime);
+#if WINDOWS
+                float tVal = 0;
+                float bVal = 0;
+                float sVal = 0;
+                if (keyBoardState.current.IsKeyDown(Keys.Up))
+                    tVal = 1;
+                if (keyBoardState.current.IsKeyDown(Keys.Down))
+                    bVal = 1;
+                if (keyBoardState.current.IsKeyDown(Keys.Left))
+                    sVal = 1;
+                if (keyBoardState.current.IsKeyDown(Keys.Right))
+                    sVal = -1;
+                
+                scooter.update(gameTime, sVal, tVal, bVal);
+#endif
+#if XBOX
+                scooter.update(gameTime, gamePadState.current.ThumbSticks.Left.X, gamePadState.current.Triggers.Right, gamePadState.current.Triggers.Left);
+#endif
                     camera.update(scooter.Geometry.Location, scooter.Yaw);
 
 

@@ -43,11 +43,10 @@ namespace SSORF.Objects
             geometry.Location = startingPosition;
         }
 
-        public void update(GameTime gameTime)
+        public void update(GameTime gameTime, float steerValue, float throttleValue, float brakeValue)
         {
-            //TODO: calculate velocity from accel/decel
             //Get the integral of the vehicle's velocity
-            float tempDistance = speed *gamePadState.current.Triggers.Right;
+            float tempDistance = speed * throttleValue;
             //Find the vehicle's current turning radius
             float turnRadius = wheelBaseLength/(float)Math.Sin(wheelAngle);
             //Now use those to get the vehicle's yaw offset - i love radians
@@ -64,20 +63,22 @@ namespace SSORF.Objects
 
             //@TODO: calculate velocity by end of frame
             //Capture the wheel angle for the next frame's worth of motion
-            wheelAngle = gamePadState.current.ThumbSticks.Left.X * wheelMaxAngle;
+            wheelAngle = steerValue * wheelMaxAngle;
+
+            //TODO: calculate velocity from accel/decel
 
             //KeyBoard input
             //NOTE: Don't delete this region!! I need to move to test collisions with checkpoints!!!
-            #region
-            if (keyBoardState.current.IsKeyDown(Keys.Up))
-               geometry.Location += geometry.Orientation.Forward * 1.5f;
-            if (keyBoardState.current.IsKeyDown(Keys.Left))
-                yaw += 0.1f;
-            if (keyBoardState.current.IsKeyDown(Keys.Right))
-                yaw -= 0.1f;
+            //#region
+            //if (keyBoardState.current.IsKeyDown(Keys.Up))
+            //   geometry.Location += geometry.Orientation.Forward * 1.5f;
+            //if (keyBoardState.current.IsKeyDown(Keys.Left))
+            //    yaw += 0.1f;
+            //if (keyBoardState.current.IsKeyDown(Keys.Right))
+            //    yaw -= 0.1f;
 
-            geometry.Orientation = Matrix.CreateRotationY(yaw);
-            #endregion
+            //geometry.Orientation = Matrix.CreateRotationY(yaw);
+            //#endregion
         }
  
         //Accessors and Mutators
