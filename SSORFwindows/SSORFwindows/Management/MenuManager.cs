@@ -43,8 +43,9 @@ namespace SSORF.Management
         {
             Menus = new States.SubMenu[(int)Menu.NumMenus];
             //Load Main
-            Menus[(int)Menu.Main] = new States.SubMenu(6); //mission menu has 2 buttons
+            Menus[(int)Menu.Main] = new States.SubMenu(6); //main menu has 6 buttons
             Menus[(int)Menu.Main].BackGround = content.Load<Texture2D>("Images\\game menu");
+            //
             Menus[(int)Menu.Main].ButtonImage[0] = content.Load<Texture2D>("Images\\TestButton");
             Menus[(int)Menu.Main].ButtonPosition[0] = new Vector2(35, 140);
             Menus[(int)Menu.Main].ButtonImage[1] = content.Load<Texture2D>("Images\\TestButton");
