@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Objects\Camera.cs" />
     <Compile Include="Objects\CheckPoint.cs" />
+    <Compile Include="Objects\ModelCollection.cs" />
     <Compile Include="Objects\LevelObject.cs" />
     <Compile Include="Management\States\Mission.cs" />
     <Compile Include="Management\MenuManager.cs" />
