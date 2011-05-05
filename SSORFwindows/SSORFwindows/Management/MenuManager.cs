@@ -43,9 +43,8 @@ namespace SSORF.Management
         {
             Menus = new States.SubMenu[(int)Menu.NumMenus];
             //Load Main
-            Menus[(int)Menu.Main] = new States.SubMenu(6); //main menu has 6 buttons
+            Menus[(int)Menu.Main] = new States.SubMenu(6); //mission menu has 2 buttons
             Menus[(int)Menu.Main].BackGround = content.Load<Texture2D>("Images\\game menu");
-            //
             Menus[(int)Menu.Main].ButtonImage[0] = content.Load<Texture2D>("Images\\TestButton");
             Menus[(int)Menu.Main].ButtonPosition[0] = new Vector2(35, 140);
             Menus[(int)Menu.Main].ButtonImage[1] = content.Load<Texture2D>("Images\\TestButton");
@@ -60,28 +59,34 @@ namespace SSORF.Management
             Menus[(int)Menu.Main].ButtonPosition[5] = new Vector2(35, 390);
 
             //Vehicleselect
-            Menus[(int)Menu.VehicleSelect] = new States.SubMenu(2); //mission menu has 2 buttons
+            Menus[(int)Menu.VehicleSelect] = new States.SubMenu(3); //mission menu has 2 buttons
             Menus[(int)Menu.VehicleSelect].BackGround = content.Load<Texture2D>("Images\\VehicleTest");
             Menus[(int)Menu.VehicleSelect].ButtonImage[0] = content.Load<Texture2D>("Images\\TestButton");
             Menus[(int)Menu.VehicleSelect].ButtonPosition[0] = new Vector2(100, 450);
             Menus[(int)Menu.VehicleSelect].ButtonImage[1] = content.Load<Texture2D>("Images\\TestButton");
             Menus[(int)Menu.VehicleSelect].ButtonPosition[1] = new Vector2(450, 450);
+            Menus[(int)Menu.VehicleSelect].ButtonImage[2] = content.Load<Texture2D>("Images\\TestBack");
+            Menus[(int)Menu.VehicleSelect].ButtonPosition[2] = new Vector2(50, 70);
 
             //Dealership
-            Menus[(int)Menu.Dealership] = new States.SubMenu(2); //mission menu has 2 buttons
+            Menus[(int)Menu.Dealership] = new States.SubMenu(3); //mission menu has 2 buttons
             Menus[(int)Menu.Dealership].BackGround = content.Load<Texture2D>("Images\\VehicleTest");
             Menus[(int)Menu.Dealership].ButtonImage[0] = content.Load<Texture2D>("Images\\TestButton");
             Menus[(int)Menu.Dealership].ButtonPosition[0] = new Vector2(100, 450);
             Menus[(int)Menu.Dealership].ButtonImage[1] = content.Load<Texture2D>("Images\\TestButton");
             Menus[(int)Menu.Dealership].ButtonPosition[1] = new Vector2(450, 450);
+            Menus[(int)Menu.Dealership].ButtonImage[2] = content.Load<Texture2D>("Images\\TestBack");
+            Menus[(int)Menu.Dealership].ButtonPosition[2] = new Vector2(50, 70);
 
             //load missionsMenu stuff
-            Menus[(int)Menu.Missions] = new States.SubMenu(2); //mission menu has 2 buttons
+            Menus[(int)Menu.Missions] = new States.SubMenu(3); //mission menu has 2 buttons
             Menus[(int)Menu.Missions].BackGround = content.Load<Texture2D>("Images\\menu");
             Menus[(int)Menu.Missions].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
             Menus[(int)Menu.Missions].ButtonPosition[0] = new Vector2(100, 300);
             Menus[(int)Menu.Missions].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
             Menus[(int)Menu.Missions].ButtonPosition[1] = new Vector2(450, 300);
+            Menus[(int)Menu.Missions].ButtonImage[2] = content.Load<Texture2D>("Images\\TestBack");
+            Menus[(int)Menu.Missions].ButtonPosition[2] = new Vector2(50, 70);
             
             //load cursor image and set current menu to missions menu
             CursorImage = content.Load<Texture2D>("Images\\cursor");
@@ -116,7 +121,7 @@ namespace SSORF.Management
                         //    CurrentMenu = Menu.VehicleSelect;
                         //else if (Menus[(int)Menu.Main].buttonPressed == 6)
                         //    CurrentMenu = Menu.VehicleSelect;
-
+                        Menus[(int)Menu.Main].buttonPressed = 0;
                     
                     break;
 
@@ -124,23 +129,30 @@ namespace SSORF.Management
 
                     //Note: buttonPressed = 0 means no button has been pressed
                     //If we are in the missions menu and a button is pressed...
-                    if (Menus[(int)Menu.Missions].buttonPressed != 0)
+                    if (Menus[(int)Menu.Missions].buttonPressed == 3)
+                        CurrentMenu = Menu.Main;
+                    else if (Menus[(int)Menu.Missions].buttonPressed != 0)
                     {
+                        
                         //Set selected mission to a value other than zero to deactivate the menu
                         selectedMission = Menus[(int)Menu.Missions].buttonPressed;
                         //reset buttonPressed for when we return to the menu
-                        Menus[(int)Menu.Missions].buttonPressed = 0;
+                       
                     }
-
+                    Menus[(int)Menu.Missions].buttonPressed = 0;
                     
                     break;
 
                 case Menu.Dealership :
-
+                    if (Menus[(int)Menu.Dealership].buttonPressed == 3)
+                        CurrentMenu = Menu.Main;
+                    Menus[(int)Menu.Dealership].buttonPressed = 0;
                     break;
 
                 case Menu.VehicleSelect :
-                    //Code goes here
+                    if (Menus[(int)Menu.VehicleSelect].buttonPressed == 3)
+                        CurrentMenu = Menu.Main;
+                    Menus[(int)Menu.VehicleSelect].buttonPressed = 0;
                     break;
 
                     //etc.
