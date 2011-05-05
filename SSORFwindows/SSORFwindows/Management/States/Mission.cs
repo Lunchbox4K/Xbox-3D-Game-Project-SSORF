@@ -35,7 +35,11 @@ namespace SSORF.Management.States
 
         private Objects.Vehicle scooter;
 
-        private Objects.StaticModel[] CheckPoints;
+        private Objects.StaticModel Check;
+
+        private Objects.ModelCollection CheckPoints;
+
+        private Vector3[] CheckPointCoords;
 
         private short numCheckPoints = 0;
 
@@ -79,41 +83,41 @@ namespace SSORF.Management.States
             geometry = new Objects.SimpleModel();
             geometry.Mesh = content.Load<Model>("Models\\level" + missionID.ToString());
 
+            Check = new Objects.StaticModel(content, "Models\\check",
+                        Vector3.Zero, Matrix.Identity, Matrix.Identity);
+            
+            Check.LoadModel();
+
             //with missionID we can have a different starting positions, checkpoints, etc. for each mission
             //We need to load the data for each mission from file using the missionID
             if (missionID == 1)
             {
-                numCheckPoints = 1;
-                timeLimit = new TimeSpan(0, 0, 4);
-                CheckPoints = new Objects.StaticModel[numCheckPoints];
+                numCheckPoints = 3;
+                CheckPointCoords = new Vector3[numCheckPoints];
+                timeLimit = new TimeSpan(0, 0, 10);
 
-                for (int i = 0; i < numCheckPoints; i++)
-                {
-                    CheckPoints[i] = new Objects.StaticModel(content, "Models\\check",
-                        Vector3.Zero, Matrix.Identity, Matrix.Identity);
-                    CheckPoints[i].LoadModel();
-                }
+                CheckPointCoords[0] = new Vector3(140, 0, 0);
+                CheckPointCoords[1] = new Vector3(0, 0, -140);
+                CheckPointCoords[2] = new Vector3(0, 0, 140);
 
-                CheckPoints[0].Location = new Vector3(60, 0, 0);
+                CheckPoints = new Objects.ModelCollection(Check, numCheckPoints, CheckPointCoords);
 
                 scooter.setStartingPosition(-0.45f, new Vector3(0, 0, 100));
             }
             else if (missionID == 2)
             {
-                numCheckPoints = 2;
-                timeLimit = new TimeSpan(0, 0, 8);
-                CheckPoints = new Objects.StaticModel[numCheckPoints];
+                numCheckPoints = 5;
+                CheckPointCoords = new Vector3[numCheckPoints];
+                timeLimit = new TimeSpan(0, 0, 15);
 
-                for (int i = 0; i < numCheckPoints; i++)
-                {
-                    CheckPoints[i] = new Objects.StaticModel(content, "Models\\check",
-                        Vector3.Zero, Matrix.Identity, Matrix.Identity);
-                    CheckPoints[i].LoadModel();
-                }
+                CheckPointCoords[0] = new Vector3(0, 0, -140);
+                CheckPointCoords[1] = new Vector3(140, 0, 0);
+                CheckPointCoords[2] = new Vector3(0, 0, 140);
+                CheckPointCoords[3] = new Vector3(-140, 0, 0);
+                CheckPointCoords[4] = new Vector3(0, 0, -140);
 
-                CheckPoints[0].Location = new Vector3(0, 0, -80);
+                CheckPoints = new Objects.ModelCollection(Check, numCheckPoints, CheckPointCoords);
 
-                CheckPoints[1].Location = new Vector3(0, 0, 100);
 
                 scooter.setStartingPosition(0.0f, new Vector3(0,0,40));
             }
@@ -134,7 +138,7 @@ namespace SSORF.Management.States
 
                     checkPointYaw += 0.05f;
                     for (int i = currentCheckPoint; i < numCheckPoints; i++)
-                        CheckPoints[i].Orientation = Matrix.CreateRotationY(checkPointYaw);
+                        CheckPoints.Geometry.Orientation = Matrix.CreateRotationY(checkPointYaw);
 
                 break;
 
@@ -167,14 +171,14 @@ namespace SSORF.Management.States
 
                     checkPointYaw += 0.05f;
                     for (int i = currentCheckPoint; i < numCheckPoints; i++)
-                        CheckPoints[i].Orientation = Matrix.CreateRotationY(checkPointYaw);
+                        CheckPoints.Geometry.Orientation = Matrix.CreateRotationY(checkPointYaw);
 
                     //Collision Detection
 
                     //bounding box did not work!
 
                     
-                    if (CheckPoints[currentCheckPoint].TemporaryCollisionDetection(scooter.Geometry))
+                    if (CheckPoints.CheckCollision(currentCheckPoint, scooter.Geometry))
                         currentCheckPoint += 1;
                     
 
@@ -217,17 +221,25 @@ namespace SSORF.Management.States
 
             scooter.Geometry.drawModel(gameTime, camera.ViewMtx, camera.ProjMtx);
 
-            for (int i = currentCheckPoint; i < numCheckPoints; i++)
-                CheckPoints[i].drawModel(gameTime, camera.ViewMtx, camera.ProjMtx);
+            if(currentCheckPoint == numCheckPoints - 1)
+                CheckPoints.draw(gameTime, camera, currentCheckPoint, (short)(currentCheckPoint + 1));
+            else
+               CheckPoints.draw(gameTime, camera, currentCheckPoint, (short)(currentCheckPoint + 1));
+
+           
 
             
             //These setting allow us to print strings without screwing with the
             //3D rendering, but Carl told me it won't work with transparent objects
+
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, 
                 SamplerState.AnisotropicClamp, DepthStencilState.Default, 
                 RasterizerState.CullCounterClockwise);
 
+            
+
             //display camera and scooter coordinates for testing
+
             //spriteBatch.DrawString(smallFont, "Scooter coordinates: " + scooter.Geometry.Location.ToString(), new Vector2(10, 10), Color.Black);
             //spriteBatch.DrawString(smallFont, "Camera coordinates:  " + camera.Position.ToString(), new Vector2(10, 30), Color.Black);
             
