@@ -67,12 +67,12 @@ namespace SSORF.Management
             Menus[(int)Menu.VehicleSelect].ButtonPosition[1] = new Vector2(450, 450);
 
             //Dealership
-            //Menus[(int)Menu.Dealership] = new States.SubMenu(2); //mission menu has 2 buttons
-            //Menus[(int)Menu.Dealership].BackGround = content.Load<Texture2D>("Images\\menu");
-            //Menus[(int)Menu.Dealership].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
-            //Menus[(int)Menu.Dealership].ButtonPosition[0] = new Vector2(100, 300);
-            //Menus[(int)Menu.Dealership].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
-            //Menus[(int)Menu.Dealership].ButtonPosition[1] = new Vector2(450, 300);
+            Menus[(int)Menu.Dealership] = new States.SubMenu(2); //mission menu has 2 buttons
+            Menus[(int)Menu.Dealership].BackGround = content.Load<Texture2D>("Images\\VehicleTest");
+            Menus[(int)Menu.Dealership].ButtonImage[0] = content.Load<Texture2D>("Images\\TestButton");
+            Menus[(int)Menu.Dealership].ButtonPosition[0] = new Vector2(100, 450);
+            Menus[(int)Menu.Dealership].ButtonImage[1] = content.Load<Texture2D>("Images\\TestButton");
+            Menus[(int)Menu.Dealership].ButtonPosition[1] = new Vector2(450, 450);
 
             //load missionsMenu stuff
             Menus[(int)Menu.Missions] = new States.SubMenu(2); //mission menu has 2 buttons
@@ -107,8 +107,8 @@ namespace SSORF.Management
                             CurrentMenu = Menu.Missions;
                         else if (Menus[(int)Menu.Main].buttonPressed == 2)
                             CurrentMenu = Menu.VehicleSelect;
-                        //else if (Menus[(int)Menu.Main].buttonPressed == 3)
-                        //    CurrentMenu = Menu.VehicleSelect;
+                        else if (Menus[(int)Menu.Main].buttonPressed == 3)
+                            CurrentMenu = Menu.Dealership;
                         //else if (Menus[(int)Menu.Main].buttonPressed == 4)
                         //    CurrentMenu = Menu.VehicleSelect;
                         //else if (Menus[(int)Menu.Main].buttonPressed == 5)
