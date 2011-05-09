@@ -102,7 +102,7 @@ namespace SSORF.Management.States
 
                 CheckPoints = new Objects.ModelCollection(Check, numCheckPoints, CheckPointCoords);
 
-                scooter.setStartingPosition(-0.45f, new Vector3(0, 0, 100));
+                scooter.setStartingPosition(-0.45f, new Vector3(0, 0, 100), 0);
             }
             else if (missionID == 2)
             {
@@ -119,7 +119,7 @@ namespace SSORF.Management.States
                 CheckPoints = new Objects.ModelCollection(Check, numCheckPoints, CheckPointCoords);
 
 
-                scooter.setStartingPosition(0.0f, new Vector3(0,0,40));
+                scooter.setStartingPosition(0.0f, new Vector3(0,0,40), 0);
             }
             camera.update(scooter.Geometry.Location, scooter.Yaw);
         }

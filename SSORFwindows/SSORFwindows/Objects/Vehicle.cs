@@ -15,11 +15,23 @@ namespace SSORF.Objects
     public class Vehicle
     {
         StaticModel geometry;
-        float speed = 1.4f;
+        //Units for simulation:
+        //Torque:       Newton-meters
+        //Force:        Newtons
+        //Weight:       Kilograms
+        //Speed:        Meters/Sec
+        //Distance:     Meters
+        //Angles:       Radians
+        float meterToInchScale = 39.37f;
+        float outputPower = 5;
+        float brakePower = 5;
+        float speed;
         float yaw;
+        float weight = 50;
         float wheelAngle = 0;
-        float wheelMaxAngle = (float).785;
-        int wheelBaseLength = 24;
+        float wheelMaxAngle = .785f;
+        float wheelRadius = 0.15f;
+        float wheelBaseLength = 1;
         //vehicle still needs list of specs such as weight, name, etc
         //Also need a way to add upgrades to vehicles
 
@@ -36,49 +48,42 @@ namespace SSORF.Objects
             //upgrade specs
         }
 
-        public void setStartingPosition(float startingYaw, Vector3 startingPosition)
+        public void setStartingPosition(float startingYaw, Vector3 startingPosition, float startingSpeed)
         {
             yaw = startingYaw;
             geometry.Orientation = Matrix.CreateRotationY(yaw);
             geometry.Location = startingPosition;
+            //speed = startingSpeed;
         }
 
         public void update(GameTime gameTime, float steerValue, float throttleValue, float brakeValue)
         {
             //Get the integral of the vehicle's velocity
-            float tempDistance = speed * throttleValue;
+            float tempDistance = speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             //Find the vehicle's current turning radius
             float turnRadius = wheelBaseLength/(float)Math.Sin(wheelAngle);
-            //Now use those to get the vehicle's yaw offset - i love radians
-            float tempYaw = tempDistance / turnRadius;
-
+            //TODO: calculate lateral force here - remember to fix yaw
+            //Now use those to get the vehicle's yaw offset
+            float deltaYaw = tempDistance / turnRadius;
             //Update rotations
-            yaw += tempYaw;
-
+            yaw += deltaYaw;
             geometry.Orientation = Matrix.CreateRotationY(yaw);
-
             //Derive and update position
-            geometry.Location += geometry.Orientation.Forward * tempDistance * (float)Math.Cos(tempYaw);
-            geometry.Location += geometry.Orientation.Left * tempDistance * (float)Math.Sin(tempYaw);
-
-            //@TODO: calculate velocity by end of frame
+            geometry.Location += geometry.Orientation.Forward * tempDistance * (float)Math.Cos(deltaYaw) * meterToInchScale;
+            geometry.Location += geometry.Orientation.Left * tempDistance * (float)Math.Sin(deltaYaw) * meterToInchScale;
             //Capture the wheel angle for the next frame's worth of motion
             wheelAngle = steerValue * wheelMaxAngle;
+            //TODO: calculate drag here
+            float dragForce = 5 * speed;
+            //Calculate delta-v
+            float longForce = (outputPower / wheelRadius) * throttleValue;
+            longForce -= (brakePower / wheelRadius) * brakeValue;
+            longForce -= dragForce;
+            float deltaV = (longForce) / weight; 
+            speed += deltaV;
+            if (speed < 0)
+                speed = 0;
 
-            //TODO: calculate velocity from accel/decel
-
-            //KeyBoard input
-            //NOTE: Don't delete this region!! I need to move to test collisions with checkpoints!!!
-            //#region
-            //if (keyBoardState.current.IsKeyDown(Keys.Up))
-            //   geometry.Location += geometry.Orientation.Forward * 1.5f;
-            //if (keyBoardState.current.IsKeyDown(Keys.Left))
-            //    yaw += 0.1f;
-            //if (keyBoardState.current.IsKeyDown(Keys.Right))
-            //    yaw -= 0.1f;
-
-            //geometry.Orientation = Matrix.CreateRotationY(yaw);
-            //#endregion
         }
  
         //Accessors and Mutators
