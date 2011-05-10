@@ -33,7 +33,7 @@ namespace SSORF.Management.States
         TimeSpan countDown = new TimeSpan(0,0,4);
         TimeSpan timeLimit;
 
-        private Objects.Vehicle scooter;
+        private Objects.Vehicle scooter = new Objects.Vehicle();
 
         private Objects.StaticModel Check;
 
@@ -64,9 +64,9 @@ namespace SSORF.Management.States
 
         //when scooter selection menu is implemented we will pass in 
         //the chosen vehicle to the Mission constructor
-        public Mission(Objects.Vehicle selectedScooter, float aspectRatio)
+        public Mission(Objects.Player player, ContentManager content, float aspectRatio)
         {
-            scooter = selectedScooter;
+            scooter.load(content, player.SelectedScooter);
             camera.ProjMtx = Matrix.CreatePerspectiveFieldOfView(
                             MathHelper.ToRadians(45.0f),
                             aspectRatio, 1.0f, 1000.0f);

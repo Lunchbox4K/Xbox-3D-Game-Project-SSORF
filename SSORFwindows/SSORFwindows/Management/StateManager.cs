@@ -68,8 +68,6 @@ namespace SSORF.Management
 
             currentMission = new States.Mission();
 
-            player.Scooter.load(content, 1);
-
         }
 
         //Do we need to use this? I'm not sure
@@ -97,19 +95,19 @@ namespace SSORF.Management
                     if (title.Active == false)
                     {//switch to menu and update it
                         State = GameState.MenuScreen;
-                        menu.update(gameTime);
+                        menu.update(gameTime, player);
                     }
                     break;
 
                 // If we are viewing the menus...
                 case GameState.MenuScreen:
                     //update menu
-                    menu.update(gameTime);
+                    menu.update(gameTime, player);
                     //if mission is selected during update...
                     if (menu.selectedMission != 0)
                     {   // switch to mission, load it, then update it
                         State = GameState.MissionScreen;
-                        currentMission = new States.Mission(player.Scooter, Game.GraphicsDevice.Viewport.AspectRatio);
+                        currentMission = new States.Mission(player, Game.Content, Game.GraphicsDevice.Viewport.AspectRatio);
                         currentMission.load(Game.Content, menu.selectedMission);
                         currentMission.update(gameTime);
                         menu.selectedMission = 0;
@@ -124,7 +122,7 @@ namespace SSORF.Management
                     if (currentMission.Active == false)
                     {//switch back to menu and update it
                         State = GameState.MenuScreen;
-                        menu.update(gameTime);
+                        menu.update(gameTime, player);
                     }
                     break;
             }
