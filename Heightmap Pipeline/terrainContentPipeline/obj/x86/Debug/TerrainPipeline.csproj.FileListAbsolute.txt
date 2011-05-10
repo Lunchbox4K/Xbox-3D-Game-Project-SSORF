@@ -1,0 +1,5 @@
+C:\Users\Smith\Documents\Visual Studio 2010\Projects\3DGame2\terrainContentPipeline\bin\x86\Debug\ContentPipelineExtension1.dll
+C:\Users\Smith\Documents\Visual Studio 2010\Projects\3DGame2\terrainContentPipeline\bin\x86\Debug\ContentPipelineExtension1.pdb
+C:\Users\Smith\Documents\Visual Studio 2010\Projects\3DGame2\terrainContentPipeline\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Smith\Documents\Visual Studio 2010\Projects\3DGame2\terrainContentPipeline\obj\x86\Debug\ContentPipelineExtension1.dll
+C:\Users\Smith\Documents\Visual Studio 2010\Projects\3DGame2\terrainContentPipeline\obj\x86\Debug\ContentPipelineExtension1.pdb
