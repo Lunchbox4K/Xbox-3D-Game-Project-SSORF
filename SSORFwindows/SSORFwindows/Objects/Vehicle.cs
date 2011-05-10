@@ -30,7 +30,7 @@ namespace SSORF.Objects
         float weight = 50;
         float wheelAngle = 0;
         float wheelMaxAngle = .785f;
-        float wheelRadius = 0.15f;
+        float wheelRadius = 0.175f;
         float wheelBaseLength = 1;
         //vehicle still needs list of specs such as weight, name, etc
         //Also need a way to add upgrades to vehicles
@@ -61,7 +61,7 @@ namespace SSORF.Objects
             //Get the integral of the vehicle's velocity
             float tempDistance = speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             //Find the vehicle's current turning radius
-            float turnRadius = wheelBaseLength/(float)Math.Sin(wheelAngle);
+            float turnRadius = wheelBaseLength/(float)Math.Tan(wheelAngle);
             //TODO: calculate lateral force here - remember to fix yaw
             //Now use those to get the vehicle's yaw offset
             float deltaYaw = tempDistance / turnRadius;
@@ -74,7 +74,7 @@ namespace SSORF.Objects
             //Capture the wheel angle for the next frame's worth of motion
             wheelAngle = steerValue * wheelMaxAngle;
             //TODO: calculate drag here
-            float dragForce = 5 * speed;
+            float dragForce = 1.25f * (float)Math.Pow(speed, 2);
             //Calculate delta-v
             float longForce = (outputPower / wheelRadius) * throttleValue;
             longForce -= (brakePower / wheelRadius) * brakeValue;
