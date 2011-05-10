@@ -59,6 +59,8 @@ namespace SSORF.Management
             Menus[(int)Menu.Main].ButtonPosition[5] = new Vector2(35, 390);
 
             //Vehicleselect
+            Menus[(int)Menu.VehicleSelect].ButtonImage[0] = content.Load<Texture2D>("Images\\vehicle1");
+            Menus[(int)Menu.VehicleSelect].ButtonImage[1] = content.Load<Texture2D>("Images\\vehicle2");
             Menus[(int)Menu.Dealership] = new States.SubMenu(3); //mission menu has 2 buttons
             Menus[(int)Menu.Dealership].BackGround = content.Load<Texture2D>("Images\\VehicleTest");
             Menus[(int)Menu.Dealership].ButtonImage[0] = content.Load<Texture2D>("Images\\TestButton");
@@ -96,7 +98,7 @@ namespace SSORF.Management
             
         }
 
-        public void update(GameTime gameTime)
+        public void update(GameTime gameTime, Objects.Player player)
         {
 
             Menus[(int)CurrentMenu].update(gameTime);
@@ -106,7 +108,6 @@ namespace SSORF.Management
             { 
 
                 case Menu.Main :
-
                    
 
                         if (Menus[(int)Menu.Main].buttonPressed == 1)
@@ -133,7 +134,6 @@ namespace SSORF.Management
                         CurrentMenu = Menu.Main;
                     else if (Menus[(int)Menu.Missions].buttonPressed != 0)
                     {
-                        
                         //Set selected mission to a value other than zero to deactivate the menu
                         selectedMission = Menus[(int)Menu.Missions].buttonPressed;
                         //reset buttonPressed for when we return to the menu
@@ -152,7 +152,12 @@ namespace SSORF.Management
                 case Menu.Dealership :
                     if (Menus[(int)Menu.Dealership].buttonPressed == 3)
                         CurrentMenu = Menu.Main;
-                    Menus[(int)Menu.Dealership].buttonPressed = 0;
+                    if (Menus[(int)Menu.VehicleSelect].buttonPressed > 0 &&
+                        Menus[(int)Menu.VehicleSelect].buttonPressed < 3)
+                    {
+                        player.SelectedScooter = Menus[(int)Menu.VehicleSelect].buttonPressed;
+                        CurrentMenu = Menu.Main;
+                    }
                     break;
 
                     //etc.

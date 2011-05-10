@@ -11,15 +11,18 @@ namespace SSORF.Objects
     class Player
     {
 
-        //Needs to be an array of all the vehicles owned
-        private Vehicle scooter = new Vehicle();
-
         //private int money = 0;
 
-        //private bool[] missionsCompleted;
+        //An array of the ID numbers for scooters owned
+        private short[] scootersOwned = new short[10] {0,0,0,0,0,0,0,0,0,0};
+        //Id number of the selected scooter
+        private short selectedScooter = 1;
 
-        //Accessor for player scooter so we can pass it along to the mission
-        public Vehicle Scooter { get {return scooter; } }
+        public short SelectedScooter
+        {
+            get { return selectedScooter; }
+            set { selectedScooter = value; } 
+        }
 
     }
 }

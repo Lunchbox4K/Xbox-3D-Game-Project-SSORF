@@ -37,7 +37,7 @@ namespace SSORF.Objects
             //Move camera with player
             cameraPosition = rotatedOffset + PlayerPosition;
             //Reconstruct view matrix so camera is pointed at the player
-		    viewMtx = Matrix.CreateLookAt(cameraPosition, PlayerPosition, Vector3.Up);
+		    viewMtx = Matrix.CreateLookAt(cameraPosition, PlayerPosition + rotationMtx.Forward * 30, Vector3.Up);
         
         }
 
