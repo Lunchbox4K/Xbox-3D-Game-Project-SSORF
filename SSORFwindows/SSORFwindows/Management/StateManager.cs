@@ -83,6 +83,7 @@ namespace SSORF.Management
             gamePadState.current = GamePad.GetState(PlayerIndex.One);
 # else
             keyBoardState.current = Keyboard.GetState();
+            gamePadState.current = GamePad.GetState(PlayerIndex.One);
 #endif
             //What we update depends on the current GameState
             switch (State)
