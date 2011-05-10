@@ -22,8 +22,8 @@ namespace SSORF.Management
         enum Menu
         {
             Main,
-            VehicleSelect,
             Dealership,
+            Garage,
             Missions,
             NumMenus
         }
@@ -45,11 +45,11 @@ namespace SSORF.Management
             //Load Main
             Menus[(int)Menu.Main] = new States.SubMenu(6); //mission menu has 2 buttons
             Menus[(int)Menu.Main].BackGround = content.Load<Texture2D>("Images\\game menu");
-            Menus[(int)Menu.Main].ButtonImage[0] = content.Load<Texture2D>("Images\\TestButton");
+            Menus[(int)Menu.Main].ButtonImage[0] = content.Load<Texture2D>("Images\\Missions");
             Menus[(int)Menu.Main].ButtonPosition[0] = new Vector2(35, 140);
-            Menus[(int)Menu.Main].ButtonImage[1] = content.Load<Texture2D>("Images\\TestButton");
+            Menus[(int)Menu.Main].ButtonImage[1] = content.Load<Texture2D>("Images\\Dealership");
             Menus[(int)Menu.Main].ButtonPosition[1] = new Vector2(35, 190);
-            Menus[(int)Menu.Main].ButtonImage[2] = content.Load<Texture2D>("Images\\TestButton");
+            Menus[(int)Menu.Main].ButtonImage[2] = content.Load<Texture2D>("Images\\Garage");
             Menus[(int)Menu.Main].ButtonPosition[2] = new Vector2(35, 240);
             Menus[(int)Menu.Main].ButtonImage[3] = content.Load<Texture2D>("Images\\TestButton");
             Menus[(int)Menu.Main].ButtonPosition[3] = new Vector2(35, 290);
@@ -59,16 +59,6 @@ namespace SSORF.Management
             Menus[(int)Menu.Main].ButtonPosition[5] = new Vector2(35, 390);
 
             //Vehicleselect
-            Menus[(int)Menu.VehicleSelect] = new States.SubMenu(3); //mission menu has 2 buttons
-            Menus[(int)Menu.VehicleSelect].BackGround = content.Load<Texture2D>("Images\\VehicleTest");
-            Menus[(int)Menu.VehicleSelect].ButtonImage[0] = content.Load<Texture2D>("Images\\TestButton");
-            Menus[(int)Menu.VehicleSelect].ButtonPosition[0] = new Vector2(100, 450);
-            Menus[(int)Menu.VehicleSelect].ButtonImage[1] = content.Load<Texture2D>("Images\\TestButton");
-            Menus[(int)Menu.VehicleSelect].ButtonPosition[1] = new Vector2(450, 450);
-            Menus[(int)Menu.VehicleSelect].ButtonImage[2] = content.Load<Texture2D>("Images\\TestBack");
-            Menus[(int)Menu.VehicleSelect].ButtonPosition[2] = new Vector2(50, 70);
-
-            //Dealership
             Menus[(int)Menu.Dealership] = new States.SubMenu(3); //mission menu has 2 buttons
             Menus[(int)Menu.Dealership].BackGround = content.Load<Texture2D>("Images\\VehicleTest");
             Menus[(int)Menu.Dealership].ButtonImage[0] = content.Load<Texture2D>("Images\\TestButton");
@@ -77,6 +67,16 @@ namespace SSORF.Management
             Menus[(int)Menu.Dealership].ButtonPosition[1] = new Vector2(450, 450);
             Menus[(int)Menu.Dealership].ButtonImage[2] = content.Load<Texture2D>("Images\\TestBack");
             Menus[(int)Menu.Dealership].ButtonPosition[2] = new Vector2(50, 70);
+
+            //Dealership
+            Menus[(int)Menu.Garage] = new States.SubMenu(3); //mission menu has 2 buttons
+            Menus[(int)Menu.Garage].BackGround = content.Load<Texture2D>("Images\\VehicleTest");
+            Menus[(int)Menu.Garage].ButtonImage[0] = content.Load<Texture2D>("Images\\TestButton");
+            Menus[(int)Menu.Garage].ButtonPosition[0] = new Vector2(100, 450);
+            Menus[(int)Menu.Garage].ButtonImage[1] = content.Load<Texture2D>("Images\\TestButton");
+            Menus[(int)Menu.Garage].ButtonPosition[1] = new Vector2(450, 450);
+            Menus[(int)Menu.Garage].ButtonImage[2] = content.Load<Texture2D>("Images\\TestBack");
+            Menus[(int)Menu.Garage].ButtonPosition[2] = new Vector2(50, 70);
 
             //load missionsMenu stuff
             Menus[(int)Menu.Missions] = new States.SubMenu(3); //mission menu has 2 buttons
@@ -112,9 +112,9 @@ namespace SSORF.Management
                         if (Menus[(int)Menu.Main].buttonPressed == 1)
                             CurrentMenu = Menu.Missions;
                         else if (Menus[(int)Menu.Main].buttonPressed == 2)
-                            CurrentMenu = Menu.VehicleSelect;
-                        else if (Menus[(int)Menu.Main].buttonPressed == 3)
                             CurrentMenu = Menu.Dealership;
+                        else if (Menus[(int)Menu.Main].buttonPressed == 3)
+                            CurrentMenu = Menu.Garage;
                         //else if (Menus[(int)Menu.Main].buttonPressed == 4)
                         //    CurrentMenu = Menu.VehicleSelect;
                         //else if (Menus[(int)Menu.Main].buttonPressed == 5)
@@ -143,16 +143,16 @@ namespace SSORF.Management
                     
                     break;
 
+                case Menu.Garage :
+                    if (Menus[(int)Menu.Garage].buttonPressed == 3)
+                        CurrentMenu = Menu.Main;
+                    Menus[(int)Menu.Garage].buttonPressed = 0;
+                    break;
+
                 case Menu.Dealership :
                     if (Menus[(int)Menu.Dealership].buttonPressed == 3)
                         CurrentMenu = Menu.Main;
                     Menus[(int)Menu.Dealership].buttonPressed = 0;
-                    break;
-
-                case Menu.VehicleSelect :
-                    if (Menus[(int)Menu.VehicleSelect].buttonPressed == 3)
-                        CurrentMenu = Menu.Main;
-                    Menus[(int)Menu.VehicleSelect].buttonPressed = 0;
                     break;
 
                     //etc.
