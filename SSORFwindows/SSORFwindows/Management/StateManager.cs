@@ -108,7 +108,7 @@ namespace SSORF.Management
                     if (menu.selectedMission != 0)
                     {   // switch to mission, load it, then update it
                         State = GameState.MissionScreen;
-                        currentMission = new States.Mission(player, Game.Content, Game.GraphicsDevice.Viewport.AspectRatio);
+                        currentMission = new States.Mission(player, Game);
                         currentMission.load(Game.Content, menu.selectedMission);
                         currentMission.update(gameTime);
                         menu.selectedMission = 0;

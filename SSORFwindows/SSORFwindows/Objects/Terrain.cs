@@ -105,7 +105,7 @@ namespace SSORF.Objects
                 heights[left + 1, top],
                 xNormalized);
 
-            float bottomHeight = MathHelper.Lerp(
+           float bottomHeight = MathHelper.Lerp(
                 heights[left, top + 1],
                 heights[left + 1, top + 1],
                 xNormalized);
@@ -169,27 +169,48 @@ namespace SSORF.Objects
     /// </summary>
     public class Terrain : StaticModel
     {
-        #region Members
-        private TerrainInfo terrainInfo;
+        #region Constants
 
         #endregion
+        //---------------------------------------------------------------------
+        #region Members
+        public TerrainInfo terrainInfo; //Contains heightmap detection
+        public Texture2D textureR;
+        public Texture2D textureG;
+        public Texture2D textureB;
+        public Texture2D textureMap;
+        #endregion
+        //---------------------------------------------------------------------
+        #region Constructor
 
         public Terrain(GraphicsDevice graphicsDevice, 
-                       ContentManager contentManager, string Heightmap,
-                       Vector3 location)
-
-            : base(contentManager, Heightmap, location, Matrix.Identity, Matrix.Identity)
+                       ContentManager contentManager)
+            : base(contentManager, "", Vector3.Zero, Matrix.Identity, Matrix.Identity)
         {
 
         }
+
+        #endregion
+        //---------------------------------------------------------------------
+        #region Load Unload
 
         public override void UnloadModel()
         {
             base.UnloadModel();
+            terrainInfo = null;
         }
 
-        public override void LoadModel()
+        public void LoadModel(string HeightMap, string TextureMap, 
+                                       string TextureR, string TextureG, string TextureB)
         {
+            //Set heightmap generators asset location
+            modelAsset = HeightMap;
+            //Set textures for terrain effect
+            textureMap = base.content.Load<Texture2D>(TextureMap);
+            textureR = base.content.Load<Texture2D>(TextureR);
+            textureG = base.content.Load<Texture2D>(TextureG);
+            textureB = base.content.Load<Texture2D>(TextureB);
+
             base.LoadModel();
             if (isLoaded)
             {
@@ -200,11 +221,54 @@ namespace SSORF.Objects
             }
         }
 
-
-        public override void drawModel(GameTime gameTime, Matrix view, Matrix projection)
+        public void LoadShaders(string effectLocation)
         {
-            base.drawModel(gameTime, view, projection);
+            Effect effect = content.Load<Effect>(effectLocation);
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                //BasicEffect basicEffect = (mesh.Effects[0] as BasicEffect);
+                foreach (ModelMeshPart part in mesh.MeshParts)
+                {
+                    effect.Parameters["mTextureWeight"].SetValue(textureMap);
+                    effect.Parameters["mTextureR"].SetValue(textureR);
+                    effect.Parameters["mTextureG"].SetValue(textureG);
+                    effect.Parameters["mTextureB"].SetValue(textureB);
+                    part.Effect = effect;
+                }
+            }
         }
 
+        #endregion
+        //---------------------------------------------------------------------
+        #region Draw / Update
+
+        public void drawLevel(GameTime gameTime, Matrix view, Matrix projection)
+        {
+            if (isLoaded)
+            {
+                Matrix[] boneTransforms = new Matrix[model.Bones.Count];
+                model.CopyAbsoluteBoneTransformsTo(boneTransforms);
+                Matrix worldMatrix = orientation;
+
+                foreach (ModelMesh mesh in model.Meshes)
+                {
+                    foreach (Effect effect in mesh.Effects)
+                    {
+                            effect.CurrentTechnique = effect.Techniques["Technique1"];
+                            effect.Parameters["mWorld"].SetValue(
+                                           boneTransforms[mesh.ParentBone.Index] *
+                                           worldMatrix *
+                                           Matrix.CreateTranslation(location));
+                            effect.Parameters["mView"].SetValue(view);
+                            effect.Parameters["mProjection"].SetValue(projection);
+
+                        }
+                        mesh.Draw();
+                    }
+                
+            }
+        }
+
+        #endregion
     }
 }

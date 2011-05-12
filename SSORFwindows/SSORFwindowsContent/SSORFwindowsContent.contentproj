@@ -221,6 +221,10 @@
       <Project>{1EDD6E5C-17F1-4A94-BB6B-6767FD69737A}</Project>
       <Name>SSORFlibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\terrainContentPipeline\TerrainPipeline.csproj">
+      <Project>{C003D900-46C7-4AF5-AA99-A4B118EAC77D}</Project>
+      <Name>TerrainPipeline</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Images\BCbutton.png">
@@ -254,13 +258,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\font.spritefont">
-      <Name>font</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="menuFont.spritefont">
       <Name>menuFont</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -272,6 +269,45 @@
       <Name>messagebox</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\terrainCollorMap.bmp">
+      <Name>terrainCollorMap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\terrainHeightMap.bmp">
+      <Name>terrainHeightMap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TerrainProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\terrainTextureB.bmp">
+      <Name>terrainTextureB</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\terrainTextureG.bmp">
+      <Name>terrainTextureG</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\terrainTextureR.bmp">
+      <Name>terrainTextureR</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Effects\InstancedModelEffect.fx">
+      <Name>InstancedModelEffect</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Effects\TerrainTextureEffect.fx">
+      <Name>TerrainTextureEffect</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

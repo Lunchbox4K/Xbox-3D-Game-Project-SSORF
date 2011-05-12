@@ -23,29 +23,20 @@ namespace _3dOnlineGamePipeline
     public class TerrainProcessor : ContentProcessor<Texture2DContent, ModelContent>
     {
         #region Properties
-
-        [DefaultValue(100.0f)]
-        [Description("The distance between vertices in the finished terrain mesh.")]
+        //================================================================================================
+        // General properties for terrain generation.
+        //================================================================================================
         public float Scale { get { return scale; } set { scale = value; } }
-        private float scale = 100.0f; //Distance between verticies in finished terrain mesh
+        private float scale = 16f; //Distance between verticies in finished terrain mesh
 
-        [DefaultValue(640.0f)]
-        [Description("Controls the height of the terrain.")]
         public float Height { get { return height; } set { height = value; } }
-        private float height = 640; //Max Height
+        private float height = 100f; //Max Height
 
-        [DefaultValue(.1f)]
-        [Description("Controls how often the texture will be repeated " +
-                     "across the terrain.")]
         public float TexCoordScale { get { return textScl; } set { textScl = value; } }
-        private float textScl = 1f; //How often the texture will be repeated.
+        private float textScl = 0.01f; //How often the texture will be repeated.Z
 
-        [DefaultValue("rocks.bmp")]
-        [Description("Controls the texture that will be applied to the terrain. If " +
-                     "no value is supplied, a texture will not be applied.")]
-        [DisplayName("Terrain Texture")]
         public string TextureLocation { get { return textLoc; } set { textLoc = value; } }
-        private string textLoc = "rocks.bmp"; //Texture Location
+        private string textLoc = ""; //Texture Location
         #endregion
 
         #region Process
