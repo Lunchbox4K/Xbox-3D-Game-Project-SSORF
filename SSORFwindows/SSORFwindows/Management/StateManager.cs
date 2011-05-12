@@ -153,7 +153,7 @@ namespace SSORF.Management
                     break;
 
                 case GameState.MenuScreen:
-                    menu.draw(spriteBatch);
+                    menu.draw(spriteBatch, player);
                     break;
 
                 case GameState.MissionScreen:

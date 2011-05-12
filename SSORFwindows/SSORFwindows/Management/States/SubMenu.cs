@@ -121,5 +121,7 @@ namespace SSORF.Management.States
         public Texture2D[] ButtonImage { get { return buttonImage; } set { buttonImage = value; } }
 
         public Vector2[] ButtonPosition { get { return buttonPosition; } set { buttonPosition = value; } }
+
+        public short SelectedButton { get { return selectedButton; } }
     }
 }

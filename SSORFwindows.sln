@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSORFwindows", "SSORFwindows\SSORFwindows\SSORFwindows.csproj", "{A8C233AC-7849-4FBB-B13B-67DDBE291B19}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "SSORFwindowsContent", "SSORFwindows\SSORFwindowsContent\SSORFwindowsContent.contentproj", "{F8163E22-B0D2-478B-8C24-376E212227C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSORFwindowsContent", "SSORFwindows\SSORFwindowsContent\SSORFwindowsContent.contentproj", "{F8163E22-B0D2-478B-8C24-376E212227C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSORFlibrary", "SSORFlibrary\SSORFlibrary.csproj", "{1EDD6E5C-17F1-4A94-BB6B-6767FD69737A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,10 @@ Global
 		{A8C233AC-7849-4FBB-B13B-67DDBE291B19}.Release|x86.Build.0 = Release|x86
 		{F8163E22-B0D2-478B-8C24-376E212227C9}.Debug|x86.ActiveCfg = Debug|x86
 		{F8163E22-B0D2-478B-8C24-376E212227C9}.Release|x86.ActiveCfg = Release|x86
+		{1EDD6E5C-17F1-4A94-BB6B-6767FD69737A}.Debug|x86.ActiveCfg = Debug|x86
+		{1EDD6E5C-17F1-4A94-BB6B-6767FD69737A}.Debug|x86.Build.0 = Debug|x86
+		{1EDD6E5C-17F1-4A94-BB6B-6767FD69737A}.Release|x86.ActiveCfg = Release|x86
+		{1EDD6E5C-17F1-4A94-BB6B-6767FD69737A}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

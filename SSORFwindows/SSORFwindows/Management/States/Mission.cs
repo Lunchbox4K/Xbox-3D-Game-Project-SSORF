@@ -161,7 +161,7 @@ namespace SSORF.Management.States
 
                 //if we are playing update scooter/camera using player input
                 case MissionState.Playing :
-/*#if WINDOWS
+
                 float tVal = 0;
                 float bVal = 0;
                 float sVal = 0;
@@ -175,7 +175,7 @@ namespace SSORF.Management.States
                     sVal = -1;
                 
                 scooter.update(gameTime, sVal, tVal, bVal);
-#endif*/
+
 //#if XBOX
                 scooter.update(gameTime, -gamePadState.current.ThumbSticks.Left.X, gamePadState.current.Triggers.Right, gamePadState.current.Triggers.Left);
 //#endif
