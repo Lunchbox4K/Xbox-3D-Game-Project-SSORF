@@ -23,8 +23,8 @@ namespace SSORF.Objects
         //Distance:     Meters
         //Angles:       Radians
         float meterToInchScale = 39.37f;
-        float outputPower = 5;
-        float brakePower = 5;
+        float outputPower = .75f;
+        float brakePower = 2;
         float speed;
         float yaw;
         float weight = 50;
@@ -90,7 +90,7 @@ namespace SSORF.Objects
             //Capture the wheel angle for the next frame's worth of motion
             wheelAngle = steerValue * wheelMaxAngle;
             //TODO: calculate drag here
-            float dragForce = 1.25f * (float)Math.Pow(speed, 2);
+            float dragForce = .25f * (float)Math.Pow(speed, 3) + .75f * speed;
             //Calculate delta-v
             float longForce = (outputPower / wheelRadius) * throttleValue;
             longForce -= (brakePower / wheelRadius) * brakeValue;
