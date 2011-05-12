@@ -22,6 +22,8 @@ namespace SSORF.Management.States
 
     class Mission
     {
+        public Game rootGame; 
+
         public bool Active = true;
 
         //was the mission completed successfully?
@@ -47,7 +49,9 @@ namespace SSORF.Management.States
 
         private float checkPointYaw = 0.0f;
         
-        private Objects.SimpleModel geometry;
+        //private Objects.SimpleModel geometry;
+
+        private Objects.Terrain level;
 
         Objects.ThirdPersonCamera camera = new Objects.ThirdPersonCamera();
 
@@ -64,12 +68,14 @@ namespace SSORF.Management.States
 
         //when scooter selection menu is implemented we will pass in 
         //the chosen vehicle to the Mission constructor
-        public Mission(Objects.Player player, ContentManager content, float aspectRatio)
+        public Mission(Objects.Player player, Game game)
         {
-            scooter.load(content, player.SelectedScooter);
+            rootGame = game;
+            scooter.load(game.Content, player.SelectedScooter);
             camera.ProjMtx = Matrix.CreatePerspectiveFieldOfView(
                             MathHelper.ToRadians(45.0f),
-                            aspectRatio, 1.0f, 1000.0f);
+                            game.GraphicsDevice.Viewport.AspectRatio, 1.0f, 1000.0f);
+            level = new Objects.Terrain(game.GraphicsDevice, game.Content);
         }
 
         //missionId can be used to load checkpoint coordinates for that mission
@@ -80,8 +86,12 @@ namespace SSORF.Management.States
             largeFont = content.Load<SpriteFont>("missionFont");
             smallFont = content.Load<SpriteFont>("font");
             //use IDnum to load the correct content
-            geometry = new Objects.SimpleModel();
-            geometry.Mesh = content.Load<Model>("Models\\level" + missionID.ToString());
+            //geometry = new Objects.SimpleModel();
+            //geometry.Mesh = content.Load<Model>("Models\\level" + missionID.ToString());
+
+            level.LoadModel("Images\\terrainHeightMap", 
+                "Images\\terrainCollorMap", "Images\\terrainTextureR", "Images\\terrainTextureG", "Images\\terrainTextureB");
+            level.LoadShaders("Effects\\TerrainTextureEffect");
 
             Check = new Objects.StaticModel(content, "Models\\check",
                         Vector3.Zero, Matrix.Identity, Matrix.Identity);
@@ -179,6 +189,7 @@ namespace SSORF.Management.States
 //#if XBOX
                 scooter.update(gameTime, -gamePadState.current.ThumbSticks.Left.X, gamePadState.current.Triggers.Right, gamePadState.current.Triggers.Left);
 //#endif
+                scooter.setNormal(level.terrainInfo);
                     camera.update(scooter.Geometry.Location, scooter.Yaw);
 
 
@@ -234,7 +245,8 @@ namespace SSORF.Management.States
 
         public void draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            geometry.draw(camera);
+            //geometry.draw(camera);
+            level.drawLevel(gameTime, camera.ViewMtx, camera.ProjMtx);
 
             scooter.Geometry.drawModel(gameTime, camera.ViewMtx, camera.ProjMtx);
 
@@ -311,7 +323,7 @@ namespace SSORF.Management.States
         }
 
         //accessors and mutators
-        public Objects.SimpleModel Geometry { get { return geometry; } set { geometry = value; } }
+        //public Objects.SimpleModel Geometry { get { return geometry; } set { geometry = value; } }
 
         public Objects.ThirdPersonCamera Camera { get { return camera; } 
             set { camera = value; } }

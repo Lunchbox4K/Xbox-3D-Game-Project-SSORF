@@ -32,6 +32,7 @@ namespace SSORF.Objects
         float wheelMaxAngle = .785f;
         float wheelRadius = 0.175f;
         float wheelBaseLength = 1;
+
         //vehicle still needs list of specs such as weight, name, etc
         //Also need a way to add upgrades to vehicles
 
@@ -46,6 +47,21 @@ namespace SSORF.Objects
             //value of wheelBaseLength
             //other vehicle specs
             //upgrade specs
+        }
+
+        public void setNormal(TerrainInfo terrainInfo)
+        {
+            float height;
+            Vector3 normal;
+            Vector3 location;
+
+            if(terrainInfo.IsOnHeightmap(geometry.Location))
+            {
+                terrainInfo.GetHeightAndNormal(geometry.Location, out height, out normal);
+                location = geometry.Location;
+                location.Y = height;
+                geometry.Location = location;
+            }
         }
 
         public void setStartingPosition(float startingYaw, Vector3 startingPosition, float startingSpeed)

@@ -85,13 +85,13 @@ namespace _3dOnlineGamePipeline
         public override string GetRuntimeType(TargetPlatform targetPlatform)
         {
             return "SSORF.Objects.TerrainInfo, " +
-                "SSORF, Version=1.0.0.0, Culture=neutral";
+                "SSORFwindows, Version=1.0.0.0, Culture=neutral";
         }
 
         public override string GetRuntimeReader(TargetPlatform targetPlatform)
         {
             return "SSORF.Objects.TerrainInfoReader, " +
-                "SSORF, Version=1.0.0.0, Culture=neutral";
+                "SSORFwindows, Version=1.0.0.0, Culture=neutral";
         }
     }
 }
