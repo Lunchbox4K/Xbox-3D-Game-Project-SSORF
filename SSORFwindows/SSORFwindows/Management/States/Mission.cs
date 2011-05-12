@@ -48,6 +48,8 @@ namespace SSORF.Management.States
         private short currentCheckPoint = 0;
 
         private float checkPointYaw = 0.0f;
+
+        bool gamepadInUse = false;
         
         //private Objects.SimpleModel geometry;
 
@@ -104,7 +106,7 @@ namespace SSORF.Management.States
             {
                 numCheckPoints = 3;
                 CheckPointCoords = new Vector3[numCheckPoints];
-                timeLimit = new TimeSpan(0, 0, 10);
+                timeLimit = new TimeSpan(0, 0, 100);
 
                 CheckPointCoords[0] = new Vector3(140, 0, 0);
                 CheckPointCoords[1] = new Vector3(0, 0, -140);
@@ -172,22 +174,29 @@ namespace SSORF.Management.States
                 //if we are playing update scooter/camera using player input
                 case MissionState.Playing :
 
-                float tVal = 0;
-                float bVal = 0;
-                float sVal = 0;
-                if (keyBoardState.current.IsKeyDown(Keys.Up))
-                    tVal = 1;
-                if (keyBoardState.current.IsKeyDown(Keys.Down))
-                    bVal = 1;
-                if (keyBoardState.current.IsKeyDown(Keys.Left))
-                    sVal = 1;
-                if (keyBoardState.current.IsKeyDown(Keys.Right))
-                    sVal = -1;
-                
-                scooter.update(gameTime, sVal, tVal, bVal);
+                if (gamepadInUse)
+                {
+                    scooter.update(gameTime, -gamePadState.current.ThumbSticks.Left.X, gamePadState.current.Triggers.Right, gamePadState.current.Triggers.Left);
+                }
+                else
+                {
+                    float tVal = 0;
+                    float bVal = 0;
+                    float sVal = 0;
+                    if (keyBoardState.current.IsKeyDown(Keys.Up))
+                        tVal = 1;
+                    if (keyBoardState.current.IsKeyDown(Keys.Down))
+                        bVal = 1;
+                    if (keyBoardState.current.IsKeyDown(Keys.Left))
+                        sVal = 1;
+                    if (keyBoardState.current.IsKeyDown(Keys.Right))
+                        sVal = -1;
+
+                    scooter.update(gameTime, sVal, tVal, bVal);
+                }
 
 //#if XBOX
-                scooter.update(gameTime, -gamePadState.current.ThumbSticks.Left.X, gamePadState.current.Triggers.Right, gamePadState.current.Triggers.Left);
+                
 //#endif
                 scooter.setNormal(level.terrainInfo);
                     camera.update(scooter.Geometry.Location, scooter.Yaw);
