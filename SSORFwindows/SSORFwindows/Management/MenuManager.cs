@@ -60,7 +60,7 @@ namespace SSORF.Management
             Menus = new States.SubMenu[(int)Menu.NumMenus];
 
             #region Load Main Menu
-            Menus[(int)Menu.Main] = new States.SubMenu(7); //mission menu has 2 buttons
+            Menus[(int)Menu.Main] = new States.SubMenu(6); //main menu has 7 buttons
             Menus[(int)Menu.Main].BackGround = content.Load<Texture2D>("Images\\game menu");
             Menus[(int)Menu.Main].ButtonImage[0] = content.Load<Texture2D>("Images\\Missions");
             Menus[(int)Menu.Main].ButtonPosition[0] = new Vector2(35, 140);
@@ -74,33 +74,33 @@ namespace SSORF.Management
             Menus[(int)Menu.Main].ButtonPosition[4] = new Vector2(35, 340);
             Menus[(int)Menu.Main].ButtonImage[5] = content.Load<Texture2D>("Images\\Credits");
             Menus[(int)Menu.Main].ButtonPosition[5] = new Vector2(35, 390);
-            Menus[(int)Menu.Main].ButtonImage[6] = content.Load<Texture2D>("Images\\TestButton");
-            Menus[(int)Menu.Main].ButtonPosition[6] = new Vector2(35, 440);
             #endregion
 
-            #region Load VehicleSelect
+            #region Load VehicleSelect select owned vehicles
             Menus[(int)Menu.VehicleSelect] = new States.SubMenu(3); //mission menu has 2 buttons
-            Menus[(int)Menu.VehicleSelect].BackGround = content.Load<Texture2D>("Images\\VehicleTest");
+            Menus[(int)Menu.VehicleSelect].BackGround = content.Load<Texture2D>("Images\\Garage1");
             Menus[(int)Menu.VehicleSelect].ButtonImage[0] = content.Load<Texture2D>("Images\\vehicle1");
-            Menus[(int)Menu.VehicleSelect].ButtonPosition[0] = new Vector2(100, 450);
+            Menus[(int)Menu.VehicleSelect].ButtonPosition[0] = new Vector2(20, 140);
             Menus[(int)Menu.VehicleSelect].ButtonImage[1] = content.Load<Texture2D>("Images\\vehicle2");
-            Menus[(int)Menu.VehicleSelect].ButtonPosition[1] = new Vector2(450, 450);
+            Menus[(int)Menu.VehicleSelect].ButtonPosition[1] = new Vector2(20, 190);
             Menus[(int)Menu.VehicleSelect].ButtonImage[2] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.VehicleSelect].ButtonPosition[2] = new Vector2(50, 70);
+            Menus[(int)Menu.VehicleSelect].ButtonPosition[2] = new Vector2(20, 550);
             #endregion
 
-            #region Load Dealership
-            Menus[(int)Menu.Dealership] = new States.SubMenu(3); //mission menu has 2 buttons
-            Menus[(int)Menu.Dealership].BackGround = content.Load<Texture2D>("Images\\VehicleTest");
+            #region Load Dealership buy new vehicles
+            Menus[(int)Menu.Dealership] = new States.SubMenu(4); //mission menu has 2 buttons
+            Menus[(int)Menu.Dealership].BackGround = content.Load<Texture2D>("Images\\Dealership1");
             Menus[(int)Menu.Dealership].ButtonImage[0] = content.Load<Texture2D>("Images\\TestButton");
-            Menus[(int)Menu.Dealership].ButtonPosition[0] = new Vector2(100, 450);
+            Menus[(int)Menu.Dealership].ButtonPosition[0] = new Vector2(20, 150);
             Menus[(int)Menu.Dealership].ButtonImage[1] = content.Load<Texture2D>("Images\\TuneShopButton");
-            Menus[(int)Menu.Dealership].ButtonPosition[1] = new Vector2(670, 50);
+            Menus[(int)Menu.Dealership].ButtonPosition[1] = new Vector2(20, 250);
             Menus[(int)Menu.Dealership].ButtonImage[2] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.Dealership].ButtonPosition[2] = new Vector2(50, 70);
+            Menus[(int)Menu.Dealership].ButtonPosition[2] = new Vector2(20, 550);
+            Menus[(int)Menu.Dealership].ButtonImage[3] = content.Load<Texture2D>("Images\\Purchase Button");
+            Menus[(int)Menu.Dealership].ButtonPosition[3] = new Vector2(150, 540);
             #endregion
 
-            #region Load TuneShop
+            #region Load TuneShop buy upgrades
             Menus[(int)Menu.TuneShop] = new States.SubMenu(4); //tune shop has 4 buttons
             Menus[(int)Menu.TuneShop].BackGround = content.Load<Texture2D>("Images\\TuneShopTest");
             for (int i = 0; i < 3; i++)
@@ -109,7 +109,7 @@ namespace SSORF.Management
             Menus[(int)Menu.TuneShop].ButtonPosition[1] = new Vector2(250, 350);
             Menus[(int)Menu.TuneShop].ButtonPosition[2] = new Vector2(350, 350);
             Menus[(int)Menu.TuneShop].ButtonImage[3] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.TuneShop].ButtonPosition[3] = new Vector2(50, 70);
+            Menus[(int)Menu.TuneShop].ButtonPosition[3] = new Vector2(25, 70);
             #endregion
 
             #region Load MissionsMenu
@@ -158,8 +158,6 @@ namespace SSORF.Management
                         //    CurrentMenu = Menu.VehicleSelect;
                         //else if (Menus[(int)Menu.Main].buttonPressed == 6)
                         //    CurrentMenu = Menu.VehicleSelect;
-                        else if (Menus[(int)Menu.Main].buttonPressed == 7)
-                            CurrentMenu = Menu.RaceState;
                         Menus[(int)Menu.Main].buttonPressed = 0;
 
                         break;
@@ -236,6 +234,7 @@ namespace SSORF.Management
             
             switch (CurrentMenu)
             {
+                
                 //display upgrade data
                 case Menu.TuneShop :
 
