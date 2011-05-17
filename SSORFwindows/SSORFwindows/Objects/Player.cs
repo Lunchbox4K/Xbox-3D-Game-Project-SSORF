@@ -7,7 +7,7 @@ using System.Text;
 //list of purchased scooters or buy upgrades if they have enough money.
 namespace SSORF.Objects
 {
-     struct upgradeSpecs
+     public struct upgradeSpecs
         {
             public float power;
             public float weight;
@@ -15,12 +15,12 @@ namespace SSORF.Objects
 
     class Player
     {
-       
+        private int money = 15000;
 
-        private int money = 1000;
-
-        //An array of the ID numbers for scooters owned
-        private short[] scootersOwned = new short[10] {1,2,0,0,0,0,0,0,0,0};
+        //indexes of bool array correspond to scooter ID nums
+        private bool[] scootersOwned = new bool[10] 
+        {true,false,false,false,false,false,false,false,false,false};
+        //Player starts with amigo RTX (ID = 0)
 
         private bool[,] upgradesPurchased = new bool[10,3];
 
@@ -28,18 +28,7 @@ namespace SSORF.Objects
         private upgradeSpecs[] scooterUpgrades = new upgradeSpecs[10];
 
         //Id number of the selected scooter
-        private short selectedScooter = 1;
-
-        public short SelectedScooter
-        {
-            get { return selectedScooter; }
-            set { selectedScooter = value; } 
-        }
-
-        public int Money
-        {
-            get { return money; }
-        }
+        private short selectedScooter = 0;
 
         private bool PurchaseItem(short cost)
         {
@@ -53,10 +42,10 @@ namespace SSORF.Objects
 
         public string PurchaseUpgrade(SSORFlibrary.UpgradeData upgrade)
         {
-            //if upgrade already purchased for that scooter return false
+            //if upgrade already purchased for that scooter return message
             if (upgradesPurchased[selectedScooter,upgrade.IDnum] == true)
                 return "This upgrade has already been purchased";
-            //if player has insufficent funds return false
+            //if player has insufficent funds return message
             if (PurchaseItem(upgrade.cost) == false)
                 return "You don't have enough cash for this upgrade";
 
@@ -65,6 +54,42 @@ namespace SSORF.Objects
             scooterUpgrades[selectedScooter].weight += upgrade.weight;
             upgradesPurchased[selectedScooter, upgrade.IDnum] = true;
             return "Upgrade purchased";
+        }
+
+        public string PurchaseScooter(SSORFlibrary.ScooterData scooter)
+        {
+            //if scooter is already owned return message
+            if (scootersOwned[scooter.IDnum] == true)
+                return "You already own this scooter";
+            //if player has insufficent funds return message
+            if (PurchaseItem(scooter.cost) == false)
+                return "You don't have enough cash to buy this scooter";
+
+            scootersOwned[scooter.IDnum] = true;
+            return scooter.name + " was delivered to your garage";
+        }
+
+
+        public short SelectedScooter
+        {
+            get { return selectedScooter; }
+            set { selectedScooter = value; }
+        }
+
+        public int Money
+        {
+            get { return money; }
+            set { money = value; }
+        }
+
+        public bool[] ScootersOwned
+        {
+            get { return scootersOwned; }
+        }
+
+        public upgradeSpecs[] UpgradeTotals
+        {
+            get { return scooterUpgrades; }
         }
     }
 }

@@ -22,58 +22,42 @@ namespace SSORF.Management.States
 
     class Mission
     {
+        #region members
+
         public Game rootGame; 
-
         public bool Active = true;
-
+        Objects.Player player;
         //was the mission completed successfully?
         private bool missionComplete = false;
-
         private MissionState state = MissionState.Starting;
-
         //used for 3..2..1..go
         TimeSpan countDown = new TimeSpan(0,0,4);
         TimeSpan timeLimit;
-
-        private Objects.Vehicle scooter = new Objects.Vehicle();
-
-        private Objects.StaticModel Check;
-
-        private Objects.ModelCollection CheckPoints;
-
-        private Vector3[] CheckPointCoords;
-
-        private short numCheckPoints = 0;
-
-        private short currentCheckPoint = 0;
-
-        private float checkPointYaw = 0.0f;
-
-        bool gamepadInUse = false;
-        
-        //private Objects.SimpleModel geometry;
-
+        int prizeMoney;
         private Objects.Terrain level;
-
+        private Objects.Vehicle scooter = new Objects.Vehicle();
+        private Objects.StaticModel Check;
+        private Objects.ModelCollection CheckPoints;
+        private Vector3[] CheckPointCoords;
+        private short numCheckPoints = 0;
+        private short currentCheckPoint = 0;
+        private float checkPointYaw = 0.0f;
         Objects.ThirdPersonCamera camera = new Objects.ThirdPersonCamera();
-
-        //One checkpoint for now...
-        
-
+        bool gamepadInUse = false;
         //use these fonts to print strings
         private SpriteFont largeFont;
         private SpriteFont smallFont;
+        #endregion
 
         //empty constructor for making missions without parameters
         public Mission()
         { }
 
-        //when scooter selection menu is implemented we will pass in 
-        //the chosen vehicle to the Mission constructor
-        public Mission(Objects.Player player, Game game)
+        public Mission(Objects.Player playerInfo, SSORFlibrary.ScooterData ScooterSpecs, Game game)
         {
+            player = playerInfo;
             rootGame = game;
-            scooter.load(game.Content, player.SelectedScooter);
+            scooter.load(game.Content, ScooterSpecs, player.UpgradeTotals[ScooterSpecs.IDnum]);
             camera.ProjMtx = Matrix.CreatePerspectiveFieldOfView(
                             MathHelper.ToRadians(45.0f),
                             game.GraphicsDevice.Viewport.AspectRatio, 1.0f, 1000.0f);
@@ -102,6 +86,8 @@ namespace SSORF.Management.States
 
             //with missionID we can have a different starting positions, checkpoints, etc. for each mission
             //We need to load the data for each mission from file using the missionID
+
+            #region temp mission loading (needs to be done from file)
             if (missionID == 1)
             {
                 numCheckPoints = 3;
@@ -115,6 +101,8 @@ namespace SSORF.Management.States
                 CheckPoints = new Objects.ModelCollection(Check, numCheckPoints, CheckPointCoords);
 
                 scooter.setStartingPosition(-0.45f, new Vector3(0, 0, 100), 0);
+
+                prizeMoney = 100;
             }
             else if (missionID == 2)
             {
@@ -132,7 +120,12 @@ namespace SSORF.Management.States
 
 
                 scooter.setStartingPosition(0.0f, new Vector3(0,0,40), 0);
+
+                prizeMoney = 200;
             }
+
+            #endregion
+
             camera.update(scooter.Geometry.Location, scooter.Yaw);
         }
 
@@ -220,7 +213,8 @@ namespace SSORF.Management.States
                     
 
                     if (currentCheckPoint == numCheckPoints)
-                    { 
+                    {
+                        player.Money += prizeMoney;
                         missionComplete = true;
                         state = MissionState.Ending;
                     }
@@ -254,6 +248,7 @@ namespace SSORF.Management.States
 
         public void draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+
             //geometry.draw(camera);
             level.drawLevel(gameTime, camera.ViewMtx, camera.ProjMtx);
 
@@ -317,7 +312,8 @@ namespace SSORF.Management.States
                 if (missionComplete)
                 {
                     spriteBatch.DrawString(largeFont, "Finish!", new Vector2(60, 100), Color.Black);
-                    spriteBatch.DrawString(smallFont, "With " + timeLimit.TotalSeconds.ToString() + " seconds to spare!!!", new Vector2(200, 450), Color.Black);
+                    spriteBatch.DrawString(smallFont, "You earned $" + prizeMoney.ToString(), new Vector2(200, 470), Color.Black);
+                    spriteBatch.DrawString(smallFont, "With " + timeLimit.TotalSeconds.ToString() + " seconds to spare!!!", new Vector2(200, 490), Color.Black);
                 }
                 else
                     spriteBatch.DrawString(largeFont, "Fail!", new Vector2(200, 100), Color.Black);

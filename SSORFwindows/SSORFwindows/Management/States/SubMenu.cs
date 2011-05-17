@@ -95,7 +95,7 @@ namespace SSORF.Management.States
                     selectedButton += 1;
 
             //update the cursor position so it is to the left of the button
-            CursorPosition = buttonPosition[selectedButton - 1] + cursorOffset;
+            updateCursor();
 
             //space bar will activate the button
             if (keyBoardState.previous.IsKeyUp(Keys.Space) && keyBoardState.current.IsKeyDown(Keys.Space))
@@ -103,7 +103,8 @@ namespace SSORF.Management.States
 #endif
 
         }
-
+         public void updateCursor()
+         {CursorPosition = buttonPosition[selectedButton - 1] + cursorOffset;}
 
         //Draw backgound and buttons
         public void draw(SpriteBatch spriteBatch)

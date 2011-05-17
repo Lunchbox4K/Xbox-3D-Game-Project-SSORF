@@ -64,7 +64,7 @@ namespace SSORF.Management
             title = new States.Title();
             title.Image = Game.Content.Load<Texture2D>("Images\\senior scooter title screen");
 
-            menu = new MenuManager(Game.Content);
+            menu = new MenuManager(Game.Content, player);
 
             currentMission = new States.Mission();
 
@@ -108,7 +108,8 @@ namespace SSORF.Management
                     if (menu.selectedMission != 0)
                     {   // switch to mission, load it, then update it
                         State = GameState.MissionScreen;
-                        currentMission = new States.Mission(player, Game);
+                        currentMission = new States.Mission(player, 
+                            menu.ScooterSpecs[player.SelectedScooter], Game);
                         currentMission.load(Game.Content, menu.selectedMission);
                         currentMission.update(gameTime);
                         menu.selectedMission = 0;

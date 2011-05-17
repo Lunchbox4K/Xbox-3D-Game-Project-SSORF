@@ -16,23 +16,15 @@ namespace SSORF.Objects
         public bool Active = false;
         Texture2D background;
         string title;
-        string message1;
-        string message2;
+        string message;
 
         public MessageBox()
         {}
 
-        public void setMessage(string Title, string Message1)
+        public void setMessage(string Title, string Message)
         {
             title = Title;
-            message1 = Message1;
-            message2 = string.Empty;
-        }
-        public void setMessage(string Title, string Message1, string Message2)
-        {
-            title = Title;
-            message1 = Message1;
-            message2 = Message2;
+            message = Message;
         }
 
         public void update()
@@ -51,10 +43,9 @@ namespace SSORF.Objects
 
         public void draw(SpriteBatch spriteBatch, SpriteFont font, Color backgroundColor, Color fontColor)
         {
-            spriteBatch.Draw(background, new Vector2(300, 200), backgroundColor);
-            spriteBatch.DrawString(font, title, new Vector2(320, 210), fontColor);
-            spriteBatch.DrawString(font, message1, new Vector2(320, 280), fontColor);
-            spriteBatch.DrawString(font, message2, new Vector2(320, 300), fontColor);
+            spriteBatch.Draw(background, new Vector2(160, 180), backgroundColor);
+            spriteBatch.DrawString(font, title, new Vector2(300, 200), fontColor);
+            spriteBatch.DrawString(font, message, new Vector2(170, 270), fontColor);
         }
 
         public Texture2D Background

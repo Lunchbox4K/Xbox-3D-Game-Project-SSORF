@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="SSORFlibrary.ScooterData[]">
+    <Item>
+      <IDnum>0</IDnum>
+      <name>Ameego RT Express</name>
+      <power>35</power>
+      <weight>60</weight>
+      <cost>800</cost>
+    </Item>
+    <Item>
+      <IDnum>1</IDnum>
+      <name>Razcal UltraLite</name>
+      <power>20</power>
+      <weight>38</weight>
+      <cost>1200</cost>
+    </Item>
+
+  </Asset>
+</XnaContent>

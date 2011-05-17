@@ -187,6 +187,7 @@ namespace SSORF.Objects
         public string ModelAsset
         {
             get { return modelAsset; }
+            set { modelAsset = value; }
         }
     }
 }

@@ -16,19 +16,15 @@ namespace SSORF.Objects
         private Model model;
         private Matrix worldMtx = Matrix.Identity;
 
-        public void setPosition(Vector3 position)
-        {
-            worldMtx = Matrix.CreateTranslation(position);
-        }
-
         public void rotate(float yaw)
         {
-            worldMtx = Matrix.CreateRotationY(yaw) * worldMtx;
+            worldMtx = Matrix.CreateRotationY(yaw);
 
         }
 
-        public void draw(ThirdPersonCamera Camera)
+        public void draw(Matrix View, Matrix Proj, Vector3 position)
         {
+            worldMtx *= Matrix.CreateTranslation(position);
             Matrix[] transforms = new Matrix[model.Bones.Count];
             model.CopyAbsoluteBoneTransformsTo(transforms);
 
@@ -37,8 +33,8 @@ namespace SSORF.Objects
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
-                    effect.Projection = Camera.ProjMtx;
-                    effect.View = Camera.ViewMtx;
+                    effect.Projection = Proj;
+                    effect.View = View;
                     //effect.World = mesh.ParentBone.Transform * worldMtx;
 
                     effect.World = transforms[mesh.ParentBone.Index] * WorldMtx;
