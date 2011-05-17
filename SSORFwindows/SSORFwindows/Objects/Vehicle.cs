@@ -22,16 +22,18 @@ namespace SSORF.Objects
         //Speed:        Meters/Sec
         //Distance:     Meters
         //Angles:       Radians
+        //Grip:         Meters/Sec^2
         float meterToInchScale = 39.37f;
-        float outputPower;// = .75f;
+        float outputPower;
         float brakePower = 2;
         float speed;
         float yaw;
-        float weight;// = 50;
+        float weight;
         float wheelAngle = 0;
         float wheelMaxAngle = .785f;
         float wheelRadius = 0.175f;
         float wheelBaseLength = 1;
+        float gripRating = 2.94f;
 
         //vehicle still needs list of specs such as weight, name, etc
         //Also need a way to add upgrades to vehicles
@@ -83,6 +85,13 @@ namespace SSORF.Objects
             //Find the vehicle's current turning radius
             float turnRadius = wheelBaseLength/(float)Math.Tan(wheelAngle);
             //TODO: calculate lateral force here - remember to fix yaw
+            if (gripRating < ((float)Math.Pow(speed/turnRadius, 2) * Math.Abs(turnRadius)))
+            {
+                if (turnRadius < 0)
+                    turnRadius = (float)Math.Pow(speed, 2) / -gripRating;
+                else
+                    turnRadius = (float)Math.Pow(speed, 2) / gripRating;
+            }
             //Now use those to get the vehicle's yaw offset
             float deltaYaw = tempDistance / turnRadius;
             //Update rotations
