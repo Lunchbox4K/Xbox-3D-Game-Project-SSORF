@@ -27,8 +27,8 @@
       <name>Flux Capacitor</name>
       <description1>Flux dispersal allows the vehicle to have smooth passage</description1>
       <description2>through the space time continuum.</description2>
-      <power>0.0</power>
-      <weight>-100.0</weight>
+      <power>1000</power>
+      <weight>0.0</weight>
       <cost>5000</cost>
       <button>FCbutton</button>
     </Item>

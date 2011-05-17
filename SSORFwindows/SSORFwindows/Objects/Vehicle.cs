@@ -23,11 +23,11 @@ namespace SSORF.Objects
         //Distance:     Meters
         //Angles:       Radians
         float meterToInchScale = 39.37f;
-        float outputPower = .75f;
+        float outputPower;// = .75f;
         float brakePower = 2;
         float speed;
         float yaw;
-        float weight = 50;
+        float weight;// = 50;
         float wheelAngle = 0;
         float wheelMaxAngle = .785f;
         float wheelRadius = 0.175f;
@@ -36,9 +36,13 @@ namespace SSORF.Objects
         //vehicle still needs list of specs such as weight, name, etc
         //Also need a way to add upgrades to vehicles
 
-        public void load(ContentManager content, short vehicleID)
+        public void load(ContentManager content, SSORFlibrary.ScooterData VehicleSpecs, upgradeSpecs Upgrades)
         {
-            geometry = new StaticModel(content, "Models\\scooter" + vehicleID.ToString(),
+            //implemented specs and upgrades for weight and power
+            weight = VehicleSpecs.weight + Upgrades.weight;
+            outputPower = (VehicleSpecs.power + Upgrades.power) / 45;
+
+            geometry = new StaticModel(content, "Models\\scooter" + VehicleSpecs.IDnum.ToString(),
                 Vector3.Zero, Matrix.Identity, Matrix.Identity);
             geometry.LoadModel();
 
