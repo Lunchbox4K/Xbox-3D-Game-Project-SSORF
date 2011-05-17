@@ -115,11 +115,11 @@ namespace SSORF.Management
                 Menus[(int)Menu.Dealership].ButtonPosition[i] = new Vector2(20, y);
                 y += 45;
             }
-
-            Menus[(int)Menu.Dealership].ButtonImage[8] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.Dealership].ButtonPosition[8] = new Vector2(20, 550);
-            Menus[(int)Menu.Dealership].ButtonImage[9] = content.Load<Texture2D>("Images\\TuneShopButton");
-            Menus[(int)Menu.Dealership].ButtonPosition[9] = new Vector2(650, 5);
+            Menus[(int)Menu.Dealership].ButtonImage[8] = content.Load<Texture2D>("Images\\TuneShopButton");
+            Menus[(int)Menu.Dealership].ButtonPosition[8] = new Vector2(650, 5);
+            Menus[(int)Menu.Dealership].ButtonImage[9] = content.Load<Texture2D>("Images\\BackButton");
+            Menus[(int)Menu.Dealership].ButtonPosition[9] = new Vector2(20, 550);
+            
 
             #endregion
 
