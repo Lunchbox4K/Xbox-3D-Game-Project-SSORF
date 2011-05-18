@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using SSORF.Management;
 
 //Contains 3D model and specs for a scooter
 namespace SSORF.Objects
@@ -112,7 +113,31 @@ namespace SSORF.Objects
             speed += deltaV;
             if (speed < 0)
                 speed = 0;
+            UpdateAudio(throttleValue);
+        }
 
+        public void UpdateAudio(float throttleValue)
+        {
+            AudioManager.getEngineSounds().SetVariable("throttleValue", throttleValue + speed);
+            AudioManager.getEngineSounds().SetVariable("Speed", speed);
+            if (throttleValue != 0)
+            {
+
+                if (AudioManager.getEngineSounds().IsPaused)
+                    AudioManager.getEngineSounds().Resume();
+                else if (AudioManager.getEngineSounds().IsStopped)
+                {
+                    AudioManager.resetEngineSounds();
+                    AudioManager.getEngineSounds().Play();
+                }
+                else if (AudioManager.getEngineSounds().IsPlaying == false &&
+                    AudioManager.getEngineSounds().IsPrepared)
+                    AudioManager.getEngineSounds().Play();
+            }
+            else
+            {
+                AudioManager.getEngineSounds().Stop(AudioStopOptions.AsAuthored);
+            }
         }
  
         //Accessors and Mutators
