@@ -3,62 +3,70 @@ using System;
 
 namespace SSORF.Management
 {
-    class AudioManager
+    public static class AudioManager
     {
-        private AudioEngine audioEngine;
-        private WaveBank waveBank;
-        private SoundBank soundBank;
+        private static AudioEngine audioEngine;
+        private static WaveBank waveBank;
+        private static SoundBank soundBank;
 
-        private Cue menuMusic;
-        private Cue missionMusic;
-        private Cue engineSounds;
-        private Cue miscSounds;
+        private static Cue menuMusic;
+        private static Cue missionMusic;
+        private static Cue engineSounds;
 
-        public void LoadAudioContent()
+        public static void LoadAudioContent()
         {
             audioEngine = new AudioEngine("Content/Audio/Background Music.xgs");
             waveBank = new WaveBank(audioEngine, "Content/Audio/Wave Bank.xwb");
             soundBank = new SoundBank(audioEngine, "Content/Audio/Sound Bank.xsb");
+
+            menuMusic = soundBank.GetCue("Exciting Ride");
+            missionMusic = soundBank.GetCue("Journey");
+            engineSounds = soundBank.GetCue("Engine");
         }
 
-        public Cue getCue(String cueName)
+        public static void Update()
+        {
+            audioEngine.Update();
+        }
+
+        public static Cue getCue(String cueName)
         {
             return soundBank.GetCue(cueName);
         }
 
-        public void playCue(String cueName)
-        {
-            this.getCue(cueName).Play();
-        }
-
-        public void stopCue(String cueName)
-        {
-            this.getCue(cueName).Stop(AudioStopOptions.AsAuthored);
-        }
-
-        public void pauseCue(String cueName)
-        {
-            this.getCue(cueName).Pause();
-        }
-
-        public void resumeCue(String cueName)
-        {
-            this.getCue(cueName).Resume();
-        }
-
-        public Cue getMenuMusic()
+        public static Cue getMenuMusic()
         {
             return menuMusic;
         }
 
-        public Cue getMissionMusic()
+        public static void resetMenuMusic()
+        {
+            menuMusic = soundBank.GetCue("Exciting Ride");
+        }
+
+        public static Cue getMissionMusic()
         {
             return missionMusic;
         }
 
-        public Cue getEngineSounds()
+        public static void resetMissionMusic()
+        {
+            missionMusic = soundBank.GetCue("Journey");
+        }
+
+        public static Cue getEngineSounds()
         {
             return engineSounds;
+        }
+
+        public static void resetEngineSounds()
+        {
+            engineSounds = soundBank.GetCue("At Speed");
+        }
+
+        public static void setEngineSounds(String cueName)
+        {
+            engineSounds = getCue(cueName);
         }
     }
 }

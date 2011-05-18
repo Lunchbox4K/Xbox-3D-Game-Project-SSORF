@@ -68,6 +68,8 @@ namespace SSORF.Management
 
             currentMission = new States.Mission();
 
+            //AudioManager initialization
+            AudioManager.LoadAudioContent();
         }
 
         //Do we need to use this? I'm not sure
