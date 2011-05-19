@@ -27,7 +27,8 @@ namespace SSORF.Management
             Dealership,
             Missions,
             TuneShop,
-            RaceState,
+            Options,
+            Credits,
             NumMenus,
         }
 
@@ -147,6 +148,20 @@ namespace SSORF.Management
             Menus[(int)Menu.Missions].ButtonPosition[2] = new Vector2(600, 550);
             #endregion
 
+            #region Load Credits
+            Menus[(int)Menu.Credits] = new States.SubMenu(1); //mission menu has 2 buttons
+            Menus[(int)Menu.Credits].BackGround = content.Load<Texture2D>("Images\\Credits Form");
+            Menus[(int)Menu.Credits].ButtonImage[0] = content.Load<Texture2D>("Images\\BackButton");
+            Menus[(int)Menu.Credits].ButtonPosition[0] = new Vector2(50, 550);
+            #endregion
+
+            #region Load Options
+            Menus[(int)Menu.Options] = new States.SubMenu(1); //mission menu has 2 buttons
+            Menus[(int)Menu.Options].BackGround = content.Load<Texture2D>("Images\\Options Form");
+            Menus[(int)Menu.Options].ButtonImage[0] = content.Load<Texture2D>("Images\\BackButton");
+            Menus[(int)Menu.Options].ButtonPosition[0] = new Vector2(50, 550);
+            #endregion
+
             //load messageBox background
             messageBox.Background = content.Load<Texture2D>("Images\\messagebox");
 
@@ -192,10 +207,10 @@ namespace SSORF.Management
                         }
                         //else if (Menus[(int)Menu.Main].buttonPressed == 4)
                         //    CurrentMenu = Menu.VehicleSelect;
-                        //else if (Menus[(int)Menu.Main].buttonPressed == 5)
-                        //    CurrentMenu = Menu.VehicleSelect;
-                        //else if (Menus[(int)Menu.Main].buttonPressed == 6)
-                        //    CurrentMenu = Menu.VehicleSelect;
+                        else if (Menus[(int)Menu.Main].buttonPressed == 5)
+                            CurrentMenu = Menu.Options;
+                        else if (Menus[(int)Menu.Main].buttonPressed == 6)
+                            CurrentMenu = Menu.Credits;
                         Menus[(int)Menu.Main].buttonPressed = 0;
 
                         break;
@@ -223,9 +238,9 @@ namespace SSORF.Management
                     #region update Dealership
 
                     case Menu.Dealership:
-                        if (Menus[(int)Menu.Dealership].buttonPressed == 9)
-                            CurrentMenu = Menu.Main;
                         if (Menus[(int)Menu.Dealership].buttonPressed == 10)
+                            CurrentMenu = Menu.Main;
+                        if (Menus[(int)Menu.Dealership].buttonPressed == 9)
                             CurrentMenu = Menu.TuneShop;
 
                         // < 3 should get changed to < 9 when we have rest of scooters 
@@ -279,7 +294,25 @@ namespace SSORF.Management
                         break;
                     #endregion
 
+                    #region update Credits
+                    case Menu.Credits:
+                         if (Menus[(int)Menu.Credits].buttonPressed == 1)
+                            CurrentMenu = Menu.Main;
+                        Menus[(int)Menu.Credits].buttonPressed = 0;
+
+                        break;
                     //etc.
+                    #endregion
+
+                    #region update Options
+                    case Menu.Options:
+                        if (Menus[(int)Menu.Options].buttonPressed == 1)
+                            CurrentMenu = Menu.Main;
+                        Menus[(int)Menu.Options].buttonPressed = 0;
+
+                        break;
+                    //etc.
+                    #endregion
                 }
 
 
