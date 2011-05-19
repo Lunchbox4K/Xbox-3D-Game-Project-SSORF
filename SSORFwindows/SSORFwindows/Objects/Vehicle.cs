@@ -35,6 +35,8 @@ namespace SSORF.Objects
         float wheelRadius = 0.175f;
         float wheelBaseLength = 1;
         float gripRating = 2.94f;
+        float coefficientDrag = .8f;
+        float frontalArea = 6;
 
         //vehicle still needs list of specs such as weight, name, etc
         //Also need a way to add upgrades to vehicles
@@ -104,7 +106,8 @@ namespace SSORF.Objects
             //Capture the wheel angle for the next frame's worth of motion
             wheelAngle = steerValue * wheelMaxAngle;
             //TODO: calculate drag here
-            float dragForce = .25f * (float)Math.Pow(speed, 3) + .75f * speed;
+            float dragForce = coefficientDrag * frontalArea * .5f * (float)Math.Pow(speed, 2);
+            dragForce += .1f;   //For powertrain loss/rolling resistance
             //Calculate delta-v
             float longForce = (outputPower / wheelRadius) * throttleValue;
             longForce -= (brakePower / wheelRadius) * brakeValue;
