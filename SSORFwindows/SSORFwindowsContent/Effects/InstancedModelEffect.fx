@@ -57,8 +57,8 @@ VertexShaderOutput HardwareInstancingVertexShader(VertexShaderInput input,
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
 	
-    //return tex2D(Sampler, input.TextureCoordinate) * input.Color;
-	return input.Color;
+    return tex2D(Sampler, input.TextureCoordinate) * input.Color;
+	//return input.Color;
 }
 
 // Hardware instancing technique.
