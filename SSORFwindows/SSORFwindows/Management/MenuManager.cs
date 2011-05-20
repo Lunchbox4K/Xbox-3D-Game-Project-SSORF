@@ -47,7 +47,7 @@ namespace SSORF.Management
         private States.SubMenu[] Menus;
  
         private Texture2D CursorImage;
-
+        private Texture2D fixedImage;
         //used to display upgrade data
         private UpgradeData[] upgrades;
         private ScooterData[] scooters;
@@ -156,15 +156,22 @@ namespace SSORF.Management
             #endregion
 
             #region Load Options
-            Menus[(int)Menu.Options] = new States.SubMenu(1); //mission menu has 2 buttons
+            
+            Menus[(int)Menu.Options] = new States.SubMenu(3); //mission menu has 3 buttons
             Menus[(int)Menu.Options].BackGround = content.Load<Texture2D>("Images\\Options Form");
-            Menus[(int)Menu.Options].ButtonImage[0] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.Options].ButtonPosition[0] = new Vector2(50, 550);
+            //Menus[(int)Menu.Options].ButtonImage[0] = content.Load<Texture2D>("Images\\Music Button");
+            //Menus[(int)Menu.Options].ButtonPosition[0] = new Vector2(75, 150);
+            Menus[(int)Menu.Options].ButtonImage[0] = content.Load<Texture2D>("Images\\On Button");
+            Menus[(int)Menu.Options].ButtonPosition[0] = new Vector2(250, 150);
+            Menus[(int)Menu.Options].ButtonImage[1] = content.Load<Texture2D>("Images\\Off Button");
+            Menus[(int)Menu.Options].ButtonPosition[1] = new Vector2(350, 150);
+            Menus[(int)Menu.Options].ButtonImage[2] = content.Load<Texture2D>("Images\\BackButton");
+            Menus[(int)Menu.Options].ButtonPosition[2] = new Vector2(50, 550);
             #endregion
 
             //load messageBox background
             messageBox.Background = content.Load<Texture2D>("Images\\messagebox");
-
+            fixedImage = content.Load<Texture2D>("Images\\Music Button");
             //load cursor image and set current menu to main menu
             CursorImage = content.Load<Texture2D>("Images\\cursor");
             CurrentMenu = Menu.Main;
@@ -370,6 +377,10 @@ namespace SSORF.Management
                         drawVehicleSpecs(spriteBatch, new Vector2(280, 190), Menus[(int)Menu.VehicleSelect].SelectedButton - 1,
                             player.UpgradeTotals[Menus[(int)Menu.VehicleSelect].SelectedButton - 1]);
                     
+                    break;
+                    
+                case Menu.Options:
+                    spriteBatch.Draw(fixedImage, new Vector2(75, 150), Color.White);
                     break;
 
             }

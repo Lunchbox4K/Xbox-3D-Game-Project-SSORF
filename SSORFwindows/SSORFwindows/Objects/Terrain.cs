@@ -128,6 +128,20 @@ namespace SSORF.Objects
             normal = Vector3.Lerp(topNormal, bottomNormal, zNormalized);
             normal.Normalize();
         }
+
+
+        public float HeightmapHeight
+        {
+            get { return heightmapHeight; }
+        }
+        public float HeightmapWidth
+        {
+            get { return heightmapWidth; }
+        }
+        public float HeightmapScale
+        {
+            get { return terrainScale; }
+        }
     }
     /// <summary>
     /// This class will load the HeightMapInfo when the game starts. This class needs 
