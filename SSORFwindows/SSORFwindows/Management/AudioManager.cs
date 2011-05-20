@@ -13,6 +13,9 @@ namespace SSORF.Management
         private static Cue missionMusic;
         private static Cue engineSounds;
 
+        private static Boolean isMusicPlaying;
+        private static Boolean isSoundPlaying;
+
         public static void LoadAudioContent()
         {
             audioEngine = new AudioEngine("Content/Audio/Background Music.xgs");
@@ -61,7 +64,7 @@ namespace SSORF.Management
 
         public static void resetEngineSounds()
         {
-            engineSounds = soundBank.GetCue("At Speed");
+            engineSounds = soundBank.GetCue("Engine");
         }
 
         public static void setEngineSounds(String cueName)

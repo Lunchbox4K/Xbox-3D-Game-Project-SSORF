@@ -16,8 +16,8 @@ Global Settings
     Header File = Background Music.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 4129994641;
-    Last Modified High = 30151922;
+    Last Modified Low = 2372461810;
+    Last Modified High = 30152322;
 
     Category
     {
@@ -75,6 +75,32 @@ Global Settings
         Name = Music;
         Public = 1;
         Background Music = 1;
+        Volume = 0;
+
+        Category Entry
+        {
+            Name = Global;
+        }
+
+        Instance Limit
+        {
+            Max Instances = 255;
+            Behavior = 0;
+
+            Crossfade
+            {
+                Fade In = 0;
+                Fade Out = 0;
+                Crossfade Type = 0;
+            }
+        }
+    }
+
+    Category
+    {
+        Name = Engine;
+        Public = 1;
+        Background Music = 0;
         Volume = 0;
 
         Category Entry
@@ -255,7 +281,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::5df5030d-5fc0-4d7b-bdb0-9ef0fc4676f5;
+            Name = Sound::153657c0-4a26-420c-85b7-fd98e5ad7eb5;
             Property = 0;
             Sound = 1;
             Line Color = 4289811190;
@@ -268,29 +294,29 @@ Global Settings
 
             RPC Point
             {
-                X = -10.000000;
-                Y = 350.000000;
+                X = -8.400000;
+                Y = 70.588234;
                 Curve = 2;
             }
 
             RPC Point
             {
                 X = 0.000000;
-                Y = -1000.000000;
+                Y = -1500.000000;
                 Curve = 1;
             }
 
             RPC Point
             {
-                X = 10.000000;
-                Y = 350.000000;
+                X = 8.400000;
+                Y = 70.588234;
                 Curve = 0;
             }
         }
 
         RPC Curve
         {
-            Name = Sound::24d1ff58-53ba-4cd6-945c-5ea132931582;
+            Name = Sound::b0474636-a2e2-4e7e-9c47-33d189f8db94;
             Property = 1;
             Sound = 1;
             Line Color = 4294901760;
@@ -312,7 +338,7 @@ Global Settings
             {
                 X = 24.876848;
                 Y = 12.456747;
-                Curve = 2;
+                Curve = 1;
             }
 
             RPC Point
@@ -336,10 +362,10 @@ Wave Bank
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 143554991;
-    PC Bank Last Modified High = 30151923;
-    Bank Last Revised Low = 2272758413;
-    Bank Last Revised High = 30151922;
+    PC Bank Last Modified Low = 1487782847;
+    PC Bank Last Modified High = 30152321;
+    Bank Last Revised Low = 2067047444;
+    Bank Last Revised High = 30152314;
 
     Wave
     {
@@ -464,8 +490,8 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 143735002;
-    Bank Last Modified High = 30151923;
+    Bank Last Modified Low = 1488152868;
+    Bank Last Modified High = 30152321;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -478,7 +504,7 @@ Sound Bank
 
         Category Entry
         {
-            Name = Default;
+            Name = Music;
         }
 
         Track
@@ -526,7 +552,7 @@ Sound Bank
 
         Category Entry
         {
-            Name = Default;
+            Name = Music;
         }
 
         Track
@@ -652,7 +678,7 @@ Sound Bank
             Play Wave Event
             {
                 Loop Count = 255;
-                Break Loop = 1;
+                Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
                 New Speaker Position On Loop = 1;
@@ -665,14 +691,6 @@ Sound Bank
                     Relative = 0;
                     Random Recurrence = 0;
                     Random Offset = 0;
-                }
-
-                Pitch Variation
-                {
-                    Min = -100;
-                    Max = 100;
-                    Operator = 0;
-                    New Variation On Loop = 0;
                 }
 
                 Wave Entry
@@ -692,7 +710,7 @@ Sound Bank
     {
         Name = SFX_ViperGTS_EngineLoop;
         Volume = -1200;
-        Pitch = 0;
+        Pitch = 563;
         Priority = 0;
 
         Category Entry
@@ -712,6 +730,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -830,19 +849,6 @@ Sound Bank
             Index = 3;
             Weight Min = 0;
             Weight Max = 255;
-        }
-
-        Instance Limit
-        {
-            Max Instances = 1;
-            Behavior = 2;
-
-            Crossfade
-            {
-                Fade In = 1000;
-                Fade Out = 1000;
-                Crossfade Type = 0;
-            }
         }
     }
 

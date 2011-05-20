@@ -198,6 +198,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\InstancedModelPipeline\InstancedModelPipeline.csproj">
+      <Project>{0080530B-EC73-4B40-B51E-E7D006EA4329}</Project>
+      <Name>InstancedModelPipeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\LocationMapGenerator\LocationMapGenerator.csproj">
+      <Project>{4907AED6-5F3F-4F49-A8D4-BAC24812368C}</Project>
+      <Name>LocationMapGenerator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SSORFlibrary\SSORFlibrary.csproj">
       <Project>{1EDD6E5C-17F1-4A94-BB6B-6767FD69737A}</Project>
       <Name>SSORFlibrary</Name>
@@ -248,33 +256,6 @@
   <ItemGroup>
     <Compile Include="Images\messagebox.png">
       <Name>messagebox</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Images\terrainCollorMap.bmp">
-      <Name>terrainCollorMap</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\terrainHeightMap.bmp">
-      <Name>terrainHeightMap</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TerrainProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\terrainTextureB.bmp">
-      <Name>terrainTextureB</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\terrainTextureG.bmp">
-      <Name>terrainTextureG</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\terrainTextureR.bmp">
-      <Name>terrainTextureR</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -401,6 +382,98 @@
   <ItemGroup>
     <Compile Include="Images\Options Form.png">
       <Name>Options Form</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl2_cm.bmp">
+      <Name>lvl2_cm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\lvl2_hm.bmp">
+      <Name>lvl2_hm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TerrainProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\lvl2_mm.bmp">
+      <Name>lvl2_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\lvl3_cm.bmp">
+      <Name>lvl3_cm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\lvl3_hm.bmp">
+      <Name>lvl3_hm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TerrainProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\lvl3_mm.bmp">
+      <Name>lvl3_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\modelMap.bmp">
+      <Name>modelMap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\terrainCollorMap.bmp">
+      <Name>terrainCollorMap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\terrainHeightMap.bmp">
+      <Name>terrainHeightMap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TerrainProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\terrainTextureB.bmp">
+      <Name>terrainTextureB</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\terrainTextureG.bmp">
+      <Name>terrainTextureG</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\terrainTextureR.bmp">
+      <Name>terrainTextureR</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\textureX.bmp">
+      <Name>textureX</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\tree.fbx">
+      <Name>tree</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>2</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Music Button.png">
+      <Name>Music Button</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Off Button.png">
+      <Name>Off Button</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\On Button.png">
+      <Name>On Button</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

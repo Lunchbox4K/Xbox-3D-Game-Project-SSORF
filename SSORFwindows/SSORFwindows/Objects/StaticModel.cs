@@ -25,6 +25,8 @@ namespace SSORF.Objects
         protected Matrix orientation;
         protected Matrix scale;
         protected BoundingBox boundingBox;
+        protected static int modelIDloop;
+        protected int modelID;
 
         //For some reason, bounding box collision detection was not working
         //so I added this as a temporary fix...
@@ -50,6 +52,8 @@ namespace SSORF.Objects
         public StaticModel(ContentManager Content, string AssetLocation, 
             Vector3 Location, Matrix Orientation, Matrix Scale)
         {
+        modelIDloop += 1;
+            modelID = modelIDloop;
             modelAsset = AssetLocation;
             content = Content;
             model = null;
@@ -58,6 +62,7 @@ namespace SSORF.Objects
             orientation = Orientation;
             scale = Scale;
         }
+
         public virtual void LoadModel()
         {
             try
@@ -107,8 +112,7 @@ namespace SSORF.Objects
                     for (int i = 0; i < vartexDataSize; i += vertexStride / sizeof(float))
                     {
                         Vector3 transformedPosition = 
-                            Vector3.Transform(new Vector3(vertexData[i], vertexData[i + 1], vertexData[i + 2]), 
-                                              Matrix.CreateTranslation(location));
+                            Vector3.Transform(new Vector3(vertexData[i], vertexData[i + 1], vertexData[i + 2]),Matrix.Identity);
 
                         min = Vector3.Min(min, transformedPosition);
                         max = Vector3.Max(max, transformedPosition);
@@ -117,8 +121,12 @@ namespace SSORF.Objects
             }
             // Create and return bounding box
             boundingBox =  new BoundingBox(min, max);
-        } 
-            
+        }
+
+        private void calcTransformedBoundingBox(Matrix transform)
+        {
+
+        }
 
         public virtual void UnloadModel()
         {
@@ -128,6 +136,7 @@ namespace SSORF.Objects
                 isLoaded = false;
             }
         }
+
         public virtual void drawModel(GameTime gameTime, Matrix view, Matrix projection)
         {
             if (isLoaded)
@@ -164,30 +173,62 @@ namespace SSORF.Objects
         public Model Geometry
         { get { return model; } }
 
-
         public BoundingBox getBoundingBox
         {
-            get { return boundingBox; }
+            get 
+            {
+                //Create Returnable Box
+                BoundingBox box = new BoundingBox();
+                Matrix transform = 
+                    scale * orientation * Matrix.CreateTranslation(location);
+                //Translate Box
+                Vector3.Transform(ref boundingBox.Min, ref transform, out box.Min);
+                Vector3.Transform(ref boundingBox.Max, ref transform, out box.Max);
+                return box; 
+            }
         }
+
+        public BoundingBox getBoundingBoxTransform(Matrix Transform)
+        {
+            //Create Returnable Box
+            BoundingBox box = new BoundingBox();
+            //Translate Box
+            Vector3.Transform(ref boundingBox.Min, ref Transform, out box.Min);
+            Vector3.Transform(ref boundingBox.Max, ref Transform, out box.Max);
+            return box; 
+        }
+
         public Vector3 Location
         {
             get { return location; }
             set { location = value; }
         }
+
         public Matrix Scale
         {
             get { return scale; }
             set { scale = value; }
         }
+
+        public bool IsLoaded
+        {
+            get { return isLoaded; }
+        }
+
         public Matrix Orientation
         {
             get { return orientation; }
             set { orientation = value; }
         }
+
         public string ModelAsset
         {
             get { return modelAsset; }
-            set { modelAsset = value; }
+        }
+
+        public int ID
+        {
+            get { return modelID; }
         }
     }
 }
