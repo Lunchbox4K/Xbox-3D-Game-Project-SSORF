@@ -177,6 +177,7 @@ namespace SSORF.Management.States
                         gamePadState.current.Buttons.Start == ButtonState.Released) 
                         state = MissionState.Paused;
 #else
+                scooter.UpdateAudio(0);
                 if (keyBoardState.current.IsKeyDown(Keys.Q))
                         state = MissionState.Ending;
                     if (keyBoardState.current.IsKeyDown(Keys.Enter) &&
@@ -256,6 +257,7 @@ namespace SSORF.Management.States
                     if (gamePadState.current.Buttons.Start == ButtonState.Pressed)  
                         Active = false;
 #else
+                scooter.UpdateAudio(0);
                     if (keyBoardState.current.IsKeyDown(Keys.Enter))  
                         Active = false;               
 #endif
