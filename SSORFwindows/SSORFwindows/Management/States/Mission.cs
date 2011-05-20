@@ -118,7 +118,7 @@ namespace SSORF.Management.States
 
                 CheckPoints = new Objects.ModelCollection(Check, numCheckPoints, CheckPointCoords);
 
-                scooter.setStartingPosition(-0.45f, new Vector3(0, 0, 100), 0);
+                scooter.setStartingPosition(-0.45f, new Vector3(0, 0, 100), 1);
 
                 prizeMoney = 100;
             }
@@ -137,7 +137,7 @@ namespace SSORF.Management.States
                 CheckPoints = new Objects.ModelCollection(Check, numCheckPoints, CheckPointCoords);
 
 
-                scooter.setStartingPosition(0.0f, new Vector3(0,0,40), 0);
+                scooter.setStartingPosition(0.0f, new Vector3(0,0,40), 1);
 
                 prizeMoney = 200;
             }
@@ -309,6 +309,7 @@ namespace SSORF.Management.States
                 case MissionState.Starting :
                     spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString(), new Vector2(200, 10), Color.Black);
                     spriteBatch.DrawString(smallFont, "Get ready to race!!!", new Vector2(300, 550), Color.Black);
+                    spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0"), new Vector2(50, 400), Color.Red);
                     if (countDown.Seconds > 0)
                         spriteBatch.DrawString(largeFont, countDown.Seconds.ToString(), new Vector2(340, 100), Color.Black);
                     else
@@ -320,11 +321,13 @@ namespace SSORF.Management.States
                     spriteBatch.DrawString(largeFont, "paused", new Vector2(80, 100), Color.Black);
                     spriteBatch.DrawString(smallFont, "Press [" + endKey + "] to quit mission", new Vector2(280, 530), Color.Black);
                     spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to return to mission", new Vector2(280, 550), Color.Black);
+                    spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0"), new Vector2(50, 400), Color.Red);
                 break;
 
                 case MissionState.Playing :
                     spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString(), new Vector2(200, 10), Color.Black);
                     spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to pause mission", new Vector2(280, 550), Color.Black);
+                    spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0"), new Vector2(50, 400), Color.Red);
                 break;
 
                 case MissionState.Ending :

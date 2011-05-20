@@ -26,14 +26,15 @@ namespace SSORF.Objects
         //Grip:         Meters/Sec^2
         SSORFlibrary.ScooterData mySpecs;
         const float meterToInchScale = 39.37f;
-        const float ampToNetwonMeterScale = .0222f;
+        const float ampToNetwonMeterScale = .035f;
         float speed;
         float yaw;
         float wheelAngle;
 
         public void load(ContentManager content, SSORFlibrary.ScooterData VehicleSpecs, upgradeSpecs Upgrades)
         {
-            mySpecs = VehicleSpecs;
+            mySpecs = new SSORFlibrary.ScooterData();
+            mySpecs.Copy(VehicleSpecs);
             mySpecs.outputPower += Upgrades.power;
             mySpecs.outputPower *= ampToNetwonMeterScale;              //Scaling from amps to newton-meters here
             mySpecs.weight += Upgrades.weight;
@@ -65,7 +66,7 @@ namespace SSORF.Objects
             yaw = startingYaw;
             geometry.Orientation = Matrix.CreateRotationY(yaw);
             geometry.Location = startingPosition;
-            //speed = startingSpeed;
+            speed = startingSpeed;
         }
 
         public void update(GameTime gameTime, float steerValue, float throttleValue, float brakeValue)
@@ -92,16 +93,22 @@ namespace SSORF.Objects
             //Capture the wheel angle for the next frame's worth of motion
             wheelAngle = steerValue * mySpecs.wheelMaxAngle;
             //Calculate drag here
-            float dragForce = mySpecs.coefficientDrag * mySpecs.frontalArea * .5f * (float)Math.Pow(speed, 2);
+            float dragForce = mySpecs.coefficientDrag * mySpecs.frontalArea * .6f * (float)Math.Pow(speed, 2);
             dragForce += mySpecs.rollingResistance;
             //Calculate delta-v
+            if (speed < 0)
+            {
+                float temp = throttleValue;
+                throttleValue = brakeValue;
+                brakeValue = temp;
+            }
             float longForce = (mySpecs.outputPower / mySpecs.wheelRadius) * throttleValue;
             longForce -= (mySpecs.brakePower / mySpecs.wheelRadius) * brakeValue;
             longForce -= dragForce;
             float deltaV = (longForce) / mySpecs.weight; //for inertia
-            speed += deltaV;
             if (speed < 0)
-                speed = 0;
+                deltaV *= -1;
+            speed += deltaV;
             UpdateAudio(throttleValue);
         }
 
@@ -131,6 +138,8 @@ namespace SSORF.Objects
  
         //Accessors and Mutators
         public StaticModel Geometry { get { return geometry; } set { geometry = value; } }
+
+        public float Speed { get { return speed; } set { speed = value; } }
 
         public float Yaw { get { return yaw; } set { yaw = value; } }
 
