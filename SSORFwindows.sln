@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSORFlibrary", "SSORFlibrar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerrainPipeline", "SSORFwindows\terrainContentPipeline\TerrainPipeline.csproj", "{C003D900-46C7-4AF5-AA99-A4B118EAC77D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocationMapGenerator", "LocationMapGenerator\LocationMapGenerator.csproj", "{4907AED6-5F3F-4F49-A8D4-BAC24812368C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstancedModelPipeline", "InstancedModelPipeline\InstancedModelPipeline.csproj", "{0080530B-EC73-4B40-B51E-E7D006EA4329}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -29,6 +33,14 @@ Global
 		{C003D900-46C7-4AF5-AA99-A4B118EAC77D}.Debug|x86.Build.0 = Debug|x86
 		{C003D900-46C7-4AF5-AA99-A4B118EAC77D}.Release|x86.ActiveCfg = Debug|x86
 		{C003D900-46C7-4AF5-AA99-A4B118EAC77D}.Release|x86.Build.0 = Debug|x86
+		{4907AED6-5F3F-4F49-A8D4-BAC24812368C}.Debug|x86.ActiveCfg = Debug|x86
+		{4907AED6-5F3F-4F49-A8D4-BAC24812368C}.Debug|x86.Build.0 = Debug|x86
+		{4907AED6-5F3F-4F49-A8D4-BAC24812368C}.Release|x86.ActiveCfg = Debug|x86
+		{4907AED6-5F3F-4F49-A8D4-BAC24812368C}.Release|x86.Build.0 = Debug|x86
+		{0080530B-EC73-4B40-B51E-E7D006EA4329}.Debug|x86.ActiveCfg = Debug|x86
+		{0080530B-EC73-4B40-B51E-E7D006EA4329}.Debug|x86.Build.0 = Debug|x86
+		{0080530B-EC73-4B40-B51E-E7D006EA4329}.Release|x86.ActiveCfg = Debug|x86
+		{0080530B-EC73-4B40-B51E-E7D006EA4329}.Release|x86.Build.0 = Debug|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -92,6 +92,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LevelLayout.cs" />
+    <Compile Include="PipelineProperties.cs" />
     <Compile Include="ScooterData.cs" />
     <Compile Include="UpgradeData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
