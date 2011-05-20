@@ -35,8 +35,9 @@ namespace SSORF.Objects
         float wheelRadius = 0.175f;
         float wheelBaseLength = 1;
         float gripRating = 2.94f;
-        float coefficientDrag = .8f;
-        float frontalArea = 6;
+        float coefficientDrag = .1f;
+        float frontalArea = 4;
+        float rollingResistance = .2f;
 
         //vehicle still needs list of specs such as weight, name, etc
         //Also need a way to add upgrades to vehicles
@@ -46,6 +47,12 @@ namespace SSORF.Objects
             //implemented specs and upgrades for weight and power
             weight = VehicleSpecs.weight + Upgrades.weight;
             outputPower = (VehicleSpecs.power + Upgrades.power) / 45;
+            brakePower = VehicleSpecs.brakePower;
+            wheelMaxAngle = VehicleSpecs.wheelMaxAngle;
+            wheelBaseLength = VehicleSpecs.wheelBaseLength;
+            gripRating = VehicleSpecs.gripRating;
+            coefficientDrag = VehicleSpecs.coefficientDrag;
+            frontalArea = VehicleSpecs.frontalArea;
 
             geometry = new StaticModel(content, "Models\\scooter" + VehicleSpecs.IDnum.ToString(),
                 Vector3.Zero, Matrix.Identity, Matrix.Identity);
@@ -107,7 +114,7 @@ namespace SSORF.Objects
             wheelAngle = steerValue * wheelMaxAngle;
             //TODO: calculate drag here
             float dragForce = coefficientDrag * frontalArea * .5f * (float)Math.Pow(speed, 2);
-            dragForce += .1f;   //For powertrain loss/rolling resistance
+            dragForce += rollingResistance;
             //Calculate delta-v
             float longForce = (outputPower / wheelRadius) * throttleValue;
             longForce -= (brakePower / wheelRadius) * brakeValue;

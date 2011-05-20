@@ -17,7 +17,14 @@ namespace SSORFlibrary
         public short IDnum;
         public string name;
         public float power;
+        public float brakePower;
         public float weight;
         public short cost;
+        public float wheelMaxAngle;
+        public float wheelRadius;
+        public float wheelBaseLength;
+        public float gripRating;
+        public float coefficientDrag;
+        public float frontalArea;
     }
 }
