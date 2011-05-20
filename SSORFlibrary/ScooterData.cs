@@ -27,5 +27,22 @@ namespace SSORFlibrary
         public float coefficientDrag;
         public float frontalArea;
         public float rollingResistance;
+
+        public void Copy(ScooterData source)
+        {
+            this.IDnum = source.IDnum;
+            this.name = source.name;
+            this.outputPower = source.outputPower;
+            this.brakePower = source.brakePower;
+            this.weight = source.weight;
+            this.cost = source.cost;
+            this.wheelMaxAngle = source.wheelMaxAngle;
+            this.wheelRadius = source.wheelRadius;
+            this.wheelBaseLength = source.wheelBaseLength;
+            this.gripRating = source.gripRating;
+            this.coefficientDrag = source.coefficientDrag;
+            this.frontalArea = source.frontalArea;
+            this.rollingResistance = source.rollingResistance;
+        }
     }
 }

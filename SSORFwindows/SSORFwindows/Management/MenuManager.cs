@@ -479,7 +479,7 @@ namespace SSORF.Management
                 location, Color.Black);
             location.Y += 20;
 
-            spriteBatch.DrawString(menuFont, "Power:  " + scooters[ID].power.ToString(),
+            spriteBatch.DrawString(menuFont, "Power:  " + scooters[ID].outputPower.ToString(),
                 location, Color.Black);
             location.Y += 20;
 
@@ -498,7 +498,7 @@ namespace SSORF.Management
                 location, Color.Black);
             location.Y += 20;
 
-            spriteBatch.DrawString(menuFont, "Power:  " + (scooters[ID].power + upgradeTotals.power).ToString(),
+            spriteBatch.DrawString(menuFont, "Power:  " + (scooters[ID].outputPower + upgradeTotals.power).ToString(),
                 location, Color.Black);
             location.Y += 20;
 

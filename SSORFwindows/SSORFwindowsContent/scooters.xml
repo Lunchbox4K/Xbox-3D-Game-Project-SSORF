@@ -5,30 +5,30 @@
       <IDnum>0</IDnum>
       <name>Ameego RT Express</name>
       <outputPower>35</outputPower>
-      <brakePower>2</brakePower>
-      <weight>60</weight>
+      <brakePower>.7</brakePower>
+      <weight>58</weight>
       <cost>800</cost>
       <wheelMaxAngle>.785</wheelMaxAngle>
       <wheelRadius>.15</wheelRadius>
       <wheelBaseLength>.89</wheelBaseLength>
       <gripRating>2.3</gripRating>
-      <coefficientDrag>.12</coefficientDrag>
-      <frontalArea>4.5</frontalArea>
+      <coefficientDrag>1.1</coefficientDrag>
+      <frontalArea>2.3</frontalArea>
       <rollingResistance>.2</rollingResistance>
     </Item>
     <Item>
       <IDnum>1</IDnum>
       <name>Razcal UltraLite</name>
       <outputPower>20</outputPower>
-      <brakePower>2</brakePower>
+      <brakePower>.7</brakePower>
       <weight>38</weight>
       <cost>1200</cost>
       <wheelMaxAngle>.785</wheelMaxAngle>
       <wheelRadius>.1</wheelRadius>
       <wheelBaseLength>.89</wheelBaseLength>
       <gripRating>2.94</gripRating>
-      <coefficientDrag>.15</coefficientDrag>
-      <frontalArea>4.5</frontalArea>
+      <coefficientDrag>1.2</coefficientDrag>
+      <frontalArea>2.3</frontalArea>
       <rollingResistance>.2</rollingResistance>
     </Item>
 
