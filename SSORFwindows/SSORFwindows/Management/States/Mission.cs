@@ -34,7 +34,6 @@ namespace SSORF.Management.States
         TimeSpan countDown = new TimeSpan(0,0,4);
         TimeSpan timeLimit;
         int prizeMoney;
-        private Objects.Terrain level;
         private Objects.Vehicle scooter = new Objects.Vehicle();
         private Objects.StaticModel Check;
         private Objects.ModelCollection CheckPoints;
@@ -47,6 +46,9 @@ namespace SSORF.Management.States
         //use these fonts to print strings
         private SpriteFont largeFont;
         private SpriteFont smallFont;
+        //Level
+        SSORFlibrary.LevelLayout levelProperties;
+        SSORF.Objects.Level level;
         #endregion
 
         //empty constructor for making missions without parameters
@@ -61,7 +63,24 @@ namespace SSORF.Management.States
             camera.ProjMtx = Matrix.CreatePerspectiveFieldOfView(
                             MathHelper.ToRadians(45.0f),
                             game.GraphicsDevice.Viewport.AspectRatio, 1.0f, 1000.0f);
-            level = new Objects.Terrain(game.GraphicsDevice, game.Content);
+            //Set Level
+            levelProperties = new SSORFlibrary.LevelLayout();
+            SSORFlibrary.LocationMapAsset tree = new SSORFlibrary.LocationMapAsset();
+            tree.asset_colorID = 128;
+            tree.asset_location = "Models\\tree";
+            levelProperties.instanced_models = new List<SSORFlibrary.LocationMapAsset>();
+            levelProperties.instanced_models.Add(tree);
+            levelProperties.instances_locationMap = "Images\\Terrain\\lvl2_mm";
+            levelProperties.level_effect = "Effects\\TerrainTextureEffect";
+            levelProperties.level_heightMap = "Images\\Terrain\\lvl2_hm";
+            levelProperties.level_textureB = "Images\\Terrain\\terrainTextureB";
+            levelProperties.level_textureG = "Images\\Terrain\\terrainTextureG";
+            levelProperties.level_textureMap = "Images\\Terrain\\lvl2_cm";
+            levelProperties.level_textureR = "Images\\Terrain\\textureX";
+            levelProperties.viewTree_refreshRate = 2;
+            levelProperties.viewTree_area = new BoundingBox(
+                new Vector3(-1000, 0, -1000), new Vector3(1000, 0, 1000));
+            level = new Objects.Level(game, levelProperties);
         }
 
         //missionId can be used to load checkpoint coordinates for that mission
@@ -75,9 +94,8 @@ namespace SSORF.Management.States
             //geometry = new Objects.SimpleModel();
             //geometry.Mesh = content.Load<Model>("Models\\level" + missionID.ToString());
 
-            level.LoadModel("Images\\terrainHeightMap", 
-                "Images\\terrainCollorMap", "Images\\terrainTextureR", "Images\\terrainTextureG", "Images\\terrainTextureB");
-            level.LoadShaders("Effects\\TerrainTextureEffect");
+            //Load Level
+            level.LoadContent();
 
             Check = new Objects.StaticModel(content, "Models\\check",
                         Vector3.Zero, Matrix.Identity, Matrix.Identity);
@@ -132,6 +150,9 @@ namespace SSORF.Management.States
 
         public void update(GameTime gameTime)
         {
+            //Update Level
+            level.update(gameTime, camera.ViewMtx, camera.ProjMtx);
+
             //What we update depends on MissionState
             switch (state)
             { 
@@ -191,7 +212,7 @@ namespace SSORF.Management.States
 //#if XBOX
                 
 //#endif
-                scooter.setNormal(level.terrainInfo);
+                scooter.setNormal(level.TerrainCollision);
                     camera.update(scooter.Geometry.Location, scooter.Yaw);
 
 
@@ -248,9 +269,8 @@ namespace SSORF.Management.States
 
         public void draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-
-            //geometry.draw(camera);
-            level.drawLevel(gameTime, camera.ViewMtx, camera.ProjMtx);
+            //Draw Level
+            level.draw(gameTime, spriteBatch, camera.ViewMtx, camera.ProjMtx);
 
             scooter.Geometry.drawModel(gameTime, camera.ViewMtx, camera.ProjMtx);
 
