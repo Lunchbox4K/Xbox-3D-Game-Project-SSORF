@@ -209,9 +209,6 @@ namespace SSORF.Management.States
                     scooter.update(gameTime, sVal, tVal, bVal);
                 }
 
-//#if XBOX
-                
-//#endif
                 scooter.setNormal(level.TerrainCollision);
                     camera.update(scooter.Geometry.Location, scooter.Yaw);
 

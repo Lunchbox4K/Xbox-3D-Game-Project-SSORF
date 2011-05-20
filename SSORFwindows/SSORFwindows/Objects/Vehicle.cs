@@ -26,17 +26,17 @@ namespace SSORF.Objects
         //Grip:         Meters/Sec^2
         float meterToInchScale = 39.37f;
         float outputPower;
-        float brakePower = 2;
+        float brakePower;
         float speed;
         float yaw;
         float weight;
-        float wheelAngle = 0;
-        float wheelMaxAngle = .785f;
-        float wheelRadius = 0.175f;
-        float wheelBaseLength = 1;
-        float gripRating = 2.94f;
-        float coefficientDrag = .1f;
-        float frontalArea = 4;
+        float wheelAngle;
+        float wheelMaxAngle;
+        float wheelRadius;
+        float wheelBaseLength;
+        float gripRating;
+        float coefficientDrag;
+        float frontalArea;
         float rollingResistance = .2f;
 
         //vehicle still needs list of specs such as weight, name, etc
@@ -49,6 +49,7 @@ namespace SSORF.Objects
             outputPower = (VehicleSpecs.power + Upgrades.power) / 45;
             brakePower = VehicleSpecs.brakePower;
             wheelMaxAngle = VehicleSpecs.wheelMaxAngle;
+            wheelRadius = VehicleSpecs.wheelRadius;
             wheelBaseLength = VehicleSpecs.wheelBaseLength;
             gripRating = VehicleSpecs.gripRating;
             coefficientDrag = VehicleSpecs.coefficientDrag;
@@ -77,6 +78,8 @@ namespace SSORF.Objects
                 location = geometry.Location;
                 location.Y = height;
                 geometry.Location = location;
+                geometry.Orientation *= Matrix.CreateRotationZ(-normal.X);
+                geometry.Orientation *= Matrix.CreateRotationX(normal.Z);
             }
         }
 
