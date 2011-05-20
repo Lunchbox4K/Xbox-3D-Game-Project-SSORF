@@ -24,46 +24,22 @@ namespace SSORF.Objects
         //Distance:     Meters
         //Angles:       Radians
         //Grip:         Meters/Sec^2
-        float meterToInchScale = 39.37f;
-        float outputPower;
-        float brakePower;
+        SSORFlibrary.ScooterData mySpecs;
+        const float meterToInchScale = 39.37f;
+        const float ampToNetwonMeterScale = .0222f;
         float speed;
         float yaw;
-        float weight;
         float wheelAngle;
-        float wheelMaxAngle;
-        float wheelRadius;
-        float wheelBaseLength;
-        float gripRating;
-        float coefficientDrag;
-        float frontalArea;
-        float rollingResistance = .2f;
-
-        //vehicle still needs list of specs such as weight, name, etc
-        //Also need a way to add upgrades to vehicles
 
         public void load(ContentManager content, SSORFlibrary.ScooterData VehicleSpecs, upgradeSpecs Upgrades)
         {
-            //implemented specs and upgrades for weight and power
-            weight = VehicleSpecs.weight + Upgrades.weight;
-            outputPower = (VehicleSpecs.power + Upgrades.power) / 45;
-            brakePower = VehicleSpecs.brakePower;
-            wheelMaxAngle = VehicleSpecs.wheelMaxAngle;
-            wheelRadius = VehicleSpecs.wheelRadius;
-            wheelBaseLength = VehicleSpecs.wheelBaseLength;
-            gripRating = VehicleSpecs.gripRating;
-            coefficientDrag = VehicleSpecs.coefficientDrag;
-            frontalArea = VehicleSpecs.frontalArea;
-
+            mySpecs = VehicleSpecs;
+            mySpecs.outputPower += Upgrades.power;
+            mySpecs.outputPower *= ampToNetwonMeterScale;              //Scaling from amps to newton-meters here
+            mySpecs.weight += Upgrades.weight;
             geometry = new StaticModel(content, "Models\\scooter" + VehicleSpecs.IDnum.ToString(),
                 Vector3.Zero, Matrix.Identity, Matrix.Identity);
             geometry.LoadModel();
-
-            //Things to load here:
-            //value of wheelMaxAngle - DO IT IN RADIANS
-            //value of wheelBaseLength
-            //other vehicle specs
-            //upgrade specs
         }
 
         public void setNormal(TerrainInfo terrainInfo)
@@ -78,8 +54,9 @@ namespace SSORF.Objects
                 location = geometry.Location;
                 location.Y = height;
                 geometry.Location = location;
-                geometry.Orientation *= Matrix.CreateRotationZ(-normal.X);
-                geometry.Orientation *= Matrix.CreateRotationX(normal.Z);
+                geometry.Orientation = Matrix.CreateRotationZ((-normal.X * (float)Math.Cos(yaw)) + (normal.Z * (float)Math.Sin(yaw)));  //Get roll
+                geometry.Orientation *= Matrix.CreateRotationX((normal.Z * (float)Math.Cos(yaw)) + (normal.X * (float)Math.Sin(yaw)));  //Get pitch
+                geometry.Orientation *= Matrix.CreateRotationY(yaw);    //Get yaw
             }
         }
 
@@ -96,33 +73,32 @@ namespace SSORF.Objects
             //Get the integral of the vehicle's velocity
             float tempDistance = speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             //Find the vehicle's current turning radius
-            float turnRadius = wheelBaseLength/(float)Math.Tan(wheelAngle);
+            float turnRadius = mySpecs.wheelBaseLength / (float)Math.Tan(wheelAngle);
             //TODO: calculate lateral force here - remember to fix yaw
-            if (gripRating < ((float)Math.Pow(speed/turnRadius, 2) * Math.Abs(turnRadius)))
+            if (mySpecs.gripRating < ((float)Math.Pow(speed / turnRadius, 2) * Math.Abs(turnRadius)))
             {
                 if (turnRadius < 0)
-                    turnRadius = (float)Math.Pow(speed, 2) / -gripRating;
+                    turnRadius = (float)Math.Pow(speed, 2) / -mySpecs.gripRating;
                 else
-                    turnRadius = (float)Math.Pow(speed, 2) / gripRating;
+                    turnRadius = (float)Math.Pow(speed, 2) / mySpecs.gripRating;
             }
             //Now use those to get the vehicle's yaw offset
             float deltaYaw = tempDistance / turnRadius;
             //Update rotations
             yaw += deltaYaw;
-            geometry.Orientation = Matrix.CreateRotationY(yaw);
             //Derive and update position
             geometry.Location += geometry.Orientation.Forward * tempDistance * (float)Math.Cos(deltaYaw) * meterToInchScale;
             geometry.Location += geometry.Orientation.Left * tempDistance * (float)Math.Sin(deltaYaw) * meterToInchScale;
             //Capture the wheel angle for the next frame's worth of motion
-            wheelAngle = steerValue * wheelMaxAngle;
-            //TODO: calculate drag here
-            float dragForce = coefficientDrag * frontalArea * .5f * (float)Math.Pow(speed, 2);
-            dragForce += rollingResistance;
+            wheelAngle = steerValue * mySpecs.wheelMaxAngle;
+            //Calculate drag here
+            float dragForce = mySpecs.coefficientDrag * mySpecs.frontalArea * .5f * (float)Math.Pow(speed, 2);
+            dragForce += mySpecs.rollingResistance;
             //Calculate delta-v
-            float longForce = (outputPower / wheelRadius) * throttleValue;
-            longForce -= (brakePower / wheelRadius) * brakeValue;
+            float longForce = (mySpecs.outputPower / mySpecs.wheelRadius) * throttleValue;
+            longForce -= (mySpecs.brakePower / mySpecs.wheelRadius) * brakeValue;
             longForce -= dragForce;
-            float deltaV = (longForce) / weight; 
+            float deltaV = (longForce) / mySpecs.weight; //for inertia
             speed += deltaV;
             if (speed < 0)
                 speed = 0;
