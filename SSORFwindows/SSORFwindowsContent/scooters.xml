@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="SSORFlibrary.ScooterData[]">
+    <Item>
+      <IDnum>0</IDnum>
+      <name>Ameego RT Express</name>
+      <power>35</power>
+      <brakePower>2</brakePower>
+      <weight>60</weight>
+      <cost>800</cost>
+      <wheelMaxAngle>.785</wheelMaxAngle>
+      <wheelRadius>.15</wheelRadius>
+      <wheelBaseLength>.89</wheelBaseLength>
+      <gripRating>2.3</gripRating>
+      <coefficientDrag>.12</coefficientDrag>
+      <frontalArea>4.5</frontalArea>
+    </Item>
+    <Item>
+      <IDnum>1</IDnum>
+      <name>Razcal UltraLite</name>
+      <power>20</power>
+      <brakePower>2</brakePower>
+      <weight>38</weight>
+      <cost>1200</cost>
+      <wheelMaxAngle>.785</wheelMaxAngle>
+      <wheelRadius>.1</wheelRadius>
+      <wheelBaseLength>.89</wheelBaseLength>
+      <gripRating>2.94</gripRating>
+      <coefficientDrag>.15</coefficientDrag>
+      <frontalArea>4.5</frontalArea>
+    </Item>
+
+  </Asset>
+</XnaContent>
