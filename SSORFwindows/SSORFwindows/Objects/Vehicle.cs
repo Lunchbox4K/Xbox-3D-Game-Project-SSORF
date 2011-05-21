@@ -75,8 +75,12 @@ namespace SSORF.Objects
             float tempDistance = speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             //Find the vehicle's current turning radius
             float turnRadius = mySpecs.wheelBaseLength / (float)Math.Tan(wheelAngle);
-            //TODO: calculate lateral force here - remember to fix yaw
-            if (mySpecs.gripRating < ((float)Math.Pow(speed / turnRadius, 2) * Math.Abs(turnRadius)))
+            //Model the effects of ground angle and velocity on grip
+            float gripForce = (float)Math.Pow(speed / turnRadius, 2) * Math.Abs(turnRadius);                //Raw centrifugal force, m/sec^2
+            gripForce *= mySpecs.weight;        //Lateral force, N
+            gripForce *= (float)Math.Sqrt(1 - Math.Pow(Math.Abs(geometry.Orientation.Right.Y), 2));          //Compensated for ground angle
+            //Clamp turning radius to maximum grip
+            if (mySpecs.gripRating < gripForce)
             {
                 if (turnRadius < 0)
                     turnRadius = (float)Math.Pow(speed, 2) / -mySpecs.gripRating;
@@ -86,28 +90,34 @@ namespace SSORF.Objects
             //Now use those to get the vehicle's yaw offset
             float deltaYaw = tempDistance / turnRadius;
             //Update rotations
-            yaw += deltaYaw;
+            yaw += deltaYaw * (float)Math.Sqrt(1 - Math.Pow(geometry.Orientation.Left.Y, 2));
             //Derive and update position
-            geometry.Location += geometry.Orientation.Forward * tempDistance * (float)Math.Cos(deltaYaw) * meterToInchScale;
-            geometry.Location += geometry.Orientation.Left * tempDistance * (float)Math.Sin(deltaYaw) * meterToInchScale;
+            geometry.Location += geometry.Orientation.Forward * tempDistance * (float)Math.Cos(deltaYaw) * meterToInchScale * (float)Math.Sqrt(1 - Math.Pow(geometry.Orientation.Forward.Y, 2));
+            geometry.Location += geometry.Orientation.Left * tempDistance * (float)Math.Sin(deltaYaw) * meterToInchScale * (float)Math.Sqrt(1 - Math.Pow(geometry.Orientation.Left.Y, 2));
             //Capture the wheel angle for the next frame's worth of motion
             wheelAngle = steerValue * mySpecs.wheelMaxAngle;
-            //Calculate drag here
-            float dragForce = mySpecs.coefficientDrag * mySpecs.frontalArea * .6f * (float)Math.Pow(speed, 2);
-            dragForce += mySpecs.rollingResistance;
-            //Calculate delta-v
+            //Swap brake/power if the player is reversing
             if (speed < 0)
             {
                 float temp = throttleValue;
                 throttleValue = brakeValue;
                 brakeValue = temp;
             }
-            float longForce = (mySpecs.outputPower / mySpecs.wheelRadius) * throttleValue;
-            longForce -= (mySpecs.brakePower / mySpecs.wheelRadius) * brakeValue;
-            longForce -= dragForce;
-            float deltaV = (longForce) / mySpecs.weight; //for inertia
-            if (speed < 0)
-                deltaV *= -1;
+            //Now get the effects of various forces on speed for next frame
+            float longForce = (mySpecs.outputPower / mySpecs.wheelRadius) * throttleValue;      //Power effect
+            //if (mySpecs.gripRating < longForce)       //wheelspin modeling, incomplete
+            //    longForce = mySpecs.gripRating;
+            longForce -= (mySpecs.brakePower / mySpecs.wheelRadius) * brakeValue;               //Brake effect
+            //Calculate drag
+            float dragForce = mySpecs.coefficientDrag * mySpecs.frontalArea * .6f * (float)Math.Pow(speed, 2);
+            longForce -= dragForce + mySpecs.rollingResistance;
+            //Flip power/brake/drag if reversing
+            if(speed < 0)
+                longForce *= -1;
+            //Incorporate force of gravity
+            longForce -= (geometry.Orientation.Forward.Y * mySpecs.weight) / 9.8f;
+            //Modify force for inertia
+            float deltaV = (longForce) / mySpecs.weight;
             speed += deltaV;
             UpdateAudio(throttleValue);
         }
