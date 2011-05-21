@@ -80,7 +80,7 @@ namespace SSORF.Objects
             gripForce *= mySpecs.weight;        //Lateral force, N
             gripForce *= (float)Math.Sqrt(1 - Math.Pow(Math.Abs(geometry.Orientation.Right.Y), 2));          //Compensated for ground angle
             //Clamp turning radius to maximum grip
-            if (mySpecs.gripRating < gripForce)
+            if (mySpecs.gripRating < gripForce/9.8)
             {
                 if (turnRadius < 0)
                     turnRadius = (float)Math.Pow(speed, 2) / -mySpecs.gripRating;
@@ -105,15 +105,20 @@ namespace SSORF.Objects
             }
             //Now get the effects of various forces on speed for next frame
             float longForce = (mySpecs.outputPower / mySpecs.wheelRadius) * throttleValue;      //Power effect
-            //if (mySpecs.gripRating < longForce)       //wheelspin modeling, incomplete
-            //    longForce = mySpecs.gripRating;
+            if (mySpecs.gripRating < longForce)       //wheelspin modeling, incomplete
+                longForce = mySpecs.gripRating * 2;
             longForce -= (mySpecs.brakePower / mySpecs.wheelRadius) * brakeValue;               //Brake effect
             //Calculate drag
             float dragForce = mySpecs.coefficientDrag * mySpecs.frontalArea * .6f * (float)Math.Pow(speed, 2);
-            longForce -= dragForce + mySpecs.rollingResistance;
+            longForce -= dragForce;
             //Flip power/brake/drag if reversing
-            if(speed < 0)
+            if (speed < 0)
+            {
                 longForce *= -1;
+                longForce += mySpecs.rollingResistance;
+            }
+            else
+                longForce -= mySpecs.rollingResistance;
             //Incorporate force of gravity
             longForce -= (geometry.Orientation.Forward.Y * mySpecs.weight) / 9.8f;
             //Modify force for inertia
