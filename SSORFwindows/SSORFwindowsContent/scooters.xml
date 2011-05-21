@@ -10,11 +10,11 @@
       <cost>800</cost>
       <wheelMaxAngle>.785</wheelMaxAngle>
       <wheelRadius>.15</wheelRadius>
-      <wheelBaseLength>.89</wheelBaseLength>
+      <wheelBaseLength>1.5</wheelBaseLength>
       <gripRating>2.3</gripRating>
       <coefficientDrag>1.1</coefficientDrag>
       <frontalArea>2.3</frontalArea>
-      <rollingResistance>.2</rollingResistance>
+      <rollingResistance>.5</rollingResistance>
     </Item>
     <Item>
       <IDnum>1</IDnum>
@@ -29,7 +29,7 @@
       <gripRating>2.94</gripRating>
       <coefficientDrag>1.2</coefficientDrag>
       <frontalArea>2.3</frontalArea>
-      <rollingResistance>.2</rollingResistance>
+      <rollingResistance>.5</rollingResistance>
     </Item>
 
   </Asset>
