@@ -5,7 +5,7 @@
       <IDnum>0</IDnum>
       <name>Ameego RT Express</name>
       <outputPower>35</outputPower>
-      <brakePower>.7</brakePower>
+      <brakePower>1.6</brakePower>
       <weight>58</weight>
       <cost>800</cost>
       <wheelMaxAngle>.785</wheelMaxAngle>
@@ -20,7 +20,7 @@
       <IDnum>1</IDnum>
       <name>Razcal UltraLite</name>
       <outputPower>20</outputPower>
-      <brakePower>.7</brakePower>
+      <brakePower>1.6</brakePower>
       <weight>38</weight>
       <cost>1200</cost>
       <wheelMaxAngle>.785</wheelMaxAngle>
