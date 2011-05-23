@@ -110,6 +110,7 @@
     <Compile Include="Management\AudioManager.cs" />
     <Compile Include="Objects\Camera.cs" />
     <Compile Include="Objects\CheckPoint.cs" />
+    <Compile Include="Objects\fpsCalculator.cs" />
     <Compile Include="Objects\InstancedModel.cs" />
     <Compile Include="Objects\Level.cs" />
     <Compile Include="Objects\MessageBox.cs" />

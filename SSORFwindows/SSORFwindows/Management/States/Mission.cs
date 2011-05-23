@@ -49,6 +49,8 @@ namespace SSORF.Management.States
         //Level
         SSORFlibrary.LevelLayout levelProperties;
         SSORF.Objects.Level level;
+
+        SSORF.Objects.fpsCalculator fps;
         #endregion
 
         //empty constructor for making missions without parameters
@@ -57,6 +59,7 @@ namespace SSORF.Management.States
 
         public Mission(Objects.Player playerInfo, SSORFlibrary.ScooterData ScooterSpecs, Game game)
         {
+            fps = new Objects.fpsCalculator();
             player = playerInfo;
             rootGame = game;
             scooter.load(game.Content, ScooterSpecs, player.UpgradeTotals[ScooterSpecs.IDnum]);
@@ -150,6 +153,7 @@ namespace SSORF.Management.States
 
         public void update(GameTime gameTime)
         {
+            fps.update(gameTime);
             //Update Level
             level.update(gameTime, camera.ViewMtx, camera.ProjMtx);
 
@@ -268,6 +272,7 @@ namespace SSORF.Management.States
 
         public void draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            fps.draw(gameTime);
             //Draw Level
             level.draw(gameTime, spriteBatch, camera.ViewMtx, camera.ProjMtx);
 
@@ -292,6 +297,8 @@ namespace SSORF.Management.States
 
             //display camera and scooter coordinates for testing
 
+            spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(11, 51), Color.Black);
+            spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(10, 50), Color.Black);
             //spriteBatch.DrawString(smallFont, "Scooter coordinates: " + scooter.Geometry.Location.ToString(), new Vector2(10, 10), Color.Black);
             //spriteBatch.DrawString(smallFont, "Camera coordinates:  " + camera.Position.ToString(), new Vector2(10, 30), Color.Black);
             
