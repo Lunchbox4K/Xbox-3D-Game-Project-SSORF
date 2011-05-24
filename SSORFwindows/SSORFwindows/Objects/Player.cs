@@ -18,14 +18,14 @@ namespace SSORF.Objects
         private int money = 15000;
 
         //indexes of bool array correspond to scooter ID nums
-        private bool[] scootersOwned = new bool[10] 
-        {true,false,false,false,false,false,false,false,false,false};
+        private bool[] scootersOwned = new bool[8] 
+        {true,false,false,false,false,false,false,false};
         //Player starts with amigo RTX (ID = 0)
 
-        private bool[,] upgradesPurchased = new bool[10,3];
+        private bool[,] upgradesPurchased = new bool[8,9];
 
         //An array of stat changes corresponding to 
-        private upgradeSpecs[] scooterUpgrades = new upgradeSpecs[10];
+        private upgradeSpecs[] scooterUpgrades = new upgradeSpecs[6];
 
         //Id number of the selected scooter
         private short selectedScooter = 0;

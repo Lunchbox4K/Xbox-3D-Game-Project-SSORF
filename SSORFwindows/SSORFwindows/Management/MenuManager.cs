@@ -54,15 +54,18 @@ namespace SSORF.Management
 
         //used to display scooter models in vehicle select
         Matrix view, proj;
-        private Objects.SimpleModel[] scooterModels = new Objects.SimpleModel[2];
+        private Objects.SimpleModel[] scooterModels = new Objects.SimpleModel[5];
         private float scooterYaw = 0.0f;
-        private short[] IDnums = new short[8];
+        private short[] scooterIDnums = new short[8];
         private short VSBackButton;
+
+        GraphicsDevice graphics;
 
         #endregion
 
-        public MenuManager(ContentManager content, Objects.Player player)
+        public MenuManager(ContentManager content, Objects.Player player, GraphicsDevice graphicsDevice)
         {
+            graphics = graphicsDevice;
             GameContent = content;
             //font for displaying upgrade data
             menuFont = content.Load<SpriteFont>("menuFont");
@@ -73,7 +76,7 @@ namespace SSORF.Management
             scooters = content.Load<ScooterData[]>("scooters");
 
             //load scooter models
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 5; i++)
             {
                 scooterModels[i] = new Objects.SimpleModel();
                 scooterModels[i].Mesh = content.Load<Model>("Models\\scooter" + i.ToString());
@@ -126,15 +129,21 @@ namespace SSORF.Management
 
             #region Load TuneShop (buy upgrades)
 
-            Menus[(int)Menu.TuneShop] = new States.SubMenu(4); //tune shop has 4 buttons
+            Menus[(int)Menu.TuneShop] = new States.SubMenu(10); //tune shop has 4 buttons
             Menus[(int)Menu.TuneShop].BackGround = content.Load<Texture2D>("Images\\TuneShopTest");
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 9; i++)
                 Menus[(int)Menu.TuneShop].ButtonImage[i] = content.Load<Texture2D>("Images\\" + upgrades[i].button);
-            Menus[(int)Menu.TuneShop].ButtonPosition[0] = new Vector2(150, 350);
-            Menus[(int)Menu.TuneShop].ButtonPosition[1] = new Vector2(250, 350);
-            Menus[(int)Menu.TuneShop].ButtonPosition[2] = new Vector2(350, 350);
-            Menus[(int)Menu.TuneShop].ButtonImage[3] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.TuneShop].ButtonPosition[3] = new Vector2(25, 70);
+            Menus[(int)Menu.TuneShop].ButtonPosition[0] = new Vector2(150, 300);
+            Menus[(int)Menu.TuneShop].ButtonPosition[1] = new Vector2(250, 300);
+            Menus[(int)Menu.TuneShop].ButtonPosition[2] = new Vector2(350, 300);
+            Menus[(int)Menu.TuneShop].ButtonPosition[3] = new Vector2(150, 380);
+            Menus[(int)Menu.TuneShop].ButtonPosition[4] = new Vector2(250, 380);
+            Menus[(int)Menu.TuneShop].ButtonPosition[5] = new Vector2(350, 380);
+            Menus[(int)Menu.TuneShop].ButtonPosition[6] = new Vector2(150, 460);
+            Menus[(int)Menu.TuneShop].ButtonPosition[7] = new Vector2(250, 460);
+            Menus[(int)Menu.TuneShop].ButtonPosition[8] = new Vector2(350, 460);
+            Menus[(int)Menu.TuneShop].ButtonImage[9] = content.Load<Texture2D>("Images\\BackButton");
+            Menus[(int)Menu.TuneShop].ButtonPosition[9] = new Vector2(25, 70);
             #endregion
 
             #region Load MissionsMenu
@@ -252,7 +261,7 @@ namespace SSORF.Management
 
                         // < 3 should get changed to < 9 when we have rest of scooters 
                         if (Menus[(int)Menu.Dealership].buttonPressed > 0 &&
-                           Menus[(int)Menu.Dealership].buttonPressed < 3) 
+                           Menus[(int)Menu.Dealership].buttonPressed < 6) 
                         {
                             message = player.PurchaseScooter(
                                 scooters[Menus[(int)Menu.Dealership].buttonPressed - 1]);
@@ -267,11 +276,11 @@ namespace SSORF.Management
 
                     #region update TuneShop
                     case Menu.TuneShop:
-                        if (Menus[(int)Menu.TuneShop].buttonPressed == 4)
+                        if (Menus[(int)Menu.TuneShop].buttonPressed == 10)
                             CurrentMenu = Menu.Dealership;
 
                         if (Menus[(int)Menu.TuneShop].buttonPressed > 0 &&
-                            Menus[(int)Menu.TuneShop].buttonPressed < 4)
+                            Menus[(int)Menu.TuneShop].buttonPressed < 10)
                         {
                             message = player.PurchaseUpgrade(
                                 upgrades[Menus[(int)Menu.TuneShop].buttonPressed - 1]);
@@ -292,7 +301,7 @@ namespace SSORF.Management
                         if (Menus[(int)Menu.VehicleSelect].buttonPressed > 0 &&
                             Menus[(int)Menu.VehicleSelect].buttonPressed < VSBackButton)
                         {
-                            player.SelectedScooter = IDnums[Menus[(int)Menu.VehicleSelect].buttonPressed - 1];
+                            player.SelectedScooter = scooterIDnums[Menus[(int)Menu.VehicleSelect].buttonPressed - 1];
                             CurrentMenu = Menu.Main;
                         }
 
@@ -351,7 +360,7 @@ namespace SSORF.Management
                     spriteBatch.DrawString(menuFont, "You have $" + player.Money.ToString(),
                         new Vector2(40,570), Color.Tan);
 
-                    if (Menus[(int)Menu.TuneShop].SelectedButton != 4)
+                    if (Menus[(int)Menu.TuneShop].SelectedButton != 10)
                     {
                         drawUpgradeSpecs(spriteBatch);
                     }
@@ -362,7 +371,7 @@ namespace SSORF.Management
                     spriteBatch.DrawString(menuFont, "You have $" + player.Money.ToString(),
                         new Vector2(350, 560), Color.Black);
 
-                    if (Menus[(int)Menu.Dealership].SelectedButton < 3)
+                    if (Menus[(int)Menu.Dealership].SelectedButton < 6)
                     {
                         drawVehicleSpecs(spriteBatch, new Vector2(350, 150), 
                             Menus[(int)Menu.Dealership].SelectedButton - 1);
@@ -374,8 +383,8 @@ namespace SSORF.Management
                 case Menu.VehicleSelect:
 
                     if (Menus[(int)Menu.VehicleSelect].SelectedButton != VSBackButton)
-                        drawVehicleSpecs(spriteBatch, new Vector2(280, 190), Menus[(int)Menu.VehicleSelect].SelectedButton - 1,
-                            player.UpgradeTotals[Menus[(int)Menu.VehicleSelect].SelectedButton - 1]);
+                        drawVehicleSpecs(spriteBatch, new Vector2(280, 190), scooterIDnums[Menus[(int)Menu.VehicleSelect].SelectedButton - 1],
+                            player.UpgradeTotals[scooterIDnums[Menus[(int)Menu.VehicleSelect].SelectedButton - 1]]);
                     
                     break;
                     
@@ -395,24 +404,28 @@ namespace SSORF.Management
             spriteBatch.End();
 
             #region draw scooter model for Garage and Dealership
+
+            graphics.ReferenceStencil = 1;
+
             if (CurrentMenu == Menu.VehicleSelect &&
                 Menus[(int)CurrentMenu].SelectedButton != VSBackButton)
             {
                 scooterYaw += 0.02f;
-                scooterModels[Menus[(int)CurrentMenu].SelectedButton - 1].rotate(scooterYaw);
-                scooterModels[Menus[(int)CurrentMenu].SelectedButton - 1].draw(view, proj, new Vector3(35,-30,-100));
+                scooterModels[scooterIDnums[Menus[(int)CurrentMenu].SelectedButton - 1]].rotate(scooterYaw);
+                scooterModels[scooterIDnums[Menus[(int)CurrentMenu].SelectedButton - 1]].draw(view, proj, new Vector3(35,-30,-100));
             }
 
-            else if (CurrentMenu == Menu.Dealership && Menus[(int)CurrentMenu].SelectedButton < 3)
+            else if (CurrentMenu == Menu.Dealership && Menus[(int)CurrentMenu].SelectedButton < 6)
             {
                 scooterYaw += 0.02f;
                 scooterModels[Menus[(int)CurrentMenu].SelectedButton - 1].rotate(scooterYaw);
                 scooterModels[Menus[(int)CurrentMenu].SelectedButton - 1].draw(view, proj, new Vector3(4, -30, -100)); 
             }
+
+            graphics.ReferenceStencil = 1;
             #endregion
 
         }
-
 
         public void loadVehicleSelect(ContentManager content, bool[] ScootersOwned)
         {
@@ -420,10 +433,9 @@ namespace SSORF.Management
 
             for (int i = 0; i < 8; i++)
             {
-
                 if (ScootersOwned[i] == true)
                 {
-                    IDnums[totalVehiclesOwned] = (short)i;
+                    scooterIDnums[totalVehiclesOwned] = (short)i;
                     totalVehiclesOwned += 1;
                 }
             }
@@ -436,7 +448,7 @@ namespace SSORF.Management
             for (int i = 0; i < totalVehiclesOwned; i++)
             {
 
-                Menus[(int)Menu.VehicleSelect].ButtonImage[i] = content.Load<Texture2D>("Images\\vehicle" + IDnums[i].ToString());
+                Menus[(int)Menu.VehicleSelect].ButtonImage[i] = content.Load<Texture2D>("Images\\vehicle" + scooterIDnums[i].ToString());
                 Menus[(int)Menu.VehicleSelect].ButtonPosition[i] = new Vector2(20, y);
                 y += 45;
             }
