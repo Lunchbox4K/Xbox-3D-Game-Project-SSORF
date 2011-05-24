@@ -65,7 +65,7 @@ namespace SSORF.Management.States
             scooter.load(game.Content, ScooterSpecs, player.UpgradeTotals[ScooterSpecs.IDnum]);
             camera.ProjMtx = Matrix.CreatePerspectiveFieldOfView(
                             MathHelper.ToRadians(45.0f),
-                            game.GraphicsDevice.Viewport.AspectRatio, 1.0f, 1000.0f);
+                            game.GraphicsDevice.Viewport.AspectRatio, 1.0f, 2000.0f);
             //Set Level
             levelProperties = new SSORFlibrary.LevelLayout();
             SSORFlibrary.LocationMapAsset tree = new SSORFlibrary.LocationMapAsset();
@@ -82,7 +82,7 @@ namespace SSORF.Management.States
             levelProperties.level_textureR = "Images\\Terrain\\textureX";
             levelProperties.viewTree_refreshRate = 2;
             levelProperties.viewTree_area = new BoundingBox(
-                new Vector3(-1000, 0, -1000), new Vector3(1000, 0, 1000));
+                new Vector3(-10000, 0, -10000), new Vector3(10000, 0, 10000));
             level = new Objects.Level(game, levelProperties);
         }
 
