@@ -31,6 +31,50 @@
       <frontalArea>2.3</frontalArea>
       <rollingResistance>.5</rollingResistance>
     </Item>
-
+    <Item>
+      <IDnum>2</IDnum>
+      <name>CitiBugg Helper</name>
+      <outputPower>20</outputPower>
+      <brakePower>1.6</brakePower>
+      <weight>38</weight>
+      <cost>1200</cost>
+      <wheelMaxAngle>.785</wheelMaxAngle>
+      <wheelRadius>.1</wheelRadius>
+      <wheelBaseLength>.89</wheelBaseLength>
+      <gripRating>2.94</gripRating>
+      <coefficientDrag>1.2</coefficientDrag>
+      <frontalArea>2.3</frontalArea>
+      <rollingResistance>.5</rollingResistance>
+    </Item>
+    <Item>
+      <IDnum>3</IDnum>
+      <name>Horizen AC Himalayan</name>
+      <outputPower>20</outputPower>
+      <brakePower>1.6</brakePower>
+      <weight>38</weight>
+      <cost>1200</cost>
+      <wheelMaxAngle>.785</wheelMaxAngle>
+      <wheelRadius>.1</wheelRadius>
+      <wheelBaseLength>.89</wheelBaseLength>
+      <gripRating>2.94</gripRating>
+      <coefficientDrag>1.2</coefficientDrag>
+      <frontalArea>2.3</frontalArea>
+      <rollingResistance>.5</rollingResistance>
+    </Item>
+    <Item>
+      <IDnum>4</IDnum>
+      <name>AV SportRyder</name>
+      <outputPower>20</outputPower>
+      <brakePower>1.6</brakePower>
+      <weight>38</weight>
+      <cost>1200</cost>
+      <wheelMaxAngle>.785</wheelMaxAngle>
+      <wheelRadius>.1</wheelRadius>
+      <wheelBaseLength>.89</wheelBaseLength>
+      <gripRating>2.94</gripRating>
+      <coefficientDrag>1.2</coefficientDrag>
+      <frontalArea>2.3</frontalArea>
+      <rollingResistance>.5</rollingResistance>
+    </Item>
   </Asset>
 </XnaContent>

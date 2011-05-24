@@ -64,7 +64,7 @@ namespace SSORF.Management
             title = new States.Title();
             title.Image = Game.Content.Load<Texture2D>("Images\\senior scooter title screen");
 
-            menu = new MenuManager(Game.Content, player);
+            menu = new MenuManager(Game.Content, player, GraphicsDevice);
 
             currentMission = new States.Mission();
 
