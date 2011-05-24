@@ -322,7 +322,11 @@ namespace SSORF.Management
 
                     #region update Options
                     case Menu.Options:
-                        if (Menus[(int)Menu.Options].buttonPressed == 1)
+                        //if (Menus[(int)Menu.Options].buttonPressed == 1)
+                        //    CurrentMenu = Menu.Main;
+                        //if (Menus[(int)Menu.Options].buttonPressed == 2)
+                        //    CurrentMenu = Menu.Main;
+                        if (Menus[(int)Menu.Options].buttonPressed == 3)
                             CurrentMenu = Menu.Main;
                         Menus[(int)Menu.Options].buttonPressed = 0;
 
