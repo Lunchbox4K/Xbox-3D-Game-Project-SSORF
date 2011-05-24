@@ -23,7 +23,7 @@ namespace SSORF.Management.States
         //so the cursor does not completely overlap the button
         private Vector2 cursorOffset = new Vector2(-30, 25);
         //which button is the cursor hovering over?
-        private short selectedButton = 1;
+        public short selectedButton = 1;
         //if buttonPressed equals zero, no button has been pressed
         public short buttonPressed = 0;
         public short numButtons;
