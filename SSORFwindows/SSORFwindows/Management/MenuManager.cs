@@ -148,10 +148,10 @@ namespace SSORF.Management
 
             #region Load MissionsMenu
             Menus[(int)Menu.Missions] = new States.SubMenu(3); //mission menu has 2 buttons
-            Menus[(int)Menu.Missions].BackGround = content.Load<Texture2D>("Images\\menu");
-            Menus[(int)Menu.Missions].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
-            Menus[(int)Menu.Missions].ButtonPosition[0] = new Vector2(100, 300);
-            Menus[(int)Menu.Missions].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
+            Menus[(int)Menu.Missions].BackGround = content.Load<Texture2D>("Images\\Mission Select");
+            Menus[(int)Menu.Missions].ButtonImage[0] = content.Load<Texture2D>("Images\\mission1");
+            Menus[(int)Menu.Missions].ButtonPosition[0] = new Vector2(100, 250);
+            Menus[(int)Menu.Missions].ButtonImage[1] = content.Load<Texture2D>("Images\\mission2");
             Menus[(int)Menu.Missions].ButtonPosition[1] = new Vector2(450, 300);
             Menus[(int)Menu.Missions].ButtonImage[2] = content.Load<Texture2D>("Images\\BackButton");
             Menus[(int)Menu.Missions].ButtonPosition[2] = new Vector2(600, 550);
@@ -238,7 +238,10 @@ namespace SSORF.Management
                         //Note: buttonPressed = 0 means no button has been pressed
                         //If we are in the missions menu and a button is pressed...
                         if (Menus[(int)Menu.Missions].buttonPressed == 3)
+                        {
                             CurrentMenu = Menu.Main;
+                            Menus[(int)Menu.Missions].selectedButton = 1;
+                        }
                         else if (Menus[(int)Menu.Missions].buttonPressed != 0)
                         {
                             //Set selected mission to a value other than zero to deactivate the menu
@@ -255,9 +258,15 @@ namespace SSORF.Management
 
                     case Menu.Dealership:
                         if (Menus[(int)Menu.Dealership].buttonPressed == 10)
+                        {
                             CurrentMenu = Menu.Main;
+                            Menus[(int)Menu.Dealership].selectedButton = 1;
+                        }
                         if (Menus[(int)Menu.Dealership].buttonPressed == 9)
+                        {
                             CurrentMenu = Menu.TuneShop;
+                            Menus[(int)Menu.Dealership].selectedButton = 1;
+                        }
 
                         // < 3 should get changed to < 9 when we have rest of scooters 
                         if (Menus[(int)Menu.Dealership].buttonPressed > 0 &&
@@ -277,7 +286,10 @@ namespace SSORF.Management
                     #region update TuneShop
                     case Menu.TuneShop:
                         if (Menus[(int)Menu.TuneShop].buttonPressed == 10)
+                        {
                             CurrentMenu = Menu.Dealership;
+                            Menus[(int)Menu.TuneShop].selectedButton = 1;
+                        }
 
                         if (Menus[(int)Menu.TuneShop].buttonPressed > 0 &&
                             Menus[(int)Menu.TuneShop].buttonPressed < 10)
@@ -297,12 +309,16 @@ namespace SSORF.Management
                     case Menu.VehicleSelect:
 
                         if (Menus[(int)Menu.VehicleSelect].buttonPressed == VSBackButton)
+                        {
                             CurrentMenu = Menu.Main;
+                            Menus[(int)Menu.VehicleSelect].selectedButton = 1;
+                        }
                         if (Menus[(int)Menu.VehicleSelect].buttonPressed > 0 &&
                             Menus[(int)Menu.VehicleSelect].buttonPressed < VSBackButton)
                         {
                             player.SelectedScooter = scooterIDnums[Menus[(int)Menu.VehicleSelect].buttonPressed - 1];
                             CurrentMenu = Menu.Main;
+                            Menus[(int)Menu.VehicleSelect].selectedButton = 1;
                         }
 
                         Menus[(int)Menu.VehicleSelect].buttonPressed = 0;
@@ -323,7 +339,14 @@ namespace SSORF.Management
                     #region update Options
                     case Menu.Options:
                         if (Menus[(int)Menu.Options].buttonPressed == 1)
+                            AudioManager.setMusicPlaying(true);
+                        if (Menus[(int)Menu.Options].buttonPressed == 2)
+                            AudioManager.setMusicPlaying(false);
+                        if (Menus[(int)Menu.Options].buttonPressed == 3)
+                        {
                             CurrentMenu = Menu.Main;
+                            Menus[(int)Menu.Options].selectedButton = 1;
+                        }
                         Menus[(int)Menu.Options].buttonPressed = 0;
 
                         break;
