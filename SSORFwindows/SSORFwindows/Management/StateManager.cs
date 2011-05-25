@@ -87,6 +87,9 @@ namespace SSORF.Management
             keyBoardState.current = Keyboard.GetState();
             gamePadState.current = GamePad.GetState(PlayerIndex.One);
 #endif
+            //Update the Music
+            AudioManager.UpdateMusic(State);
+            
             //What we update depends on the current GameState
             switch (State)
             { 
