@@ -148,10 +148,10 @@ namespace SSORF.Management
 
             #region Load MissionsMenu
             Menus[(int)Menu.Missions] = new States.SubMenu(3); //mission menu has 2 buttons
-            Menus[(int)Menu.Missions].BackGround = content.Load<Texture2D>("Images\\Mission Select");
-            Menus[(int)Menu.Missions].ButtonImage[0] = content.Load<Texture2D>("Images\\mission1");
+            Menus[(int)Menu.Missions].BackGround = content.Load<Texture2D>("Images\\Options");
+            Menus[(int)Menu.Missions].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
             Menus[(int)Menu.Missions].ButtonPosition[0] = new Vector2(100, 250);
-            Menus[(int)Menu.Missions].ButtonImage[1] = content.Load<Texture2D>("Images\\mission2");
+            Menus[(int)Menu.Missions].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
             Menus[(int)Menu.Missions].ButtonPosition[1] = new Vector2(450, 300);
             Menus[(int)Menu.Missions].ButtonImage[2] = content.Load<Texture2D>("Images\\BackButton");
             Menus[(int)Menu.Missions].ButtonPosition[2] = new Vector2(600, 550);
@@ -427,8 +427,12 @@ namespace SSORF.Management
             spriteBatch.End();
 
             #region draw scooter model for Garage and Dealership
+            DepthStencilState newDepthStencilState = new DepthStencilState();
+            DepthStencilState oldDepthStencilState = graphics.DepthStencilState;
 
-            graphics.ReferenceStencil = 1;
+            newDepthStencilState.DepthBufferFunction = CompareFunction.Less;
+            graphics.DepthStencilState = newDepthStencilState;
+            //graphics.ReferenceStencil = 1;
 
             if (CurrentMenu == Menu.VehicleSelect &&
                 Menus[(int)CurrentMenu].SelectedButton != VSBackButton)
@@ -445,7 +449,7 @@ namespace SSORF.Management
                 scooterModels[Menus[(int)CurrentMenu].SelectedButton - 1].draw(view, proj, new Vector3(4, -30, -100)); 
             }
 
-            graphics.ReferenceStencil = 1;
+            graphics.DepthStencilState = oldDepthStencilState;
             #endregion
 
         }

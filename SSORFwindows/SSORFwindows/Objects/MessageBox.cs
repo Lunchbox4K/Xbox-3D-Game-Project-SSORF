@@ -32,7 +32,7 @@ namespace SSORF.Objects
 
 #if XBOX
             if (gamePadState.current.Buttons.A == ButtonState.Pressed)
-                active = false;
+                Active = false;
 #else
             if (keyBoardState.current.IsKeyDown(Keys.Space) &&
                 keyBoardState.previous.IsKeyUp(Keys.Space))

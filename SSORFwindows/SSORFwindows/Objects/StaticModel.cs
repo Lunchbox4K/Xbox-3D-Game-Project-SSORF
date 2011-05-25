@@ -20,11 +20,17 @@ namespace SSORF.Objects
         protected ContentManager content;
         protected Model model;
         protected bool isLoaded;
+        protected bool isEnabled;
         protected string modelAsset;
+
         protected Vector3 location;
         protected Matrix orientation;
         protected Matrix scale;
-        protected BoundingBox boundingBox;
+        protected Matrix transform;
+
+        protected BoundingSphere boundingSphere;
+        protected List<BoundingSphere> meshSpheres;
+
         protected static int modelIDloop;
         protected int modelID;
 
@@ -61,6 +67,9 @@ namespace SSORF.Objects
             location = Location;
             orientation = Orientation;
             scale = Scale;
+            transform = Matrix.Identity;
+            Matrix.Multiply(ref scale, ref orientation, out transform);
+            transform = Matrix.Multiply(transform, Matrix.CreateTranslation(location));
         }
 
         public virtual void LoadModel()
@@ -70,7 +79,7 @@ namespace SSORF.Objects
                 model = content.Load<Model>(modelAsset);
                 if (model == null)
                     throw new InvalidCastException("Invalid Asset");
-                calcBoundingBox();
+                calcBoundingSpheres();
                 isLoaded = true;
             }
             catch
@@ -79,53 +88,30 @@ namespace SSORF.Objects
             }
         }
 
-        /// <summary>
-        /// Latest Update 4/26/11 - Fixed the calculator from only sending boxes
-        /// at coord (0,0,0).
-        /// 
-        /// Use getBoundingBox to get the value you need.
-        /// 
-        /// Only Calculates Location. Not Rotations (Orientation).
-        ///  >   Use the public rotate function to get a better result.
-        /// </summary>
-        private void calcBoundingBox()
+        private void calcBoundingSpheres()
         {
-            // Initialize minimum and maximum corners of the bounding box to max and min values
-            Vector3 min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
-            Vector3 max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
-
-            // For each mesh of the model
-            foreach (ModelMesh mesh in model.Meshes)
+            //Transform for
+            BoundingSphere mainSphere = new BoundingSphere(Vector3.Zero, 0f);
+            meshSpheres = new List<BoundingSphere>();
+            //Loop through each mesh and save the bounding sphere
+            foreach (ModelMesh theseMeshes in model.Meshes)
             {
-                foreach (ModelMeshPart part in mesh.MeshParts)
-                {
-                    // Vertex buffer parameters
-                    int vertexStride = part.VertexBuffer.VertexDeclaration.VertexStride;
-                    int vertexBufferSize = part.NumVertices * vertexStride;
-
-                    // Get vertex data as float
-                    int vartexDataSize = vertexBufferSize / sizeof(float);
-                    float[] vertexData = new float[vartexDataSize];
-                    part.VertexBuffer.GetData<float>(vertexData);
-
-                    // Iterate through vertices (possibly) growing bounding box, all calculations are done in world space
-                    for (int i = 0; i < vartexDataSize; i += vertexStride / sizeof(float))
-                    {
-                        Vector3 transformedPosition = 
-                            Vector3.Transform(new Vector3(vertexData[i], vertexData[i + 1], vertexData[i + 2]),Matrix.Identity);
-
-                        min = Vector3.Min(min, transformedPosition);
-                        max = Vector3.Max(max, transformedPosition);
-                    }
-                }
+                BoundingSphere tmpSphere = new BoundingSphere();
+                tmpSphere.Center = theseMeshes.BoundingSphere.Center;
+                tmpSphere.Radius = theseMeshes.BoundingSphere.Radius;
+                tmpSphere.Transform(transform);
+                meshSpheres.Add(tmpSphere);
+                mainSphere = BoundingSphere.CreateMerged(mainSphere, tmpSphere);
             }
-            // Create and return bounding box
-            boundingBox =  new BoundingBox(min, max);
+            boundingSphere = mainSphere;
         }
 
-        private void calcTransformedBoundingBox(Matrix transform)
+        private void updateBoundingSpheres()
         {
-
+            Matrix locationTranslation = Matrix.CreateTranslation(location);
+            boundingSphere.Transform(locationTranslation);
+            for (int i = 0; i < meshSpheres.Count; i++)
+                meshSpheres[i].Transform(locationTranslation);
         }
 
         public virtual void UnloadModel()
@@ -169,34 +155,25 @@ namespace SSORF.Objects
             }
         }
 
+        public BoundingSphere GetBoundingSphere
+        {
+            get{ return boundingSphere; }
+        }
+
+        public BoundingSphere GetBoundingSphereTransform(Matrix transform)
+        {
+            BoundingSphere tmp = boundingSphere;
+            return tmp.Transform(transform);
+        }
+
+        public BoundingSphere[] GetBoundingSpheres
+        {
+            get {return meshSpheres.ToArray();}
+        }
+
         //For temp collision detection
         public Model Geometry
         { get { return model; } }
-
-        public BoundingBox getBoundingBox
-        {
-            get 
-            {
-                //Create Returnable Box
-                BoundingBox box = new BoundingBox();
-                Matrix transform = 
-                    scale * orientation * Matrix.CreateTranslation(location);
-                //Translate Box
-                Vector3.Transform(ref boundingBox.Min, ref transform, out box.Min);
-                Vector3.Transform(ref boundingBox.Max, ref transform, out box.Max);
-                return box; 
-            }
-        }
-
-        public BoundingBox getBoundingBoxTransform(Matrix Transform)
-        {
-            //Create Returnable Box
-            BoundingBox box = new BoundingBox();
-            //Translate Box
-            Vector3.Transform(ref boundingBox.Min, ref Transform, out box.Min);
-            Vector3.Transform(ref boundingBox.Max, ref Transform, out box.Max);
-            return box; 
-        }
 
         public Vector3 Location
         {

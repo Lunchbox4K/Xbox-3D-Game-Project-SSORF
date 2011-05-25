@@ -42,7 +42,12 @@ namespace SSORF.Management.States
         private short currentCheckPoint = 0;
         private float checkPointYaw = 0.0f;
         Objects.ThirdPersonCamera camera = new Objects.ThirdPersonCamera();
+#if XBOX
+        bool gamepadInUse = true;
+#elif WINDOWS
         bool gamepadInUse = false;
+#endif
+
         //use these fonts to print strings
         private SpriteFont largeFont;
         private SpriteFont smallFont;
@@ -82,7 +87,7 @@ namespace SSORF.Management.States
             levelProperties.level_textureG = "Images\\Terrain\\terrainTextureG";
             levelProperties.level_textureMap = "Images\\Terrain\\lvl2_cm";
             levelProperties.level_textureR = "Images\\Terrain\\textureX";
-            levelProperties.viewTree_refreshRate = 2;
+            levelProperties.viewTree_refreshRate = 32;
             levelProperties.viewTree_area = new BoundingBox(
                 new Vector3(-10000, 0, -10000), new Vector3(10000, 0, 10000));
             level = new Objects.Level(game, levelProperties);

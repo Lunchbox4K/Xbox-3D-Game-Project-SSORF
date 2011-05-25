@@ -34,6 +34,10 @@ namespace SSORFlibrary
         public List<LocationMapAsset> instanced_models;
         public string instances_locationMap;
 
+        public byte player1Spawn;   //R Color
+
+        public byte checkpointSpawn; //R Color
+        public string checkpointAsset;
 
         /// <summary>
         /// Shallow/Deep Copy Function
