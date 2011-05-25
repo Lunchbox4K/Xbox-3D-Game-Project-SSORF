@@ -148,10 +148,10 @@ namespace SSORF.Management
 
             #region Load MissionsMenu
             Menus[(int)Menu.Missions] = new States.SubMenu(3); //mission menu has 2 buttons
-            Menus[(int)Menu.Missions].BackGround = content.Load<Texture2D>("Images\\menu");
-            Menus[(int)Menu.Missions].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
-            Menus[(int)Menu.Missions].ButtonPosition[0] = new Vector2(100, 300);
-            Menus[(int)Menu.Missions].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
+            Menus[(int)Menu.Missions].BackGround = content.Load<Texture2D>("Images\\Mission Select");
+            Menus[(int)Menu.Missions].ButtonImage[0] = content.Load<Texture2D>("Images\\mission1");
+            Menus[(int)Menu.Missions].ButtonPosition[0] = new Vector2(100, 250);
+            Menus[(int)Menu.Missions].ButtonImage[1] = content.Load<Texture2D>("Images\\mission2");
             Menus[(int)Menu.Missions].ButtonPosition[1] = new Vector2(450, 300);
             Menus[(int)Menu.Missions].ButtonImage[2] = content.Load<Texture2D>("Images\\BackButton");
             Menus[(int)Menu.Missions].ButtonPosition[2] = new Vector2(600, 550);
@@ -338,10 +338,10 @@ namespace SSORF.Management
 
                     #region update Options
                     case Menu.Options:
-                        //if (Menus[(int)Menu.Options].buttonPressed == 1)
-                        //    CurrentMenu = Menu.Main;
-                        //if (Menus[(int)Menu.Options].buttonPressed == 2)
-                        //    CurrentMenu = Menu.Main;
+                        if (Menus[(int)Menu.Options].buttonPressed == 1)
+                            AudioManager.setMusicPlaying(true);
+                        if (Menus[(int)Menu.Options].buttonPressed == 2)
+                            AudioManager.setMusicPlaying(false);
                         if (Menus[(int)Menu.Options].buttonPressed == 3)
                         {
                             CurrentMenu = Menu.Main;
