@@ -102,7 +102,7 @@ namespace SSORF.Objects
                     throw new Exception("Failed to load model");
                 }
             }
-            findHome(model.getBoundingBox).addStaticModel(model);
+            findHome(model.GetBoundingSphere).addStaticModel(model);
         }
 
         public void pushInstancedModel(StaticModel model)
@@ -140,7 +140,7 @@ namespace SSORF.Objects
                 throw new IndexOutOfRangeException
                     ("Index out of range of total Instanced Models in this Node!");
             //Find Home and Add Instance to it
-            findHome(instancedModels[index].getBoundingBoxTransform(transform)).
+            findHome(instancedModels[index].GetBoundingSphereTransform(transform)).
                 addModelInstance(transform, index);
         }
 
@@ -228,31 +228,24 @@ namespace SSORF.Objects
         //--------------------------------------------------------------------------------------------------------------------------------
         #region Private Helpers
 
-        public ModelQuadTreeNode findHome(BoundingBox modelBox)
+        public ModelQuadTreeNode findHome(BoundingSphere modelSphere)
         {
-            if (modelBox.Min.X <= area.Min.X && modelBox.Max.X >= area.Max.X ||
-                modelBox.Min.Z <= area.Min.Z && modelBox.Max.Z >= area.Max.Z)
-                if (parent != null)
-                    return parent;
-                else
-                    return this;
-
-            if (area.Contains(modelBox) == ContainmentType.Contains)
+            if (area.Contains(modelSphere) == ContainmentType.Contains)
             {
                 if (children != null)
                     for (byte i = 0; i < NODE_CNT; i++)
-                        if (children[i].BoundingBox.Contains(modelBox)
+                        if (children[i].BoundingBox.Contains(modelSphere)
                             != ContainmentType.Disjoint)
-                            return children[i].findHome(modelBox);
+                            return children[i].findHome(modelSphere);
                 return this;
             }
-            else if (area.Contains(modelBox) == ContainmentType.Intersects)
+            else if (area.Contains(modelSphere) == ContainmentType.Intersects)
             {
                 if (children != null)
                     for (byte i = 0; i < NODE_CNT; i++)
-                        if (children[i].BoundingBox.Contains(modelBox)
+                        if (children[i].BoundingBox.Contains(modelSphere)
                             != ContainmentType.Disjoint)
-                            return children[i].findHome(modelBox);
+                            return children[i].findHome(modelSphere);
                 return this;
             }
             else

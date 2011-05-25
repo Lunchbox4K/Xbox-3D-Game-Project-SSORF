@@ -33,7 +33,11 @@ namespace SSORF.Objects
         private List<StaticModel> m_staticModels;
         private List<InstancedModel> m_instancedModels;
         private List<List<Matrix>> m_modelInstances;
+        private List<StaticModel> m_checkpoints;
         private Terrain m_terrain;
+
+        private Vector3[] m_playerSpawns;
+
 
         private ModelQuadTree m_drawTree;
     #endregion
@@ -54,6 +58,7 @@ namespace SSORF.Objects
             m_drawTree = new ModelQuadTree(game, 
                 m_properties.viewTree_area, m_properties.viewTree_refreshRate);
         }
+
         public void LoadContent()
         {
             //Load Terrain
@@ -159,6 +164,7 @@ namespace SSORF.Objects
 
     #endregion
 
+
     //-----------------------------------------------------------
     // Accessors and Mutators (Get & Set the Members)
     //-----------------------------------------------------------
@@ -166,6 +172,7 @@ namespace SSORF.Objects
 
         public TerrainInfo TerrainCollision{get { return m_terrain.terrainInfo; } }
 
+        //public 
 
     #endregion
     }

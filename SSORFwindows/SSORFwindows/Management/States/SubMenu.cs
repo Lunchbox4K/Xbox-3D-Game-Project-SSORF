@@ -59,7 +59,7 @@ namespace SSORF.Management.States
 
             CursorPosition = buttonPosition[selectedButton - 1] + cursorOffset;
 
-            if (gamePadState.current.Buttons.A == ButtonState.Pressed)
+            if (gamePadState.current.Buttons.A == ButtonState.Pressed && gamePadState.previous.Buttons.A == ButtonState.Released)
                 buttonPressed = selectedButton;
 #else
             //if we are at the last button go back to the first

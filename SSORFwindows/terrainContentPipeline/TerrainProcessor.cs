@@ -30,7 +30,7 @@ namespace _3dOnlineGamePipeline
         private float scale = 8f; //Distance between verticies in finished terrain mesh
 
         public float Height { get { return height; } set { height = value; } }
-        private float height = 100f; //Max Height
+        private float height = 2f; //Max Height
 
         public float TexCoordScale { get { return textScl; } set { textScl = value; } }
         private float textScl = 0.005f; //How often the texture will be repeated.Z
