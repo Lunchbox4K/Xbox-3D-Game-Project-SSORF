@@ -129,25 +129,28 @@ namespace SSORF.Objects
 
         public void UpdateAudio(float throttleValue)
         {
-            AudioManager.getEngineSounds().SetVariable("throttleValue", throttleValue + speed);
-            AudioManager.getEngineSounds().SetVariable("Speed", speed);
-            if (throttleValue != 0)
+            if (AudioManager.isSoundOn())
             {
-
-                if (AudioManager.getEngineSounds().IsPaused)
-                    AudioManager.getEngineSounds().Resume();
-                else if (AudioManager.getEngineSounds().IsStopped)
+                AudioManager.getEngineSounds().SetVariable("throttleValue", throttleValue + speed);
+                AudioManager.getEngineSounds().SetVariable("Speed", speed);
+                if (throttleValue != 0)
                 {
-                    AudioManager.resetEngineSounds();
-                    AudioManager.getEngineSounds().Play();
+
+                    if (AudioManager.getEngineSounds().IsPaused)
+                        AudioManager.getEngineSounds().Resume();
+                    else if (AudioManager.getEngineSounds().IsStopped)
+                    {
+                        AudioManager.resetEngineSounds();
+                        AudioManager.getEngineSounds().Play();
+                    }
+                    else if (AudioManager.getEngineSounds().IsPlaying == false &&
+                        AudioManager.getEngineSounds().IsPrepared)
+                        AudioManager.getEngineSounds().Play();
                 }
-                else if (AudioManager.getEngineSounds().IsPlaying == false &&
-                    AudioManager.getEngineSounds().IsPrepared)
-                    AudioManager.getEngineSounds().Play();
-            }
-            else
-            {
-                AudioManager.getEngineSounds().Stop(AudioStopOptions.AsAuthored);
+                else if (speed < 0.05)
+                {
+                    AudioManager.getEngineSounds().Stop(AudioStopOptions.AsAuthored);
+                }
             }
         }
  
