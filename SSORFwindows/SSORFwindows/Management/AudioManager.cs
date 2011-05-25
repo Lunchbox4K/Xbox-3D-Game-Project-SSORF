@@ -13,8 +13,9 @@ namespace SSORF.Management
         private static Cue missionMusic;
         private static Cue engineSounds;
 
-        private static Boolean isMusicPlaying;
-        private static Boolean isSoundPlaying;
+        //Start music and sound off so people dont kill me
+        private static Boolean isMusicPlaying = false;
+        private static Boolean isSoundPlaying = false;
 
         public static void LoadAudioContent()
         {
@@ -25,6 +26,54 @@ namespace SSORF.Management
             menuMusic = soundBank.GetCue("Exciting Ride");
             missionMusic = soundBank.GetCue("Journey");
             engineSounds = soundBank.GetCue("Engine");
+        }
+
+        public static void UpdateMusic(GameState state)
+        {            
+            switch (state)
+            {
+                // If we are viewing title screen...
+                case GameState.TitleScreen:
+                    break;
+
+                // If we are viewing the menus...
+                case GameState.MenuScreen:
+                    //Only play the music if music is on
+                    if (isMusicPlaying)
+                    {
+                        if (!menuMusic.IsPlaying && menuMusic.IsPrepared)
+                            menuMusic.Play();
+                        else if (menuMusic.IsStopped)
+                        {
+                            resetMenuMusic();
+                            menuMusic.Play();
+                        }
+                    }
+                    if (missionMusic.IsPlaying)
+                        missionMusic.Stop(AudioStopOptions.AsAuthored);
+                    if (engineSounds.IsPlaying)
+                        engineSounds.Stop(AudioStopOptions.AsAuthored);
+                    break;
+
+                // If we are playing a mission...
+                case GameState.MissionScreen:
+                    //Only play the music if music is on
+                    if (isMusicPlaying)
+                    {
+                        if (!missionMusic.IsPlaying && missionMusic.IsPrepared)
+                            missionMusic.Play();
+                        else if (missionMusic.IsStopped)
+                        {
+                            resetMissionMusic();
+                            missionMusic.Play();
+                        }
+                    }
+                    if (menuMusic.IsPlaying)
+                        menuMusic.Stop(AudioStopOptions.AsAuthored);
+                    break;
+            }
+            //Update to make sure things get stopped etc.
+            Update();
         }
 
         public static void Update()
@@ -70,6 +119,26 @@ namespace SSORF.Management
         public static void setEngineSounds(String cueName)
         {
             engineSounds = getCue(cueName);
+        }
+
+        public static void setMusicPlaying(Boolean isPlaying)
+        {
+            isMusicPlaying = isPlaying;
+        }
+
+        public static Boolean isMusicOn()
+        {
+            return isMusicPlaying;
+        }
+
+        public static Boolean isSoundOn()
+        {
+            return isSoundPlaying;
+        }
+
+        public static void setSoundPlaying(Boolean isPlaying)
+        {
+            isSoundPlaying = isPlaying;
         }
     }
 }
