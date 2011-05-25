@@ -37,7 +37,7 @@ namespace SSORF.Objects
             mySpecs.Copy(VehicleSpecs);
             mySpecs.outputPower += Upgrades.power;
             mySpecs.outputPower *= ampToNetwonMeterScale;              //Scaling from amps to newton-meters here
-            mySpecs.weight += Upgrades.weight;
+            mySpecs.weight += Upgrades.weight += 90;        //Rider weight
             geometry = new StaticModel(content, "Models\\scooter" + VehicleSpecs.IDnum.ToString(),
                 Vector3.Zero, Matrix.Identity, Matrix.Identity);
             geometry.LoadModel();
@@ -105,8 +105,8 @@ namespace SSORF.Objects
             }
             //Now get the effects of various forces on speed for next frame
             float longForce = (mySpecs.outputPower / mySpecs.wheelRadius) * throttleValue;      //Power effect
-            if (mySpecs.gripRating < longForce)       //wheelspin modeling, incomplete
-                longForce = mySpecs.gripRating * 2;
+            //if (mySpecs.gripRating < longForce)       //wheelspin modeling, incomplete
+            //    longForce = mySpecs.gripRating * 2;
             longForce -= (mySpecs.brakePower / mySpecs.wheelRadius) * brakeValue;               //Brake effect
             //Calculate drag
             float dragForce = mySpecs.coefficientDrag * mySpecs.frontalArea * .6f * (float)Math.Pow(speed, 2);
