@@ -70,6 +70,8 @@ namespace SSORF.Management
 
             //AudioManager initialization
             AudioManager.LoadAudioContent();
+
+            GraphicsDevice.Viewport = new Viewport(GraphicsDevice.Viewport.TitleSafeArea);
         }
 
         //Do we need to use this? I'm not sure
@@ -151,7 +153,6 @@ namespace SSORF.Management
         //draw title, menu, or mission depending on GameState
         public override void Draw(GameTime gameTime)
         {
-
             switch (State)
             {
                 case GameState.TitleScreen:
