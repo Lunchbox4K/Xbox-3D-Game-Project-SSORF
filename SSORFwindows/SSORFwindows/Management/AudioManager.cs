@@ -13,8 +13,9 @@ namespace SSORF.Management
         private static Cue missionMusic;
         private static Cue engineSounds;
 
-        private static Boolean isMusicPlaying;
-        private static Boolean isSoundPlaying;
+        //Start music and sound off so people dont kill me
+        private static Boolean isMusicPlaying = false;
+        private static Boolean isSoundPlaying = false;
 
         public static void LoadAudioContent()
         {
@@ -28,7 +29,7 @@ namespace SSORF.Management
         }
 
         public static void UpdateMusic(GameState state)
-        {
+        {            
             switch (state)
             {
                 // If we are viewing title screen...
@@ -71,6 +72,8 @@ namespace SSORF.Management
                         menuMusic.Stop(AudioStopOptions.AsAuthored);
                     break;
             }
+            //Update to make sure things get stopped etc.
+            Update();
         }
 
         public static void Update()
@@ -121,6 +124,16 @@ namespace SSORF.Management
         public static void setMusicPlaying(Boolean isPlaying)
         {
             isMusicPlaying = isPlaying;
+        }
+
+        public static Boolean isMusicOn()
+        {
+            return isMusicPlaying;
+        }
+
+        public static Boolean isSoundOn()
+        {
+            return isSoundPlaying;
         }
 
         public static void setSoundPlaying(Boolean isPlaying)
