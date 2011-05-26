@@ -55,8 +55,6 @@ namespace SSORF.Objects
             m_instancedModels = new List<InstancedModel>();
             m_modelInstances = new List<List<Matrix>>();
             m_terrain = new Terrain(game.GraphicsDevice, game.Content);
-            m_drawTree = new ModelQuadTree(game, 
-                m_properties.viewTree_area, m_properties.viewTree_refreshRate);
         }
 
         public void LoadContent()
@@ -69,6 +67,12 @@ namespace SSORF.Objects
                 m_properties.level_textureB);
             //Load Terrain Draw Effect
             m_terrain.LoadShaders(m_properties.level_effect);
+            float halfWidth = m_terrain.terrainInfo.HeightmapWidth/2;
+            m_drawTree = new ModelQuadTree(m_rootGame,
+                new BoundingBox(
+                    new Vector3(-halfWidth, 0, -halfWidth),
+                    new Vector3( halfWidth, 0,  halfWidth)), 
+                m_properties.viewTree_refreshRate);
 
             if (m_properties.statics_models != null)
             {

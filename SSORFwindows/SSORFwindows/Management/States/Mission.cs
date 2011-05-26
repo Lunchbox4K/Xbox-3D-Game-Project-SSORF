@@ -80,16 +80,14 @@ namespace SSORF.Management.States
             tree.asset_location = "Models\\tree";
             levelProperties.instanced_models = new List<SSORFlibrary.LocationMapAsset>();
             levelProperties.instanced_models.Add(tree);
-            levelProperties.instances_locationMap = "Images\\Terrain\\lvl2_mm";
+            levelProperties.instances_locationMap = "Images\\Terrain\\lvl1_mm";
             levelProperties.level_effect = "Effects\\TerrainTextureEffect";
-            levelProperties.level_heightMap = "Images\\Terrain\\lvl2_hm";
+            levelProperties.level_heightMap = "Images\\Terrain\\lvl1_hm";
             levelProperties.level_textureB = "Images\\Terrain\\terrainTextureB";
             levelProperties.level_textureG = "Images\\Terrain\\terrainTextureG";
-            levelProperties.level_textureMap = "Images\\Terrain\\lvl2_cm";
-            levelProperties.level_textureR = "Images\\Terrain\\textureX";
-            levelProperties.viewTree_refreshRate = 32;
-            levelProperties.viewTree_area = new BoundingBox(
-                new Vector3(-10000, 0, -10000), new Vector3(10000, 0, 10000));
+            levelProperties.level_textureMap = "Images\\Terrain\\lvl1_cm";
+            levelProperties.level_textureR = "Images\\Terrain\\terrainTextureR";
+            levelProperties.viewTree_refreshRate = 8;
             level = new Objects.Level(game, levelProperties);
         }
 

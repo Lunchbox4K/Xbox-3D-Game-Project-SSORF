@@ -19,13 +19,13 @@ namespace SSORF.Management
 
         public static void LoadAudioContent()
         {
-            audioEngine = new AudioEngine("Content/Audio/Background Music.xgs");
-            waveBank = new WaveBank(audioEngine, "Content/Audio/Wave Bank.xwb");
-            soundBank = new SoundBank(audioEngine, "Content/Audio/Sound Bank.xsb");
+            //audioEngine = new AudioEngine("Content\\Audio\\Background Music.xgs");
+            //waveBank = new WaveBank(audioEngine, "Content\\Audio\\Wave Bank.xwb");
+            //soundBank = new SoundBank(audioEngine, "Content\\Audio\\Sound Bank.xsb");
 
-            menuMusic = soundBank.GetCue("Exciting Ride");
-            missionMusic = soundBank.GetCue("Journey");
-            engineSounds = soundBank.GetCue("Engine");
+            //menuMusic = soundBank.GetCue("Exciting Ride");
+            //missionMusic = soundBank.GetCue("Journey");
+            //engineSounds = soundBank.GetCue("Engine");
         }
 
         public static void UpdateMusic(GameState state)
@@ -39,20 +39,20 @@ namespace SSORF.Management
                 // If we are viewing the menus...
                 case GameState.MenuScreen:
                     //Only play the music if music is on
-                    if (isMusicPlaying)
-                    {
-                        if (!menuMusic.IsPlaying && menuMusic.IsPrepared)
-                            menuMusic.Play();
-                        else if (menuMusic.IsStopped)
-                        {
-                            resetMenuMusic();
-                            menuMusic.Play();
-                        }
-                    }
-                    if (missionMusic.IsPlaying)
-                        missionMusic.Stop(AudioStopOptions.AsAuthored);
-                    if (engineSounds.IsPlaying)
-                        engineSounds.Stop(AudioStopOptions.AsAuthored);
+                    //if (isMusicPlaying)
+                    //{
+                    //    if (!menuMusic.IsPlaying && menuMusic.IsPrepared)
+                    //        menuMusic.Play();
+                    //    else if (menuMusic.IsStopped)
+                    //    {
+                    //        resetMenuMusic();
+                    //        menuMusic.Play();
+                    //    }
+                    //}
+                    //if (missionMusic.IsPlaying)
+                    //    missionMusic.Stop(AudioStopOptions.AsAuthored);
+                    //if (engineSounds.IsPlaying)
+                    //    engineSounds.Stop(AudioStopOptions.AsAuthored);
                     break;
 
                 // If we are playing a mission...
@@ -68,8 +68,8 @@ namespace SSORF.Management
                             missionMusic.Play();
                         }
                     }
-                    if (menuMusic.IsPlaying)
-                        menuMusic.Stop(AudioStopOptions.AsAuthored);
+                    //if (menuMusic.IsPlaying)
+                        //menuMusic.Stop(AudioStopOptions.AsAuthored);
                     break;
             }
             //Update to make sure things get stopped etc.
@@ -78,7 +78,7 @@ namespace SSORF.Management
 
         public static void Update()
         {
-            audioEngine.Update();
+            //audioEngine.Update();
         }
 
         public static Cue getCue(String cueName)

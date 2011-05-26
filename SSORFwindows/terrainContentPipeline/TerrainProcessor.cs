@@ -27,13 +27,13 @@ namespace _3dOnlineGamePipeline
         // General properties for terrain generation.
         //================================================================================================
         public float Scale { get { return scale; } set { scale = value; } }
-        private float scale = 8f; //Distance between verticies in finished terrain mesh
+        private float scale = 16f; //Distance between verticies in finished terrain mesh
 
         public float Height { get { return height; } set { height = value; } }
-        private float height = 2f; //Max Height
+        private float height = 64f; //Max Height
 
         public float TexCoordScale { get { return textScl; } set { textScl = value; } }
-        private float textScl = 0.005f; //How often the texture will be repeated.Z
+        private float textScl = 0.01f; //How often the texture will be repeated.Z
 
         public string TextureLocation { get { return textLoc; } set { textLoc = value; } }
         private string textLoc = ""; //Texture Location
