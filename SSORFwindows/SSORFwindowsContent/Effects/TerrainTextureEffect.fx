@@ -50,9 +50,9 @@ PixelToFrame PixelShaderFunction(VertexShaderOutput input)
 {
     PixelToFrame Output = (PixelToFrame)0;    
  
-    Output.Color = tex2D(TextureSamplerR, input.TextureCoords*16)*tex2D(TextureSamplerW, input.TextureCoords).r;
-    Output.Color += tex2D(TextureSamplerG, input.TextureCoords*16)*tex2D(TextureSamplerW, input.TextureCoords).g;
-    Output.Color += tex2D(TextureSamplerB, input.TextureCoords*16)*tex2D(TextureSamplerW, input.TextureCoords).b;
+    Output.Color = tex2D(TextureSamplerR, input.TextureCoords*64)*tex2D(TextureSamplerW, input.TextureCoords).r;
+    Output.Color += tex2D(TextureSamplerG, input.TextureCoords*64)*tex2D(TextureSamplerW, input.TextureCoords).g;
+    Output.Color += tex2D(TextureSamplerB, input.TextureCoords*64)*tex2D(TextureSamplerW, input.TextureCoords).b;
 	return Output;
 }
 

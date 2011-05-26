@@ -25,7 +25,7 @@ namespace LocationMapGenerator
     {
 
         public float Scale { get { return scale; } set { scale = value; } }
-        private float scale = 8f;
+        private float scale = 16f;
         public int ReadScale { get { return readScale; } set { readScale = value; } }
         private int readScale = 1;
 

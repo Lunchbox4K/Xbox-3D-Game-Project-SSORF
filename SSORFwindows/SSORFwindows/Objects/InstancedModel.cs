@@ -11,6 +11,7 @@ namespace SSORF.Objects
 {
     class InstancedModel : StaticModel
     {
+        public const byte MAX_TRANSFORMS = 64;
         //public readonly string EFFECT_LOCATION = "Effects\\InstancedModelEffect";
         
         //Used to send instance transformations to the HLSL Effect
@@ -71,34 +72,25 @@ namespace SSORF.Objects
             // Set renderstates for drawing 3D models.
             graphics.BlendState = BlendState.Opaque;
             graphics.DepthStencilState = DepthStencilState.Default;
+
+
             // Gather instance transform matrices into a single array.
-            Array.Resize(ref instanceLocations, locations.Count);
+            if ( instanceLocations == null || instanceLocations.Length != locations.Count)
+                Array.Resize(ref instanceLocations, MAX_TRANSFORMS);
 
-            for (int i = 0; i < locations.Count; i++)
+            for(int i = 0; i < locations.Count; i++)
             {
-                instanceLocations[i] = locations[i];
+                for (int j = 0; j < MAX_TRANSFORMS; j++)
+                {
+                    if (i < locations.Count)
+                        instanceLocations[j] = locations[i];
+                    i++;
+                }
+                drawInstances(graphics, View, Projection);
             }
-            drawInstances(graphics, View, Projection);
+            
         }
 
-        public void drawInstanceList(
-            GameTime gameTime, GraphicsDevice graphics, Matrix View, Matrix Projection, List<Matrix> Instances)
-        {
-            if (Instances == null)
-                throw new NullReferenceException("The Model Instance List Must Be Assigned a Value!");
-            // Set renderstates for drawing 3D models.
-            graphics.BlendState = BlendState.Opaque;
-            graphics.DepthStencilState = DepthStencilState.Default;
-
-            if (locations.Count != Instances.Count)
-                Array.Resize(ref instanceLocations, Instances.Count);
-            for (int i = 0; i < locations.Count; i++)
-            {
-                instanceLocations[i] = Instances[i];
-            }
-
-            drawInstances(graphics, View, Projection);
-        }
         
 
         private void drawInstances(GraphicsDevice graphics, Matrix View,
@@ -107,11 +99,11 @@ namespace SSORF.Objects
             if (instanceLocations.Length == 0)
                 return;
             //Maske sure the buffer contains all the instances
-            if ((instanceVertBuffer == null) ||
+            if ((instanceVertBuffer == null) || instanceVertBuffer.IsDisposed ||
                 (instanceLocations.Length > instanceVertBuffer.VertexCount))
             {
-                if (instanceVertBuffer != null)
-                    instanceVertBuffer.Dispose();
+                //if (instanceVertBuffer != null)
+                //    instanceVertBuffer.Dispose();
 
                 instanceVertBuffer = new DynamicVertexBuffer(graphics, instanceVertDeclaration,
                                                                instanceLocations.Length, BufferUsage.WriteOnly);
@@ -149,6 +141,7 @@ namespace SSORF.Objects
                                                                part.PrimitiveCount, instanceLocations.Length);
                     }
                 }
+                instanceVertBuffer.Dispose();
         }
 
         public List<Matrix> Locations

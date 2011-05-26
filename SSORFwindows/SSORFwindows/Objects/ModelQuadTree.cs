@@ -25,9 +25,9 @@ namespace SSORF.Objects
         //--------------------------------------------------------------------------------------------------------------------------------
         //  CONSTANTS
         //--------------------------------------------------------------------------------------------------------------------------------
-        public const float Y_SCALE = 100f;
+        public const float Y_SCALE = 200f;
         public const byte NODE_CNT = 4;
-        public const byte MAX_DEPTH = 8;
+        public const byte MAX_DEPTH = 6;
 
         private const bool DEBUG_MODE = true;
 

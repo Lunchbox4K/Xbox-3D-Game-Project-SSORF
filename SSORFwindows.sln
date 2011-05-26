@@ -17,6 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSORF360Library", "SSORFlib
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSORF360", "SSORFwindows\SSORFwindows\SSORF360.csproj", "{5A5359E9-1878-42F4-9527-E1FA4821256F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A1C8132E-9F37-4369-8837-FB275C661FC7}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGES.txt = CHANGES.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
