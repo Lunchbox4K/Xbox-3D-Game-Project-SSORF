@@ -402,36 +402,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>LocationMapProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Terrain\lvl3_cm.bmp">
-      <Name>lvl3_cm</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\Terrain\lvl3_hm.bmp">
-      <Name>lvl3_hm</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TerrainProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\Terrain\lvl3_mm.bmp">
-      <Name>lvl3_mm</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>LocationMapProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\Terrain\modelMap.bmp">
-      <Name>modelMap</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>LocationMapProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\Terrain\terrainCollorMap.bmp">
-      <Name>terrainCollorMap</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\Terrain\terrainHeightMap.bmp">
-      <Name>terrainHeightMap</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TerrainProcessor</Processor>
-    </Compile>
     <Compile Include="Images\Terrain\terrainTextureB.bmp">
       <Name>terrainTextureB</Name>
       <Importer>TextureImporter</Importer>
@@ -447,18 +417,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Terrain\textureX.bmp">
-      <Name>textureX</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\tree.fbx">
       <Name>tree</Name>
       <Importer>FbxImporter</Importer>
       <Processor>InstancedModelProcessor</Processor>
-      <ProcessorParameters_Scale>2</ProcessorParameters_Scale>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -525,6 +490,23 @@
       <Name>scooter4</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl1_cm.bmp">
+      <Name>lvl1_cm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\lvl1_hm.bmp">
+      <Name>lvl1_hm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TerrainProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\lvl1_mm.bmp">
+      <Name>lvl1_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
