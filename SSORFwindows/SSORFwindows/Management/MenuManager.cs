@@ -48,6 +48,7 @@ namespace SSORF.Management
  
         private Texture2D CursorImage;
         private Texture2D fixedImage;
+        private Texture2D SoundOption;
         //used to display upgrade data
         private UpgradeData[] upgrades;
         private ScooterData[] scooters;
@@ -184,7 +185,7 @@ namespace SSORF.Management
 
             #region Load Options
             
-            Menus[(int)Menu.Options] = new States.SubMenu(3); //mission menu has 3 buttons
+            Menus[(int)Menu.Options] = new States.SubMenu(5); //mission menu has 3 buttons
             Menus[(int)Menu.Options].BackGround = content.Load<Texture2D>("Images\\Options Form");
             //Menus[(int)Menu.Options].ButtonImage[0] = content.Load<Texture2D>("Images\\Music Button");
             //Menus[(int)Menu.Options].ButtonPosition[0] = new Vector2(75, 150);
@@ -192,13 +193,18 @@ namespace SSORF.Management
             Menus[(int)Menu.Options].ButtonPosition[0] = new Vector2(250, 150);
             Menus[(int)Menu.Options].ButtonImage[1] = content.Load<Texture2D>("Images\\Off Button");
             Menus[(int)Menu.Options].ButtonPosition[1] = new Vector2(350, 150);
-            Menus[(int)Menu.Options].ButtonImage[2] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.Options].ButtonPosition[2] = new Vector2(50, 550);
+            Menus[(int)Menu.Options].ButtonImage[2] = content.Load<Texture2D>("Images\\On Button");
+            Menus[(int)Menu.Options].ButtonPosition[2] = new Vector2(250, 250);
+            Menus[(int)Menu.Options].ButtonImage[3] = content.Load<Texture2D>("Images\\Off Button");
+            Menus[(int)Menu.Options].ButtonPosition[3] = new Vector2(350, 250);
+            Menus[(int)Menu.Options].ButtonImage[4] = content.Load<Texture2D>("Images\\BackButton");
+            Menus[(int)Menu.Options].ButtonPosition[4] = new Vector2(50, 550);
             #endregion
 
             //load messageBox background
             messageBox.Background = content.Load<Texture2D>("Images\\messagebox");
             fixedImage = content.Load<Texture2D>("Images\\Music Button");
+            SoundOption = content.Load<Texture2D>("Images\\Sound");
             //load cursor image and set current menu to main menu
             CursorImage = content.Load<Texture2D>("Images\\cursor");
             CurrentMenu = Menu.Main;
@@ -360,7 +366,11 @@ namespace SSORF.Management
                             AudioManager.setMusicPlaying(true);
                         if (Menus[(int)Menu.Options].buttonPressed == 2)
                             AudioManager.setMusicPlaying(false);
-                        if (Menus[(int)Menu.Options].buttonPressed == 3)
+                         if (Menus[(int)Menu.Options].buttonPressed == 3)
+                             AudioManager.setSoundPlaying(true);
+                        if (Menus[(int)Menu.Options].buttonPressed == 4)
+                            AudioManager.setSoundPlaying(false);
+                        if (Menus[(int)Menu.Options].buttonPressed == 5)
                         {
                             CurrentMenu = Menu.Main;
                             Menus[(int)Menu.Options].selectedButton = 1;
@@ -431,6 +441,7 @@ namespace SSORF.Management
                     
                 case Menu.Options:
                     spriteBatch.Draw(fixedImage, new Vector2(75, 150), Color.White);
+                    spriteBatch.Draw(SoundOption, new Vector2(75, 250), Color.White);
                     break;
 
             }
