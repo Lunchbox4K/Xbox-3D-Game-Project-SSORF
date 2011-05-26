@@ -509,6 +509,108 @@
       <Processor>LocationMapProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl3_cm.bmp">
+      <Name>lvl3_cm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\lvl3_hm.bmp">
+      <Name>lvl3_hm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TerrainProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\Terrain\lvl3_mm.bmp">
+      <Name>lvl3_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\asphalt.jpg">
+      <Name>asphalt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\storefront.fbx">
+      <Name>storefront</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>4</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\car1.fbx">
+      <Name>car1</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\handicapsign.fbx">
+      <Name>handicapsign</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\bench.fbx">
+      <Name>bench</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+    <Compile Include="Models\bush.fbx">
+      <Name>bush</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+    <Compile Include="Models\garbagecan.fbx">
+      <Name>garbagecan</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+    <Compile Include="Models\hydrant.fbx">
+      <Name>hydrant</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\shoppingcart.fbx">
+      <Name>shoppingcart</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+    <Compile Include="Models\storesign.fbx">
+      <Name>storesign</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+    <Compile Include="Models\streetlight.fbx">
+      <Name>streetlight</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+    <Compile Include="Models\tirepile.fbx">
+      <Name>tirepile</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\trafficcone.fbx">
+      <Name>trafficcone</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
