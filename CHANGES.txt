@@ -1,0 +1,62 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+SSORF CHANGE LOG
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+==================================================================================================================
+05/25/2011 @ 10:25PM	-	Mitchell P.
+==================================================================================================================
+----------------
+Added Assets
+----------------
+ > Added Level 1 Circle Track. Files include...
+	+ Images\Terrain\lvl1_cm.bmp - ColorMap
+	+ Images\Terrain\lvl1_hm.bmp - Heightmap
+	+ Images\Terrain\lvl1_mm.bmp - Model Map ( Will become Item map with player spawn info! )
+		?> Each model is given a Red value from 0 to 255 for identification on the color map.
+----------------
+Muted Sound
+----------------
+	Sorry, but somehow I only get sound engine errors at home when I debug the computer.
+		So I decided to comment out all the sound code that was being called.
+----------------
+Model Quad Tree Updates
+----------------
+  > Wrapped the trees height and width with the generated map.
+  > Set the depth of children nodes to 6 instead of 8.
+  > Doubled the max and min height for the bounding boxes.
+  > Set quad tree update to every 8 updates.
+----------------
+Terrain
+----------------
+  > Set terrain map in level:1 to 100x100 instead of 200x200 for
+	fewer vertecies.
+  > Increased the scale to lack for map size.
+  > Increased res of terrain from x16 to x64.
+----------------
+Instanced Model
+----------------
+  > Fixed and optimized the Vertex Buffer crash on the Xbox.
+  > Added a buffer to the vertex draw stream to reduce missing assets
+	in game on the Xbox.
+  > Set the buffer to draw up to 64 model transforms per pass.
+  > Evrything from <Static Model>.
+----------------
+Static Model
+----------------
+  > Changed collision object from a box to a sphere and a collection of spheres.
+	One Sphere covers the whole model while an array of smaller spheres cover each
+	mesh.
+
+--------
+Other stuff I forgot.
+--------
+
+--------
+Next
+--------
+  > Adding collision detection now...
+  > Add player spawn locations.
+  > Adding a checkpoint array with collision deactivating tham after passing.
+==================================================================================================================
+==================================================================================================================

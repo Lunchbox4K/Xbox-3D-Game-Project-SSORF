@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  
+  <Asset Type="SSORFlibrary.UpgradeData[]">
+    <Item>
+      <IDnum>0</IDnum>
+      <name>Plastic Orthopedic Seat</name>
+      <description1>Your ass will feel every bump with this hard plastic seat,</description1>
+      <description2>but the lost weight is worth it (sort of).</description2>
+      <power>0.0</power>
+      <weight>-6.0</weight>
+      <cost>60</cost>
+      <button>POSbutton</button>
+    </Item>
+    <Item>
+      <IDnum>1</IDnum>
+      <name>Battery Charger Removal</name>
+      <description1>Remove the charging unit to decrease</description1>
+      <description2>the weight of your scooter.</description2>
+      <power>0.0</power>
+      <weight>-8.0</weight>
+      <cost>70</cost>
+      <button>BCbutton</button>
+    </Item>
+    <Item>
+      <IDnum>2</IDnum>
+      <name>Titanium Parts</name>
+      <description1>Replace a few steel parts with</description1>
+      <description2>titanium parts to reduce weight.</description2>
+      <power>0.0</power>
+      <weight>-6.0</weight>
+      <cost>40</cost>
+      <button>TPbutton</button>
+    </Item>
+    <Item>
+      <IDnum>3</IDnum>
+      <name>Nickel Metal Battery</name>
+      <description1>Get the same amount of power with less weight</description1>
+      <description2>by switching to a nickel battery.</description2>
+      <power>0.0</power>
+      <weight>-10.0</weight>
+      <cost>100</cost>
+      <button>NMbutton</button>
+    </Item>
+    <Item>
+      <IDnum>4</IDnum>
+      <name>Lithium Polymer Battery</name>
+      <description1>You can fit two of these batteries in a standard </description1>
+      <description2>battery compartment for more power.</description2>
+      <power>12.0</power>
+      <weight>0.0</weight>
+      <cost>150</cost>
+      <button>LPbutton</button>
+    </Item>
+    <Item>
+      <IDnum>5</IDnum>
+      <name>Larger Motor</name>
+      <description1>Increases power and weight but the increase</description1>
+      <description2>in power is worth the trade-off.</description2>
+      <power>40.0</power>
+      <weight>15.0</weight>
+      <cost>250</cost>
+      <button>LMbutton</button>
+    </Item>
+    <Item>
+      <IDnum>6</IDnum>
+      <name>Brushless Motor</name>
+      <description1>Increases power efficiency with a computer controlled</description1>
+      <description2>motor rather than mechanical brushes.</description2>
+      <power>30</power>
+      <weight>0</weight>
+      <cost>350</cost>
+      <button>BMbutton</button>
+    </Item>
+    <Item>
+      <IDnum>7</IDnum>
+      <name>Flux Capacitor</name>
+      <description1>Flux dispersal allows the vehicle to have smooth passage</description1>
+      <description2>through the space time continuum.</description2>
+      <power>0.0</power>
+      <weight>-30.0</weight>
+      <cost>5000</cost>
+      <button>FCbutton</button>
+    </Item>
+    <Item>
+      <IDnum>8</IDnum>
+      <name>Mr.Fusion</name>
+      <description1>This futuristic home energy reactor converts household</description1>
+      <description2>waste into power to produce 1.21 gigawatts.</description2>
+      <power>1000.0</power>
+      <weight>0.0</weight>
+      <cost>10000</cost>
+      <button>MFbutton</button>
+    </Item>
+  </Asset>
+</XnaContent>
