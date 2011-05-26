@@ -71,7 +71,7 @@ namespace SSORF.Management
             //AudioManager initialization
             AudioManager.LoadAudioContent();
 
-            GraphicsDevice.Viewport = new Viewport(GraphicsDevice.Viewport.TitleSafeArea);
+            //GraphicsDevice.Viewport = new Viewport(GraphicsDevice.Viewport.TitleSafeArea);
         }
 
         //Do we need to use this? I'm not sure
