@@ -154,7 +154,7 @@ namespace SSORF.Management.States
 
             camera.update(scooter.Geometry.Location, scooter.Yaw);
 
-            bounds = rootGame.GraphicsDevice.Viewport.Bounds;
+            bounds = rootGame.GraphicsDevice.Viewport.TitleSafeArea;
         }
 
 
