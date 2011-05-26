@@ -23,7 +23,7 @@ namespace SSORF.Objects
         //constructor
         public ThirdPersonCamera()
         {
-            offset = new Vector3(0, 30, 60);
+            offset = new Vector3(0, 38, 60);
             cameraPosition = offset;
             viewMtx = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
         }
@@ -37,7 +37,7 @@ namespace SSORF.Objects
             //Move camera with player
             cameraPosition = rotatedOffset + PlayerPosition;
             //Reconstruct view matrix so camera is pointed at the player
-		    viewMtx = Matrix.CreateLookAt(cameraPosition, PlayerPosition + rotationMtx.Forward * 30, Vector3.Up);
+		    viewMtx = Matrix.CreateLookAt(cameraPosition, PlayerPosition + rotationMtx.Forward * 70, Vector3.Up);
         
         }
 
