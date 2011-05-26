@@ -147,14 +147,32 @@ namespace SSORF.Management
             #endregion
 
             #region Load MissionsMenu
-            Menus[(int)Menu.Missions] = new States.SubMenu(3); //mission menu has 2 buttons
-            Menus[(int)Menu.Missions].BackGround = content.Load<Texture2D>("Images\\Options");
-            Menus[(int)Menu.Missions].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
-            Menus[(int)Menu.Missions].ButtonPosition[0] = new Vector2(100, 250);
-            Menus[(int)Menu.Missions].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
-            Menus[(int)Menu.Missions].ButtonPosition[1] = new Vector2(450, 300);
-            Menus[(int)Menu.Missions].ButtonImage[2] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.Missions].ButtonPosition[2] = new Vector2(600, 550);
+            Menus[(int)Menu.Missions] = new States.SubMenu(17); //mission menu has 2 buttons
+            Menus[(int)Menu.Missions].BackGround = content.Load<Texture2D>("Images\\MissionForm");
+            for (int j = 0; j <= 15; j++)
+                Menus[(int)Menu.Missions].ButtonImage[j] = content.Load<Texture2D>("Images\\mission" + (j+1).ToString());
+            Menus[(int)Menu.Missions].ButtonPosition[0] = new Vector2(170, 150);
+            Menus[(int)Menu.Missions].ButtonPosition[1] = new Vector2(260, 150);
+            Menus[(int)Menu.Missions].ButtonPosition[2] = new Vector2(340, 150);
+            Menus[(int)Menu.Missions].ButtonPosition[3] = new Vector2(420, 150);
+            Menus[(int)Menu.Missions].ButtonPosition[4] = new Vector2(500, 150);
+            Menus[(int)Menu.Missions].ButtonPosition[5] = new Vector2(600, 150);
+            Menus[(int)Menu.Missions].ButtonPosition[6] = new Vector2(170, 230);
+            Menus[(int)Menu.Missions].ButtonPosition[7] = new Vector2(250, 230);
+            Menus[(int)Menu.Missions].ButtonPosition[8] = new Vector2(340, 230);
+            Menus[(int)Menu.Missions].ButtonPosition[9] = new Vector2(420, 230);
+            Menus[(int)Menu.Missions].ButtonPosition[10] = new Vector2(500, 230);
+            Menus[(int)Menu.Missions].ButtonPosition[11] = new Vector2(170, 300);
+            Menus[(int)Menu.Missions].ButtonPosition[12] = new Vector2(260, 300);
+            Menus[(int)Menu.Missions].ButtonPosition[13] = new Vector2(360, 300);
+            Menus[(int)Menu.Missions].ButtonPosition[14] = new Vector2(440, 300);
+            Menus[(int)Menu.Missions].ButtonPosition[15] = new Vector2(550, 300);
+            //Menus[(int)Menu.Missions].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
+            //Menus[(int)Menu.Missions].ButtonPosition[0] = new Vector2(100, 250);
+            //Menus[(int)Menu.Missions].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
+            //Menus[(int)Menu.Missions].ButtonPosition[1] = new Vector2(450, 300);
+            Menus[(int)Menu.Missions].ButtonImage[16] = content.Load<Texture2D>("Images\\BackButton");
+            Menus[(int)Menu.Missions].ButtonPosition[16] = new Vector2(600, 550);
             #endregion
 
             #region Load Credits
@@ -237,7 +255,7 @@ namespace SSORF.Management
 
                         //Note: buttonPressed = 0 means no button has been pressed
                         //If we are in the missions menu and a button is pressed...
-                        if (Menus[(int)Menu.Missions].buttonPressed == 3)
+                        if (Menus[(int)Menu.Missions].buttonPressed == 17)
                         {
                             CurrentMenu = Menu.Main;
                             Menus[(int)Menu.Missions].selectedButton = 1;
