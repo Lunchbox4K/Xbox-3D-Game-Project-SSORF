@@ -75,17 +75,59 @@ namespace SSORF.Management.States
                             game.GraphicsDevice.Viewport.AspectRatio, 1.0f, 2000.0f);
             //Set Level
             levelProperties = new SSORFlibrary.LevelLayout();
-            SSORFlibrary.LocationMapAsset tree = new SSORFlibrary.LocationMapAsset();
-            tree.asset_colorID = 128;
-            tree.asset_location = "Models\\tree";
             levelProperties.instanced_models = new List<SSORFlibrary.LocationMapAsset>();
+
+            SSORFlibrary.LocationMapAsset tree = new SSORFlibrary.LocationMapAsset();
+            tree.asset_colorID = 130;
+            tree.asset_location = "Models\\tree";
             levelProperties.instanced_models.Add(tree);
-            levelProperties.instances_locationMap = "Images\\Terrain\\lvl1_mm";
+
+            SSORFlibrary.LocationMapAsset car = new SSORFlibrary.LocationMapAsset();
+            car.asset_colorID = 50;
+            car.asset_location = "Models\\car1";
+            levelProperties.instanced_models.Add(car);
+
+            SSORFlibrary.LocationMapAsset bench = new SSORFlibrary.LocationMapAsset();
+            bench.asset_colorID = 20;
+            bench.asset_location = "Models\\bench";
+            levelProperties.instanced_models.Add(bench);
+
+            SSORFlibrary.LocationMapAsset can = new SSORFlibrary.LocationMapAsset();
+            can.asset_colorID = 40;
+            can.asset_location = "Models\\garbagecan";
+            levelProperties.instanced_models.Add(can);
+
+            SSORFlibrary.LocationMapAsset storesign = new SSORFlibrary.LocationMapAsset();
+            storesign.asset_colorID = 100;
+            storesign.asset_location = "Models\\storesign";
+            levelProperties.instanced_models.Add(storesign);
+
+            SSORFlibrary.LocationMapAsset handicap = new SSORFlibrary.LocationMapAsset();
+            handicap.asset_colorID = 120;
+            handicap.asset_location = "Models\\handicapsign";
+            levelProperties.instanced_models.Add(handicap);
+
+            SSORFlibrary.LocationMapAsset cart = new SSORFlibrary.LocationMapAsset();
+            cart.asset_colorID = 60;
+            cart.asset_location = "Models\\shoppingcart";
+            levelProperties.instanced_models.Add(cart);
+
+            SSORFlibrary.LocationMapAsset light = new SSORFlibrary.LocationMapAsset();
+            light.asset_colorID = 80;
+            light.asset_location = "Models\\streetlight";
+            levelProperties.instanced_models.Add(light);
+
+            SSORFlibrary.LocationMapAsset store = new SSORFlibrary.LocationMapAsset();
+            store.asset_colorID = 90;
+            store.asset_location = "Models\\storefront";
+            levelProperties.instanced_models.Add(store);
+
+            levelProperties.instances_locationMap = "Images\\Terrain\\lvl3_mm";
             levelProperties.level_effect = "Effects\\TerrainTextureEffect";
-            levelProperties.level_heightMap = "Images\\Terrain\\lvl1_hm";
-            levelProperties.level_textureB = "Images\\Terrain\\terrainTextureB";
+            levelProperties.level_heightMap = "Images\\Terrain\\lvl3_hm";
+            levelProperties.level_textureB = "Images\\Terrain\\asphalt";
             levelProperties.level_textureG = "Images\\Terrain\\terrainTextureG";
-            levelProperties.level_textureMap = "Images\\Terrain\\lvl1_cm";
+            levelProperties.level_textureMap = "Images\\Terrain\\lvl3_cm";
             levelProperties.level_textureR = "Images\\Terrain\\terrainTextureR";
             levelProperties.viewTree_refreshRate = 8;
             level = new Objects.Level(game, levelProperties);
@@ -154,7 +196,7 @@ namespace SSORF.Management.States
 
             camera.update(scooter.Geometry.Location, scooter.Yaw);
 
-            bounds = rootGame.GraphicsDevice.Viewport.Bounds;
+            bounds = rootGame.GraphicsDevice.Viewport.TitleSafeArea;
         }
 
 

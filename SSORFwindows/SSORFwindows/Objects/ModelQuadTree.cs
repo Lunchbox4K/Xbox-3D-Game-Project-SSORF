@@ -334,8 +334,16 @@ namespace SSORF.Objects
             //Check Index Range
             if (index >= instancedModels.Count)
                 throw new IndexOutOfRangeException("Index out of range!");
+
             if (modelInstances == null)
                 modelInstances = new List<List<Matrix>>();
+
+            if (modelInstances.Count < instancedModels.Count)
+                while (modelInstances.Count < instancedModels.Count)
+                {
+                    modelInstances.Add(new List<Matrix>());
+                }
+            
             while (index >= modelInstances.Count)
                 modelInstances.Add(new List<Matrix>());
             modelInstances[index].Add(instance); 

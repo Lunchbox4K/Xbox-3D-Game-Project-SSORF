@@ -510,99 +510,105 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\mission10.png">
-      <Name>mission10</Name>
+    <Compile Include="Images\Terrain\lvl3_cm.bmp">
+      <Name>lvl3_cm</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\mission11.png">
-      <Name>mission11</Name>
+    <Compile Include="Images\Terrain\lvl3_hm.bmp">
+      <Name>lvl3_hm</Name>
       <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
+      <Processor>TerrainProcessor</Processor>
     </Compile>
-    <Compile Include="Images\mission12.png">
-      <Name>mission12</Name>
+    <Compile Include="Images\Terrain\lvl3_mm.bmp">
+      <Name>lvl3_mm</Name>
       <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
+      <Processor>LocationMapProcessor</Processor>
     </Compile>
-    <Compile Include="Images\mission13.png">
-      <Name>mission13</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\mission14.png">
-      <Name>mission14</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\mission15.png">
-      <Name>mission15</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\mission16.png">
-      <Name>mission16</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\mission3.png">
-      <Name>mission3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\mission4.png">
-      <Name>mission4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\mission5.png">
-      <Name>mission5</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\mission6.png">
-      <Name>mission6</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\mission7.png">
-      <Name>mission7</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\mission8.png">
-      <Name>mission8</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\mission9.png">
-      <Name>mission9</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\MissionForm.png">
-      <Name>MissionForm</Name>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\asphalt.jpg">
+      <Name>asphalt</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\mission1.png">
-      <Name>mission1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\mission2.png">
-      <Name>mission2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
+    <Compile Include="Models\storefront.fbx">
+      <Name>storefront</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>4</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Sound.png">
-      <Name>Sound</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
+    <Compile Include="Models\car1.fbx">
+      <Name>car1</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\handicapsign.fbx">
+      <Name>handicapsign</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\bench.fbx">
+      <Name>bench</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+    <Compile Include="Models\bush.fbx">
+      <Name>bush</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+    <Compile Include="Models\garbagecan.fbx">
+      <Name>garbagecan</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+    <Compile Include="Models\hydrant.fbx">
+      <Name>hydrant</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\shoppingcart.fbx">
+      <Name>shoppingcart</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+    <Compile Include="Models\storesign.fbx">
+      <Name>storesign</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+    <Compile Include="Models\streetlight.fbx">
+      <Name>streetlight</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+    </Compile>
+    <Compile Include="Models\tirepile.fbx">
+      <Name>tirepile</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\trafficcone.fbx">
+      <Name>trafficcone</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>InstancedModelProcessor</Processor>
+      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

@@ -45,6 +45,9 @@ namespace SSORF.Management
         //to both mission and menus so I included it with the state manager.
         Objects.Player player = new Objects.Player();
 
+        //matrix for stretch
+        Matrix screenScale;
+
 
         public StateManager(Game game)
             : base(game)
@@ -59,19 +62,22 @@ namespace SSORF.Management
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //2d Stretch
+            screenScale = Matrix.CreateScale(GraphicsDevice.Viewport.Width / 800f, GraphicsDevice.Viewport.Height / 600f, 1f);
+
             font = Game.Content.Load<SpriteFont>("font");
             
             title = new States.Title();
             title.Image = Game.Content.Load<Texture2D>("Images\\senior scooter title screen");
+            title.scale = screenScale;
 
             menu = new MenuManager(Game.Content, player, GraphicsDevice);
+            menu.scale = screenScale;
 
             currentMission = new States.Mission();
 
             //AudioManager initialization
-            AudioManager.LoadAudioContent();
-
-            GraphicsDevice.Viewport = new Viewport(GraphicsDevice.Viewport.TitleSafeArea);
+            AudioManager.LoadAudioContent();            
         }
 
         //Do we need to use this? I'm not sure
