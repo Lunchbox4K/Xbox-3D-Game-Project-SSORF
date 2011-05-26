@@ -3379,7 +3379,7 @@ Objects:  {
             Property: "LastFrame", "int", "",0
             Property: "Width", "int", "",0
             Property: "Height", "int", "",0
-            Property: "Path", "KString", "", "E:/CS 285/Meshes/Textures/transgrid.png"
+            Property: "Path", "KString", "", "../Models/Textures/transgrid.png"
             Property: "StartFrame", "int", "",0
             Property: "StopFrame", "int", "",0
             Property: "PlaySpeed", "double", "",0
@@ -3390,8 +3390,8 @@ Objects:  {
             Property: "AccessMode", "enum", "",0
         }
         UseMipMap: 0
-        Filename: "E:/CS 285/Meshes/Textures/transgrid.png"
-        RelativeFilename: "E:\CS 285\Meshes\Textures\transgrid.png"
+        Filename: "../Textures/transgrid.png"
+        RelativeFilename: "..\Models\Textures\transgrid.png"
     }
     Texture: "Texture::file1", "" {
         Type: "TextureVideoClip"
@@ -3415,8 +3415,8 @@ Objects:  {
             Property: "UVSet", "KString", "", "default"
         }
         Media: "Video::file1"
-        FileName: "E:/CS 285/Meshes/Textures/transgrid.png"
-        RelativeFilename: "E:\CS 285\Meshes\Textures\transgrid.png"
+        FileName: "../Models/Textures/transgrid.png"
+        RelativeFilename: "..\Models\Textures\transgrid.png"
         ModelUVTranslation: 0,0
         ModelUVScaling: 1,1
         Texture_Alpha_Source: "None"
