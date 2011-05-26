@@ -63,7 +63,7 @@ namespace SSORF
         //StateManager.LoadContent() is called here
         protected override void LoadContent()
         {
-
+            
         }
 
         //Do we need to use this? I'm not sure
