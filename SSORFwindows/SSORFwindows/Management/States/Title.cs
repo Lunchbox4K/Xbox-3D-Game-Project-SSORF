@@ -19,6 +19,7 @@ namespace SSORF.Management.States
         public bool Active = true;
         private Texture2D image;
         private double endTime;
+        public Matrix scale;
 
         public Texture2D Image { get {return image;} set {image = value;} }
 
@@ -47,7 +48,7 @@ namespace SSORF.Management.States
         //draw title
         public void draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
             spriteBatch.Draw(image, Vector2.Zero, Color.White);
             spriteBatch.End();
         }

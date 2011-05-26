@@ -61,6 +61,8 @@ namespace SSORF.Management
 
         GraphicsDevice graphics;
 
+        public Matrix scale;
+
         #endregion
 
         public MenuManager(ContentManager content, Objects.Player player, GraphicsDevice graphicsDevice)
@@ -363,7 +365,7 @@ namespace SSORF.Management
         //draw the current menu and the cursor
         public void draw(SpriteBatch spriteBatch, Objects.Player player)
         {
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
             Menus[(int)CurrentMenu].draw(spriteBatch);
 
             #region draw upgrade/vehicle specs and player money
