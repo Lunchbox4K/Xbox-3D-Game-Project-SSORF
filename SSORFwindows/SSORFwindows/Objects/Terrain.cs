@@ -199,7 +199,7 @@ namespace SSORF.Objects
 
         public Terrain(GraphicsDevice graphicsDevice, 
                        ContentManager contentManager)
-            : base(contentManager, "", Vector3.Zero, Matrix.Identity, Matrix.Identity)
+            : base(contentManager, "", Vector3.Zero, Matrix.Identity, 1f)
         {
 
         }

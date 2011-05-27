@@ -31,8 +31,20 @@ namespace SSORF.Objects
         private SSORFlibrary.LevelLayout m_properties;
 
         private List<StaticModel> m_staticModels;
-        private List<InstancedModel> m_instancedModels;
+        public List<StaticModel> StaticModels
+        {
+            get { return m_staticModels; }
+        }
+        private List<StaticModel> m_instancedModels;
+        public List<StaticModel> InstancedModels
+        {
+            get { return m_instancedModels; }
+        }
         private List<List<Matrix>> m_modelInstances;
+        public List<List<Matrix>> ModelInstances
+        {
+            get { return m_modelInstances; }
+        }
         private List<StaticModel> m_checkpoints;
         private Terrain m_terrain;
 
@@ -52,7 +64,7 @@ namespace SSORF.Objects
             m_rootGame = game;
             m_properties = Properties.Copy(true); //Deep Copy
             m_staticModels = new List<StaticModel>();
-            m_instancedModels = new List<InstancedModel>();
+            m_instancedModels = new List<StaticModel>();
             m_modelInstances = new List<List<Matrix>>();
             m_terrain = new Terrain(game.GraphicsDevice, game.Content);
         }
@@ -100,7 +112,7 @@ namespace SSORF.Objects
                                 if (m_terrain.terrainInfo.IsOnHeightmap(location))
                                     m_terrain.terrainInfo.GetHeightAndNormal(location, out location.Y, out normal);
                                 model = new StaticModel(m_rootGame.Content, m_properties.statics_models[i].asset_location,
-                                    location, Matrix.Identity, Matrix.CreateScale(0.5f));
+                                    location, Matrix.Identity, 0.5f);
                                 //Add each model instance to a List<>
                                 m_staticModels.Add(model);
                                 m_drawTree.addStaticModel(m_staticModels[loopit]);
@@ -115,7 +127,7 @@ namespace SSORF.Objects
                 for (int i = 0; i < m_properties.instanced_models.Count; i++)
                 {
                     InstancedModel model =
-                        new InstancedModel(m_rootGame.Content, m_properties.instanced_models[i].asset_location);
+                        new InstancedModel(m_rootGame.Content, m_properties.instanced_models[i].asset_location, 1f, Matrix.Identity);
                     //Add each Instanced Model to a List<>
                     m_instancedModels.Add(model);
                     m_drawTree.addInstancedModel(m_instancedModels[i]);

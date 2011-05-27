@@ -39,7 +39,7 @@ namespace SSORF.Objects
             mySpecs.outputPower *= ampToNetwonMeterScale;              //Scaling from amps to newton-meters here
             mySpecs.weight += Upgrades.weight += 90;        //Rider weight
             geometry = new StaticModel(content, "Models\\scooter" + VehicleSpecs.IDnum.ToString(),
-                Vector3.Zero, Matrix.Identity, Matrix.Identity);
+                Vector3.Zero, Matrix.Identity, 1f);
             geometry.LoadModel();
         }
 
@@ -93,9 +93,18 @@ namespace SSORF.Objects
             float deltaYaw = tempDistance / turnRadius;
             //Update rotations
             yaw += deltaYaw * (float)Math.Sqrt(1 - Math.Pow(geometry.Orientation.Left.Y, 2));
+
+            //Update Velocity for Model and Collision
+            Vector3 prevLocation = geometry.Location;
+
             //Derive and update position
             geometry.Location += geometry.Orientation.Forward * tempDistance * (float)Math.Cos(deltaYaw) * meterToInchScale * (float)Math.Sqrt(1 - Math.Pow(geometry.Orientation.Forward.Y, 2));
             geometry.Location += geometry.Orientation.Left * tempDistance * (float)Math.Sin(deltaYaw) * meterToInchScale * (float)Math.Sqrt(1 - Math.Pow(geometry.Orientation.Left.Y, 2));
+
+            //Update Velocity for Model and Collision Cont...
+            Vector3 velocity = Vector3.Subtract(prevLocation, geometry.Location);
+            geometry.Velocity = velocity;
+
             //Capture the wheel angle for the next frame's worth of motion
             wheelAngle = steerValue * mySpecs.wheelMaxAngle;
             //Swap brake/power if the player is reversing

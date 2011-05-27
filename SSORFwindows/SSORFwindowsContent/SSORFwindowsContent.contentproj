@@ -545,8 +545,7 @@
     <Compile Include="Models\car1.fbx">
       <Name>car1</Name>
       <Importer>FbxImporter</Importer>
-      <Processor>InstancedModelProcessor</Processor>
-      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+      <Processor>ModelProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -699,11 +698,6 @@
     </Compile>
     <Compile Include="Images\Sound.png">
       <Name>Sound</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\_game menu.png">
-      <Name>_game menu</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
