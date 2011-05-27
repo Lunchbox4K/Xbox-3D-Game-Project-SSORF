@@ -226,16 +226,25 @@ namespace SSORF.Management.States
 #if XBOX
                     if (gamePadState.current.Buttons.Y == ButtonState.Pressed)
                         state = MissionState.Ending;
-                    if (gamePadState.current.Buttons.Start == ButtonState.Pressed && 
-                        gamePadState.current.Buttons.Start == ButtonState.Released) 
-                        state = MissionState.Paused;
+                    if (gamePadState.current.Buttons.Start == ButtonState.Pressed &&
+                        gamePadState.previous.Buttons.Start == ButtonState.Released)
+                    {
+                        AudioManager.ResumeAudio();
+                        state = MissionState.Playing;
+                    }
 #else
-                scooter.UpdateAudio(0);
+               
                 if (keyBoardState.current.IsKeyDown(Keys.Q))
-                        state = MissionState.Ending;
-                    if (keyBoardState.current.IsKeyDown(Keys.Enter) &&
-                        keyBoardState.previous.IsKeyUp(Keys.Enter))
-                        state = MissionState.Playing;     
+                {
+                    AudioManager.ResumeAudio();
+                    state = MissionState.Ending;
+                }
+                if (keyBoardState.current.IsKeyDown(Keys.Enter) &&
+                    keyBoardState.previous.IsKeyUp(Keys.Enter))
+                {
+                    AudioManager.ResumeAudio();
+                    state = MissionState.Playing;
+                }     
 #endif
                 break;
 
@@ -292,14 +301,20 @@ namespace SSORF.Management.States
                     }
 
 #if XBOX
-                    if (gamePadState.current.Buttons.Start == ButtonState.Pressed && 
-                        gamePadState.current.Buttons.Start == ButtonState.Released)  
+                    if (gamePadState.current.Buttons.Start == ButtonState.Pressed &&
+                        gamePadState.current.Buttons.Start == ButtonState.Released)
+                    {
+                        AudioManager.PauseAudio();
                         state = MissionState.Paused;
+                    }
 #else
 
                     if (keyBoardState.current.IsKeyDown(Keys.Enter) && 
                         keyBoardState.previous.IsKeyUp(Keys.Enter))
-                        state = MissionState.Paused;     
+                    {
+                        AudioManager.PauseAudio();
+                        state = MissionState.Paused;
+                    }    
 #endif
                 break;
 
@@ -307,12 +322,18 @@ namespace SSORF.Management.States
                 //If mission has ended wait for user to confirm returning to menu
                 case MissionState.Ending :
 #if XBOX
-                    if (gamePadState.current.Buttons.Start == ButtonState.Pressed)  
+                    if (gamePadState.current.Buttons.Start == ButtonState.Pressed)
+                    {
+                        AudioManager.ResumeAudio();
                         Active = false;
+                    }
 #else
-                scooter.UpdateAudio(0);
-                    if (keyBoardState.current.IsKeyDown(Keys.Enter))  
-                        Active = false;               
+               
+                    if (keyBoardState.current.IsKeyDown(Keys.Enter))
+                    {
+                        AudioManager.ResumeAudio();
+                        Active = false;
+                    }             
 #endif
                 break;
             }
