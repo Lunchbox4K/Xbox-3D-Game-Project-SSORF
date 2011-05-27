@@ -1,5 +1,5 @@
 using System;
-
+using System.Threading;
 namespace SSORF
 {
 #if WINDOWS || XBOX
@@ -10,6 +10,9 @@ namespace SSORF
         /// </summary>
         static void Main(string[] args)
         {
+#if XBOX
+            Thread.CurrentThread.SetProcessorAffinity(1);
+#endif
             using (MainSource game = new MainSource())
             {
                 game.Run();

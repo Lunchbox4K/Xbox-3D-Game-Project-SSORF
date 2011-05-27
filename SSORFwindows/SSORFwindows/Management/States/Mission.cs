@@ -56,6 +56,8 @@ namespace SSORF.Management.States
         SSORF.Objects.Level level;
 
         SSORF.Objects.fpsCalculator fps;
+        SSORF.Objects.CollisionDetection collisions;
+        List<SSORF.Objects.StaticModel> playerModels;
 
         private Rectangle bounds;
         #endregion
@@ -70,6 +72,8 @@ namespace SSORF.Management.States
             player = playerInfo;
             rootGame = game;
             scooter.load(game.Content, ScooterSpecs, player.UpgradeTotals[ScooterSpecs.IDnum]);
+            playerModels = new List<Objects.StaticModel>();
+            playerModels.Add(scooter.Geometry);
             camera.ProjMtx = Matrix.CreatePerspectiveFieldOfView(
                             MathHelper.ToRadians(45.0f),
                             game.GraphicsDevice.Viewport.AspectRatio, 1.0f, 2000.0f);
@@ -132,6 +136,9 @@ namespace SSORF.Management.States
             levelProperties.level_textureR = "Images\\Terrain\\terrainTextureR";
             levelProperties.viewTree_refreshRate = 8;
             level = new Objects.Level(game, levelProperties);
+
+            collisions = new Objects.CollisionDetection();
+            collisions.setPlayerModels(playerModels);
         }
 
         //missionId can be used to load checkpoint coordinates for that mission
@@ -148,8 +155,11 @@ namespace SSORF.Management.States
             //Load Level
             level.LoadContent();
 
+            collisions.setModels(level.StaticModels, level.InstancedModels, level.ModelInstances);
+           
+
             Check = new Objects.StaticModel(content, "Models\\check",
-                        Vector3.Zero, Matrix.Identity, Matrix.Identity);
+                        Vector3.Zero, Matrix.Identity, 1f);
             
             Check.LoadModel();
 
@@ -198,11 +208,16 @@ namespace SSORF.Management.States
             camera.update(scooter.Geometry.Location, scooter.Yaw);
 
             bounds = rootGame.GraphicsDevice.Viewport.TitleSafeArea;
+
+            collisions.start();
+
+
         }
 
 
         public void update(GameTime gameTime)
         {
+            SSORF.Objects.Collision[] collisionList = collisions.waitToGetCollisions;
             fps.update(gameTime);
             //Update Level
             level.update(gameTime, camera.ViewMtx, camera.ProjMtx);

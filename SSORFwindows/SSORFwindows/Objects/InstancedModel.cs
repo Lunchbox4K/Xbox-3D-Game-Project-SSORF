@@ -30,8 +30,8 @@ namespace SSORF.Objects
         //Used to run vertex math on GPU
         private DynamicVertexBuffer instanceVertBuffer;
 
-        public InstancedModel(ContentManager Content, string AssetLocation)
-            : base(Content, AssetLocation, Vector3.Zero, Matrix.Identity, Matrix.Identity)
+        public InstancedModel(ContentManager Content, string AssetLocation, float scale, Matrix orientation)
+            : base(Content, AssetLocation, Vector3.Zero, orientation, scale)
         {
             locations = new List<Matrix>();
         }

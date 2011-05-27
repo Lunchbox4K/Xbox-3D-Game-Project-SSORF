@@ -25,8 +25,9 @@ namespace SSORF.Objects
 
         protected Vector3 location;
         protected Matrix orientation;
-        protected Matrix scale;
+        protected float scale;
         protected Matrix transform;
+        protected Vector3 velocity;
 
         protected BoundingSphere boundingSphere;
         protected List<BoundingSphere> meshSpheres;
@@ -56,7 +57,7 @@ namespace SSORF.Objects
         }
 
         public StaticModel(ContentManager Content, string AssetLocation, 
-            Vector3 Location, Matrix Orientation, Matrix Scale)
+            Vector3 Location, Matrix Orientation, float Scale)
         {
         modelIDloop += 1;
             modelID = modelIDloop;
@@ -67,8 +68,10 @@ namespace SSORF.Objects
             location = Location;
             orientation = Orientation;
             scale = Scale;
+            velocity = Vector3.Zero;
             transform = Matrix.Identity;
-            Matrix.Multiply(ref scale, ref orientation, out transform);
+            //Matrix.Multiply(ref scale, ref orientation, out transform);
+            transform *= Matrix.CreateScale(scale) * orientation;
             transform = Matrix.Multiply(transform, Matrix.CreateTranslation(location));
         }
 
@@ -181,7 +184,7 @@ namespace SSORF.Objects
             set { location = value; }
         }
 
-        public Matrix Scale
+        public float Scale
         {
             get { return scale; }
             set { scale = value; }
@@ -206,6 +209,12 @@ namespace SSORF.Objects
         public int ID
         {
             get { return modelID; }
+        }
+
+        public Vector3 Velocity
+        {
+            get { return velocity; }
+            set { velocity = value; }
         }
     }
 }
