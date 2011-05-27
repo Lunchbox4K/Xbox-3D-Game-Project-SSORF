@@ -124,36 +124,9 @@ namespace SSORF.Objects
             //Modify force for inertia
             float deltaV = (longForce) / mySpecs.weight;
             speed += deltaV;
-            UpdateAudio(throttleValue);
+            AudioManager.UpdateEngine(throttleValue, speed);
         }
-
-        public void UpdateAudio(float throttleValue)
-        {
-            if (AudioManager.isSoundOn())
-            {
-                AudioManager.getEngineSounds().SetVariable("throttleValue", throttleValue + speed);
-                AudioManager.getEngineSounds().SetVariable("Speed", speed);
-                if (throttleValue != 0)
-                {
-
-                    if (AudioManager.getEngineSounds().IsPaused)
-                        AudioManager.getEngineSounds().Resume();
-                    else if (AudioManager.getEngineSounds().IsStopped)
-                    {
-                        AudioManager.resetEngineSounds();
-                        AudioManager.getEngineSounds().Play();
-                    }
-                    else if (AudioManager.getEngineSounds().IsPlaying == false &&
-                        AudioManager.getEngineSounds().IsPrepared)
-                        AudioManager.getEngineSounds().Play();
-                }
-                else if (speed < 0.05)
-                {
-                    AudioManager.getEngineSounds().Stop(AudioStopOptions.AsAuthored);
-                }
-            }
-        }
- 
+         
         //Accessors and Mutators
         public StaticModel Geometry { get { return geometry; } set { geometry = value; } }
 
