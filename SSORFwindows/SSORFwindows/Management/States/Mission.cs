@@ -138,6 +138,7 @@ namespace SSORF.Management.States
             levelProperties.viewTree_refreshRate = 8;
             level = new Objects.Level(game, levelProperties);
 
+            //Initialize the variable in the constructor
             collisions = new Objects.CollisionDetection();
             collisions.setPlayerModels(playerModels);
         }
@@ -156,6 +157,8 @@ namespace SSORF.Management.States
             //Load Level
             level.LoadContent();
 
+            //Grabs the raw static and instanced model data from the level for processing
+            // Will probably grab a list of checkpoints if the list is created in the level class
             collisions.setModels(level.StaticModels, level.InstancedModels, level.ModelInstances);
            
 
@@ -210,6 +213,7 @@ namespace SSORF.Management.States
 
             bounds = rootGame.GraphicsDevice.Viewport.TitleSafeArea;
 
+            //Starts the collision detector
             collisions.start();
 
 
@@ -217,14 +221,26 @@ namespace SSORF.Management.States
 
         public void unload()
         {
+            //Unloads the Collision
             if (collisions != null)
+            {
                 collisions.stop();
+            }
         }
 
         public void update(GameTime gameTime)
         {
+            //Updates the bounding spheres location and velocity
+            //Waites for the thread functions sleep command outside
+            //  the data lock.
+            List<Objects.StaticModel> tmpPlayerModelList = 
+                new List<Objects.StaticModel>();
+            tmpPlayerModelList.Add(scooter.Geometry);
+            collisions.setPlayerModels(tmpPlayerModelList);
             collisionList = collisions.waitToGetCollisions;
+
             fps.update(gameTime);
+
             //Update Level
             level.update(gameTime, camera.ViewMtx, camera.ProjMtx);
 
@@ -392,14 +408,17 @@ namespace SSORF.Management.States
             spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left + 11, bounds.Top + 51), Color.Black);
             spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left + 10, bounds.Top + 50), Color.Black);
 
-            string output = "";
+            //string output = "";
+            //if (collisionList != null && collisionList.Length > 0)
+            //    for (int i = 0; i < collisionList.Length; i++)
+            //    {
+            //        output += collisionList[i].player1Location.ToString() + "\n";
+            //    }
             if (collisionList != null && collisionList.Length > 0)
-                for (int i = 0; i < collisionList.Length; i++)
-                {
-                    output += collisionList[i].modelB_ID.ToString() + ",  ";
-                }
-            spriteBatch.DrawString(smallFont, "TOUCH: " + output, new Vector2(bounds.Left + 10, bounds.Top + 70), Color.White);
-            spriteBatch.DrawString(smallFont, "TOUCH: " + output, new Vector2(bounds.Left + 11, bounds.Top + 71), Color.Black);
+            {
+                spriteBatch.DrawString(smallFont, "P1 Sphere: " + collisionList[0].player1Location.ToString(), new Vector2(bounds.Left + 10, bounds.Top + 70), Color.White);
+                spriteBatch.DrawString(smallFont, "P1 Sphere: " + collisionList[0].player1Location.ToString(), new Vector2(bounds.Left + 11, bounds.Top + 71), Color.Black);
+            }
             //spriteBatch.DrawString(smallFont, "Scooter coordinates: " + scooter.Geometry.Location.ToString(), new Vector2(10, 10), Color.Black);
             //spriteBatch.DrawString(smallFont, "Camera coordinates:  " + camera.Position.ToString(), new Vector2(10, 30), Color.Black);
             
