@@ -190,10 +190,13 @@ namespace SSORF.Objects
             }
             else
             {
-                for (int i = 0; i < static_bSphere.Count; i++)
+                for (int i = 0; i < playerModels.Count; i++)
                 {
-                    BoundingSphere tmp = playerModels[i].GetBoundingSphere;
-                    player_bSphere[i] = new BoundingSphere(tmp.Center, tmp.Radius);
+                    BoundingSphere tmp = new BoundingSphere();
+                    tmp.Radius = playerModels[i].GetBoundingSphere.Radius;
+                    tmp.Center = playerModels[i].GetBoundingSphere.Center;
+                    tmp.Center += playerModels[i].Location;
+                    player_bSphere[i] = tmp;
                     player_Velocity[i] = playerModels[i].Velocity;
                 }
             }
@@ -233,6 +236,7 @@ namespace SSORF.Objects
                                     Collision tmpCollision = new Collision();
                                     tmpCollision.modelA_ID = i;
                                     tmpCollision.modelB_ID = static_IDs[j];
+                                    tmpCollision.player1Location = player_bSphere[0].Center;
                                     collisions.Add(tmpCollision);
                                 }
                             }
@@ -252,6 +256,7 @@ namespace SSORF.Objects
                                                 Collision tmpCollision = new Collision();
                                                 tmpCollision.modelA_ID = i;
                                                 tmpCollision.modelB_ID = inst_IDs[j];
+                                                tmpCollision.player1Location = player_bSphere[0].Center;
                                                 collisions.Add(tmpCollision);
                                             }
                                         }
@@ -316,5 +321,6 @@ namespace SSORF.Objects
     {
         public int modelA_ID;
         public int modelB_ID;
+        public Vector3 player1Location;
     }
 }
