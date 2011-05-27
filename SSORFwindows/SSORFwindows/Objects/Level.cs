@@ -74,30 +74,40 @@ namespace SSORF.Objects
                     new Vector3( halfWidth, 0,  halfWidth)), 
                 m_properties.viewTree_refreshRate);
 
+            //Load Static Models
+            LocationMap instancedLocation =
+                m_rootGame.Content.Load<LocationMap>(m_properties.instances_locationMap);
+                float scaledMapSize = instancedLocation.Color.Length * instancedLocation.scale;
+                float xOffset = scaledMapSize / 2;
+                float zOffSet = scaledMapSize / 2;
             if (m_properties.statics_models != null)
             {
-                //Load Static Models
-                LocationMap staticLocations = 
-                    m_rootGame.Content.Load<LocationMap>(m_properties.statics_locationMap);
                 Vector3 offset = Vector3.Zero;
+                int loopit = 0;
                 for (int i = 0; i < m_properties.statics_models.Count; i++)
-                    for(int x = 0; x < staticLocations.Color.Length; x++)
-                        for (int y = 0; y < staticLocations.Color[x].Length; y++)
-                            if(staticLocations.Color[x][y].X == m_properties.statics_models[i].asset_colorID)
+                {
+                    loopit = i;
+                    for (int x = 0; x < instancedLocation.Color.Length; x++)
+                        for (int y = 0; y < instancedLocation.Color[x].Length; y++)
+                            if (instancedLocation.Color[y][x].X == m_properties.statics_models[i].asset_colorID)
                             {
                                 StaticModel model;
                                 Vector3 location = Vector3.Zero;
                                 Vector3 normal;
-                                location.X = x * staticLocations.scale;
-                                location.Z = y * staticLocations.scale;
-                                if(m_terrain.terrainInfo.IsOnHeightmap(location))
+                                location.X = x * instancedLocation.scale - xOffset;
+                                location.Z = y * instancedLocation.scale - zOffSet;
+                                location.Y = 0;
+                                if (m_terrain.terrainInfo.IsOnHeightmap(location))
                                     m_terrain.terrainInfo.GetHeightAndNormal(location, out location.Y, out normal);
                                 model = new StaticModel(m_rootGame.Content, m_properties.statics_models[i].asset_location,
-                                    Vector3.Zero, Matrix.Identity, Matrix.CreateScale(0.5f));
+                                    location, Matrix.Identity, Matrix.CreateScale(0.5f));
                                 //Add each model instance to a List<>
                                 m_staticModels.Add(model);
-                                m_drawTree.addStaticModel(m_staticModels[i]);
+                                m_drawTree.addStaticModel(m_staticModels[loopit]);
+                                loopit++;
                             }
+                    loopit++;
+                }
             }
             if (m_properties.instanced_models != null)
             {
@@ -111,11 +121,7 @@ namespace SSORF.Objects
                     m_drawTree.addInstancedModel(m_instancedModels[i]);
                 }
                 //Load Instanced Model Locations
-                LocationMap instancedLocation =
-                    m_rootGame.Content.Load<LocationMap>(m_properties.instances_locationMap);
-                float scaledMapSize = instancedLocation.Color.Length * instancedLocation.scale;
-                float xOffset = scaledMapSize / 2;
-                float zOffSet = scaledMapSize / 2;
+
                 for (int i = 0; i < m_properties.instanced_models.Count; i++)
                 {
                     m_modelInstances.Add(new List<Matrix>()); //Add Container for each model

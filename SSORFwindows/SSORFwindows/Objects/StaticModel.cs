@@ -99,10 +99,10 @@ namespace SSORF.Objects
                 BoundingSphere tmpSphere = new BoundingSphere();
                 tmpSphere.Center = theseMeshes.BoundingSphere.Center;
                 tmpSphere.Radius = theseMeshes.BoundingSphere.Radius;
-                tmpSphere.Transform(transform);
                 meshSpheres.Add(tmpSphere);
                 mainSphere = BoundingSphere.CreateMerged(mainSphere, tmpSphere);
             }
+            mainSphere.Center = location;
             boundingSphere = mainSphere;
         }
 

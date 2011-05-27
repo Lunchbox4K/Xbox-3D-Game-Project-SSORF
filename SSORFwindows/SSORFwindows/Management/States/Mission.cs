@@ -76,6 +76,7 @@ namespace SSORF.Management.States
             //Set Level
             levelProperties = new SSORFlibrary.LevelLayout();
             levelProperties.instanced_models = new List<SSORFlibrary.LocationMapAsset>();
+            levelProperties.statics_models = new List<SSORFlibrary.LocationMapAsset>();
 
             SSORFlibrary.LocationMapAsset tree = new SSORFlibrary.LocationMapAsset();
             tree.asset_colorID = 130;
@@ -85,7 +86,7 @@ namespace SSORF.Management.States
             SSORFlibrary.LocationMapAsset car = new SSORFlibrary.LocationMapAsset();
             car.asset_colorID = 50;
             car.asset_location = "Models\\car1";
-            levelProperties.instanced_models.Add(car);
+            levelProperties.statics_models.Add(car);
 
             SSORFlibrary.LocationMapAsset bench = new SSORFlibrary.LocationMapAsset();
             bench.asset_colorID = 20;
