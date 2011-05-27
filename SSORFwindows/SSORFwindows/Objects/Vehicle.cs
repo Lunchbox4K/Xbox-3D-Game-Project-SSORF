@@ -82,10 +82,12 @@ namespace SSORF.Objects
             //Clamp turning radius to maximum grip
             if (mySpecs.gripRating < gripForce/9.8)
             {
-                if (turnRadius < 0)
-                    turnRadius = (float)Math.Pow(speed, 2) / -mySpecs.gripRating;
-                else
-                    turnRadius = (float)Math.Pow(speed, 2) / mySpecs.gripRating;
+                float oldRadius = turnRadius;
+                turnRadius = (float)Math.Pow(speed, 2) / mySpecs.gripRating;
+                if (Math.Abs(turnRadius) < mySpecs.wheelBaseLength / (float)Math.Tan(mySpecs.wheelMaxAngle))
+                    turnRadius = mySpecs.wheelBaseLength / (float)Math.Tan(mySpecs.wheelMaxAngle);
+                if (oldRadius < 0)
+                    turnRadius *= -1;
             }
             //Now use those to get the vehicle's yaw offset
             float deltaYaw = tempDistance / turnRadius;
