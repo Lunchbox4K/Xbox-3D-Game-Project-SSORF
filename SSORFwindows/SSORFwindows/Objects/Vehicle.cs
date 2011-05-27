@@ -82,10 +82,12 @@ namespace SSORF.Objects
             //Clamp turning radius to maximum grip
             if (mySpecs.gripRating < gripForce/9.8)
             {
-                if (turnRadius < 0)
-                    turnRadius = (float)Math.Pow(speed, 2) / -mySpecs.gripRating;
-                else
-                    turnRadius = (float)Math.Pow(speed, 2) / mySpecs.gripRating;
+                float oldRadius = turnRadius;
+                turnRadius = (float)Math.Pow(speed, 2) / mySpecs.gripRating;
+                if (Math.Abs(turnRadius) < mySpecs.wheelBaseLength / (float)Math.Tan(mySpecs.wheelMaxAngle))
+                    turnRadius = mySpecs.wheelBaseLength / (float)Math.Tan(mySpecs.wheelMaxAngle);
+                if (oldRadius < 0)
+                    turnRadius *= -1;
             }
             //Now use those to get the vehicle's yaw offset
             float deltaYaw = tempDistance / turnRadius;
@@ -124,36 +126,9 @@ namespace SSORF.Objects
             //Modify force for inertia
             float deltaV = (longForce) / mySpecs.weight;
             speed += deltaV;
-            UpdateAudio(throttleValue);
+            AudioManager.UpdateEngine(throttleValue, speed);
         }
-
-        public void UpdateAudio(float throttleValue)
-        {
-            if (AudioManager.isSoundOn())
-            {
-                AudioManager.getEngineSounds().SetVariable("throttleValue", throttleValue + speed);
-                AudioManager.getEngineSounds().SetVariable("Speed", speed);
-                if (throttleValue != 0)
-                {
-
-                    if (AudioManager.getEngineSounds().IsPaused)
-                        AudioManager.getEngineSounds().Resume();
-                    else if (AudioManager.getEngineSounds().IsStopped)
-                    {
-                        AudioManager.resetEngineSounds();
-                        AudioManager.getEngineSounds().Play();
-                    }
-                    else if (AudioManager.getEngineSounds().IsPlaying == false &&
-                        AudioManager.getEngineSounds().IsPrepared)
-                        AudioManager.getEngineSounds().Play();
-                }
-                else if (speed < 0.05)
-                {
-                    AudioManager.getEngineSounds().Stop(AudioStopOptions.AsAuthored);
-                }
-            }
-        }
- 
+         
         //Accessors and Mutators
         public StaticModel Geometry { get { return geometry; } set { geometry = value; } }
 

@@ -8,7 +8,7 @@
       <brakePower>1.6</brakePower>
       <weight>58</weight>
       <cost>800</cost>
-      <wheelMaxAngle>.785</wheelMaxAngle>
+      <wheelMaxAngle>1.45</wheelMaxAngle>
       <wheelRadius>.1</wheelRadius>
       <wheelBaseLength>1.5</wheelBaseLength>
       <gripRating>2.3</gripRating>
@@ -23,7 +23,7 @@
       <brakePower>1.6</brakePower>
       <weight>38</weight>
       <cost>1200</cost>
-      <wheelMaxAngle>.785</wheelMaxAngle>
+      <wheelMaxAngle>1.45</wheelMaxAngle>
       <wheelRadius>.1</wheelRadius>
       <wheelBaseLength>.89</wheelBaseLength>
       <gripRating>2.94</gripRating>
@@ -38,7 +38,7 @@
       <brakePower>1.6</brakePower>
       <weight>29</weight>
       <cost>800</cost>
-      <wheelMaxAngle>.785</wheelMaxAngle>
+      <wheelMaxAngle>1.45</wheelMaxAngle>
       <wheelRadius>.1</wheelRadius>
       <wheelBaseLength>.8</wheelBaseLength>
       <gripRating>2.7</gripRating>
@@ -53,7 +53,7 @@
       <brakePower>2.2</brakePower>
       <weight>148</weight>
       <cost>12000</cost>
-      <wheelMaxAngle>.785</wheelMaxAngle>
+      <wheelMaxAngle>1.45</wheelMaxAngle>
       <wheelRadius>.1</wheelRadius>
       <wheelBaseLength>1.1</wheelBaseLength>
       <gripRating>3.6</gripRating>
@@ -68,7 +68,7 @@
       <brakePower>2</brakePower>
       <weight>149</weight>
       <cost>4300</cost>
-      <wheelMaxAngle>.567</wheelMaxAngle>
+      <wheelMaxAngle>1.45</wheelMaxAngle>
       <wheelRadius>.1</wheelRadius>
       <wheelBaseLength>1.14</wheelBaseLength>
       <gripRating>4</gripRating>
