@@ -154,7 +154,11 @@ namespace SSORF.Management
             //button before pushing it again
         }
 
-
+        protected override void UnloadContent()
+        {
+            currentMission.unload();  //NEEDED TO STOP THREAD
+            base.UnloadContent();
+        }
 
         //draw title, menu, or mission depending on GameState
         public override void Draw(GameTime gameTime)

@@ -4,7 +4,20 @@ SSORF CHANGE LOG
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ==================================================================================================================
-05/256/2011 @ XX:XXPM	-	Mitchell P.
+05/27/2011 @ 1:15AM	-	Mitchell P.
+==================================================================================================================
+----------------
+State Manager & Mission Class
+----------------
+  > Added temp unload to stop Collision Thread From hanging on exit.
+	!!! THIS IS THE REASON I SAID WE NEED UNLOAD IN EVRYTHING !!!
+ 
+  > Added temp string to game displaying the second model ID in any collision detection.
+	+ The values returned are still broken....
+	+ A way to get the asset location (or good handle) from the ID is still lacking.
+
+==================================================================================================================
+05/27/2011 @ 12:50AM	-	Mitchell P.
 ==================================================================================================================
 ----------------
 Model Collisions
