@@ -4,15 +4,27 @@ SSORF CHANGE LOG
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ==================================================================================================================
-05/27/2011 @ 9:47PM	-	Mitchell P.     O YAH!!!!!
+05/28/2011 @ 3:29PM	-	Mitchell P.   
 ==================================================================================================================
 ----------------
-Model Collisions & Missions
+Model Collisions
+----------------
+  > Fixed Instanced Model Base Sphere Collisions
+
+  > Next to be added is the mesh spheres for better collision
+
+----------------
+StaticModels / Instanced Models
+----------------
+  > Added a static list for all the models generated. You can use this with any model ID to get the
+	base model class. (Only trackes loaded models)
+ 
+  	+ Accessed using  SSORF.Objects.StaticModel.modelList() > Returns Type StaticModel[]
+
 ----------------
 Missions
-  > Added better debug output for testing.
-Model Collision
-  > Fixed Sphere location size and collision on static models. Displayes on screen!!  :)
+----------------
+  > Added better output for collisions
 
 ==================================================================================================================
 05/27/2011 @ 2:14AM	-	Mitchell P.     O YAH!!!!!

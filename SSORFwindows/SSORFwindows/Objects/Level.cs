@@ -112,7 +112,7 @@ namespace SSORF.Objects
                                 if (m_terrain.terrainInfo.IsOnHeightmap(location))
                                     m_terrain.terrainInfo.GetHeightAndNormal(location, out location.Y, out normal);
                                 model = new StaticModel(m_rootGame.Content, m_properties.statics_models[i].asset_location,
-                                    location, Matrix.Identity, 0.5f);
+                                    location, Matrix.Identity, 1f);
                                 //Add each model instance to a List<>
                                 m_staticModels.Add(model);
                                 m_drawTree.addStaticModel(m_staticModels[loopit]);
@@ -129,6 +129,7 @@ namespace SSORF.Objects
                     InstancedModel model =
                         new InstancedModel(m_rootGame.Content, m_properties.instanced_models[i].asset_location, 1f, Matrix.Identity);
                     //Add each Instanced Model to a List<>
+                    model.LoadModel();
                     m_instancedModels.Add(model);
                     m_drawTree.addInstancedModel(m_instancedModels[i]);
                 }
@@ -158,6 +159,7 @@ namespace SSORF.Objects
                                 transform.M42 = location.Y - 2;
                                 transform.M43 = z * instancedLocation.scale - zOffSet;
                                 //Add each Matrix Transfrom to a List<>
+                                m_modelInstances[i].Add(transform);
                                 m_drawTree.addInstanceByID(transform, m_instancedModels[i].ID);
                             }
                 }

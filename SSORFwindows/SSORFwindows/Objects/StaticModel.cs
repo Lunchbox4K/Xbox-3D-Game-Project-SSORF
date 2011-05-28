@@ -17,6 +17,8 @@ namespace SSORF.Objects
     /// </summary>
     public class StaticModel
     {
+        public static StaticModel[] modelList;
+
         protected ContentManager content;
         protected Model model;
         protected bool isLoaded;
@@ -73,6 +75,43 @@ namespace SSORF.Objects
             //Matrix.Multiply(ref scale, ref orientation, out transform);
             transform *= Matrix.CreateScale(scale) * orientation;
             transform = Matrix.Multiply(transform, Matrix.CreateTranslation(location));
+
+        }
+
+        protected void regModelToList()
+        {
+            if (model == null)
+                throw new InvalidCastException("Invalid Asset");
+            calcBoundingSpheres();
+            if (modelList == null)
+            {
+                modelList = new StaticModel[1];
+                modelList[0] = this;
+            }
+            else
+            {
+                Array.Resize<StaticModel>(ref modelList, modelList.Length + 1);
+                modelList[modelList.Length - 1] = this;
+            }
+        }
+        protected void unregModelFromList()
+        {
+            if (modelList.Length <= 1)
+                modelList = null;
+            else
+            {
+                //Remove model from active model list
+                StaticModel[] tmpList = modelList;
+                Array.Resize<StaticModel>(ref modelList, modelList.Length - 1);
+                int j = 0;
+                for (int i = 0; i < modelList.Length; i++)
+                {
+                    if (this.ID == tmpList[i].ID)
+                        j++;
+                    modelList[i] = tmpList[j];
+                    j++;
+                }
+            }
         }
 
         public virtual void LoadModel()
@@ -80,9 +119,7 @@ namespace SSORF.Objects
             try
             {
                 model = content.Load<Model>(modelAsset);
-                if (model == null)
-                    throw new InvalidCastException("Invalid Asset");
-                calcBoundingSpheres();
+                regModelToList();
                 isLoaded = true;
             }
             catch
@@ -91,7 +128,7 @@ namespace SSORF.Objects
             }
         }
 
-        private void calcBoundingSpheres()
+        protected void calcBoundingSpheres()
         {
             //Transform for
             BoundingSphere mainSphere = new BoundingSphere(Vector3.Zero, 0f);
@@ -122,7 +159,10 @@ namespace SSORF.Objects
             if (isLoaded)
             {
                 model = null;
+                unregModelFromList();
+
                 isLoaded = false;
+
             }
         }
 

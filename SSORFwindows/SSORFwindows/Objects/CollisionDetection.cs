@@ -169,6 +169,7 @@ namespace SSORF.Objects
             }
         }
 
+
         public void setPlayerModels(List<StaticModel> playerModels)
         {
             //Check List Length
@@ -250,7 +251,7 @@ namespace SSORF.Objects
                                         {
                                             BoundingSphere sphereB =
                                                 CalcNewBoundingSphereLocation(inst_baseBSphere[j], inst_locations[j][t]);
-                                            if (static_bSphere[i].Intersects(sphereB))
+                                            if (player_bSphere[i].Intersects(sphereB))
                                             {
                                                 Collision tmpCollision = new Collision();
                                                 tmpCollision.modelA_ID = i;
@@ -330,6 +331,40 @@ namespace SSORF.Objects
                 lock (collisionDataLock)
                 {
                     return player_bSphere.ToArray();
+                }
+            }
+        }
+        public Thread CollisionThread
+        {
+            get { 
+
+                return collisionDataThread; 
+            }
+        }
+        //public object CollisionDataLock
+        //{
+        //    get { return collisionDataLock; }
+        //}
+
+        public BoundingSphere[][] waitToGetInstancedSpheres
+        {
+            get
+            {
+                lock (collisionDataLock)
+                {
+                    BoundingSphere[][] returnable = new BoundingSphere[inst_baseBSphere.Count][];
+                    for (int i = 0; i < inst_baseBSphere.Count; i++)
+                    {
+                        returnable[i] = new BoundingSphere[inst_locations[i].Count];
+                        for (int j = 0; j < inst_locations[i].Count; j++)
+                        {
+                            BoundingSphere newSphere = inst_baseBSphere[i];
+                            newSphere.Center = inst_locations[i][j];
+                            returnable[i][j] = newSphere;
+                        }
+                    }
+
+                    return returnable;
                 }
             }
         }
