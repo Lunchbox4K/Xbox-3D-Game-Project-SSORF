@@ -423,7 +423,6 @@
       <Name>tree</Name>
       <Importer>FbxImporter</Importer>
       <Processor>InstancedModelProcessor</Processor>
-      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -707,6 +706,13 @@
       <Name>lvl1_mmTest</Name>
       <Importer>TextureImporter</Importer>
       <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\tree2.fbx">
+      <Name>tree2</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
