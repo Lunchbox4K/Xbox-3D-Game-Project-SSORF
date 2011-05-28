@@ -40,8 +40,8 @@ namespace SSORF
             //set preferred screen dimensions...
             graphics = new GraphicsDeviceManager(this);
 #if WINDOWS
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
             graphics.IsFullScreen = false;
 #elif XBOX
             graphics.PreferredBackBufferWidth = 1280;

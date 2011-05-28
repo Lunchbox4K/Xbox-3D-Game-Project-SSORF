@@ -42,9 +42,10 @@ namespace SSORF.Objects
             //Effect tmpEffect = content.Load<Effect>(EFFECT_LOCATION);
             if (model == null)
                 throw new InvalidCastException("Invalid Asset");
+            calcBoundingSpheres();
             instanceRootBones = new Matrix[model.Bones.Count];
             model.CopyAbsoluteBoneTransformsTo(instanceRootBones);
-
+            regModelToList();
             isLoaded = true;
         }
 
@@ -128,7 +129,7 @@ namespace SSORF.Objects
 
                     effect.CurrentTechnique = effect.Techniques["HwInstancing"];
 
-                    effect.Parameters["mWorld"].SetValue(instanceRootBones[mesh.ParentBone.Index]);
+                    effect.Parameters["mWorld"].SetValue(instanceRootBones[mesh.ParentBone.Index] * Matrix.CreateScale(scale * 4.5f));
                     effect.Parameters["mView"].SetValue(View);
                     effect.Parameters["mProjection"].SetValue(Projection);
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -91,11 +92,11 @@ namespace SSORF.Management.States
 
             SSORFlibrary.LocationMapAsset car = new SSORFlibrary.LocationMapAsset();
             car.asset_colorID = 128;
-            car.asset_location = "Models\\car1";
+            car.asset_location = "Models\\tree2";
             levelProperties.statics_models.Add(car);
 
             SSORFlibrary.LocationMapAsset bench = new SSORFlibrary.LocationMapAsset();
-            bench.asset_colorID = 44;
+            bench.asset_colorID = 3;
             bench.asset_location = "Models\\bench";
             levelProperties.instanced_models.Add(bench);
 
@@ -241,9 +242,17 @@ namespace SSORF.Management.States
             collisionList = collisions.waitToGetCollisions;
             debugMessage = "";
             BoundingSphere[] staticSpheres = collisions.waitToGetStaticSpheres;
+            BoundingSphere[][] instancedSpheres = collisions.waitToGetInstancedSpheres;
+
             debugMessage += "Static Spheres: \n   ";
             for (int i = 0; i < staticSpheres.Length; i++)
                 debugMessage += "R{" + staticSpheres[i].Radius.ToString() + "}  " + staticSpheres[i].Center.ToString() + " \n   ";
+            debugMessage += "\n";
+
+            debugMessage += "Instanced Spheres: \n   ";
+            for (int i = 0; i < instancedSpheres.Length; i++)
+                for(int j = 0; j < instancedSpheres[i].Length; j++)
+                    debugMessage += "R{" + instancedSpheres[i][j].Radius.ToString() + "}  " + instancedSpheres[i][j].Center.ToString() + " \n   ";
             debugMessage += "\n";
             BoundingSphere[] playerSpheres = collisions.waitToGetPlayerSpheres;
             debugMessage += "Player Spheres: \n   ";
@@ -255,7 +264,7 @@ namespace SSORF.Management.States
             {
                 for (int i = 0; i < collisionList.Length; i++)
                 {
-                    debugMessage += collisionList[i].modelB_ID.ToString() + " | ";
+                    debugMessage += "\n     " + Objects.StaticModel.modelList[collisionList[i].modelB_ID - 1].ModelAsset.ToString();
                 }
             debugMessage += "\n";
             }
@@ -426,21 +435,22 @@ namespace SSORF.Management.States
 
             //display camera and scooter coordinates for testing
 
-            spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left + 11, bounds.Top + 51), Color.Black);
-            spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left + 10, bounds.Top + 50), Color.Black);
+            spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left + 11, bounds.Top + 21), Color.LightGreen);
+            spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left + 10, bounds.Top + 20), Color.Black);
 
-            //string output = "";
-            //if (collisionList != null && collisionList.Length > 0)
-            //    for (int i = 0; i < collisionList.Length; i++)
-            //    {
-            //        output += collisionList[i].player1Location.ToString() + "\n";
-            //    }
+            spriteBatch.DrawString(smallFont, "Main Thread Active: " + Thread.CurrentThread.IsAlive, new Vector2(bounds.Left + 11, bounds.Top + 41), Color.SteelBlue);
+            spriteBatch.DrawString(smallFont, "Main Thread Active: " + Thread.CurrentThread.IsAlive, new Vector2(bounds.Left + 10, bounds.Top + 40), Color.Black);
+            spriteBatch.DrawString(smallFont, "Main Thread State: " + Thread.CurrentThread.ThreadState, new Vector2(bounds.Left + 11, bounds.Top + 61), Color.SteelBlue);
+            spriteBatch.DrawString(smallFont, "Main Thread State: " + Thread.CurrentThread.ThreadState, new Vector2(bounds.Left + 10, bounds.Top + 60), Color.Black);
 
-            spriteBatch.DrawString(smallFont, debugMessage, new Vector2(bounds.Left + 10, bounds.Top + 80), Color.Orange);
-            //spriteBatch.DrawString(smallFont, "Scooter coordinates: " + scooter.Geometry.Location.ToString(), new Vector2(10, 10), Color.Black);
-            //spriteBatch.DrawString(smallFont, "Camera coordinates:  " + camera.Position.ToString(), new Vector2(10, 30), Color.Black);
-            
-            //This #if #else will change the on screen instructions when deployed on XBOX
+            spriteBatch.DrawString(smallFont, "Collision Thread Active: " + collisions.CollisionThread.IsAlive, new Vector2(bounds.Left + 11, bounds.Top + 81), Color.Salmon);
+            spriteBatch.DrawString(smallFont, "Collision Thread Active: " + collisions.CollisionThread.IsAlive, new Vector2(bounds.Left + 10, bounds.Top + 80), Color.Black);
+            spriteBatch.DrawString(smallFont, "Collision Thread State: " + collisions.CollisionThread.ThreadState, new Vector2(bounds.Left + 11, bounds.Top + 101), Color.Salmon);
+            spriteBatch.DrawString(smallFont, "Collision Thread State: " + collisions.CollisionThread.ThreadState, new Vector2(bounds.Left + 10, bounds.Top + 100), Color.Black);
+
+            spriteBatch.DrawString(smallFont, debugMessage, new Vector2(bounds.Left + 10, bounds.Top + 120), Color.Orange);
+            spriteBatch.DrawString(smallFont, debugMessage, new Vector2(bounds.Left + 11, bounds.Top + 121), Color.Black);
+
 #if XBOX
             char endKey = 'Y';
             string returnKey = "START";
