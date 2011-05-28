@@ -59,6 +59,7 @@ namespace SSORF.Management.States
         SSORF.Objects.CollisionDetection collisions;
         SSORF.Objects.Collision[] collisionList;
         List<SSORF.Objects.StaticModel> playerModels;
+        string debugMessage = "";
 
         private Rectangle bounds;
         #endregion
@@ -84,17 +85,17 @@ namespace SSORF.Management.States
             levelProperties.statics_models = new List<SSORFlibrary.LocationMapAsset>();
 
             SSORFlibrary.LocationMapAsset tree = new SSORFlibrary.LocationMapAsset();
-            tree.asset_colorID = 130;
+            tree.asset_colorID = 0;
             tree.asset_location = "Models\\tree";
             levelProperties.instanced_models.Add(tree);
 
             SSORFlibrary.LocationMapAsset car = new SSORFlibrary.LocationMapAsset();
-            car.asset_colorID = 50;
+            car.asset_colorID = 128;
             car.asset_location = "Models\\car1";
             levelProperties.statics_models.Add(car);
 
             SSORFlibrary.LocationMapAsset bench = new SSORFlibrary.LocationMapAsset();
-            bench.asset_colorID = 20;
+            bench.asset_colorID = 44;
             bench.asset_location = "Models\\bench";
             levelProperties.instanced_models.Add(bench);
 
@@ -109,7 +110,7 @@ namespace SSORF.Management.States
             levelProperties.instanced_models.Add(storesign);
 
             SSORFlibrary.LocationMapAsset handicap = new SSORFlibrary.LocationMapAsset();
-            handicap.asset_colorID = 120;
+            handicap.asset_colorID = 256;
             handicap.asset_location = "Models\\handicapsign";
             levelProperties.instanced_models.Add(handicap);
 
@@ -119,7 +120,7 @@ namespace SSORF.Management.States
             levelProperties.instanced_models.Add(cart);
 
             SSORFlibrary.LocationMapAsset light = new SSORFlibrary.LocationMapAsset();
-            light.asset_colorID = 80;
+            light.asset_colorID = 64;
             light.asset_location = "Models\\streetlight";
             levelProperties.instanced_models.Add(light);
 
@@ -128,12 +129,12 @@ namespace SSORF.Management.States
             store.asset_location = "Models\\storefront";
             levelProperties.instanced_models.Add(store);
 
-            levelProperties.instances_locationMap = "Images\\Terrain\\lvl3_mm";
+            levelProperties.instances_locationMap = "Images\\Terrain\\lvl1_mmTest";
             levelProperties.level_effect = "Effects\\TerrainTextureEffect";
-            levelProperties.level_heightMap = "Images\\Terrain\\lvl3_hm";
-            levelProperties.level_textureB = "Images\\Terrain\\asphalt";
+            levelProperties.level_heightMap = "Images\\Terrain\\lvl1_hm";
+            levelProperties.level_textureB = "Images\\Terrain\\terrainTextureB";
             levelProperties.level_textureG = "Images\\Terrain\\terrainTextureG";
-            levelProperties.level_textureMap = "Images\\Terrain\\lvl3_cm";
+            levelProperties.level_textureMap = "Images\\Terrain\\lvl1_cm";
             levelProperties.level_textureR = "Images\\Terrain\\terrainTextureR";
             levelProperties.viewTree_refreshRate = 8;
             level = new Objects.Level(game, levelProperties);
@@ -238,6 +239,26 @@ namespace SSORF.Management.States
             tmpPlayerModelList.Add(scooter.Geometry);
             collisions.setPlayerModels(tmpPlayerModelList);
             collisionList = collisions.waitToGetCollisions;
+            debugMessage = "";
+            BoundingSphere[] staticSpheres = collisions.waitToGetStaticSpheres;
+            debugMessage += "Static Spheres: \n   ";
+            for (int i = 0; i < staticSpheres.Length; i++)
+                debugMessage += "R{" + staticSpheres[i].Radius.ToString() + "}  " + staticSpheres[i].Center.ToString() + " \n   ";
+            debugMessage += "\n";
+            BoundingSphere[] playerSpheres = collisions.waitToGetPlayerSpheres;
+            debugMessage += "Player Spheres: \n   ";
+            for (int i = 0; i < playerSpheres.Length; i++)
+                debugMessage += "R{" + playerSpheres[i].Radius.ToString() + "}  " + playerSpheres[i].Center.ToString() + "\n   ";
+
+            debugMessage += "\n COLLISION: ";
+            if (collisionList != null && collisionList.Length > 0)
+            {
+                for (int i = 0; i < collisionList.Length; i++)
+                {
+                    debugMessage += collisionList[i].modelB_ID.ToString() + " | ";
+                }
+            debugMessage += "\n";
+            }
 
             fps.update(gameTime);
 
@@ -414,11 +435,8 @@ namespace SSORF.Management.States
             //    {
             //        output += collisionList[i].player1Location.ToString() + "\n";
             //    }
-            if (collisionList != null && collisionList.Length > 0)
-            {
-                spriteBatch.DrawString(smallFont, "P1 Sphere: " + collisionList[0].player1Location.ToString(), new Vector2(bounds.Left + 10, bounds.Top + 70), Color.White);
-                spriteBatch.DrawString(smallFont, "P1 Sphere: " + collisionList[0].player1Location.ToString(), new Vector2(bounds.Left + 11, bounds.Top + 71), Color.Black);
-            }
+
+            spriteBatch.DrawString(smallFont, debugMessage, new Vector2(bounds.Left + 10, bounds.Top + 80), Color.Orange);
             //spriteBatch.DrawString(smallFont, "Scooter coordinates: " + scooter.Geometry.Location.ToString(), new Vector2(10, 10), Color.Black);
             //spriteBatch.DrawString(smallFont, "Camera coordinates:  " + camera.Position.ToString(), new Vector2(10, 30), Color.Black);
             

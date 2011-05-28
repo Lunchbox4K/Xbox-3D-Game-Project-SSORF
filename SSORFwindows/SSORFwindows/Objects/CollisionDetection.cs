@@ -108,7 +108,7 @@ namespace SSORF.Objects
             }
             else
             {
-                for (int i = 0; i < static_bSphere.Count; i++)
+                for (int i = 0; i < staticModels.Count; i++)
                 {
                     BoundingSphere tmp = staticModels[i].GetBoundingSphere;
                     static_bSphere[i] = new BoundingSphere(tmp.Center, tmp.Radius);
@@ -204,17 +204,17 @@ namespace SSORF.Objects
 
     #endregion
 
-        //----------------------------------------------------------------------------------
-        // Update/Add Model Spheres
-        //----------------------------------------------------------------------------------
-        #region Threading
+    //----------------------------------------------------------------------------------
+    // 
+    //----------------------------------------------------------------------------------
+    #region Threading
 
 
         public void threadedUpdate()                                                                                                                                                     
         {
-#if XBOX
+    #if XBOX
             collisionDataThread.SetProcessorAffinity(3);
-#endif
+    #endif
             while (!isStopping)
             {
                 lock (collisionDataLock) //Data lock for threading this function
@@ -228,15 +228,14 @@ namespace SSORF.Objects
                     if (player_bSphere != null && player_bSphere.Count > 0)
                         for (int i = 0; i < player_bSphere.Count; i++)
                         {
-                            //Compare with static Models
                             for (int j = 0; j < static_IDs.Count; j++)
                             {
-                                if (static_bSphere[i].Intersects(static_bSphere[j]))
+                                if (player_bSphere[i].Intersects(static_bSphere[j]))
                                 {
                                     Collision tmpCollision = new Collision();
                                     tmpCollision.modelA_ID = i;
                                     tmpCollision.modelB_ID = static_IDs[j];
-                                    tmpCollision.player1Location = player_bSphere[0].Center;
+                                    tmpCollision.playerSphere = player_bSphere[i];
                                     collisions.Add(tmpCollision);
                                 }
                             }
@@ -256,7 +255,7 @@ namespace SSORF.Objects
                                                 Collision tmpCollision = new Collision();
                                                 tmpCollision.modelA_ID = i;
                                                 tmpCollision.modelB_ID = inst_IDs[j];
-                                                tmpCollision.player1Location = player_bSphere[0].Center;
+                                                tmpCollision.playerSphere = player_bSphere[0];
                                                 collisions.Add(tmpCollision);
                                             }
                                         }
@@ -314,6 +313,26 @@ namespace SSORF.Objects
                 }
             }
         }
+        public BoundingSphere[] waitToGetStaticSpheres
+        {
+            get
+            {
+                lock (collisionDataLock)
+                {
+                    return static_bSphere.ToArray();
+                }
+            }
+        }
+        public BoundingSphere[] waitToGetPlayerSpheres
+        {
+            get
+            {
+                lock (collisionDataLock)
+                {
+                    return player_bSphere.ToArray();
+                }
+            }
+        }
     }
 
 
@@ -321,6 +340,8 @@ namespace SSORF.Objects
     {
         public int modelA_ID;
         public int modelB_ID;
-        public Vector3 player1Location;
+        public BoundingSphere[] staticSpheres;
+        public BoundingSphere[] instSpheres;
+        public BoundingSphere playerSphere;
     }
 }
