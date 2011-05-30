@@ -62,6 +62,9 @@ namespace SSORF.Management.States
         List<SSORF.Objects.StaticModel> playerModels;
         string debugMessage = "";
 
+        bool playerTouchingWall = false;
+        TimeSpan wallTime = TimeSpan.Zero;
+
         private Rectangle bounds;
         #endregion
 
@@ -130,7 +133,7 @@ namespace SSORF.Management.States
             store.asset_location = "Models\\storefront";
             levelProperties.instanced_models.Add(store);
 
-            levelProperties.instances_locationMap = "Images\\Terrain\\lvl1_mmTest";
+            levelProperties.instances_locationMap = "Images\\Terrain\\lvl1_mm";
             levelProperties.level_effect = "Effects\\TerrainTextureEffect";
             levelProperties.level_heightMap = "Images\\Terrain\\lvl1_hm";
             levelProperties.level_textureB = "Images\\Terrain\\terrainTextureB";
@@ -158,6 +161,7 @@ namespace SSORF.Management.States
 
             //Load Level
             level.LoadContent();
+            collisions.setBorders(level.getLocationMap, 1);
 
             //Grabs the raw static and instanced model data from the level for processing
             // Will probably grab a list of checkpoints if the list is created in the level class
@@ -240,26 +244,29 @@ namespace SSORF.Management.States
             tmpPlayerModelList.Add(scooter.Geometry);
             collisions.setPlayerModels(tmpPlayerModelList);
             collisionList = collisions.waitToGetCollisions;
+            playerTouchingWall = collisions.waitToGetPlayerTouchingWall[0];
             debugMessage = "";
             BoundingSphere[] staticSpheres = collisions.waitToGetStaticSpheres;
             BoundingSphere[][] instancedSpheres = collisions.waitToGetInstancedSpheres;
 
-            debugMessage += "Static Spheres: \n   ";
+            debugMessage += "Static Spheres: \n  [ ";
             for (int i = 0; i < staticSpheres.Length; i++)
-                debugMessage += "R{" + staticSpheres[i].Radius.ToString() + "}  " + staticSpheres[i].Center.ToString() + " \n   ";
-            debugMessage += "\n";
+            {
+                debugMessage += " | ";
+            }
+            debugMessage += "] \n";
 
-            debugMessage += "Instanced Spheres: \n   ";
-            for (int i = 0; i < instancedSpheres.Length; i++)
-                for(int j = 0; j < instancedSpheres[i].Length; j++)
-                    debugMessage += "R{" + instancedSpheres[i][j].Radius.ToString() + "}  " + instancedSpheres[i][j].Center.ToString() + " \n   ";
-            debugMessage += "\n";
-            BoundingSphere[] playerSpheres = collisions.waitToGetPlayerSpheres;
-            debugMessage += "Player Spheres: \n   ";
-            for (int i = 0; i < playerSpheres.Length; i++)
-                debugMessage += "R{" + playerSpheres[i].Radius.ToString() + "}  " + playerSpheres[i].Center.ToString() + "\n   ";
+            //debugMessage += "Instanced Spheres: \n  [ ";
+            //for (int i = 0; i < instancedSpheres.Length; i++)
+            //    for (int j = 0; j < instancedSpheres[i].Length; j++)
+            //        debugMessage += " | ";
+            //debugMessage += "] \n";
+            //BoundingSphere[] playerSpheres = collisions.waitToGetPlayerSpheres;
+            //debugMessage += "Player Spheres: \n   ";
+            //for (int i = 0; i < playerSpheres.Length; i++)
+            //    debugMessage += "R{" + playerSpheres[i].Radius.ToString() + "}  " + playerSpheres[i].Center.ToString() + "\n   ";
 
-            debugMessage += "\n COLLISION: ";
+            debugMessage += "\n Collisions: ";
             if (collisionList != null && collisionList.Length > 0)
             {
                 for (int i = 0; i < collisionList.Length; i++)
@@ -469,8 +476,14 @@ namespace SSORF.Management.States
             spriteBatch.DrawString(smallFont, "Collision Thread State: " + collisions.CollisionThread.ThreadState, new Vector2(bounds.Left + 11, bounds.Top + 101), Color.Salmon);
             spriteBatch.DrawString(smallFont, "Collision Thread State: " + collisions.CollisionThread.ThreadState, new Vector2(bounds.Left + 10, bounds.Top + 100), Color.Black);
 
-            spriteBatch.DrawString(smallFont, debugMessage, new Vector2(bounds.Left + 10, bounds.Top + 120), Color.Orange);
-            spriteBatch.DrawString(smallFont, debugMessage, new Vector2(bounds.Left + 11, bounds.Top + 121), Color.Black);
+            if (playerTouchingWall)
+                wallTime += gameTime.ElapsedGameTime;
+
+            spriteBatch.DrawString(smallFont, "Player touching wall: " + wallTime, new Vector2(bounds.Left + 10, bounds.Top + 120), Color.Azure);
+            spriteBatch.DrawString(smallFont, "Player touching wall: " + wallTime, new Vector2(bounds.Left + 11, bounds.Top + 121), Color.Black);
+
+            spriteBatch.DrawString(smallFont, debugMessage, new Vector2(bounds.Left + 10, bounds.Top + 140), Color.Orange);
+            spriteBatch.DrawString(smallFont, debugMessage, new Vector2(bounds.Left + 11, bounds.Top + 141), Color.Black);
 
 #if XBOX
             char endKey = 'Y';
