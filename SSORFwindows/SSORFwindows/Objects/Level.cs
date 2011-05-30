@@ -86,7 +86,7 @@ namespace SSORF.Objects
                 m_properties.level_textureG, 
                 m_properties.level_textureB);
             //Load Terrain Draw Effect
-            m_terrain.LoadShaders(m_properties.level_effect);
+            m_terrain.LoadShaders();
             float halfWidth = m_terrain.terrainInfo.HeightmapWidth/2;
             m_drawTree = new ModelQuadTree(m_rootGame,
                 new BoundingBox(
@@ -96,7 +96,7 @@ namespace SSORF.Objects
 
             //Load Static Models
             m_locationMap =
-                m_rootGame.Content.Load<LocationMap>(m_properties.instances_locationMap);
+                m_rootGame.Content.Load<LocationMap>(m_properties.locationMap);
                 float scaledMapSize = m_locationMap.Color.Length * m_locationMap.scale;
                 float xOffset = scaledMapSize / 2;
                 float zOffSet = scaledMapSize / 2;

@@ -17,7 +17,6 @@ namespace SSORFlibrary
     {
         //View Tree Properties
         public byte viewTree_refreshRate;
-        public BoundingBox viewTree_area; //Y Coord Will Be Maxed and Mined for detection on all Y Values
 
         //Terrain Properies
         public string level_heightMap;
@@ -25,18 +24,17 @@ namespace SSORFlibrary
         public string level_textureR;
         public string level_textureG;
         public string level_textureB;
-        public string level_effect;
 
-        //Instanced Model Properties
         public List<LocationMapAsset> statics_models;
-        public string statics_locationMap;
-
         public List<LocationMapAsset> instanced_models;
-        public string instances_locationMap;
 
-        public byte player1Spawn;   //R Color
+        public string locationMap;
 
-        public byte checkpointSpawn; //R Color
+        public byte playerSpawns;   //R Color (X)
+        public byte borderPoints; //R Color (X)
+        public byte trackSpawnPoints; //R Color (X)
+
+        public byte checkpointSpawn; //R Color (X)
         public string checkpointAsset;
 
         /// <summary>
@@ -51,8 +49,6 @@ namespace SSORFlibrary
                 LevelLayout layout = new LevelLayout();
 
                 //View Tree
-                layout.viewTree_area.Max = viewTree_area.Max;
-                layout.viewTree_area.Min = viewTree_area.Min;
                 layout.viewTree_refreshRate = viewTree_refreshRate;
 
                 //Copy Terrain Properties
@@ -61,12 +57,16 @@ namespace SSORFlibrary
                 layout.level_textureR = level_textureR;
                 layout.level_textureG = level_textureG;
                 layout.level_textureB = level_textureB;
-                layout.level_effect = level_effect;
+                layout.locationMap = locationMap;
+                layout.playerSpawns = playerSpawns;
+                layout.borderPoints = borderPoints;
+                layout.checkpointAsset = checkpointAsset;
+                layout.checkpointSpawn = checkpointSpawn;
+                layout.trackSpawnPoints = trackSpawnPoints;
                 //layout.level_centerLocation = level_centerLocation;
                 if (statics_models != null)
                 {
                     //Copy Static Model Properties
-                    layout.statics_locationMap = statics_locationMap;
                     layout.statics_models = new List<LocationMapAsset>();
                     for (int i = 0; i < statics_models.Count; i++)
                         layout.statics_models.Add(statics_models[i].Copy(true));
@@ -74,7 +74,6 @@ namespace SSORFlibrary
                 //Copy Instanced Model Properties
                 if (instanced_models != null)
                 {
-                    layout.instances_locationMap = instances_locationMap;
                     layout.instanced_models = new List<LocationMapAsset>();
                     for (int i = 0; i < instanced_models.Count; i++)
                         layout.instanced_models.Add(instanced_models[i].Copy(true));

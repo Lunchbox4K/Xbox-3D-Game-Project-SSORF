@@ -83,6 +83,17 @@ namespace SSORF.Management.States
             camera.ProjMtx = Matrix.CreatePerspectiveFieldOfView(
                             MathHelper.ToRadians(45.0f),
                             game.GraphicsDevice.Viewport.AspectRatio, 1.0f, 2000.0f);
+
+            //Loads level properties.
+            setFirstLevel();
+
+            //Initialize the variable in the constructor
+            collisions = new Objects.CollisionDetection();
+            collisions.setPlayerModels(playerModels);
+        }
+
+        public void setFirstLevel() //TEMP FCN TO CLEAN CODE A LITTLE
+        {
             //Set Level
             levelProperties = new SSORFlibrary.LevelLayout();
             levelProperties.instanced_models = new List<SSORFlibrary.LocationMapAsset>();
@@ -133,20 +144,20 @@ namespace SSORF.Management.States
             store.asset_location = "Models\\storefront";
             levelProperties.instanced_models.Add(store);
 
-            levelProperties.instances_locationMap = "Images\\Terrain\\lvl1_mm";
-            levelProperties.level_effect = "Effects\\TerrainTextureEffect";
             levelProperties.level_heightMap = "Images\\Terrain\\lvl1_hm";
+            levelProperties.level_textureMap = "Images\\Terrain\\lvl1_cm";
             levelProperties.level_textureB = "Images\\Terrain\\terrainTextureB";
             levelProperties.level_textureG = "Images\\Terrain\\terrainTextureG";
-            levelProperties.level_textureMap = "Images\\Terrain\\lvl1_cm";
             levelProperties.level_textureR = "Images\\Terrain\\terrainTextureR";
-            levelProperties.viewTree_refreshRate = 8;
-            level = new Objects.Level(game, levelProperties);
 
-            //Initialize the variable in the constructor
-            collisions = new Objects.CollisionDetection();
-            collisions.setPlayerModels(playerModels);
+            levelProperties.locationMap = "Images\\Terrain\\lvl1_mm";
+            levelProperties.borderPoints = 1; //R Value (X)
+
+            levelProperties.viewTree_refreshRate = 8;
+            level = new Objects.Level(rootGame, levelProperties);
         }
+
+
 
         //missionId can be used to load checkpoint coordinates for that mission
         //from a file, as well as the filenames/locations of levelObjects, etc.
@@ -161,7 +172,7 @@ namespace SSORF.Management.States
 
             //Load Level
             level.LoadContent();
-            collisions.setBorders(level.getLocationMap, 1);
+            collisions.setBorders(level.getLocationMap, levelProperties.borderPoints);
 
             //Grabs the raw static and instanced model data from the level for processing
             // Will probably grab a list of checkpoints if the list is created in the level class
