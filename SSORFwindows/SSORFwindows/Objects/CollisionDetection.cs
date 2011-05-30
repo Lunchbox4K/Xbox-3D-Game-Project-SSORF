@@ -237,6 +237,7 @@ namespace SSORF.Objects
                                     tmpCollision.modelA_ID = i;
                                     tmpCollision.modelB_ID = static_IDs[j];
                                     tmpCollision.playerSphere = player_bSphere[i];
+                                    tmpCollision.objectSphere = static_bSphere[j];
                                     collisions.Add(tmpCollision);
                                 }
                             }
@@ -257,6 +258,7 @@ namespace SSORF.Objects
                                                 tmpCollision.modelA_ID = i;
                                                 tmpCollision.modelB_ID = inst_IDs[j];
                                                 tmpCollision.playerSphere = player_bSphere[0];
+                                                tmpCollision.objectSphere = sphereB;
                                                 collisions.Add(tmpCollision);
                                             }
                                         }
@@ -375,8 +377,7 @@ namespace SSORF.Objects
     {
         public int modelA_ID;
         public int modelB_ID;
-        public BoundingSphere[] staticSpheres;
-        public BoundingSphere[] instSpheres;
+        public BoundingSphere objectSphere;
         public BoundingSphere playerSphere;
     }
 }
