@@ -235,9 +235,9 @@ namespace SSORF.Objects
             }
         }
 
-        public void LoadShaders(string effectLocation)
+        public void LoadShaders()
         {
-            Effect effect = content.Load<Effect>(effectLocation);
+            Effect effect = content.Load<Effect>("Effects\\TerrainTextureEffect");
             foreach (ModelMesh mesh in model.Meshes)
             {
                 //BasicEffect basicEffect = (mesh.Effects[0] as BasicEffect);
