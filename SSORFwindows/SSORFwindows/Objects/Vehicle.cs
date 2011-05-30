@@ -69,7 +69,7 @@ namespace SSORF.Objects
             speed = startingSpeed;
         }
 
-        public void update(GameTime gameTime, float steerValue, float throttleValue, float brakeValue)
+        public void update(GameTime gameTime, float steerValue, float throttleValue, float brakeValue, Vector3 distanceToObject)
         {
             //Get the integral of the vehicle's velocity
             float tempDistance = speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -97,10 +97,24 @@ namespace SSORF.Objects
             //Update Velocity for Model and Collision
             Vector3 prevLocation = geometry.Location;
 
-            //Derive and update position
-            geometry.Location += geometry.Orientation.Forward * tempDistance * (float)Math.Cos(deltaYaw) * meterToInchScale * (float)Math.Sqrt(1 - Math.Pow(geometry.Orientation.Forward.Y, 2));
-            geometry.Location += geometry.Orientation.Left * tempDistance * (float)Math.Sin(deltaYaw) * meterToInchScale * (float)Math.Sqrt(1 - Math.Pow(geometry.Orientation.Left.Y, 2));
-
+            //if there are no objects colliding...
+            if (distanceToObject == Vector3.Zero)
+            {
+                //Derive and update position as usual
+                geometry.Location += geometry.Orientation.Forward * tempDistance * (float)Math.Cos(deltaYaw) * meterToInchScale * (float)Math.Sqrt(1 - Math.Pow(geometry.Orientation.Forward.Y, 2));
+                geometry.Location += geometry.Orientation.Left * tempDistance * (float)Math.Sin(deltaYaw) * meterToInchScale * (float)Math.Sqrt(1 - Math.Pow(geometry.Orientation.Left.Y, 2));
+            }
+            //if we are colliding...
+            else
+            {
+                //turn distance from pbject into a normal describing direction only
+                distanceToObject.Normalize();
+                //reverse and reduce speed
+                speed = -(speed/2);
+                //move vehicle in opposite direction of colliding object
+                geometry.Location += Math.Abs(speed) * -distanceToObject;
+            
+            }
             //Update Velocity for Model and Collision Cont...
             Vector3 velocity = Vector3.Subtract(prevLocation, geometry.Location);
             geometry.Velocity = velocity;

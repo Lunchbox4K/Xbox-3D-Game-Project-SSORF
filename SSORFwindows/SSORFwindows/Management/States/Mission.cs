@@ -264,7 +264,9 @@ namespace SSORF.Management.States
             {
                 for (int i = 0; i < collisionList.Length; i++)
                 {
-                    debugMessage += "\n     " + Objects.StaticModel.modelList[collisionList[i].modelB_ID - 1].ModelAsset.ToString();
+                    debugMessage += "\n     " + Objects.StaticModel.modelList[collisionList[i].modelB_ID - 1].ModelAsset.ToString() +
+                        "   Coords: " + collisionList[i].objectSphere.Center.ToString() +
+                        "  Distance: " + (collisionList[i].objectSphere.Center - collisionList[i].playerSphere.Center).ToString();
                 }
             debugMessage += "\n";
             }
@@ -319,9 +321,31 @@ namespace SSORF.Management.States
                 //if we are playing update scooter/camera using player input
                 case MissionState.Playing :
 
+                //Used to store coordinates of object closest to the scooter, using scooter location as origin
+                Vector3 closestObjectOffSet = Vector3.Zero;
+
+                for (int i = 0; i < collisionList.Length; i++)
+                {
+                    //find location of object using scooter model as origin
+                    Vector3 collisionOffSet = collisionList[i].objectSphere.Center - scooter.Geometry.Location;
+
+                    //if distance from player to object is greater than either bounding sphere....
+                    if (collisionOffSet.Length() < collisionList[i].objectSphere.Radius ||
+                        collisionOffSet.Length() < collisionList[i].playerSphere.Radius)
+                    {
+                        //check to see if it is the closest object in the case of multiple collisions
+                        if (closestObjectOffSet == Vector3.Zero)
+                            closestObjectOffSet = collisionOffSet;
+                        else if (collisionOffSet.Length() < closestObjectOffSet.Length())
+                            closestObjectOffSet = collisionOffSet;
+                    }
+
+
+                }
+
                 if (gamepadInUse)
                 {
-                    scooter.update(gameTime, -gamePadState.current.ThumbSticks.Left.X, gamePadState.current.Triggers.Right, gamePadState.current.Triggers.Left);
+                    scooter.update(gameTime, -gamePadState.current.ThumbSticks.Left.X, gamePadState.current.Triggers.Right, gamePadState.current.Triggers.Left, closestObjectOffSet);
                 }
                 else
                 {
@@ -337,7 +361,7 @@ namespace SSORF.Management.States
                     if (keyBoardState.current.IsKeyDown(Keys.Right))
                         sVal = -1;
 
-                    scooter.update(gameTime, sVal, tVal, bVal);
+                    scooter.update(gameTime, sVal, tVal, bVal, closestObjectOffSet);
                 }
 
                 scooter.setNormal(level.TerrainCollision);
@@ -354,9 +378,6 @@ namespace SSORF.Management.States
 
                     //Collision Detection
 
-                    //bounding box did not work!
-
-                    
                     if (CheckPoints.CheckCollision(currentCheckPoint, scooter.Geometry))
                         currentCheckPoint += 1;
                     
