@@ -50,6 +50,14 @@ namespace SSORF.Objects
 
         private Vector3[] m_playerSpawns;
 
+        private LocationMap m_locationMap;
+        public LocationMap getLocationMap
+        {
+            get
+            {
+                return m_locationMap;
+            }
+        }
 
         private ModelQuadTree m_drawTree;
     #endregion
@@ -87,9 +95,9 @@ namespace SSORF.Objects
                 m_properties.viewTree_refreshRate);
 
             //Load Static Models
-            LocationMap instancedLocation =
+            m_locationMap =
                 m_rootGame.Content.Load<LocationMap>(m_properties.instances_locationMap);
-                float scaledMapSize = instancedLocation.Color.Length * instancedLocation.scale;
+                float scaledMapSize = m_locationMap.Color.Length * m_locationMap.scale;
                 float xOffset = scaledMapSize / 2;
                 float zOffSet = scaledMapSize / 2;
             if (m_properties.statics_models != null)
@@ -99,15 +107,15 @@ namespace SSORF.Objects
                 for (int i = 0; i < m_properties.statics_models.Count; i++)
                 {
                     loopit = i;
-                    for (int x = 0; x < instancedLocation.Color.Length; x++)
-                        for (int y = 0; y < instancedLocation.Color[x].Length; y++)
-                            if (instancedLocation.Color[y][x].X == m_properties.statics_models[i].asset_colorID)
+                    for (int x = 0; x < m_locationMap.Color.Length; x++)
+                        for (int y = 0; y < m_locationMap.Color[x].Length; y++)
+                            if (m_locationMap.Color[y][x].X == m_properties.statics_models[i].asset_colorID)
                             {
                                 StaticModel model;
                                 Vector3 location = Vector3.Zero;
                                 Vector3 normal;
-                                location.X = x * instancedLocation.scale - xOffset;
-                                location.Z = y * instancedLocation.scale - zOffSet;
+                                location.X = x * m_locationMap.scale - xOffset;
+                                location.Z = y * m_locationMap.scale - zOffSet;
                                 location.Y = 0;
                                 if (m_terrain.terrainInfo.IsOnHeightmap(location))
                                     m_terrain.terrainInfo.GetHeightAndNormal(location, out location.Y, out normal);
@@ -138,9 +146,9 @@ namespace SSORF.Objects
                 for (int i = 0; i < m_properties.instanced_models.Count; i++)
                 {
                     m_modelInstances.Add(new List<Matrix>()); //Add Container for each model
-                    for (int x = 0; x < instancedLocation.Color.Length; x++)
-                        for (int z = 0; z < instancedLocation.Color[x].Length; z++)
-                            if (instancedLocation.Color[z][x].X == m_properties.instanced_models[i].asset_colorID)
+                    for (int x = 0; x < m_locationMap.Color.Length; x++)
+                        for (int z = 0; z < m_locationMap.Color[x].Length; z++)
+                            if (m_locationMap.Color[z][x].X == m_properties.instanced_models[i].asset_colorID)
                             {
                                 Matrix transform = Matrix.Identity;
                                 Vector3 location = Vector3.Zero;
@@ -150,14 +158,14 @@ namespace SSORF.Objects
                                 Matrix.CreateScale(.25f, out scale);
                                 Matrix rotation = Matrix.Identity;
                                 Matrix.Multiply(ref scale, ref rotation, out transform);
-                                location.X = x * instancedLocation.scale - xOffset;
-                                location.Z = z * instancedLocation.scale - zOffSet;
+                                location.X = x * m_locationMap.scale - xOffset;
+                                location.Z = z * m_locationMap.scale - zOffSet;
                                 if (m_terrain.terrainInfo.IsOnHeightmap(location))
                                     m_terrain.terrainInfo.GetHeightAndNormal(location, out location.Y, out normal);
                                 //41, 42, 43 -> X, Y, Z Transform
-                                transform.M41 = x * instancedLocation.scale - xOffset;
+                                transform.M41 = x * m_locationMap.scale - xOffset;
                                 transform.M42 = location.Y - 2;
-                                transform.M43 = z * instancedLocation.scale - zOffSet;
+                                transform.M43 = z * m_locationMap.scale - zOffSet;
                                 //Add each Matrix Transfrom to a List<>
                                 m_modelInstances[i].Add(transform);
                                 m_drawTree.addInstanceByID(transform, m_instancedModels[i].ID);

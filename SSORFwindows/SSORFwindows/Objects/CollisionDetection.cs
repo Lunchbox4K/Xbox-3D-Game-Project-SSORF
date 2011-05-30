@@ -22,6 +22,9 @@ namespace SSORF.Objects
         //private List<BoundingSphere[]> static_meshSpheres;
         //private List<Vector3> static_velocity;
 
+        private List<Ray> borderWallPoints;
+        private bool[] playerTouchingWall = { false };
+
         //Instanced Collision
         private List<int> inst_IDs;
         private List<BoundingSphere> inst_baseBSphere;
@@ -169,7 +172,85 @@ namespace SSORF.Objects
             }
         }
 
-
+        /// <summary>
+        /// Sets the Rays for the border collision from the location map and a marker color.
+        /// ((This should only be called once on setting the level.))
+        /// </summary>
+        /// <param name="locationMap">Location map to load from</param>
+        /// <param name="BorderRValue">R Color value from the 3D Vector3 (X = R, Y = G, Z = B) Array.</param>
+        public void setBorders(SSORFlibrary.LocationMap locationMap, byte BorderRValue) //Should only be calculated once!
+        {
+            //Reads in a point and looks for another point within a certain range in each
+            // direction then builds a Ray for collision.
+            borderWallPoints = new List<Ray>();
+            float offset = (locationMap.Color.Length * locationMap.scale) / 2;
+            for (int y = 0; y < locationMap.Color.Length; y++)
+                for (int x = 0; x < locationMap.Color[y].Length; x++)
+                    if (x < locationMap.Color[y].Length - 1
+                        && (byte)locationMap.Color[x + 1][y].X == BorderRValue) //0deg
+                    {
+                        Vector3 pointA = new Vector3(x * locationMap.scale - offset, 0, y * locationMap.scale - offset);
+                        Vector3 pointB = new Vector3((x + 1) * locationMap.scale - offset, 0, (y + 0) * locationMap.scale - offset);
+                        Ray newRay = new Ray(pointA, Vector3.Subtract(pointA, pointB));
+                        borderWallPoints.Add(newRay);
+                    }
+                    else if (x < locationMap.Color[y].Length - 1 && y < locationMap.Color.Length - 1
+                        && (byte)locationMap.Color[x + 1][y + 1].X == BorderRValue) //45deg
+                    {
+                        Vector3 pointA = new Vector3(x * locationMap.scale - offset, 0, y * locationMap.scale - offset);
+                        Vector3 pointB = new Vector3((x + 1) * locationMap.scale - offset, 0, (y + 1) * locationMap.scale - offset);
+                        Ray newRay = new Ray(pointA, Vector3.Subtract(pointA, pointB));
+                        borderWallPoints.Add(newRay);
+                    }
+                    else if (y < locationMap.Color.Length - 1
+                        && (byte)locationMap.Color[x][y + 1].X == BorderRValue) //90deg
+                    {
+                        Vector3 pointA = new Vector3(x * locationMap.scale - offset, 0, y * locationMap.scale - offset);
+                        Vector3 pointB = new Vector3((x + 0) * locationMap.scale - offset, 0, (y + 1) * locationMap.scale - offset);
+                        Ray newRay = new Ray(pointA, Vector3.Subtract(pointA, pointB));
+                        borderWallPoints.Add(newRay);
+                    }
+                    else if (x > 1 && y < locationMap.Color.Length - 1
+                        && (byte)locationMap.Color[x - 1][y + 1].X == BorderRValue) //135deg
+                    {
+                        Vector3 pointA = new Vector3(x * locationMap.scale - offset, 0, y * locationMap.scale - offset);
+                        Vector3 pointB = new Vector3((x - 1) * locationMap.scale - offset, 0, (y + 1) * locationMap.scale - offset);
+                        Ray newRay = new Ray(pointA, Vector3.Subtract(pointA, pointB));
+                        borderWallPoints.Add(newRay);
+                    }
+                    else if (x > 1
+                        && (byte)locationMap.Color[x - 1][y + 0].X == BorderRValue) //180deg
+                    {
+                        Vector3 pointA = new Vector3(x * locationMap.scale - offset, 0, y * locationMap.scale - offset);
+                        Vector3 pointB = new Vector3((x - 1) * locationMap.scale - offset, 0, (y + 0) * locationMap.scale - offset);
+                        Ray newRay = new Ray(pointA, Vector3.Subtract(pointA, pointB));
+                        borderWallPoints.Add(newRay);
+                    }
+                    else if (y > 1 && x > 1
+                        && (byte)locationMap.Color[x - 1][y - 1].X == BorderRValue) //225deg
+                    {
+                        Vector3 pointA = new Vector3(x * locationMap.scale - offset, 0, y * locationMap.scale - offset);
+                        Vector3 pointB = new Vector3((x - 1) * locationMap.scale - offset, 0, (y - 1) * locationMap.scale - offset);
+                        Ray newRay = new Ray(pointA, Vector3.Subtract(pointA, pointB));
+                        borderWallPoints.Add(newRay);
+                    }
+                    else if (y > 1
+                        && (byte)locationMap.Color[x + 0][y - 1].X == BorderRValue) //270deg
+                    {
+                        Vector3 pointA = new Vector3(x * locationMap.scale - offset, 0, y * locationMap.scale - offset);
+                        Vector3 pointB = new Vector3((x + 0) * locationMap.scale - offset, 0, (y - 1) * locationMap.scale - offset);
+                        Ray newRay = new Ray(pointA, Vector3.Subtract(pointA, pointB));
+                        borderWallPoints.Add(newRay);
+                    }
+                    else if (x < locationMap.Color[y].Length - 1 && y > 0
+                        && (byte)locationMap.Color[x + 1][y - 1].X == BorderRValue) //45deg
+                    {
+                        Vector3 pointA = new Vector3(x * locationMap.scale - offset, 0, y * locationMap.scale - offset);
+                        Vector3 pointB = new Vector3((x + 1) * locationMap.scale - offset, 0, (y - 1) * locationMap.scale - offset);
+                        Ray newRay = new Ray(pointA, Vector3.Subtract(pointA, pointB));
+                        borderWallPoints.Add(newRay);
+                    }
+        }
         public void setPlayerModels(List<StaticModel> playerModels)
         {
             //Check List Length
@@ -229,6 +310,18 @@ namespace SSORF.Objects
                     if (player_bSphere != null && player_bSphere.Count > 0)
                         for (int i = 0; i < player_bSphere.Count; i++)
                         {
+
+                            //Check for wall collisions
+                            foreach (Ray borderPoint in borderWallPoints)
+                            {
+                                Vector3 location = borderPoint.Position;
+                                location.Y = player_bSphere[i].Center.Y;
+                                if (player_bSphere[i].Contains(location) != ContainmentType.Disjoint)
+                                    playerTouchingWall[i] = true;
+                                //else
+                                //    playerTouchingWall[i] = false;  //HAve it turn false on grab
+                            }
+
                             for (int j = 0; j < static_IDs.Count; j++)
                             {
                                 if (player_bSphere[i].Intersects(static_bSphere[j]))
@@ -316,6 +409,24 @@ namespace SSORF.Objects
                 }
             }
         }
+
+                public bool[] waitToGetPlayerTouchingWall
+        {
+            get
+            {
+                lock (collisionDataLock)
+                {
+                    bool[] returnable = new bool[playerTouchingWall.Length];
+                    for (int i = 0; i < playerTouchingWall.Length; i++)
+                    {
+                        returnable[i] = playerTouchingWall[i];
+                        playerTouchingWall[i] = false;
+                    }
+                    return returnable;
+                }
+            }
+        }
+
         public BoundingSphere[] waitToGetStaticSpheres
         {
             get
