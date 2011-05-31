@@ -15,7 +15,7 @@ namespace SSORF.Objects
 
     class Player
     {
-        private int money = 11000;
+        private int money = 15000;
 
         //indexes of bool array correspond to scooter ID nums
         private bool[] scootersOwned = new bool[8] 
