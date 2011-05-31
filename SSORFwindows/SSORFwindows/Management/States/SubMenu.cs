@@ -17,11 +17,12 @@ namespace SSORF.Management.States
 {
     class SubMenu
     {
+
         private Texture2D backGround;
         private Vector2 cursorPosition;
         //Offset is difference between button position and cursor position
         //so the cursor does not completely overlap the button
-        private Vector2 cursorOffset = new Vector2(-30, 25);
+        private Vector2 cursorOffset;
         //which button is the cursor hovering over?
         public short selectedButton = 1;
         //if buttonPressed equals zero, no button has been pressed
@@ -32,7 +33,9 @@ namespace SSORF.Management.States
         private Vector2[] buttonPosition;
 
         public SubMenu(short NumButtons)
-        { 
+        {
+            Rectangle screen = SSORF.Management.StateManager.bounds;
+            cursorOffset = new Vector2(screen.Left + -30, screen.Top + 25);
             numButtons = NumButtons;
             buttonImage = new Texture2D[numButtons];
             buttonPosition = new Vector2[numButtons];
@@ -56,8 +59,6 @@ namespace SSORF.Management.States
                     selectedButton = 1;
                 else
                     selectedButton += 1;
-
-            CursorPosition = buttonPosition[selectedButton - 1] + cursorOffset;
 
             if (gamePadState.current.Buttons.A == ButtonState.Pressed && gamePadState.previous.Buttons.A == ButtonState.Released)
                 buttonPressed = selectedButton;
@@ -94,13 +95,12 @@ namespace SSORF.Management.States
                 else
                     selectedButton += 1;
 
-            //update the cursor position so it is to the left of the button
-            updateCursor();
-
             //space bar will activate the button
             if (keyBoardState.previous.IsKeyUp(Keys.Space) && keyBoardState.current.IsKeyDown(Keys.Space))
                 buttonPressed = selectedButton;
 #endif
+            //update the cursor position so it is to the left of the button
+            updateCursor();
 
         }
          public void updateCursor()
@@ -123,6 +123,6 @@ namespace SSORF.Management.States
 
         public Vector2[] ButtonPosition { get { return buttonPosition; } set { buttonPosition = value; } }
 
-        public short SelectedButton { get { return selectedButton; } }
+        public short SelectedButton { get { return selectedButton; } set { selectedButton = value; } }
     }
 }

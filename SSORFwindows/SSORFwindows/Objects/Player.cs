@@ -15,7 +15,7 @@ namespace SSORF.Objects
 
     class Player
     {
-        private int money = 15000;
+        private int money = 11000;
 
         //indexes of bool array correspond to scooter ID nums
         private bool[] scootersOwned = new bool[8] 
@@ -40,18 +40,18 @@ namespace SSORF.Objects
             return true;
         }
 
-        public string PurchaseUpgrade(SSORFlibrary.UpgradeData upgrade)
+        public string PurchaseUpgrade(SSORFlibrary.ScooterData scooter, SSORFlibrary.UpgradeData upgrade)
         {
             //if upgrade already purchased for that scooter return message
             if (upgradesPurchased[selectedScooter,upgrade.IDnum] == true)
-                return "This upgrade has already been purchased";
+                return "This upgrade has already been purchased!";
             //if player has insufficent funds return message
             if (PurchaseItem(upgrade.cost) == false)
-                return "You don't have enough cash for this upgrade";
+                return "You don't have enough cash for this upgrade!";
 
             //otherwise add upgrade values to total upgrade specs for that scooter
             scooterUpgrades[selectedScooter].power += upgrade.power;
-            scooterUpgrades[selectedScooter].weight += upgrade.weight;
+            scooterUpgrades[selectedScooter].weight += (scooter.weight * (upgrade.weight / 100f));
             upgradesPurchased[selectedScooter, upgrade.IDnum] = true;
             return "Upgrade purchased";
         }
@@ -60,13 +60,14 @@ namespace SSORF.Objects
         {
             //if scooter is already owned return message
             if (scootersOwned[scooter.IDnum] == true)
-                return "You already own this scooter";
+                return "You already own this scooter!";
             //if player has insufficent funds return message
             if (PurchaseItem(scooter.cost) == false)
-                return "You don't have enough cash to buy this scooter";
+                return "You don't have enough cash to buy this scooter!";
 
             scootersOwned[scooter.IDnum] = true;
-            return scooter.name + " was delivered to your garage";
+            selectedScooter = scooter.IDnum;
+            return scooter.name + " purchased.";
         }
 
 

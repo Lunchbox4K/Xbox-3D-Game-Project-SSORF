@@ -15,15 +15,13 @@ namespace SSORF.Objects
     {
         public bool Active = false;
         Texture2D background;
-        string title;
         string message;
 
         public MessageBox()
         {}
 
-        public void setMessage(string Title, string Message)
+        public void setMessage(string Message)
         {
-            title = Title;
             message = Message;
         }
 
@@ -31,7 +29,8 @@ namespace SSORF.Objects
         {
 
 #if XBOX
-            if (gamePadState.current.Buttons.A == ButtonState.Pressed)
+            if (gamePadState.current.Buttons.A == ButtonState.Pressed &&
+                gamePadState.previous.Buttons.A == ButtonState.Released)
                 Active = false;
 #else
             if (keyBoardState.current.IsKeyDown(Keys.Space) &&
@@ -43,9 +42,19 @@ namespace SSORF.Objects
 
         public void draw(SpriteBatch spriteBatch, SpriteFont font, Color backgroundColor, Color fontColor)
         {
-            spriteBatch.Draw(background, new Vector2(160, 180), backgroundColor);
-            spriteBatch.DrawString(font, title, new Vector2(300, 200), fontColor);
-            spriteBatch.DrawString(font, message, new Vector2(170, 270), fontColor);
+            Rectangle screen = SSORF.Management.StateManager.bounds;
+            spriteBatch.Draw(background, new Vector2(screen.Left + 160, screen.Top + 180), backgroundColor);
+            spriteBatch.DrawString(font, message, new Vector2(screen.Left + 170, screen.Top + 210), fontColor);
+
+            string button;
+#if XBOX
+            
+            button = "A";
+#else
+            button = "SPACE";
+            
+#endif
+            spriteBatch.DrawString(font, "Pess [" + button + "] to continue", new Vector2(screen.Left + 170, screen.Top + 270), fontColor);
         }
 
         public Texture2D Background

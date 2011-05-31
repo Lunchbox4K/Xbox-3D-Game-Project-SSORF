@@ -107,7 +107,7 @@ namespace SSORF.Objects
             //if we are colliding...
             else
             {
-                //turn distance from pbject into a normal describing direction only
+                //turn distance from object into a normal describing direction only
                 distanceToObject.Normalize();
                 //reverse and reduce speed
                 speed = -(speed/2);
