@@ -138,7 +138,7 @@ Objects:  {
             Property: "Lcl Rotation", "Lcl Rotation", "A+",0,0,0
             Property: "Lcl Scaling", "Lcl Scaling", "A+",1,1,1
             Property: "Visibility", "Visibility", "A+",1
-            Property: "Color", "ColorRGB", "N",0.8,0.8,0.8
+            Property: "Color", "ColorRGB", "N",1.0,1.0,1.0
             Property: "BBoxMin", "Vector3D", "N",0,0,0
             Property: "BBoxMax", "Vector3D", "N",0,0,0
         }
@@ -273,7 +273,7 @@ Objects:  {
             Property: "AmbientColor", "ColorRGB", "",0,0,0
             Property: "AmbientFactor", "double", "",1
             Property: "DiffuseColor", "ColorRGB", "",0.809000015258789,0,0.776909708976746
-            Property: "DiffuseFactor", "double", "",0.800000011920929
+            Property: "DiffuseFactor", "double", "",1
             Property: "Bump", "Vector3D", "",0,0,0
             Property: "NormalMap", "Vector3D", "",0,0,0
             Property: "BumpFactor", "double", "",1

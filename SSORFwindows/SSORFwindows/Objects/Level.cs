@@ -45,11 +45,15 @@ namespace SSORF.Objects
         {
             get { return m_modelInstances; }
         }
-        private List<StaticModel> m_checkpoints;
+        public List<Vector4> m_checkpoints = new List<Vector4>(10);
+        private byte checkID = 10;
         private Terrain m_terrain;
 
-        private Vector3[] m_playerSpawns;
-
+        private byte playerID = 0;
+        //w = green component = orientation
+        public Vector4  playerStart;
+        //player blue component = time limit
+        public float timelimit = 0;
 
         private ModelQuadTree m_drawTree;
     #endregion
@@ -92,6 +96,34 @@ namespace SSORF.Objects
                 float scaledMapSize = instancedLocation.Color.Length * instancedLocation.scale;
                 float xOffset = scaledMapSize / 2;
                 float zOffSet = scaledMapSize / 2;
+              for (int x = 0; x < instancedLocation.Color.Length; x++)
+                  for (int y = 0; y < instancedLocation.Color[x].Length; y++)
+                  {
+                      if (instancedLocation.Color[y][x].X == checkID)
+                      {
+                          Vector3 position = new Vector3(x * instancedLocation.scale - xOffset,
+                              0, y * instancedLocation.scale - zOffSet);
+
+                          float height;
+                          Vector3 norm;
+                          m_terrain.terrainInfo.GetHeightAndNormal(position, out height, out norm);
+                          position.Y = height;
+                          m_checkpoints.Add(new Vector4(position, instancedLocation.Color[y][x].Y));
+                      }
+                      else if (instancedLocation.Color[y][x].X == playerID)
+                      {
+                          Vector3 position = new Vector3(x * instancedLocation.scale - xOffset,
+                              0, y * instancedLocation.scale - zOffSet);
+
+                          float height;
+                          Vector3 norm;
+                          m_terrain.terrainInfo.GetHeightAndNormal(position, out height, out norm);
+                          position.Y = height;
+
+                          playerStart = new Vector4(position, instancedLocation.Color[y][x].Y);
+                          timelimit = instancedLocation.Color[y][x].Z;
+                      }
+                  }
             if (m_properties.statics_models != null)
             {
                 Vector3 offset = Vector3.Zero;
@@ -101,6 +133,7 @@ namespace SSORF.Objects
                     loopit = i;
                     for (int x = 0; x < instancedLocation.Color.Length; x++)
                         for (int y = 0; y < instancedLocation.Color[x].Length; y++)
+                        {
                             if (instancedLocation.Color[y][x].X == m_properties.statics_models[i].asset_colorID)
                             {
                                 StaticModel model;
@@ -118,6 +151,7 @@ namespace SSORF.Objects
                                 m_drawTree.addStaticModel(m_staticModels[loopit]);
                                 loopit++;
                             }
+                        }
                     loopit++;
                 }
             }

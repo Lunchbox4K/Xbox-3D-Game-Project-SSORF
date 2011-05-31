@@ -387,13 +387,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Terrain\lvl2_cm.bmp">
-      <Name>lvl2_cm</Name>
+    <Compile Include="Images\Terrain\lvl4_cm.bmp">
+      <Name>lvl4_cm</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Terrain\lvl2_hm.bmp">
-      <Name>lvl2_hm</Name>
+    <Compile Include="Images\Terrain\lvl4_hm.bmp">
+      <Name>lvl4_hm</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TerrainProcessor</Processor>
     </Compile>
@@ -502,28 +502,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TerrainProcessor</Processor>
     </Compile>
-    <Compile Include="Images\Terrain\lvl1_mm.bmp">
-      <Name>lvl1_mm</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>LocationMapProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Images\Terrain\lvl3_cm.bmp">
-      <Name>lvl3_cm</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\Terrain\lvl3_hm.bmp">
-      <Name>lvl3_hm</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TerrainProcessor</Processor>
-    </Compile>
-    <Compile Include="Images\Terrain\lvl3_mm.bmp">
-      <Name>lvl3_mm</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>LocationMapProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Images\Terrain\asphalt.jpg">
@@ -537,7 +515,6 @@
       <Name>storefront</Name>
       <Importer>FbxImporter</Importer>
       <Processor>InstancedModelProcessor</Processor>
-      <ProcessorParameters_Scale>4</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -552,7 +529,7 @@
       <Name>handicapsign</Name>
       <Importer>FbxImporter</Importer>
       <Processor>InstancedModelProcessor</Processor>
-      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+      <ProcessorParameters_Scale>1.5</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -560,53 +537,47 @@
       <Name>bench</Name>
       <Importer>FbxImporter</Importer>
       <Processor>InstancedModelProcessor</Processor>
-      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Models\bush.fbx">
       <Name>bush</Name>
       <Importer>FbxImporter</Importer>
       <Processor>InstancedModelProcessor</Processor>
-      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Models\garbagecan.fbx">
       <Name>garbagecan</Name>
       <Importer>FbxImporter</Importer>
       <Processor>InstancedModelProcessor</Processor>
-      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Models\hydrant.fbx">
       <Name>hydrant</Name>
       <Importer>FbxImporter</Importer>
-      <Processor>InstancedModelProcessor</Processor>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>0.6</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Models\shoppingcart.fbx">
       <Name>shoppingcart</Name>
       <Importer>FbxImporter</Importer>
       <Processor>InstancedModelProcessor</Processor>
-      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Models\storesign.fbx">
       <Name>storesign</Name>
       <Importer>FbxImporter</Importer>
       <Processor>InstancedModelProcessor</Processor>
-      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Models\streetlight.fbx">
       <Name>streetlight</Name>
       <Importer>FbxImporter</Importer>
       <Processor>InstancedModelProcessor</Processor>
-      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Models\tirepile.fbx">
       <Name>tirepile</Name>
       <Importer>FbxImporter</Importer>
-      <Processor>InstancedModelProcessor</Processor>
+      <Processor>ModelProcessor</Processor>
     </Compile>
     <Compile Include="Models\trafficcone.fbx">
       <Name>trafficcone</Name>
       <Importer>FbxImporter</Importer>
-      <Processor>InstancedModelProcessor</Processor>
-      <ProcessorParameters_Scale>8</ProcessorParameters_Scale>
+      <Processor>ModelProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -702,17 +673,143 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\Terrain\lvl1_mmTest.bmp">
-      <Name>lvl1_mmTest</Name>
+    <Compile Include="Images\Terrain\lvl1_mm.bmp">
+      <Name>lvl1_mm</Name>
       <Importer>TextureImporter</Importer>
       <Processor>LocationMapProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\tree2.fbx">
-      <Name>tree2</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
+    <Compile Include="Images\Terrain\lvl4_mm.bmp">
+      <Name>lvl4_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl12_mm.bmp">
+      <Name>lvl12_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl11_mm.bmp">
+      <Name>lvl11_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl10_mm.bmp">
+      <Name>lvl10_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl9_mm.bmp">
+      <Name>lvl9_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl8_mm.bmp">
+      <Name>lvl8_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl7_mm.bmp">
+      <Name>lvl7_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl6_mm.bmp">
+      <Name>lvl6_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl5_mm.bmp">
+      <Name>lvl5_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl16_mm.bmp">
+      <Name>lvl16_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl15_mm.bmp">
+      <Name>lvl15_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl14_mm.bmp">
+      <Name>lvl14_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl13_mm.bmp">
+      <Name>lvl13_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl3_hm.bmp">
+      <Name>lvl3_hm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TerrainProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl3_cm.bmp">
+      <Name>lvl3_cm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl2_hm.bmp">
+      <Name>lvl2_hm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TerrainProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl2_cm.bmp">
+      <Name>lvl2_cm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\asphalt2.jpg">
+      <Name>asphalt2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Terrain\lvl3_mm.bmp">
+      <Name>lvl3_mm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocationMapProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

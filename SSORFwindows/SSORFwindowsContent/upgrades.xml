@@ -78,7 +78,7 @@
       <description1>Flux dispersal allows the vehicle to have smooth passage</description1>
       <description2>through the space time continuum.</description2>
       <power>0.0</power>
-      <weight>-30.0</weight>
+      <weight>-50.0</weight>
       <cost>5000</cost>
       <button>FCbutton</button>
     </Item>

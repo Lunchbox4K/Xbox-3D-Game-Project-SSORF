@@ -69,7 +69,7 @@ namespace SSORF.Management.States
         public Mission()
         { }
 
-        public Mission(Objects.Player playerInfo, SSORFlibrary.ScooterData ScooterSpecs, Game game)
+        public Mission(Objects.Player playerInfo, SSORFlibrary.ScooterData ScooterSpecs, Game game, short missionID)
         {
             fps = new Objects.fpsCalculator();
             player = playerInfo;
@@ -85,58 +85,135 @@ namespace SSORF.Management.States
             levelProperties.instanced_models = new List<SSORFlibrary.LocationMapAsset>();
             levelProperties.statics_models = new List<SSORFlibrary.LocationMapAsset>();
 
-            SSORFlibrary.LocationMapAsset tree = new SSORFlibrary.LocationMapAsset();
-            tree.asset_colorID = 0;
-            tree.asset_location = "Models\\tree";
-            levelProperties.instanced_models.Add(tree);
+            #region missions 1-4 use level 1 (round racetrack)
+            if (missionID < 5)
+            {
+                prizeMoney = missionID * 50;
 
-            SSORFlibrary.LocationMapAsset car = new SSORFlibrary.LocationMapAsset();
-            car.asset_colorID = 128;
-            car.asset_location = "Models\\tree2";
-            levelProperties.statics_models.Add(car);
+                SSORFlibrary.LocationMapAsset tree = new SSORFlibrary.LocationMapAsset();
+                tree.asset_colorID = 130;
+                tree.asset_location = "Models\\tree";
+                levelProperties.instanced_models.Add(tree);
 
-            SSORFlibrary.LocationMapAsset bench = new SSORFlibrary.LocationMapAsset();
-            bench.asset_colorID = 3;
-            bench.asset_location = "Models\\bench";
-            levelProperties.instanced_models.Add(bench);
+                SSORFlibrary.LocationMapAsset tirepile = new SSORFlibrary.LocationMapAsset();
+                tirepile.asset_colorID = 110;
+                tirepile.asset_location = "Models\\tirepile";
+                levelProperties.statics_models.Add(tirepile);
 
-            SSORFlibrary.LocationMapAsset can = new SSORFlibrary.LocationMapAsset();
-            can.asset_colorID = 40;
-            can.asset_location = "Models\\garbagecan";
-            levelProperties.instanced_models.Add(can);
+                SSORFlibrary.LocationMapAsset bush = new SSORFlibrary.LocationMapAsset();
+                bush.asset_colorID = 20;
+                bush.asset_location = "Models\\bush";
+                levelProperties.instanced_models.Add(bush);
 
-            SSORFlibrary.LocationMapAsset storesign = new SSORFlibrary.LocationMapAsset();
-            storesign.asset_colorID = 100;
-            storesign.asset_location = "Models\\storesign";
-            levelProperties.instanced_models.Add(storesign);
+                levelProperties.level_heightMap = "Images\\Terrain\\lvl1_hm";
+                levelProperties.level_textureB = "Images\\Terrain\\terrainTextureB";
+                levelProperties.level_textureG = "Images\\Terrain\\terrainTextureG";
+                levelProperties.level_textureMap = "Images\\Terrain\\lvl1_cm";
+                levelProperties.level_textureR = "Images\\Terrain\\terrainTextureR";
+            }
+            #endregion
 
-            SSORFlibrary.LocationMapAsset handicap = new SSORFlibrary.LocationMapAsset();
-            handicap.asset_colorID = 256;
-            handicap.asset_location = "Models\\handicapsign";
-            levelProperties.instanced_models.Add(handicap);
+            #region missions 5-8 use level 2 (park)
+            else if (missionID < 9)
+            {
+                prizeMoney = missionID * 100;
 
-            SSORFlibrary.LocationMapAsset cart = new SSORFlibrary.LocationMapAsset();
-            cart.asset_colorID = 60;
-            cart.asset_location = "Models\\shoppingcart";
-            levelProperties.instanced_models.Add(cart);
+                SSORFlibrary.LocationMapAsset tree = new SSORFlibrary.LocationMapAsset();
+                tree.asset_colorID = 130;
+                tree.asset_location = "Models\\tree";
+                levelProperties.instanced_models.Add(tree);
 
-            SSORFlibrary.LocationMapAsset light = new SSORFlibrary.LocationMapAsset();
-            light.asset_colorID = 64;
-            light.asset_location = "Models\\streetlight";
-            levelProperties.instanced_models.Add(light);
+                SSORFlibrary.LocationMapAsset bush = new SSORFlibrary.LocationMapAsset();
+                bush.asset_colorID = 20;
+                bush.asset_location = "Models\\bush";
+                levelProperties.instanced_models.Add(bush);
 
-            SSORFlibrary.LocationMapAsset store = new SSORFlibrary.LocationMapAsset();
-            store.asset_colorID = 90;
-            store.asset_location = "Models\\storefront";
-            levelProperties.instanced_models.Add(store);
+                SSORFlibrary.LocationMapAsset bench = new SSORFlibrary.LocationMapAsset();
+                bench.asset_colorID = 30;
+                bench.asset_location = "Models\\bench";
+                levelProperties.instanced_models.Add(bench);
 
-            levelProperties.instances_locationMap = "Images\\Terrain\\lvl1_mmTest";
+                levelProperties.level_heightMap = "Images\\Terrain\\lvl2_hm";
+                levelProperties.level_textureB = "Images\\Terrain\\asphalt2";
+                levelProperties.level_textureG = "Images\\Terrain\\terrainTextureG";
+                levelProperties.level_textureMap = "Images\\Terrain\\lvl2_cm";
+                levelProperties.level_textureR = "Images\\Terrain\\terrainTextureR";
+            }
+            #endregion
+
+            #region missions 9-12 use level 3 (parking lot)
+            else if (missionID < 13)
+            {
+                prizeMoney = missionID * 150;
+
+                SSORFlibrary.LocationMapAsset handicap = new SSORFlibrary.LocationMapAsset();
+                handicap.asset_colorID = 120;
+                handicap.asset_location = "Models\\handicapsign";
+                levelProperties.instanced_models.Add(handicap);
+
+                //SSORFlibrary.LocationMapAsset can = new SSORFlibrary.LocationMapAsset();
+                //can.asset_colorID = 40;
+                //can.asset_location = "Models\\garbagecan";
+                //levelProperties.instanced_models.Add(can);
+
+                //SSORFlibrary.LocationMapAsset storesign = new SSORFlibrary.LocationMapAsset();
+                //storesign.asset_colorID = 100;
+                //storesign.asset_location = "Models\\storesign";
+                //levelProperties.instanced_models.Add(storesign);
+
+                SSORFlibrary.LocationMapAsset cart = new SSORFlibrary.LocationMapAsset();
+                cart.asset_colorID = 60;
+                cart.asset_location = "Models\\shoppingcart";
+                levelProperties.instanced_models.Add(cart);
+
+                //SSORFlibrary.LocationMapAsset store = new SSORFlibrary.LocationMapAsset();
+                //store.asset_colorID = 90;
+                //store.asset_location = "Models\\storefront";
+                //levelProperties.instanced_models.Add(store);
+
+                SSORFlibrary.LocationMapAsset car = new SSORFlibrary.LocationMapAsset();
+                car.asset_colorID = 50;
+                car.asset_location = "Models\\car1";
+                levelProperties.statics_models.Add(car);
+
+                levelProperties.level_heightMap = "Images\\Terrain\\lvl3_hm";
+                levelProperties.level_textureB = "Images\\Terrain\\asphalt2";
+                levelProperties.level_textureG = "Images\\Terrain\\terrainTextureG";
+                levelProperties.level_textureMap = "Images\\Terrain\\lvl3_cm";
+                levelProperties.level_textureR = "Images\\Terrain\\terrainTextureR";
+            }
+            #endregion
+
+            #region missions 13-16 use level 4 (large racetrack)
+            else
+            {
+                prizeMoney = missionID * 200;
+
+                SSORFlibrary.LocationMapAsset tree = new SSORFlibrary.LocationMapAsset();
+                tree.asset_colorID = 130;
+                tree.asset_location = "Models\\tree";
+                levelProperties.instanced_models.Add(tree);
+
+                SSORFlibrary.LocationMapAsset tirepile = new SSORFlibrary.LocationMapAsset();
+                tirepile.asset_colorID = 110;
+                tirepile.asset_location = "Models\\tirepile";
+                levelProperties.statics_models.Add(tirepile);
+
+                SSORFlibrary.LocationMapAsset bush = new SSORFlibrary.LocationMapAsset();
+                bush.asset_colorID = 30;
+                bush.asset_location = "Models\\bush";
+                levelProperties.instanced_models.Add(bush);
+
+                levelProperties.level_heightMap = "Images\\Terrain\\lvl4_hm";
+                levelProperties.level_textureB = "Images\\Terrain\\terrainTextureB";
+                levelProperties.level_textureG = "Images\\Terrain\\terrainTextureG";
+                levelProperties.level_textureMap = "Images\\Terrain\\lvl4_cm";
+                levelProperties.level_textureR = "Images\\Terrain\\terrainTextureR";
+            }
+            #endregion
+
+            levelProperties.instances_locationMap = "Images\\Terrain\\lvl"+missionID.ToString()+"_mm";
             levelProperties.level_effect = "Effects\\TerrainTextureEffect";
-            levelProperties.level_heightMap = "Images\\Terrain\\lvl1_hm";
-            levelProperties.level_textureB = "Images\\Terrain\\terrainTextureB";
-            levelProperties.level_textureG = "Images\\Terrain\\terrainTextureG";
-            levelProperties.level_textureMap = "Images\\Terrain\\lvl1_cm";
-            levelProperties.level_textureR = "Images\\Terrain\\terrainTextureR";
             levelProperties.viewTree_refreshRate = 8;
             level = new Objects.Level(game, levelProperties);
 
@@ -172,42 +249,25 @@ namespace SSORF.Management.States
             //with missionID we can have a different starting positions, checkpoints, etc. for each mission
             //We need to load the data for each mission from file using the missionID
 
-            #region temp mission loading (needs to be done from file)
-            if (missionID == 1)
-            {
-                numCheckPoints = 3;
-                CheckPointCoords = new Vector3[numCheckPoints];
-                timeLimit = new TimeSpan(0, 0, 100);
+            #region set checkpoints
+            numCheckPoints = (short)level.m_checkpoints.Count;
+            CheckPointCoords = new Vector3[numCheckPoints];
 
-                CheckPointCoords[0] = new Vector3(140, 0, 0);
-                CheckPointCoords[1] = new Vector3(0, 0, -140);
-                CheckPointCoords[2] = new Vector3(0, 0, 140);
+            for (int i = 0; i < numCheckPoints; i++)
+                CheckPointCoords[(int)level.m_checkpoints[i].W] = new Vector3(
+                    level.m_checkpoints[i].X, level.m_checkpoints[i].Y, level.m_checkpoints[i].Z);
 
-                CheckPoints = new Objects.ModelCollection(Check, numCheckPoints, CheckPointCoords);
+            CheckPoints = new Objects.ModelCollection(Check, numCheckPoints, CheckPointCoords);
 
-                scooter.setStartingPosition(-0.45f, new Vector3(0, 0, 100), 1);
-
-                prizeMoney = 100;
-            }
-            else if (missionID == 2)
-            {
-                numCheckPoints = 5;
-                CheckPointCoords = new Vector3[numCheckPoints];
-                timeLimit = new TimeSpan(0, 0, 15);
-
-                CheckPointCoords[0] = new Vector3(0, 0, -140);
-                CheckPointCoords[1] = new Vector3(140, 0, 0);
-                CheckPointCoords[2] = new Vector3(0, 0, 140);
-                CheckPointCoords[3] = new Vector3(-140, 0, 0);
-                CheckPointCoords[4] = new Vector3(0, 0, -140);
-
-                CheckPoints = new Objects.ModelCollection(Check, numCheckPoints, CheckPointCoords);
+            //needs to be different for each mission
+            timeLimit = new TimeSpan(0, 0, (int)level.timelimit);
 
 
-                scooter.setStartingPosition(0.0f, new Vector3(0,0,40), 1);
 
-                prizeMoney = 200;
-            }
+            float startingYaw = (level.playerStart.W / 255.0f) * MathHelper.TwoPi;
+
+            scooter.setStartingPosition(startingYaw, 
+                new Vector3(level.playerStart.X, level.playerStart.Y, level.playerStart.Z), 0);
 
             #endregion
 
@@ -240,37 +300,38 @@ namespace SSORF.Management.States
             tmpPlayerModelList.Add(scooter.Geometry);
             collisions.setPlayerModels(tmpPlayerModelList);
             collisionList = collisions.waitToGetCollisions;
-            debugMessage = "";
-            BoundingSphere[] staticSpheres = collisions.waitToGetStaticSpheres;
-            BoundingSphere[][] instancedSpheres = collisions.waitToGetInstancedSpheres;
+            #region debug message stuff
+            //debugMessage = "";
+            //BoundingSphere[] staticSpheres = collisions.waitToGetStaticSpheres;
+            //BoundingSphere[][] instancedSpheres = collisions.waitToGetInstancedSpheres;
 
-            debugMessage += "Static Spheres: \n   ";
-            for (int i = 0; i < staticSpheres.Length; i++)
-                debugMessage += "R{" + staticSpheres[i].Radius.ToString() + "}  " + staticSpheres[i].Center.ToString() + " \n   ";
-            debugMessage += "\n";
+            //debugMessage += "Static Spheres: \n   ";
+            //for (int i = 0; i < staticSpheres.Length; i++)
+            //    debugMessage += "R{" + staticSpheres[i].Radius.ToString() + "}  " + staticSpheres[i].Center.ToString() + " \n   ";
+            //debugMessage += "\n";
 
-            debugMessage += "Instanced Spheres: \n   ";
-            for (int i = 0; i < instancedSpheres.Length; i++)
-                for(int j = 0; j < instancedSpheres[i].Length; j++)
-                    debugMessage += "R{" + instancedSpheres[i][j].Radius.ToString() + "}  " + instancedSpheres[i][j].Center.ToString() + " \n   ";
-            debugMessage += "\n";
-            BoundingSphere[] playerSpheres = collisions.waitToGetPlayerSpheres;
-            debugMessage += "Player Spheres: \n   ";
-            for (int i = 0; i < playerSpheres.Length; i++)
-                debugMessage += "R{" + playerSpheres[i].Radius.ToString() + "}  " + playerSpheres[i].Center.ToString() + "\n   ";
+            //debugMessage += "Instanced Spheres: \n   ";
+            //for (int i = 0; i < instancedSpheres.Length; i++)
+            //    for(int j = 0; j < instancedSpheres[i].Length; j++)
+            //        debugMessage += "R{" + instancedSpheres[i][j].Radius.ToString() + "}  " + instancedSpheres[i][j].Center.ToString() + " \n   ";
+            //debugMessage += "\n";
+            //BoundingSphere[] playerSpheres = collisions.waitToGetPlayerSpheres;
+            //debugMessage += "Player Spheres: \n   ";
+            //for (int i = 0; i < playerSpheres.Length; i++)
+            //    debugMessage += "R{" + playerSpheres[i].Radius.ToString() + "}  " + playerSpheres[i].Center.ToString() + "\n   ";
 
-            debugMessage += "\n COLLISION: ";
-            if (collisionList != null && collisionList.Length > 0)
-            {
-                for (int i = 0; i < collisionList.Length; i++)
-                {
-                    debugMessage += "\n     " + Objects.StaticModel.modelList[collisionList[i].modelB_ID - 1].ModelAsset.ToString() +
-                        "   Coords: " + collisionList[i].objectSphere.Center.ToString() +
-                        "  Distance: " + (collisionList[i].objectSphere.Center - collisionList[i].playerSphere.Center).ToString();
-                }
-            debugMessage += "\n";
-            }
-
+            //debugMessage += "\n COLLISION: ";
+            //if (collisionList != null && collisionList.Length > 0)
+            //{
+            //    for (int i = 0; i < collisionList.Length; i++)
+            //    {
+            //        debugMessage += "\n     " + Objects.StaticModel.modelList[collisionList[i].modelB_ID - 1].ModelAsset.ToString() +
+            //            "   Coords: " + collisionList[i].objectSphere.Center.ToString() +
+            //            "  Distance: " + (collisionList[i].objectSphere.Center - collisionList[i].playerSphere.Center).ToString();
+            //    }
+            //debugMessage += "\n";
+            //}
+            #endregion
             fps.update(gameTime);
 
             //Update Level
@@ -282,6 +343,7 @@ namespace SSORF.Management.States
                 //when starting update countdown
                 case MissionState.Starting :
                     countDown -= gameTime.ElapsedGameTime;
+
                     if (countDown.Milliseconds < 0)
                         state = MissionState.Playing;
 
@@ -324,12 +386,31 @@ namespace SSORF.Management.States
                 //Used to store coordinates of object closest to the scooter, using scooter location as origin
                 Vector3 closestObjectOffSet = Vector3.Zero;
 
+                //if scooter exceeds min/max X or Z set edge of map as closest object
+                if(scooter.Geometry.Location.X > 780)
+                    closestObjectOffSet = 
+                        new Vector3(790, scooter.Geometry.Location.Y, scooter.Geometry.Location.Z) - 
+                        scooter.Geometry.Location;
+                else if (scooter.Geometry.Location.X < -780)
+                    closestObjectOffSet = 
+                        new Vector3(-790, scooter.Geometry.Location.Y, scooter.Geometry.Location.Z) - 
+                        scooter.Geometry.Location;
+                else if(scooter.Geometry.Location.Z > 780)
+                    closestObjectOffSet =
+                        new Vector3(scooter.Geometry.Location.X, scooter.Geometry.Location.Y, 790) -
+                        scooter.Geometry.Location;
+                else if (scooter.Geometry.Location.Z < -780)
+                    closestObjectOffSet =
+                        new Vector3(scooter.Geometry.Location.X, scooter.Geometry.Location.Y, -790) -
+                        scooter.Geometry.Location;
+
+                //Check collision distance
                 for (int i = 0; i < collisionList.Length; i++)
                 {
                     //find location of object using scooter model as origin
                     Vector3 collisionOffSet = collisionList[i].objectSphere.Center - scooter.Geometry.Location;
 
-                    //if distance from player to object is greater than either bounding sphere....
+                    //if distance from player to object is less than either bounding sphere....
                     if (collisionOffSet.Length() < collisionList[i].objectSphere.Radius ||
                         collisionOffSet.Length() < collisionList[i].playerSphere.Radius)
                     {
@@ -437,11 +518,7 @@ namespace SSORF.Management.States
 
             scooter.Geometry.drawModel(gameTime, camera.ViewMtx, camera.ProjMtx);
 
-            if(currentCheckPoint == numCheckPoints - 1)
-                CheckPoints.draw(gameTime, camera, currentCheckPoint, (short)(currentCheckPoint + 1));
-            else
-               CheckPoints.draw(gameTime, camera, currentCheckPoint, (short)(currentCheckPoint + 1));
-
+            CheckPoints.draw(gameTime, camera, currentCheckPoint, (short)(currentCheckPoint + 1));
            
 
             
@@ -472,12 +549,14 @@ namespace SSORF.Management.States
             spriteBatch.DrawString(smallFont, debugMessage, new Vector2(bounds.Left + 10, bounds.Top + 120), Color.Orange);
             spriteBatch.DrawString(smallFont, debugMessage, new Vector2(bounds.Left + 11, bounds.Top + 121), Color.Black);
 
+            char endKey;
+            string returnKey;
 #if XBOX
-            char endKey = 'Y';
-            string returnKey = "START";
+            endKey = 'Y';
+            returnKey = "START";
 #else
-            char endKey = 'Q';
-            string returnKey = "ENTER";
+            endKey = 'Q';
+            returnKey = "ENTER";
 #endif
             //This switch statement prints different instructions depending on MissionState
             switch (state)
@@ -501,7 +580,7 @@ namespace SSORF.Management.States
                 break;
 
                 case MissionState.Playing :
-                    spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString(), new Vector2(bounds.Left + 200, bounds.Top + 10), Color.Black);
+                    spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString("#.##"), new Vector2(bounds.Left + 200, bounds.Top + 10), Color.Black);
                     spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to pause mission", new Vector2(bounds.Left + 280, bounds.Bottom - 50), Color.Black);
                     spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0"), new Vector2(bounds.Left + 50, bounds.Bottom - 200), Color.Red);
                 break;
@@ -511,10 +590,10 @@ namespace SSORF.Management.States
                 {
                     spriteBatch.DrawString(largeFont, "Finish!", new Vector2(bounds.Left + 60, 100), Color.Black);
                     spriteBatch.DrawString(smallFont, "You earned $" + prizeMoney.ToString(), new Vector2(bounds.Left + 200, bounds.Bottom - 130), Color.Black);
-                    spriteBatch.DrawString(smallFont, "With " + timeLimit.TotalSeconds.ToString() + " seconds to spare!!!", new Vector2(bounds.Left + 200, bounds.Bottom - 110), Color.Black);
+                    spriteBatch.DrawString(smallFont, "With " + timeLimit.TotalSeconds.ToString("#.##") + " seconds to spare!!!", new Vector2(bounds.Left + 200, bounds.Bottom - 110), Color.Black);
                 }
                 else
-                    spriteBatch.DrawString(largeFont, "Fail!", new Vector2(bounds.Left + 200, 100), Color.Black);
+                    spriteBatch.DrawString(largeFont, "Fail!", new Vector2(bounds.Left + 200, bounds.Top + 100), Color.Black);
 
                     spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to return to menu", new Vector2(bounds.Left + 240, bounds.Bottom - 50), Color.Black);
                 break;

@@ -28,6 +28,8 @@ namespace SSORF
         public static GamePadState current;
     }
 
+
+
     public class MainSource : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
@@ -47,7 +49,6 @@ namespace SSORF
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 1024;
 #endif
-
 
             stateManager = new Management.StateManager(this);
 

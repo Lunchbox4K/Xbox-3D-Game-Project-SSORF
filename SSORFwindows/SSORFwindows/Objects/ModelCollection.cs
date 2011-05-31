@@ -15,7 +15,7 @@ namespace SSORF.Objects
     {
         private StaticModel geometry;
         private Vector3[] coordinates;
-        private short numModels;
+        private int numModels;
 
         public ModelCollection(StaticModel model, short numClones, Vector3[] locations)
         {
@@ -48,7 +48,10 @@ namespace SSORF.Objects
             for (int i = start; i <= end; i++)
             {
                 geometry.Location = coordinates[i];
-                geometry.drawModel(gameTime, camera.ViewMtx, camera.ProjMtx);
+                if (i == start)
+                    geometry.drawModel(gameTime, camera.ViewMtx, camera.ProjMtx, new Vector3(3.0f, 0.5f, 2.0f));
+                else
+                    geometry.drawModel(gameTime, camera.ViewMtx, camera.ProjMtx, new Vector3(0.35f, 0.35f, 0.35f));
             }
         }
 

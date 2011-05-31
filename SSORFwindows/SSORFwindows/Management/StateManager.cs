@@ -24,7 +24,6 @@ namespace SSORF.Management
 
     
 
-  
 
     public class StateManager : Microsoft.Xna.Framework.DrawableGameComponent
     {
@@ -49,6 +48,8 @@ namespace SSORF.Management
         Matrix screenScale;
 
 
+        public static Rectangle bounds = new Rectangle();
+
         public StateManager(Game game)
             : base(game)
         {
@@ -64,6 +65,8 @@ namespace SSORF.Management
 
             //2d Stretch
             screenScale = Matrix.CreateScale(GraphicsDevice.Viewport.Width / 800f, GraphicsDevice.Viewport.Height / 600f, 1f);
+
+            bounds = GraphicsDevice.Viewport.TitleSafeArea;
 
             font = Game.Content.Load<SpriteFont>("font");
             
@@ -122,7 +125,7 @@ namespace SSORF.Management
                     {   // switch to mission, load it, then update it
                         State = GameState.MissionScreen;
                         currentMission = new States.Mission(player, 
-                            menu.ScooterSpecs[player.SelectedScooter], Game);
+                            menu.ScooterSpecs[player.SelectedScooter], Game, menu.selectedMission);
                         currentMission.load(Game.Content, menu.selectedMission);
                         currentMission.update(gameTime);
                         menu.selectedMission = 0;

@@ -182,7 +182,6 @@ namespace SSORF.Objects
                         effect.World = boneTransforms[mesh.ParentBone.Index] * worldMatrix;
                         effect.View = view;
                         effect.Projection = projection;
-
                         effect.EnableDefaultLighting();
                         effect.PreferPerPixelLighting = true;
 
@@ -194,6 +193,46 @@ namespace SSORF.Objects
                     }
 
                     mesh.Draw();
+                }
+            }
+        }
+
+        public virtual void drawModel(GameTime gameTime, Matrix view, Matrix projection, Vector3 color)
+        {
+            if (isLoaded)
+            {
+
+                Matrix[] boneTransforms = new Matrix[model.Bones.Count];
+                model.CopyAbsoluteBoneTransformsTo(boneTransforms);
+                Matrix worldMatrix = scale * orientation * Matrix.CreateTranslation(location);
+                
+                Vector3 originalColor = Vector3.Left;
+                foreach (ModelMesh mesh in model.Meshes)
+                {
+                    foreach (BasicEffect effect in mesh.Effects)
+                    {
+                        if (originalColor.X == -1)
+                            originalColor = effect.DiffuseColor;
+
+                        effect.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
+                        effect.DiffuseColor = color;
+                        effect.World = boneTransforms[mesh.ParentBone.Index] * worldMatrix;
+                        effect.View = view;
+                        effect.Projection = projection;
+                        effect.EnableDefaultLighting();
+                        effect.PreferPerPixelLighting = true;
+
+                        // Set the fog to match the black background color
+                        effect.FogEnabled = false;
+                        effect.FogColor = Vector3.Zero;
+                        effect.FogStart = 1000;
+                        effect.FogEnd = 3200;
+                    }
+                    mesh.Draw();
+                    foreach (BasicEffect effect in mesh.Effects)
+                    {
+                        effect.DiffuseColor = originalColor;
+                    }
                 }
             }
         }

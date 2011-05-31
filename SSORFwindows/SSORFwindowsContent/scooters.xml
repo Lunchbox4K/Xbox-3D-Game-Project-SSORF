@@ -37,7 +37,7 @@
       <outputPower>50</outputPower>
       <brakePower>1.6</brakePower>
       <weight>29</weight>
-      <cost>800</cost>
+      <cost>2000</cost>
       <wheelMaxAngle>1.45</wheelMaxAngle>
       <wheelRadius>.1</wheelRadius>
       <wheelBaseLength>.8</wheelBaseLength>
@@ -52,7 +52,7 @@
       <outputPower>90</outputPower>
       <brakePower>2.2</brakePower>
       <weight>148</weight>
-      <cost>12000</cost>
+      <cost>4500</cost>
       <wheelMaxAngle>1.45</wheelMaxAngle>
       <wheelRadius>.1</wheelRadius>
       <wheelBaseLength>1.1</wheelBaseLength>
@@ -67,7 +67,7 @@
       <outputPower>85</outputPower>
       <brakePower>2</brakePower>
       <weight>149</weight>
-      <cost>4300</cost>
+      <cost>4000</cost>
       <wheelMaxAngle>1.45</wheelMaxAngle>
       <wheelRadius>.1</wheelRadius>
       <wheelBaseLength>1.14</wheelBaseLength>
