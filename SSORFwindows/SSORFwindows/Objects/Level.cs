@@ -237,13 +237,16 @@ namespace SSORF.Objects
                                 StaticModel model;
                                 Vector3 location = Vector3.Zero;
                                 Vector3 normal;
+                                float angletoRotate = m_locationMap.Color[y][x].Y;
+                                Matrix rotation = Matrix.CreateRotationY(angletoRotate);
+                                float scale = m_locationMap.Color[y][x].Z;
                                 location.X = x * m_locationMap.scale - xOffset;
                                 location.Z = y * m_locationMap.scale - zOffSet;
                                 location.Y = 0;
                                 if (m_terrain.terrainInfo.IsOnHeightmap(location))
                                     m_terrain.terrainInfo.GetHeightAndNormal(location, out location.Y, out normal);
                                 model = new StaticModel(m_rootGame.Content, m_properties.statics_models[i].asset_location,
-                                    location, Matrix.Identity, 1f);
+                                    location, rotation, scale);
                                 //Add each model instance to a List<>
                                 m_staticModels.Add(model);
                                 m_drawTree.addStaticModel(m_staticModels[loopit]);
@@ -263,6 +266,7 @@ namespace SSORF.Objects
                     model.LoadModel();
                     m_instancedModels.Add(model);
                     m_drawTree.addInstancedModel(m_instancedModels[i]);
+
                 }
                 //Load Instanced Model Locations
 
@@ -277,10 +281,13 @@ namespace SSORF.Objects
                                 Vector3 location = Vector3.Zero;
                                 Vector3 normal = Vector3.Zero;
                                 //Scale and Rotate the Object
-                                Matrix scale;
-                                Matrix.CreateScale(.25f, out scale);
-                                Matrix rotation = Matrix.Identity;
-                                Matrix.Multiply(ref scale, ref rotation, out transform);
+                                float scale = m_locationMap.Color[z][x].Z;
+                                Matrix scaler;
+                                Matrix.CreateScale(scale, out scaler);
+                                float angletoRotate = m_locationMap.Color[z][x].Y;
+                                angletoRotate *= MathHelper.Pi * 2 / 255;   //Rotation is on a scale from 0 - 255
+                                Matrix rotation = Matrix.CreateRotationY(angletoRotate);
+                                Matrix.Multiply(ref scaler, ref rotation, out transform);
                                 location.X = x * m_locationMap.scale - xOffset;
                                 location.Z = z * m_locationMap.scale - zOffSet;
                                 if (m_terrain.terrainInfo.IsOnHeightmap(location))
