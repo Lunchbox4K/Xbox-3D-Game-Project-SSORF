@@ -411,7 +411,7 @@ namespace SSORF.Management
         //draw the current menu and the cursor
         public void draw(SpriteBatch spriteBatch, Objects.Player player)
         {
-            Rectangle screen = SSORF.Management.StateManager.bounds;
+            Rectangle screen = graphics.Viewport.Bounds;
 
             spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
             Menus[(int)CurrentMenu].draw(spriteBatch);
