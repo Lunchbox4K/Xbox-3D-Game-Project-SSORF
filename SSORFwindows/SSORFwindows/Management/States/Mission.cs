@@ -60,7 +60,7 @@ namespace SSORF.Management.States
         SSORF.Objects.CollisionDetection collisions;
         SSORF.Objects.Collision[] collisionList;
         List<SSORF.Objects.StaticModel> playerModels;
-        string debugMessage = "";
+        //string debugMessage = "";
 
         private Rectangle bounds;
         #endregion
@@ -536,18 +536,18 @@ namespace SSORF.Management.States
             spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left + 11, bounds.Top + 21), Color.LightGreen);
             spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left + 10, bounds.Top + 20), Color.Black);
 
-            spriteBatch.DrawString(smallFont, "Main Thread Active: " + Thread.CurrentThread.IsAlive, new Vector2(bounds.Left + 11, bounds.Top + 41), Color.SteelBlue);
-            spriteBatch.DrawString(smallFont, "Main Thread Active: " + Thread.CurrentThread.IsAlive, new Vector2(bounds.Left + 10, bounds.Top + 40), Color.Black);
-            spriteBatch.DrawString(smallFont, "Main Thread State: " + Thread.CurrentThread.ThreadState, new Vector2(bounds.Left + 11, bounds.Top + 61), Color.SteelBlue);
-            spriteBatch.DrawString(smallFont, "Main Thread State: " + Thread.CurrentThread.ThreadState, new Vector2(bounds.Left + 10, bounds.Top + 60), Color.Black);
+            //spriteBatch.DrawString(smallFont, "Main Thread Active: " + Thread.CurrentThread.IsAlive, new Vector2(bounds.Left + 11, bounds.Top + 41), Color.SteelBlue);
+            //spriteBatch.DrawString(smallFont, "Main Thread Active: " + Thread.CurrentThread.IsAlive, new Vector2(bounds.Left + 10, bounds.Top + 40), Color.Black);
+            //spriteBatch.DrawString(smallFont, "Main Thread State: " + Thread.CurrentThread.ThreadState, new Vector2(bounds.Left + 11, bounds.Top + 61), Color.SteelBlue);
+            //spriteBatch.DrawString(smallFont, "Main Thread State: " + Thread.CurrentThread.ThreadState, new Vector2(bounds.Left + 10, bounds.Top + 60), Color.Black);
 
-            spriteBatch.DrawString(smallFont, "Collision Thread Active: " + collisions.CollisionThread.IsAlive, new Vector2(bounds.Left + 11, bounds.Top + 81), Color.Salmon);
-            spriteBatch.DrawString(smallFont, "Collision Thread Active: " + collisions.CollisionThread.IsAlive, new Vector2(bounds.Left + 10, bounds.Top + 80), Color.Black);
-            spriteBatch.DrawString(smallFont, "Collision Thread State: " + collisions.CollisionThread.ThreadState, new Vector2(bounds.Left + 11, bounds.Top + 101), Color.Salmon);
-            spriteBatch.DrawString(smallFont, "Collision Thread State: " + collisions.CollisionThread.ThreadState, new Vector2(bounds.Left + 10, bounds.Top + 100), Color.Black);
+            //spriteBatch.DrawString(smallFont, "Collision Thread Active: " + collisions.CollisionThread.IsAlive, new Vector2(bounds.Left + 11, bounds.Top + 81), Color.Salmon);
+            //spriteBatch.DrawString(smallFont, "Collision Thread Active: " + collisions.CollisionThread.IsAlive, new Vector2(bounds.Left + 10, bounds.Top + 80), Color.Black);
+            //spriteBatch.DrawString(smallFont, "Collision Thread State: " + collisions.CollisionThread.ThreadState, new Vector2(bounds.Left + 11, bounds.Top + 101), Color.Salmon);
+            //spriteBatch.DrawString(smallFont, "Collision Thread State: " + collisions.CollisionThread.ThreadState, new Vector2(bounds.Left + 10, bounds.Top + 100), Color.Black);
 
-            spriteBatch.DrawString(smallFont, debugMessage, new Vector2(bounds.Left + 10, bounds.Top + 120), Color.Orange);
-            spriteBatch.DrawString(smallFont, debugMessage, new Vector2(bounds.Left + 11, bounds.Top + 121), Color.Black);
+            //spriteBatch.DrawString(smallFont, debugMessage, new Vector2(bounds.Left + 10, bounds.Top + 120), Color.Orange);
+            //spriteBatch.DrawString(smallFont, debugMessage, new Vector2(bounds.Left + 11, bounds.Top + 121), Color.Black);
 
             char endKey;
             string returnKey;
@@ -562,25 +562,25 @@ namespace SSORF.Management.States
             switch (state)
             { 
                 case MissionState.Starting :
-                    spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString(), new Vector2(bounds.Left + 200, bounds.Top + 10), Color.Black);
+                    spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString("#.##"), new Vector2(bounds.Left + 400, bounds.Top + 30), Color.Black);
                     spriteBatch.DrawString(smallFont, "Get ready to race!!!", new Vector2(bounds.Left + 300, bounds.Top + 550), Color.Black);
-                    spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0"), new Vector2(bounds.Left + 50, bounds.Top + 400), Color.Red);
+                    spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0"), new Vector2(bounds.Left + 50, bounds.Bottom - 200), Color.Red);
                     if (countDown.Seconds > 0)
-                        spriteBatch.DrawString(largeFont, countDown.Seconds.ToString(), new Vector2(bounds.Left + 340, bounds.Top + 100), Color.Black);
+                        spriteBatch.DrawString(largeFont, countDown.Seconds.ToString(), new Vector2(bounds.Left + 450, bounds.Top + 100), Color.Black);
                     else
-                        spriteBatch.DrawString(largeFont, "GO!", new Vector2(bounds.Left + 220, bounds.Top + 100), Color.Black);
+                        spriteBatch.DrawString(largeFont, "GO!", new Vector2(bounds.Left + 400, bounds.Top + 100), Color.Black);
                 break;
 
                 case MissionState.Paused:
-                    spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString(), new Vector2(bounds.Left + 200, bounds.Top + 10), Color.Black);
-                    spriteBatch.DrawString(largeFont, "paused", new Vector2(bounds.Left + 80, bounds.Top + 100), Color.Black);
+                spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString("#.##"), new Vector2(bounds.Left + 400, bounds.Top + 30), Color.Black);
+                    spriteBatch.DrawString(largeFont, "paused", new Vector2(bounds.Left + 400, bounds.Top + 100), Color.Black);
                     spriteBatch.DrawString(smallFont, "Press [" + endKey + "] to quit mission", new Vector2(bounds.Left + 280, bounds.Bottom - 70), Color.Black);
                     spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to return to mission", new Vector2(bounds.Left + 280, bounds.Bottom - 50), Color.Black);
                     spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0"), new Vector2(bounds.Left + 50, bounds.Bottom - 200), Color.Red);
                 break;
 
                 case MissionState.Playing :
-                    spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString("#.##"), new Vector2(bounds.Left + 200, bounds.Top + 10), Color.Black);
+                    spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString("#.##"), new Vector2(bounds.Left + 400, bounds.Top + 30), Color.Black);
                     spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to pause mission", new Vector2(bounds.Left + 280, bounds.Bottom - 50), Color.Black);
                     spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0"), new Vector2(bounds.Left + 50, bounds.Bottom - 200), Color.Red);
                 break;
@@ -588,12 +588,12 @@ namespace SSORF.Management.States
                 case MissionState.Ending :
                 if (missionComplete)
                 {
-                    spriteBatch.DrawString(largeFont, "Finish!", new Vector2(bounds.Left + 60, 100), Color.Black);
+                    spriteBatch.DrawString(largeFont, "Finish!", new Vector2(bounds.Left + 400, bounds.Top + 100), Color.Black);
                     spriteBatch.DrawString(smallFont, "You earned $" + prizeMoney.ToString(), new Vector2(bounds.Left + 200, bounds.Bottom - 130), Color.Black);
                     spriteBatch.DrawString(smallFont, "With " + timeLimit.TotalSeconds.ToString("#.##") + " seconds to spare!!!", new Vector2(bounds.Left + 200, bounds.Bottom - 110), Color.Black);
                 }
                 else
-                    spriteBatch.DrawString(largeFont, "Fail!", new Vector2(bounds.Left + 200, bounds.Top + 100), Color.Black);
+                    spriteBatch.DrawString(largeFont, "Fail!", new Vector2(bounds.Left + 450, bounds.Top + 100), Color.Black);
 
                     spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to return to menu", new Vector2(bounds.Left + 240, bounds.Bottom - 50), Color.Black);
                 break;
