@@ -69,7 +69,7 @@ namespace SSORF.Management
 
         public MenuManager(ContentManager content, Objects.Player player, GraphicsDevice graphicsDevice)
         {
-            Rectangle screen = SSORF.Management.StateManager.bounds;
+            Rectangle screen = graphicsDevice.Viewport.Bounds;
             graphics = graphicsDevice;
             GameContent = content;
             //font for displaying upgrade data
