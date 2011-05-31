@@ -129,7 +129,7 @@ namespace SSORF.Objects
 
                     effect.CurrentTechnique = effect.Techniques["HwInstancing"];
 
-                    effect.Parameters["mWorld"].SetValue(instanceRootBones[mesh.ParentBone.Index] * Matrix.CreateScale(scale * 4.5f));
+                    effect.Parameters["mWorld"].SetValue(instanceRootBones[mesh.ParentBone.Index] * Matrix.CreateScale(scale));
                     effect.Parameters["mView"].SetValue(View);
                     effect.Parameters["mProjection"].SetValue(Projection);
 
