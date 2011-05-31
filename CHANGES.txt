@@ -4,6 +4,36 @@ SSORF CHANGE LOG
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ==================================================================================================================
+05/31/11 @ 9:35AM	-	Mitchell P.   
+==================================================================================================================
+----------------
+Added CheckPoint Class
+----------------
+  > Added checkpoint list that is set with the location map. This class makes it easy to disable each
+    checkpoint as you pass and even turn them all back on easily.
+
+----------------
+Level Class Changes
+----------------
+  > Added Player Spawn to Level and LevelLayout in SSORFLibrary
+  > Added CheckPoint Spawns to Level and LevelLayout in SSORFLibrary
+  
+
+----------------
+Missions Class Changes
+----------------
+  > Added exception for checkpoints in the collision set, and made it disable the model
+    from being drawn when hit.
+
+  > Moved player spawn to ray generated in level.cs
+  
+  > Added temp 90deg turn for player untill I make one that uses level.cs's ray
+
+
+==================================================================================================================
+==================================================================================================================
+
+==================================================================================================================
 05/28/2011 @ 3:29PM	-	Mitchell P.   
 ==================================================================================================================
 ----------------

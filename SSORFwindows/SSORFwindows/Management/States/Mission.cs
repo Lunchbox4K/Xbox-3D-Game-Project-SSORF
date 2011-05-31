@@ -36,9 +36,6 @@ namespace SSORF.Management.States
         TimeSpan timeLimit;
         int prizeMoney;
         private Objects.Vehicle scooter = new Objects.Vehicle();
-        private Objects.StaticModel Check;
-        private Objects.ModelCollection CheckPoints;
-        private Vector3[] CheckPointCoords;
         private short numCheckPoints = 0;
         private short currentCheckPoint = 0;
         private float checkPointYaw = 0.0f;
@@ -99,18 +96,41 @@ namespace SSORF.Management.States
             levelProperties.instanced_models = new List<SSORFlibrary.LocationMapAsset>();
             levelProperties.statics_models = new List<SSORFlibrary.LocationMapAsset>();
 
+            levelProperties.level_heightMap = "Images\\Terrain\\lvl1_hm";
+            levelProperties.level_textureMap = "Images\\Terrain\\lvl1_cm";
+            levelProperties.level_textureB = "Images\\Terrain\\terrainTextureB";
+            levelProperties.level_textureG = "Images\\Terrain\\terrainTextureG";
+            levelProperties.level_textureR = "Images\\Terrain\\terrainTextureR";
+
+            levelProperties.locationMap = "Images\\Terrain\\lvl1_mm";
+
+            levelProperties.playerSpawns = 7;       //R Value (X)
+            levelProperties.borderPoints = 1;       //R Value (X)
+            levelProperties.trackSpawnPoints = 2;   //R Value (X)
+            levelProperties.checkpointSpawn = 3;    //R Value (X)
+            levelProperties.checkpointAsset = "Models\\Check";  
+
+            levelProperties.viewTree_refreshRate = 8;
+
+            addModelsToLevel(); //Set Models
+
+            level = new Objects.Level(rootGame, levelProperties);
+        }
+
+        public void addModelsToLevel()
+        {
             SSORFlibrary.LocationMapAsset tree = new SSORFlibrary.LocationMapAsset();
-            tree.asset_colorID = 0;
+            tree.asset_colorID = 128;
             tree.asset_location = "Models\\tree";
             levelProperties.instanced_models.Add(tree);
 
             SSORFlibrary.LocationMapAsset car = new SSORFlibrary.LocationMapAsset();
-            car.asset_colorID = 128;
+            car.asset_colorID = 222;
             car.asset_location = "Models\\tree2";
             levelProperties.statics_models.Add(car);
 
             SSORFlibrary.LocationMapAsset bench = new SSORFlibrary.LocationMapAsset();
-            bench.asset_colorID = 3;
+            bench.asset_colorID = 99;
             bench.asset_location = "Models\\bench";
             levelProperties.instanced_models.Add(bench);
 
@@ -143,18 +163,6 @@ namespace SSORF.Management.States
             store.asset_colorID = 90;
             store.asset_location = "Models\\storefront";
             levelProperties.instanced_models.Add(store);
-
-            levelProperties.level_heightMap = "Images\\Terrain\\lvl1_hm";
-            levelProperties.level_textureMap = "Images\\Terrain\\lvl1_cm";
-            levelProperties.level_textureB = "Images\\Terrain\\terrainTextureB";
-            levelProperties.level_textureG = "Images\\Terrain\\terrainTextureG";
-            levelProperties.level_textureR = "Images\\Terrain\\terrainTextureR";
-
-            levelProperties.locationMap = "Images\\Terrain\\lvl1_mm";
-            levelProperties.borderPoints = 1; //R Value (X)
-
-            levelProperties.viewTree_refreshRate = 8;
-            level = new Objects.Level(rootGame, levelProperties);
         }
 
 
@@ -179,26 +187,21 @@ namespace SSORF.Management.States
             collisions.setModels(level.StaticModels, level.InstancedModels, level.ModelInstances);
            
 
-            Check = new Objects.StaticModel(content, "Models\\check",
-                        Vector3.Zero, Matrix.Identity, 1f);
-            
-            Check.LoadModel();
-
             //with missionID we can have a different starting positions, checkpoints, etc. for each mission
             //We need to load the data for each mission from file using the missionID
 
             #region temp mission loading (needs to be done from file)
             if (missionID == 1)
             {
-                numCheckPoints = 3;
-                CheckPointCoords = new Vector3[numCheckPoints];
-                timeLimit = new TimeSpan(0, 0, 100);
+                //numCheckPoints = 3;
+                //CheckPointCoords = new Vector3[numCheckPoints];
+                //timeLimit = new TimeSpan(0, 0, 100);
 
-                CheckPointCoords[0] = new Vector3(140, 0, 0);
-                CheckPointCoords[1] = new Vector3(0, 0, -140);
-                CheckPointCoords[2] = new Vector3(0, 0, 140);
+                //CheckPointCoords[0] = new Vector3(140, 0, 0);
+                //CheckPointCoords[1] = new Vector3(0, 0, -140);
+                //CheckPointCoords[2] = new Vector3(0, 0, 140);
 
-                CheckPoints = new Objects.ModelCollection(Check, numCheckPoints, CheckPointCoords);
+                //CheckPoints = new Objects.ModelCollection(Check, numCheckPoints, CheckPointCoords);
 
                 scooter.setStartingPosition(-0.45f, new Vector3(0, 0, 100), 1);
 
@@ -206,17 +209,17 @@ namespace SSORF.Management.States
             }
             else if (missionID == 2)
             {
-                numCheckPoints = 5;
-                CheckPointCoords = new Vector3[numCheckPoints];
-                timeLimit = new TimeSpan(0, 0, 15);
+                //numCheckPoints = 5;
+                //CheckPointCoords = new Vector3[numCheckPoints];
+                //timeLimit = new TimeSpan(0, 0, 15);
 
-                CheckPointCoords[0] = new Vector3(0, 0, -140);
-                CheckPointCoords[1] = new Vector3(140, 0, 0);
-                CheckPointCoords[2] = new Vector3(0, 0, 140);
-                CheckPointCoords[3] = new Vector3(-140, 0, 0);
-                CheckPointCoords[4] = new Vector3(0, 0, -140);
+                //CheckPointCoords[0] = new Vector3(0, 0, -140);
+                //CheckPointCoords[1] = new Vector3(140, 0, 0);
+                //CheckPointCoords[2] = new Vector3(0, 0, 140);
+                //CheckPointCoords[3] = new Vector3(-140, 0, 0);
+                //CheckPointCoords[4] = new Vector3(0, 0, -140);
 
-                CheckPoints = new Objects.ModelCollection(Check, numCheckPoints, CheckPointCoords);
+                //CheckPoints = new Objects.ModelCollection(Check, numCheckPoints, CheckPointCoords);
 
 
                 scooter.setStartingPosition(0.0f, new Vector3(0,0,40), 1);
@@ -226,9 +229,14 @@ namespace SSORF.Management.States
 
             #endregion
 
-            camera.update(scooter.Geometry.Location, scooter.Yaw);
+            //camera.update(scooter.Geometry.Location, scooter.Yaw);
+
+            //Mitchell's Temp Direction Fix for Circle Map
+            scooter.Geometry.Orientation *= Matrix.CreateRotationY(MathHelper.PiOver2);
+            scooter.Yaw += MathHelper.PiOver2;
 
             bounds = rootGame.GraphicsDevice.Viewport.TitleSafeArea;
+
 
             //Starts the collision detector
             collisions.start();
@@ -243,6 +251,9 @@ namespace SSORF.Management.States
             {
                 collisions.stop();
             }
+            //Unload All the Models
+            //scooter.Geometry.UnloadModel();
+            //level.unload();
         }
 
         public void update(GameTime gameTime)
@@ -255,27 +266,13 @@ namespace SSORF.Management.States
             tmpPlayerModelList.Add(scooter.Geometry);
             collisions.setPlayerModels(tmpPlayerModelList);
             collisionList = collisions.waitToGetCollisions;
-            playerTouchingWall = collisions.waitToGetPlayerTouchingWall[0];
+            playerTouchingWall = collisions.waitToGetPlayerTouchingWall[0]; //Forced on 1st player
+
+
+
             debugMessage = "";
             BoundingSphere[] staticSpheres = collisions.waitToGetStaticSpheres;
             BoundingSphere[][] instancedSpheres = collisions.waitToGetInstancedSpheres;
-
-            debugMessage += "Static Spheres: \n  [ ";
-            for (int i = 0; i < staticSpheres.Length; i++)
-            {
-                debugMessage += " | ";
-            }
-            debugMessage += "] \n";
-
-            //debugMessage += "Instanced Spheres: \n  [ ";
-            //for (int i = 0; i < instancedSpheres.Length; i++)
-            //    for (int j = 0; j < instancedSpheres[i].Length; j++)
-            //        debugMessage += " | ";
-            //debugMessage += "] \n";
-            //BoundingSphere[] playerSpheres = collisions.waitToGetPlayerSpheres;
-            //debugMessage += "Player Spheres: \n   ";
-            //for (int i = 0; i < playerSpheres.Length; i++)
-            //    debugMessage += "R{" + playerSpheres[i].Radius.ToString() + "}  " + playerSpheres[i].Center.ToString() + "\n   ";
 
             debugMessage += "\n Collisions: ";
             if (collisionList != null && collisionList.Length > 0)
@@ -303,10 +300,17 @@ namespace SSORF.Management.States
                     if (countDown.Milliseconds < 0)
                         state = MissionState.Playing;
 
-                    checkPointYaw += 0.05f;
-                    for (int i = currentCheckPoint; i < numCheckPoints; i++)
-                        CheckPoints.Geometry.Orientation = Matrix.CreateRotationY(checkPointYaw);
+                    //checkPointYaw += 0.05f;
+                    //for (int i = currentCheckPoint; i < numCheckPoints; i++)
+                    //    CheckPoints.Geometry.Orientation = Matrix.CreateRotationY(checkPointYaw);
 
+                    //Spawn Player To Locations
+
+                    scooter.Geometry.Location = level.getSpawns.Position;
+    
+                    //scooter.Geometry.Orientation = 
+                    //scooter.Geometry.Orientation 
+                    camera.update(scooter.Geometry.Location, scooter.Yaw);
                 break;
 
                 case MissionState.Paused :
@@ -343,23 +347,26 @@ namespace SSORF.Management.States
                 Vector3 closestObjectOffSet = Vector3.Zero;
 
                 for (int i = 0; i < collisionList.Length; i++)
-                {
-                    //find location of object using scooter model as origin
-                    Vector3 collisionOffSet = collisionList[i].objectSphere.Center - scooter.Geometry.Location;
-
-                    //if distance from player to object is greater than either bounding sphere....
-                    if (collisionOffSet.Length() < collisionList[i].objectSphere.Radius ||
-                        collisionOffSet.Length() < collisionList[i].playerSphere.Radius)
+                    if (Objects.StaticModel.modelList[collisionList[i].modelB_ID].ModelAsset == "Models\\Check")
                     {
-                        //check to see if it is the closest object in the case of multiple collisions
-                        if (closestObjectOffSet == Vector3.Zero)
-                            closestObjectOffSet = collisionOffSet;
-                        else if (collisionOffSet.Length() < closestObjectOffSet.Length())
-                            closestObjectOffSet = collisionOffSet;
+                        level.disableStaticAsset(collisionList[i].modelB_ID);
                     }
+                    else
+                    {
+                        //find location of object using scooter model as origin
+                        Vector3 collisionOffSet = collisionList[i].objectSphere.Center - scooter.Geometry.Location;
 
-
-                }
+                        //if distance from player to object is greater than either bounding sphere....
+                        if (collisionOffSet.Length() < collisionList[i].objectSphere.Radius ||
+                            collisionOffSet.Length() < collisionList[i].playerSphere.Radius)
+                        {
+                            //check to see if it is the closest object in the case of multiple collisions
+                            if (closestObjectOffSet == Vector3.Zero)
+                                closestObjectOffSet = collisionOffSet;
+                            else if (collisionOffSet.Length() < closestObjectOffSet.Length())
+                                closestObjectOffSet = collisionOffSet;
+                        }
+                    }
 
                 if (gamepadInUse)
                 {
@@ -386,25 +393,25 @@ namespace SSORF.Management.States
                     camera.update(scooter.Geometry.Location, scooter.Yaw);
 
 
-                    timeLimit -= gameTime.ElapsedGameTime;
-                    if (timeLimit.Milliseconds < 0)
-                        state = MissionState.Ending;
+                    //timeLimit -= gameTime.ElapsedGameTime;
+                    //if (timeLimit.Milliseconds < 0)
+                    //    state = MissionState.Ending;
 
                     checkPointYaw += 0.05f;
-                    for (int i = currentCheckPoint; i < numCheckPoints; i++)
-                        CheckPoints.Geometry.Orientation = Matrix.CreateRotationY(checkPointYaw);
+                    //for (int i = currentCheckPoint; i < numCheckPoints; i++)
+                    //    CheckPoints.Geometry.Orientation = Matrix.CreateRotationY(checkPointYaw);
 
                     //Collision Detection
 
-                    if (CheckPoints.CheckCollision(currentCheckPoint, scooter.Geometry))
-                        currentCheckPoint += 1;
+                    //if (CheckPoints.CheckCollision(currentCheckPoint, scooter.Geometry))
+                    //    currentCheckPoint += 1;
                     
 
                     if (currentCheckPoint == numCheckPoints)
                     {
                         player.Money += prizeMoney;
                         missionComplete = true;
-                        state = MissionState.Ending;
+                        //state = MissionState.Ending;
                     }
 
 #if XBOX
@@ -455,10 +462,10 @@ namespace SSORF.Management.States
 
             scooter.Geometry.drawModel(gameTime, camera.ViewMtx, camera.ProjMtx);
 
-            if(currentCheckPoint == numCheckPoints - 1)
-                CheckPoints.draw(gameTime, camera, currentCheckPoint, (short)(currentCheckPoint + 1));
-            else
-               CheckPoints.draw(gameTime, camera, currentCheckPoint, (short)(currentCheckPoint + 1));
+            //if(currentCheckPoint == numCheckPoints - 1)
+            //    CheckPoints.draw(gameTime, camera, currentCheckPoint, (short)(currentCheckPoint + 1));
+            //else
+            //   CheckPoints.draw(gameTime, camera, currentCheckPoint, (short)(currentCheckPoint + 1));
 
            
 

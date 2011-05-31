@@ -55,6 +55,7 @@ namespace LocationMapGenerator
                     colorData.Y = color.G; //Model Yaw ??
                     colorData.Z = color.B; //Model Scale??
                     tmpMap[i].Add(colorData);
+
                 }
             }
             returnMap.Color = new Vector3[tmpMap.Count][];
