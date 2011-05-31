@@ -67,6 +67,7 @@ namespace SSORF.Objects
             content = Content;
             model = null;
             isLoaded = false;
+            isEnabled = false;
             location = Location;
             orientation = Orientation;
             scale = Scale;
@@ -121,6 +122,7 @@ namespace SSORF.Objects
                 model = content.Load<Model>(modelAsset);
                 regModelToList();
                 isLoaded = true;
+                isEnabled = true;
             }
             catch
             {
@@ -160,7 +162,7 @@ namespace SSORF.Objects
             {
                 model = null;
                 unregModelFromList();
-
+                isEnabled = false;
                 isLoaded = false;
 
             }
@@ -168,7 +170,7 @@ namespace SSORF.Objects
 
         public virtual void drawModel(GameTime gameTime, Matrix view, Matrix projection)
         {
-            if (isLoaded)
+            if (isLoaded && isEnabled)
             {
 
                 Matrix[] boneTransforms = new Matrix[model.Bones.Count];
@@ -233,6 +235,12 @@ namespace SSORF.Objects
         public bool IsLoaded
         {
             get { return isLoaded; }
+        }
+
+        public bool IsEnabled
+        {
+            get { return isEnabled; }
+            set { isEnabled = value; }
         }
 
         public Matrix Orientation

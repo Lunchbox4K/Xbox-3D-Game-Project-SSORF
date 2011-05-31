@@ -35,20 +35,33 @@ namespace SSORF.Objects
         {
             get { return m_staticModels; }
         }
+
         private List<StaticModel> m_instancedModels;
         public List<StaticModel> InstancedModels
         {
             get { return m_instancedModels; }
         }
+
         private List<List<Matrix>> m_modelInstances;
         public List<List<Matrix>> ModelInstances
         {
             get { return m_modelInstances; }
         }
-        private List<StaticModel> m_checkpoints;
-        private Terrain m_terrain;
 
-        private Vector3[] m_playerSpawns;
+        private CheckPoint m_checkPoints;
+        /// <summary>
+        /// Returned as Static Model. 
+        /// Use  (SSORF.Objects.CheckPoint) to cast
+        /// </summary>
+        public StaticModel getCheckpoints
+        {
+            get
+            {
+                return (StaticModel)m_checkPoints;
+            }
+        }
+
+        private Terrain m_terrain;
 
         private LocationMap m_locationMap;
         public LocationMap getLocationMap
@@ -60,6 +73,13 @@ namespace SSORF.Objects
         }
 
         private ModelQuadTree m_drawTree;
+
+        private Ray m_playerSpawns;
+        public Ray getSpawns
+        {
+            get { return m_playerSpawns; }
+        }
+
     #endregion
 
     //-----------------------------------------------------------
@@ -77,14 +97,18 @@ namespace SSORF.Objects
             m_terrain = new Terrain(game.GraphicsDevice, game.Content);
         }
 
+
         public void LoadContent()
         {
+            m_locationMap =
+                m_rootGame.Content.Load<LocationMap>(m_properties.locationMap);
             //Load Terrain
             m_terrain.LoadModel(m_properties.level_heightMap, 
                 m_properties.level_textureMap, 
                 m_properties.level_textureR, 
                 m_properties.level_textureG, 
                 m_properties.level_textureB);
+
             //Load Terrain Draw Effect
             m_terrain.LoadShaders();
             float halfWidth = m_terrain.terrainInfo.HeightmapWidth/2;
@@ -94,9 +118,108 @@ namespace SSORF.Objects
                     new Vector3( halfWidth, 0,  halfWidth)), 
                 m_properties.viewTree_refreshRate);
 
+            //Set Player Spawn
+            for (int y = 0; y < m_locationMap.Color.Length; y++)
+                for (int x = 0; x < m_locationMap.Color[y].Length; x++)
+                    if (m_locationMap.Color[x][y].X == m_properties.playerSpawns)
+                    {
+                        if (m_locationMap.Color[x][y].Y == 2)
+                        {
+                            m_playerSpawns = new Ray(new Vector3(x, 0, y), Vector3.Forward);
+                            m_playerSpawns.Position.X *= m_locationMap.scale;
+                            m_playerSpawns.Position.X -= ((m_locationMap.Color.Length * m_locationMap.scale) / 2);
+                            m_playerSpawns.Position.Z *= m_locationMap.scale;
+                            m_playerSpawns.Position.Z -= ((m_locationMap.Color.Length * m_locationMap.scale) / 2);
+                            if (m_terrain.terrainInfo.IsOnHeightmap(m_playerSpawns.Position))
+                            {
+                                float height;
+                                Vector3 normal;
+                                m_terrain.terrainInfo.GetHeightAndNormal
+                                    (m_playerSpawns.Position, out height, out normal);
+                                m_playerSpawns.Position.Y = height + 10;
+                            }
+                            else
+                            {
+                                m_playerSpawns.Position.Y = 0;
+                            }
+                            y = m_locationMap.Color.Length - 1;
+                            x = m_locationMap.Color[0].Length - 1;
+                        }
+                        else if (m_locationMap.Color[x][y].Y == 3)
+                        {
+                            m_playerSpawns = new Ray(new Vector3(x, 0, y), Vector3.Forward);
+                            m_playerSpawns.Position.X *= m_locationMap.scale;
+                            m_playerSpawns.Position.X -= ((m_locationMap.Color.Length * m_locationMap.scale) / 2);
+                            m_playerSpawns.Position.Z *= m_locationMap.scale;
+                            m_playerSpawns.Position.Z -= ((m_locationMap.Color.Length * m_locationMap.scale) / 2);
+                        }
+                    }
+            m_playerSpawns.Direction = Vector3.Subtract(m_playerSpawns.Position, m_playerSpawns.Direction);
+
+            //Load Check Point Locations
+            List<Vector3> gridColors = new List<Vector3>();
+            List<Vector3> gridLocations = new List<Vector3>();
+            Vector3[] checkPointLocations;
+            //Read in all the locations
+            for (int y = 0; y < m_locationMap.Color.Length; y++)
+                for (int x = 0; x < m_locationMap.Color[y].Length; x++)
+                    if (m_locationMap.Color[x][y].X == m_properties.checkpointSpawn)
+                    {
+                        gridColors.Add(m_locationMap.Color[x][y]);
+                        gridLocations.Add(new Vector3(x, 0, y));
+                    }
+            //Organize the Locations
+            checkPointLocations = new Vector3[gridColors.Count];
+            byte lastNum = 0;
+            for (int i = 0; i < checkPointLocations.Length; i++)
+            {
+                byte currentNum = 255;
+                int index = 0;
+                for (int j = 0; j < gridColors.Count; j++)
+                {
+                    if (gridColors[j].Y < currentNum && gridColors[j].Y > lastNum)
+                    {
+                        currentNum = (byte)gridColors[i].Y;
+                        index = j;
+                    }
+                }
+                lastNum = currentNum;
+                
+                //Scale Location
+                Vector3 tmpLocation = gridLocations[index];
+
+                tmpLocation.X *= m_locationMap.scale;
+                tmpLocation.X -= ((m_locationMap.Color.Length * m_locationMap.scale) / 2);
+                tmpLocation.Z *= m_locationMap.scale;
+                tmpLocation.Z -= ((m_locationMap.Color.Length * m_locationMap.scale) / 2);
+                if (m_terrain.terrainInfo.IsOnHeightmap(tmpLocation))
+                {
+                    float height;
+                    Vector3 normal;
+                    m_terrain.terrainInfo.GetHeightAndNormal
+                        (tmpLocation, out height, out normal);
+                    tmpLocation.Y = height + 10;
+                }
+                else
+                {
+                    tmpLocation.Y = 0;
+                }
+                checkPointLocations[i] = tmpLocation;
+            }
+            
+
+            //Load Check Points
+            m_checkPoints = new
+                CheckPoint(m_rootGame.Content, m_properties.checkpointAsset, checkPointLocations[0], 1f, Matrix.Identity, m_drawTree);
+            for (int i = 1; i < checkPointLocations.Length; i++)
+                m_checkPoints.PushCheckPoint(checkPointLocations[i]);
+            m_checkPoints.loadCheckpoint();
+            m_checkPoints.addToStaticList(ref m_staticModels);
+
+            //Register Check Points w/ View Tree
+            //m_checkPoints.registerToTree(m_drawTree);
+
             //Load Static Models
-            m_locationMap =
-                m_rootGame.Content.Load<LocationMap>(m_properties.locationMap);
                 float scaledMapSize = m_locationMap.Color.Length * m_locationMap.scale;
                 float xOffset = scaledMapSize / 2;
                 float zOffSet = scaledMapSize / 2;
@@ -172,6 +295,49 @@ namespace SSORF.Objects
                             }
                 }
             }
+        }
+
+        public void unload()
+        {
+            //Unload List
+            //-------------
+            //  Terrain
+            //  Static Models
+            //  Instanced Models
+            //  Checkpoint Models
+            m_terrain.UnloadModel();
+            foreach (StaticModel model in m_staticModels)
+                model.UnloadModel();
+            foreach (InstancedModel model in m_instancedModels)
+                model.UnloadModel();
+            m_checkPoints.unloadCheckpoint();
+
+        }
+
+        public void disableStaticAsset(int modelID)
+        {
+            for (int i = 0; i < m_staticModels.Count; i++)
+                if (m_staticModels[i].ID == modelID)
+                {
+                    m_staticModels[i].IsEnabled = false;
+                    break;
+                }
+        }
+        public void enableStaticAsset(int modelID)
+        {
+            for (int i = 0; i < m_staticModels.Count; i++)
+                if (m_staticModels[i].ID == modelID)
+                {
+                    m_staticModels[i].IsEnabled = true;
+                    break;
+                }
+        }
+
+        public void enableCheckpoints()
+        {
+            //
+            //
+            //
         }
 
     #endregion
