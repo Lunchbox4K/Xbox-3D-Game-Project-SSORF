@@ -100,7 +100,7 @@ namespace SSORF.Management
         {
             if (isSoundPlaying)
             {
-                engineSounds.SetVariable("throttleValue", throttleValue + speed);
+                engineSounds.SetVariable("throttleValue", throttleValue);
                 engineSounds.SetVariable("Speed", speed);
                 if (throttleValue != 0 || speed > 0.05)
                 {
@@ -116,7 +116,7 @@ namespace SSORF.Management
                         engineSounds.IsPrepared)
                         engineSounds.Play();
                 }
-                else if (speed < 0.05)
+                else
                 {
                     engineSounds.Stop(AudioStopOptions.AsAuthored);
                 }
@@ -148,6 +148,8 @@ namespace SSORF.Management
                 menuMusic.Stop(AudioStopOptions.AsAuthored);
             if (engineSounds.IsPlaying)
                 engineSounds.Stop(AudioStopOptions.AsAuthored);
+
+            audioEngine.Update();
         }
 
         /// <summary>
@@ -166,6 +168,8 @@ namespace SSORF.Management
                 isSoundPlaying = true;
             }
             UpdateEngine(0, 0);
+
+            audioEngine.Update();
         }
 
         //Gets a cue from the sound bank
@@ -227,6 +231,7 @@ namespace SSORF.Management
         public static void setMusicPlaying(Boolean isPlaying)
         {
             isMusicPlaying = isPlaying;
+            isMusicOn = isMusicPlaying;
             if (!isPlaying)
             {
                 //Make sure music that is already playing stops
@@ -235,13 +240,14 @@ namespace SSORF.Management
                 if (missionMusic.IsPlaying)
                     missionMusic.Stop(AudioStopOptions.AsAuthored);
             }
+            audioEngine.Update();
         }
 
         /// <summary>
         /// Return boolean for if the sound is on
         /// </summary>
         /// <returns>isSoundPlaying</returns>
-        public static Boolean getSoundOn()
+        public static Boolean getSoundPlaying()
         {
             return isSoundPlaying;
         }
@@ -253,12 +259,14 @@ namespace SSORF.Management
         public static void setSoundPlaying(Boolean isPlaying)
         {
             isSoundPlaying = isPlaying;
+            isSoundOn = isSoundPlaying;
             if (!isPlaying)
             {
                 //Make sure sounds that are already playing stop
                 if (engineSounds.IsPlaying)
                     engineSounds.Stop(AudioStopOptions.AsAuthored);
             }
+            audioEngine.Update();
         }
     }
 }

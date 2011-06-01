@@ -491,6 +491,9 @@ namespace SSORF.Management.States
 
                 //If mission has ended wait for user to confirm returning to menu
                 case MissionState.Ending :
+                //Pause audio so we dont hear engine noise etc.
+                if (AudioManager.getSoundPlaying() || AudioManager.getMusicPlaying())
+                    AudioManager.PauseAudio();
 #if XBOX
                     if (gamePadState.current.Buttons.Start == ButtonState.Pressed)
                     {

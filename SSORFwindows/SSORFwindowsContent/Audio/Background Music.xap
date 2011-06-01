@@ -16,8 +16,8 @@ Global Settings
     Header File = Background Music.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 2372461810;
-    Last Modified High = 30152322;
+    Last Modified Low = 1510560290;
+    Last Modified High = 30154718;
 
     Category
     {
@@ -254,8 +254,8 @@ Global Settings
         Time = 0;
         Value = 0.000000;
         Initial Value = 0.000000;
-        Min = -10.000000;
-        Max = 10.000000;
+        Min = -1.000000;
+        Max = 1.000000;
     }
 
     Variable
@@ -272,7 +272,7 @@ Global Settings
         Value = 0.000000;
         Initial Value = 0.000000;
         Min = 0.000000;
-        Max = 50.000000;
+        Max = 20.000000;
     }
 
     RPC
@@ -281,7 +281,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::153657c0-4a26-420c-85b7-fd98e5ad7eb5;
+            Name = Sound::ae83f6e4-0c5a-4374-a072-40146df9e912;
             Property = 0;
             Sound = 1;
             Line Color = 4289811190;
@@ -294,29 +294,29 @@ Global Settings
 
             RPC Point
             {
-                X = -8.400000;
-                Y = 70.588234;
+                X = -1.000000;
+                Y = 75.000000;
                 Curve = 2;
             }
 
             RPC Point
             {
-                X = 0.000000;
-                Y = -1500.000000;
+                X = -0.004926;
+                Y = -4000.000000;
                 Curve = 1;
             }
 
             RPC Point
             {
-                X = 8.400000;
-                Y = 70.588234;
+                X = 1.000000;
+                Y = 75.000000;
                 Curve = 0;
             }
         }
 
         RPC Curve
         {
-            Name = Sound::b0474636-a2e2-4e7e-9c47-33d189f8db94;
+            Name = Sound::d95bcad1-2c77-476e-affb-e6a4d48e77fb;
             Property = 1;
             Sound = 1;
             Line Color = 4294901760;
@@ -336,14 +336,14 @@ Global Settings
 
             RPC Point
             {
-                X = 24.876848;
-                Y = 12.456747;
+                X = 10.000000;
+                Y = 0.000000;
                 Curve = 1;
             }
 
             RPC Point
             {
-                X = 50.000000;
+                X = 20.000000;
                 Y = 500.000000;
                 Curve = 1;
             }
@@ -362,8 +362,8 @@ Wave Bank
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 1487782847;
-    PC Bank Last Modified High = 30152321;
+    PC Bank Last Modified Low = 2686899210;
+    PC Bank Last Modified High = 30154717;
     Bank Last Revised Low = 2067047444;
     Bank Last Revised High = 30152314;
 
@@ -385,8 +385,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2135773952;
-            Last Modified High = 30149088;
+            Last Modified Low = 1445769380;
+            Last Modified High = 30153311;
         }
     }
 
@@ -408,8 +408,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2155773952;
-            Last Modified High = 30149088;
+            Last Modified Low = 1447199462;
+            Last Modified High = 30153311;
         }
     }
 
@@ -431,8 +431,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 55745262;
-            Last Modified High = 30150900;
+            Last Modified Low = 1448649545;
+            Last Modified High = 30153311;
         }
     }
 
@@ -454,8 +454,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2909070101;
-            Last Modified High = 30150899;
+            Last Modified Low = 1448609542;
+            Last Modified High = 30153311;
         }
     }
 
@@ -477,8 +477,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1397466624;
-            Last Modified High = 30062606;
+            Last Modified Low = 1447279466;
+            Last Modified High = 30153311;
         }
     }
 }
@@ -490,8 +490,8 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 1488152868;
-    Bank Last Modified High = 30152321;
+    Bank Last Modified Low = 2688409297;
+    Bank Last Modified High = 30154717;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
