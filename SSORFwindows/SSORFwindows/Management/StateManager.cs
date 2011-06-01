@@ -46,9 +46,11 @@ namespace SSORF.Management
 
         //matrix for stretch
         Matrix screenScale;
+        Matrix fooScale;
 
 
         public static Rectangle bounds = new Rectangle();
+        public static Rectangle notbounds = new Rectangle();
 
         public StateManager(Game game)
             : base(game)
@@ -65,8 +67,11 @@ namespace SSORF.Management
 
             //2d Stretch
             screenScale = Matrix.CreateScale(GraphicsDevice.Viewport.Width / 800f, GraphicsDevice.Viewport.Height / 600f, 1f);
+            fooScale = Matrix.CreateScale(1f, 1f, 1f);
+
 
             bounds = GraphicsDevice.Viewport.TitleSafeArea;
+            notbounds = GraphicsDevice.Viewport.Bounds;
 
             font = Game.Content.Load<SpriteFont>("font");
             

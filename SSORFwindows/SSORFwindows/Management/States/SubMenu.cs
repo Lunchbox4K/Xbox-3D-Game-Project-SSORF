@@ -34,7 +34,7 @@ namespace SSORF.Management.States
 
         public SubMenu(short NumButtons)
         {
-            Rectangle screen = SSORF.Management.StateManager.bounds;
+            Rectangle screen = SSORF.Management.StateManager.notbounds;
             cursorOffset = new Vector2(screen.Left + -30, screen.Top + 25);
             numButtons = NumButtons;
             buttonImage = new Texture2D[numButtons];
@@ -107,11 +107,15 @@ namespace SSORF.Management.States
          {CursorPosition = buttonPosition[selectedButton - 1] + cursorOffset;}
 
         //Draw backgound and buttons
-        public void draw(SpriteBatch spriteBatch)
+        public void draw(SpriteBatch spriteBatch, Matrix scale)
         {
+            spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
             spriteBatch.Draw(backGround, Vector2.Zero, Color.White);
+            spriteBatch.End();
+            spriteBatch.Begin();
             for(int i = 0; i < numButtons; i++)
                 spriteBatch.Draw(buttonImage[i], buttonPosition[i], Color.White);
+            spriteBatch.End();
         }
 
         //Accessors and mutators
