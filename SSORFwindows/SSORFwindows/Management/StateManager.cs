@@ -46,9 +46,11 @@ namespace SSORF.Management
 
         //matrix for stretch
         Matrix screenScale;
+        Matrix fooScale;
 
 
         public static Rectangle bounds = new Rectangle();
+        public static Rectangle notbounds = new Rectangle();
 
         public StateManager(Game game)
             : base(game)
@@ -65,8 +67,11 @@ namespace SSORF.Management
 
             //2d Stretch
             screenScale = Matrix.CreateScale(GraphicsDevice.Viewport.Width / 800f, GraphicsDevice.Viewport.Height / 600f, 1f);
+            fooScale = Matrix.CreateScale(1f, 1f, 1f);
+
 
             bounds = GraphicsDevice.Viewport.TitleSafeArea;
+            notbounds = GraphicsDevice.Viewport.Bounds;
 
             font = Game.Content.Load<SpriteFont>("font");
             
@@ -106,6 +111,7 @@ namespace SSORF.Management
             { 
                 // If we are viewing title screen...
                 case GameState.TitleScreen:
+
                     // update title screen
                     title.update(gameTime);
                     //if title is exited during update...
@@ -118,6 +124,9 @@ namespace SSORF.Management
 
                 // If we are viewing the menus...
                 case GameState.MenuScreen:
+                    //Unload any Mission when the Menu is Loaded.
+                    if (currentMission != null && currentMission.IsLoaded)
+                        currentMission.unload();
                     //update menu
                     menu.update(gameTime, player);
                     //if mission is selected during update...

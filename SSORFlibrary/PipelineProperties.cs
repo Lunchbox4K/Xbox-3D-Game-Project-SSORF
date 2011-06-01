@@ -58,6 +58,7 @@ namespace SSORFlibrary
     {
         public string asset_location;
         public float asset_colorID;
+        public float sphereRadious;
 
         public LocationMapAsset Copy(bool clone)
         {
@@ -66,6 +67,7 @@ namespace SSORFlibrary
                 LocationMapAsset tmp = new LocationMapAsset();
                 tmp.asset_colorID = asset_colorID;
                 tmp.asset_location = asset_location;
+                tmp.sphereRadious = sphereRadious;
                 return tmp;
             }
             return this;

@@ -27,16 +27,15 @@ namespace SSORFlibrary
         public string level_textureB;
         public string level_effect;
 
+        public string location_map;
+
         //Instanced Model Properties
         public List<LocationMapAsset> statics_models;
-        public string statics_locationMap;
-
         public List<LocationMapAsset> instanced_models;
-        public string instances_locationMap;
 
         public byte player1Spawn;   //R Color
-
         public byte checkpointSpawn; //R Color
+        public byte borderPoint; //R Color
         public string checkpointAsset;
 
         /// <summary>
@@ -62,11 +61,16 @@ namespace SSORFlibrary
                 layout.level_textureG = level_textureG;
                 layout.level_textureB = level_textureB;
                 layout.level_effect = level_effect;
+
+                layout.location_map = location_map;
+                layout.borderPoint = borderPoint;
+                layout.checkpointAsset = checkpointAsset;
+                layout.checkpointSpawn = checkpointSpawn;
+
                 //layout.level_centerLocation = level_centerLocation;
                 if (statics_models != null)
                 {
                     //Copy Static Model Properties
-                    layout.statics_locationMap = statics_locationMap;
                     layout.statics_models = new List<LocationMapAsset>();
                     for (int i = 0; i < statics_models.Count; i++)
                         layout.statics_models.Add(statics_models[i].Copy(true));
@@ -74,7 +78,6 @@ namespace SSORFlibrary
                 //Copy Instanced Model Properties
                 if (instanced_models != null)
                 {
-                    layout.instances_locationMap = instances_locationMap;
                     layout.instanced_models = new List<LocationMapAsset>();
                     for (int i = 0; i < instanced_models.Count; i++)
                         layout.instanced_models.Add(instanced_models[i].Copy(true));

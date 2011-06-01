@@ -25,6 +25,8 @@ namespace SSORF.Management.States
     {
         #region members
 
+        private bool isLoaded = false;
+
         public Game rootGame; 
         public bool Active = true;
         Objects.Player player;
@@ -212,7 +214,7 @@ namespace SSORF.Management.States
             }
             #endregion
 
-            levelProperties.instances_locationMap = "Images\\Terrain\\lvl"+missionID.ToString()+"_mm";
+            levelProperties.location_map = "Images\\Terrain\\lvl"+missionID.ToString()+"_mm";
             levelProperties.level_effect = "Effects\\TerrainTextureEffect";
             levelProperties.viewTree_refreshRate = 8;
             level = new Objects.Level(game, levelProperties);
@@ -278,7 +280,7 @@ namespace SSORF.Management.States
             //Starts the collision detector
             collisions.start();
 
-
+            isLoaded = true;
         }
 
         public void unload()
@@ -288,6 +290,9 @@ namespace SSORF.Management.States
             {
                 collisions.stop();
             }
+            //level.unload();
+
+            isLoaded = false;
         }
 
         public void update(GameTime gameTime)
@@ -419,6 +424,8 @@ namespace SSORF.Management.States
                             closestObjectOffSet = collisionOffSet;
                         else if (collisionOffSet.Length() < closestObjectOffSet.Length())
                             closestObjectOffSet = collisionOffSet;
+
+                        break;
                     }
 
 
@@ -612,5 +619,10 @@ namespace SSORF.Management.States
 
         public Objects.ThirdPersonCamera Camera { get { return camera; } 
             set { camera = value; } }
+
+        public bool IsLoaded
+        {
+            get { return isLoaded; }
+        }
     }
 }
