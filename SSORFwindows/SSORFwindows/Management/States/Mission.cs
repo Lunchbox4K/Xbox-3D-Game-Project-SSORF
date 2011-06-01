@@ -214,7 +214,7 @@ namespace SSORF.Management.States
             }
             #endregion
 
-            levelProperties.instances_locationMap = "Images\\Terrain\\lvl"+missionID.ToString()+"_mm";
+            levelProperties.location_map = "Images\\Terrain\\lvl"+missionID.ToString()+"_mm";
             levelProperties.level_effect = "Effects\\TerrainTextureEffect";
             levelProperties.viewTree_refreshRate = 8;
             level = new Objects.Level(game, levelProperties);
@@ -424,6 +424,8 @@ namespace SSORF.Management.States
                             closestObjectOffSet = collisionOffSet;
                         else if (collisionOffSet.Length() < closestObjectOffSet.Length())
                             closestObjectOffSet = collisionOffSet;
+
+                        break;
                     }
 
 
