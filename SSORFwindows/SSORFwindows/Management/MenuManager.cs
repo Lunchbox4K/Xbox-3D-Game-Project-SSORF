@@ -31,7 +31,7 @@ namespace SSORF.Management
             Credits,
             NumMenus,
         }
-
+        int offset = 35;
 
         #region declarations
 
@@ -69,7 +69,7 @@ namespace SSORF.Management
 
         public MenuManager(ContentManager content, Objects.Player player, GraphicsDevice graphicsDevice)
         {
-            Rectangle screen = graphicsDevice.Viewport.Bounds;
+            Rectangle screen = SSORF.Management.StateManager.bounds;
             graphics = graphicsDevice;
             GameContent = content;
             //font for displaying upgrade data
@@ -93,17 +93,17 @@ namespace SSORF.Management
             Menus[(int)Menu.Main] = new States.SubMenu(6); //main menu has 7 buttons
             Menus[(int)Menu.Main].BackGround = content.Load<Texture2D>("Images\\game menu");
             Menus[(int)Menu.Main].ButtonImage[0] = content.Load<Texture2D>("Images\\Missions");
-            Menus[(int)Menu.Main].ButtonPosition[0] = new Vector2(screen.Left + 35, screen.Top + 140);
+            Menus[(int)Menu.Main].ButtonPosition[0] = new Vector2(screen.Left + offset, screen.Top + 140);
             Menus[(int)Menu.Main].ButtonImage[1] = content.Load<Texture2D>("Images\\Dealership");
-            Menus[(int)Menu.Main].ButtonPosition[1] = new Vector2(screen.Left + 35, screen.Top + 190);
+            Menus[(int)Menu.Main].ButtonPosition[1] = new Vector2(screen.Left + offset, screen.Top + 190);
             Menus[(int)Menu.Main].ButtonImage[2] = content.Load<Texture2D>("Images\\Garage");
-            Menus[(int)Menu.Main].ButtonPosition[2] = new Vector2(screen.Left + 35, screen.Top + 240);
+            Menus[(int)Menu.Main].ButtonPosition[2] = new Vector2(screen.Left + offset, screen.Top + 240);
             Menus[(int)Menu.Main].ButtonImage[3] = content.Load<Texture2D>("Images\\Versus");
-            Menus[(int)Menu.Main].ButtonPosition[3] = new Vector2(screen.Left + 35, screen.Top + 290);
+            Menus[(int)Menu.Main].ButtonPosition[3] = new Vector2(screen.Left + offset, screen.Top + 290);
             Menus[(int)Menu.Main].ButtonImage[4] = content.Load<Texture2D>("Images\\Options");
-            Menus[(int)Menu.Main].ButtonPosition[4] = new Vector2(screen.Left + 35, screen.Top + 340);
+            Menus[(int)Menu.Main].ButtonPosition[4] = new Vector2(screen.Left + offset, screen.Top + 340);
             Menus[(int)Menu.Main].ButtonImage[5] = content.Load<Texture2D>("Images\\Credits");
-            Menus[(int)Menu.Main].ButtonPosition[5] = new Vector2(screen.Left + 35, screen.Top + 390);
+            Menus[(int)Menu.Main].ButtonPosition[5] = new Vector2(screen.Left + offset, screen.Top + 390);
             #endregion
 
             #region Load VehicleSelect (select owned vehicles)
@@ -121,13 +121,13 @@ namespace SSORF.Management
             for (int i = 0; i < 8; i++)
             {
                 Menus[(int)Menu.Dealership].ButtonImage[i] = content.Load<Texture2D>("Images\\vehicle" + i.ToString());
-                Menus[(int)Menu.Dealership].ButtonPosition[i] = new Vector2(screen.Left + 20, screen.Top + y);
+                Menus[(int)Menu.Dealership].ButtonPosition[i] = new Vector2(screen.Left + offset, screen.Top + y);
                 y += 45;
             }
             Menus[(int)Menu.Dealership].ButtonImage[8] = content.Load<Texture2D>("Images\\TuneShopButton");
-            Menus[(int)Menu.Dealership].ButtonPosition[8] = new Vector2(screen.Left + 650, screen.Top + 5);
+            Menus[(int)Menu.Dealership].ButtonPosition[8] = new Vector2(screen.Right - (Menus[(int)Menu.Dealership].ButtonImage[8].Bounds.Right + offset), screen.Top + offset);
             Menus[(int)Menu.Dealership].ButtonImage[9] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.Dealership].ButtonPosition[9] = new Vector2(screen.Left + 20, screen.Top + 550);
+            Menus[(int)Menu.Dealership].ButtonPosition[9] = new Vector2(screen.Left + offset, screen.Bottom - (offset * 3));
             
 
             #endregion
@@ -413,9 +413,9 @@ namespace SSORF.Management
         {
             Rectangle screen = graphics.Viewport.Bounds;
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
-            Menus[(int)CurrentMenu].draw(spriteBatch);
-
+            //spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
+            Menus[(int)CurrentMenu].draw(spriteBatch, scale);
+            spriteBatch.Begin();
             #region draw menu messages and vehicle specs
 
             string button;
