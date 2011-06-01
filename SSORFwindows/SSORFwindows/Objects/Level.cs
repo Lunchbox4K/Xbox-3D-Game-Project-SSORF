@@ -49,6 +49,8 @@ namespace SSORF.Objects
         private byte checkID = 10;
         private Terrain m_terrain;
 
+        private LocationMap m_locationMap;
+
         private byte playerID = 0;
         //w = green component = orientation
         public Vector4  playerStart;
@@ -75,12 +77,15 @@ namespace SSORF.Objects
 
         public void LoadContent()
         {
+             m_locationMap =
+                m_rootGame.Content.Load<LocationMap>(m_properties.location_map);
             //Load Terrain
             m_terrain.LoadModel(m_properties.level_heightMap, 
                 m_properties.level_textureMap, 
                 m_properties.level_textureR, 
                 m_properties.level_textureG, 
                 m_properties.level_textureB);
+
             //Load Terrain Draw Effect
             m_terrain.LoadShaders(m_properties.level_effect);
             float halfWidth = m_terrain.terrainInfo.HeightmapWidth/2;
@@ -91,37 +96,36 @@ namespace SSORF.Objects
                 m_properties.viewTree_refreshRate);
 
             //Load Static Models
-            LocationMap instancedLocation =
-                m_rootGame.Content.Load<LocationMap>(m_properties.instances_locationMap);
-                float scaledMapSize = instancedLocation.Color.Length * instancedLocation.scale;
+
+                float scaledMapSize = m_locationMap.Color.Length * m_locationMap.scale;
                 float xOffset = scaledMapSize / 2;
                 float zOffSet = scaledMapSize / 2;
-              for (int x = 0; x < instancedLocation.Color.Length; x++)
-                  for (int y = 0; y < instancedLocation.Color[x].Length; y++)
+              for (int x = 0; x < m_locationMap.Color.Length; x++)
+                  for (int y = 0; y < m_locationMap.Color[x].Length; y++)
                   {
-                      if (instancedLocation.Color[y][x].X == checkID)
+                      if (m_locationMap.Color[y][x].X == checkID)
                       {
-                          Vector3 position = new Vector3(x * instancedLocation.scale - xOffset,
-                              0, y * instancedLocation.scale - zOffSet);
+                          Vector3 position = new Vector3(x * m_locationMap.scale - xOffset,
+                              0, y * m_locationMap.scale - zOffSet);
 
                           float height;
                           Vector3 norm;
                           m_terrain.terrainInfo.GetHeightAndNormal(position, out height, out norm);
                           position.Y = height;
-                          m_checkpoints.Add(new Vector4(position, instancedLocation.Color[y][x].Y));
+                          m_checkpoints.Add(new Vector4(position, m_locationMap.Color[y][x].Y));
                       }
-                      else if (instancedLocation.Color[y][x].X == playerID)
+                      else if (m_locationMap.Color[y][x].X == playerID)
                       {
-                          Vector3 position = new Vector3(x * instancedLocation.scale - xOffset,
-                              0, y * instancedLocation.scale - zOffSet);
+                          Vector3 position = new Vector3(x * m_locationMap.scale - xOffset,
+                              0, y * m_locationMap.scale - zOffSet);
 
                           float height;
                           Vector3 norm;
                           m_terrain.terrainInfo.GetHeightAndNormal(position, out height, out norm);
                           position.Y = height;
 
-                          playerStart = new Vector4(position, instancedLocation.Color[y][x].Y);
-                          timelimit = instancedLocation.Color[y][x].Z;
+                          playerStart = new Vector4(position, m_locationMap.Color[y][x].Y);
+                          timelimit = m_locationMap.Color[y][x].Z;
                       }
                   }
             if (m_properties.statics_models != null)
@@ -131,16 +135,16 @@ namespace SSORF.Objects
                 for (int i = 0; i < m_properties.statics_models.Count; i++)
                 {
                     loopit = i;
-                    for (int x = 0; x < instancedLocation.Color.Length; x++)
-                        for (int y = 0; y < instancedLocation.Color[x].Length; y++)
+                    for (int x = 0; x < m_locationMap.Color.Length; x++)
+                        for (int y = 0; y < m_locationMap.Color[x].Length; y++)
                         {
-                            if (instancedLocation.Color[y][x].X == m_properties.statics_models[i].asset_colorID)
+                            if (m_locationMap.Color[y][x].X == m_properties.statics_models[i].asset_colorID)
                             {
                                 StaticModel model;
                                 Vector3 location = Vector3.Zero;
                                 Vector3 normal;
-                                location.X = x * instancedLocation.scale - xOffset;
-                                location.Z = y * instancedLocation.scale - zOffSet;
+                                location.X = x * m_locationMap.scale - xOffset;
+                                location.Z = y * m_locationMap.scale - zOffSet;
                                 location.Y = 0;
                                 if (m_terrain.terrainInfo.IsOnHeightmap(location))
                                     m_terrain.terrainInfo.GetHeightAndNormal(location, out location.Y, out normal);
@@ -149,6 +153,7 @@ namespace SSORF.Objects
                                 //Add each model instance to a List<>
                                 m_staticModels.Add(model);
                                 m_drawTree.addStaticModel(m_staticModels[loopit]);
+                                
                                 loopit++;
                             }
                         }
@@ -172,9 +177,9 @@ namespace SSORF.Objects
                 for (int i = 0; i < m_properties.instanced_models.Count; i++)
                 {
                     m_modelInstances.Add(new List<Matrix>()); //Add Container for each model
-                    for (int x = 0; x < instancedLocation.Color.Length; x++)
-                        for (int z = 0; z < instancedLocation.Color[x].Length; z++)
-                            if (instancedLocation.Color[z][x].X == m_properties.instanced_models[i].asset_colorID)
+                    for (int x = 0; x < m_locationMap.Color.Length; x++)
+                        for (int z = 0; z < m_locationMap.Color[x].Length; z++)
+                            if (m_locationMap.Color[z][x].X == m_properties.instanced_models[i].asset_colorID)
                             {
                                 Matrix transform = Matrix.Identity;
                                 Vector3 location = Vector3.Zero;
@@ -184,14 +189,14 @@ namespace SSORF.Objects
                                 Matrix.CreateScale(.25f, out scale);
                                 Matrix rotation = Matrix.Identity;
                                 Matrix.Multiply(ref scale, ref rotation, out transform);
-                                location.X = x * instancedLocation.scale - xOffset;
-                                location.Z = z * instancedLocation.scale - zOffSet;
+                                location.X = x * m_locationMap.scale - xOffset;
+                                location.Z = z * m_locationMap.scale - zOffSet;
                                 if (m_terrain.terrainInfo.IsOnHeightmap(location))
                                     m_terrain.terrainInfo.GetHeightAndNormal(location, out location.Y, out normal);
                                 //41, 42, 43 -> X, Y, Z Transform
-                                transform.M41 = x * instancedLocation.scale - xOffset;
+                                transform.M41 = x * m_locationMap.scale - xOffset;
                                 transform.M42 = location.Y - 2;
-                                transform.M43 = z * instancedLocation.scale - zOffSet;
+                                transform.M43 = z * m_locationMap.scale - zOffSet;
                                 //Add each Matrix Transfrom to a List<>
                                 m_modelInstances[i].Add(transform);
                                 m_drawTree.addInstanceByID(transform, m_instancedModels[i].ID);
