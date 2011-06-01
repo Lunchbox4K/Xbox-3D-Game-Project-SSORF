@@ -111,6 +111,7 @@ namespace SSORF.Management
             { 
                 // If we are viewing title screen...
                 case GameState.TitleScreen:
+
                     // update title screen
                     title.update(gameTime);
                     //if title is exited during update...
@@ -123,6 +124,9 @@ namespace SSORF.Management
 
                 // If we are viewing the menus...
                 case GameState.MenuScreen:
+                    //Unload any Mission when the Menu is Loaded.
+                    if (currentMission != null && currentMission.IsLoaded)
+                        currentMission.unload();
                     //update menu
                     menu.update(gameTime, player);
                     //if mission is selected during update...

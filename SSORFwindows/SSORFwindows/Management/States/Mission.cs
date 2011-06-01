@@ -25,6 +25,8 @@ namespace SSORF.Management.States
     {
         #region members
 
+        private bool isLoaded = false;
+
         public Game rootGame; 
         public bool Active = true;
         Objects.Player player;
@@ -278,7 +280,7 @@ namespace SSORF.Management.States
             //Starts the collision detector
             collisions.start();
 
-
+            isLoaded = true;
         }
 
         public void unload()
@@ -288,6 +290,9 @@ namespace SSORF.Management.States
             {
                 collisions.stop();
             }
+            //level.unload();
+
+            isLoaded = false;
         }
 
         public void update(GameTime gameTime)
@@ -609,5 +614,10 @@ namespace SSORF.Management.States
 
         public Objects.ThirdPersonCamera Camera { get { return camera; } 
             set { camera = value; } }
+
+        public bool IsLoaded
+        {
+            get { return isLoaded; }
+        }
     }
 }
