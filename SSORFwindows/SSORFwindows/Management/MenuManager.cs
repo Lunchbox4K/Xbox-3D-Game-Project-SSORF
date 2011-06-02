@@ -31,7 +31,7 @@ namespace SSORF.Management
             Credits,
             NumMenus,
         }
-        int offset = 35;
+        int offset = SSORF.Management.StateManager.bounds.Height / 20;
 
         #region declarations
 
@@ -93,17 +93,17 @@ namespace SSORF.Management
             Menus[(int)Menu.Main] = new States.SubMenu(6); //main menu has 7 buttons
             Menus[(int)Menu.Main].BackGround = content.Load<Texture2D>("Images\\game menu");
             Menus[(int)Menu.Main].ButtonImage[0] = content.Load<Texture2D>("Images\\Missions");
-            Menus[(int)Menu.Main].ButtonPosition[0] = new Vector2(screen.Left + offset, screen.Top + 140);
+            Menus[(int)Menu.Main].ButtonPosition[0] = new Vector2(screen.Left + offset, screen.Top + ((offset / 2) * 10));
             Menus[(int)Menu.Main].ButtonImage[1] = content.Load<Texture2D>("Images\\Dealership");
-            Menus[(int)Menu.Main].ButtonPosition[1] = new Vector2(screen.Left + offset, screen.Top + 190);
+            Menus[(int)Menu.Main].ButtonPosition[1] = new Vector2(screen.Left + offset, screen.Top + ((offset / 2) * 13));
             Menus[(int)Menu.Main].ButtonImage[2] = content.Load<Texture2D>("Images\\Garage");
-            Menus[(int)Menu.Main].ButtonPosition[2] = new Vector2(screen.Left + offset, screen.Top + 240);
+            Menus[(int)Menu.Main].ButtonPosition[2] = new Vector2(screen.Left + offset, screen.Top + ((offset / 2) * 16));
             Menus[(int)Menu.Main].ButtonImage[3] = content.Load<Texture2D>("Images\\Versus");
-            Menus[(int)Menu.Main].ButtonPosition[3] = new Vector2(screen.Left + offset, screen.Top + 290);
+            Menus[(int)Menu.Main].ButtonPosition[3] = new Vector2(screen.Left + offset, screen.Top + ((offset / 2) * 19));
             Menus[(int)Menu.Main].ButtonImage[4] = content.Load<Texture2D>("Images\\Options");
-            Menus[(int)Menu.Main].ButtonPosition[4] = new Vector2(screen.Left + offset, screen.Top + 340);
+            Menus[(int)Menu.Main].ButtonPosition[4] = new Vector2(screen.Left + offset, screen.Top + ((offset / 2) * 22));
             Menus[(int)Menu.Main].ButtonImage[5] = content.Load<Texture2D>("Images\\Credits");
-            Menus[(int)Menu.Main].ButtonPosition[5] = new Vector2(screen.Left + offset, screen.Top + 390);
+            Menus[(int)Menu.Main].ButtonPosition[5] = new Vector2(screen.Left + offset, screen.Top + ((offset / 2) * 25));
             #endregion
 
             #region Load VehicleSelect (select owned vehicles)
@@ -117,17 +117,17 @@ namespace SSORF.Management
             Menus[(int)Menu.Dealership] = new States.SubMenu(10);
             Menus[(int)Menu.Dealership].BackGround = content.Load<Texture2D>("Images\\Dealership1");
 
-            int y = 100;
+            int y = offset * 4;
             for (int i = 0; i < 8; i++)
             {
                 Menus[(int)Menu.Dealership].ButtonImage[i] = content.Load<Texture2D>("Images\\vehicle" + i.ToString());
                 Menus[(int)Menu.Dealership].ButtonPosition[i] = new Vector2(screen.Left + offset, screen.Top + y);
-                y += 45;
+                y += offset;
             }
             Menus[(int)Menu.Dealership].ButtonImage[8] = content.Load<Texture2D>("Images\\TuneShopButton");
             Menus[(int)Menu.Dealership].ButtonPosition[8] = new Vector2(screen.Right - (Menus[(int)Menu.Dealership].ButtonImage[8].Bounds.Right + offset), screen.Top + offset);
             Menus[(int)Menu.Dealership].ButtonImage[9] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.Dealership].ButtonPosition[9] = new Vector2(screen.Left + offset, screen.Bottom - (offset * 3));
+            Menus[(int)Menu.Dealership].ButtonPosition[9] = new Vector2(screen.Left + (offset * 2), screen.Bottom - (Menus[(int)Menu.Dealership].ButtonImage[9].Bounds.Height + (offset * 3)));
             
 
             #endregion
@@ -137,18 +137,26 @@ namespace SSORF.Management
             Menus[(int)Menu.TuneShop] = new States.SubMenu(10); //tune shop has 4 buttons
             Menus[(int)Menu.TuneShop].BackGround = content.Load<Texture2D>("Images\\TuneShopTest");
             for (int i = 0; i < 9; i++)
+            {
                 Menus[(int)Menu.TuneShop].ButtonImage[i] = content.Load<Texture2D>("Images\\" + upgrades[i].button);
-            Menus[(int)Menu.TuneShop].ButtonPosition[0] = new Vector2(screen.Left + 150, screen.Top + 300);
-            Menus[(int)Menu.TuneShop].ButtonPosition[1] = new Vector2(screen.Left + 250, screen.Top + 300);
-            Menus[(int)Menu.TuneShop].ButtonPosition[2] = new Vector2(screen.Left + 350, screen.Top + 300);
-            Menus[(int)Menu.TuneShop].ButtonPosition[3] = new Vector2(screen.Left + 150, screen.Top + 380);
-            Menus[(int)Menu.TuneShop].ButtonPosition[4] = new Vector2(screen.Left + 250, screen.Top + 380);
-            Menus[(int)Menu.TuneShop].ButtonPosition[5] = new Vector2(screen.Left + 350, screen.Top + 380);
-            Menus[(int)Menu.TuneShop].ButtonPosition[6] = new Vector2(screen.Left + 150, screen.Top + 460);
-            Menus[(int)Menu.TuneShop].ButtonPosition[7] = new Vector2(screen.Left + 250, screen.Top + 460);
-            Menus[(int)Menu.TuneShop].ButtonPosition[8] = new Vector2(screen.Left + 350, screen.Top + 460);
+            }
+            //row 1
+            int row = 1;
+            int column = 1;
+            Menus[(int)Menu.TuneShop].ButtonPosition[0] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.TuneShop].ButtonPosition[1] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.TuneShop].ButtonPosition[2] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column = 1;
+            row++;
+            Menus[(int)Menu.TuneShop].ButtonPosition[3] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.TuneShop].ButtonPosition[4] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.TuneShop].ButtonPosition[5] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column = 1;
+            row++;
+            Menus[(int)Menu.TuneShop].ButtonPosition[6] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.TuneShop].ButtonPosition[7] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.TuneShop].ButtonPosition[8] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column = 1;
+
             Menus[(int)Menu.TuneShop].ButtonImage[9] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.TuneShop].ButtonPosition[9] = new Vector2(screen.Left + 25, screen.Top + 70);
+            Menus[(int)Menu.TuneShop].ButtonPosition[9] = new Vector2(screen.Left + offset, screen.Top + (offset * 2));
             #endregion
 
             #region Load MissionsMenu
@@ -156,35 +164,40 @@ namespace SSORF.Management
             Menus[(int)Menu.Missions].BackGround = content.Load<Texture2D>("Images\\MissionForm");
             for (int j = 0; j <= 15; j++)
                 Menus[(int)Menu.Missions].ButtonImage[j] = content.Load<Texture2D>("Images\\mission" + (j+1).ToString());
-            Menus[(int)Menu.Missions].ButtonPosition[0] = new Vector2(screen.Left + 170, screen.Top + 150);
-            Menus[(int)Menu.Missions].ButtonPosition[1] = new Vector2(screen.Left + 260, screen.Top + 150);
-            Menus[(int)Menu.Missions].ButtonPosition[2] = new Vector2(screen.Left + 340, screen.Top + 150);
-            Menus[(int)Menu.Missions].ButtonPosition[3] = new Vector2(screen.Left + 420, screen.Top + 150);
-            Menus[(int)Menu.Missions].ButtonPosition[4] = new Vector2(screen.Left + 500, screen.Top + 150);
-            Menus[(int)Menu.Missions].ButtonPosition[5] = new Vector2(screen.Left + 600, screen.Top + 150);
-            Menus[(int)Menu.Missions].ButtonPosition[6] = new Vector2(screen.Left + 170, screen.Top + 230);
-            Menus[(int)Menu.Missions].ButtonPosition[7] = new Vector2(screen.Left + 250, screen.Top + 230);
-            Menus[(int)Menu.Missions].ButtonPosition[8] = new Vector2(screen.Left + 340, screen.Top + 230);
-            Menus[(int)Menu.Missions].ButtonPosition[9] = new Vector2(screen.Left + 420, screen.Top + 230);
-            Menus[(int)Menu.Missions].ButtonPosition[10] = new Vector2(screen.Left + 500, screen.Top + 230);
-            Menus[(int)Menu.Missions].ButtonPosition[11] = new Vector2(screen.Left + 170, screen.Top + 300);
-            Menus[(int)Menu.Missions].ButtonPosition[12] = new Vector2(screen.Left + 260, screen.Top + 300);
-            Menus[(int)Menu.Missions].ButtonPosition[13] = new Vector2(screen.Left + 360, screen.Top + 300);
-            Menus[(int)Menu.Missions].ButtonPosition[14] = new Vector2(screen.Left + 440, screen.Top + 300);
-            Menus[(int)Menu.Missions].ButtonPosition[15] = new Vector2(screen.Left + 550, screen.Top + 300);
+            //this is ugly as fuck i know, for loops were just pissing me off
+            row = 1;
+            column = 1;
+            Menus[(int)Menu.Missions].ButtonPosition[0] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[1] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[2] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[3] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[4] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[5] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column = 1;
+            row++;
+            Menus[(int)Menu.Missions].ButtonPosition[6] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[7] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[8] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[9] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[10] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column = 1;
+            row++;
+            Menus[(int)Menu.Missions].ButtonPosition[11] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[12] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[13] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[14] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[15] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column = 1;
             //Menus[(int)Menu.Missions].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
             //Menus[(int)Menu.Missions].ButtonPosition[0] = new Vector2(screen.Left + 100, 250);
             //Menus[(int)Menu.Missions].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
             //Menus[(int)Menu.Missions].ButtonPosition[1] = new Vector2(screen.Left + 450, 300);
             Menus[(int)Menu.Missions].ButtonImage[16] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.Missions].ButtonPosition[16] = new Vector2(screen.Left + 600, screen.Top + 550);
+            Menus[(int)Menu.Missions].ButtonPosition[16] = new Vector2(screen.Left + ((screen.Right / 2) - (Menus[(int)Menu.Missions].ButtonImage[16].Bounds.X /2)), screen.Bottom - (Menus[(int)Menu.Missions].ButtonImage[16].Bounds.Bottom + (offset * 3)));
             #endregion
 
             #region Load Credits
             Menus[(int)Menu.Credits] = new States.SubMenu(1); //mission menu has 2 buttons
             Menus[(int)Menu.Credits].BackGround = content.Load<Texture2D>("Images\\Credits Form");
             Menus[(int)Menu.Credits].ButtonImage[0] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.Credits].ButtonPosition[0] = new Vector2(screen.Left + 50, screen.Top + 550);
+            Menus[(int)Menu.Credits].ButtonPosition[0] = new Vector2(screen.Left + offset, screen.Bottom - (offset * 2));
             #endregion
 
             #region Load Options
@@ -194,15 +207,15 @@ namespace SSORF.Management
             //Menus[(int)Menu.Options].ButtonImage[0] = content.Load<Texture2D>("Images\\Music Button");
             //Menus[(int)Menu.Options].ButtonPosition[0] = new Vector2(screen.Left + 75, 150);
             Menus[(int)Menu.Options].ButtonImage[0] = content.Load<Texture2D>("Images\\On Button");
-            Menus[(int)Menu.Options].ButtonPosition[0] = new Vector2(screen.Left + 250, screen.Top + 120);
+            Menus[(int)Menu.Options].ButtonPosition[0] = new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 3.5f));
             Menus[(int)Menu.Options].ButtonImage[1] = content.Load<Texture2D>("Images\\Off Button");
-            Menus[(int)Menu.Options].ButtonPosition[1] = new Vector2(screen.Left + 350, screen.Top + 120);
+            Menus[(int)Menu.Options].ButtonPosition[1] = new Vector2(screen.Left + (offset * 10), screen.Top + (offset * 3.5f));
             Menus[(int)Menu.Options].ButtonImage[2] = content.Load<Texture2D>("Images\\On Button");
-            Menus[(int)Menu.Options].ButtonPosition[2] = new Vector2(screen.Left + 250, screen.Top + 220);
+            Menus[(int)Menu.Options].ButtonPosition[2] = new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 6.5f));
             Menus[(int)Menu.Options].ButtonImage[3] = content.Load<Texture2D>("Images\\Off Button");
-            Menus[(int)Menu.Options].ButtonPosition[3] = new Vector2(screen.Left + 350, screen.Top + 220);
+            Menus[(int)Menu.Options].ButtonPosition[3] = new Vector2(screen.Left + (offset * 10), screen.Top + (offset * 6.5f));
             Menus[(int)Menu.Options].ButtonImage[4] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.Options].ButtonPosition[4] = new Vector2(screen.Left + 50, screen.Top + 550);
+            Menus[(int)Menu.Options].ButtonPosition[4] = new Vector2(screen.Left + offset, screen.Bottom - (offset * 2));
             #endregion
 
             //load messageBox background
@@ -430,17 +443,17 @@ namespace SSORF.Management
             {
                 case Menu.Main :
                     spriteBatch.DrawString(menuFont, "Current Vehicle:  " + scooters[player.SelectedScooter].name,
-                        new Vector2(screen.Left + 40, screen.Top + 545), Color.Black);
+                        new Vector2(screen.Left + offset, screen.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(menuFont, "You have $" + player.Money.ToString(),
-                        new Vector2(screen.Left + 40, screen.Top + 570), Color.Black);
+                        new Vector2(screen.Left + offset, screen.Bottom - (offset * 1)), Color.Black);
                     break;
                 
                 //display upgrade data
                 case Menu.TuneShop :
                     spriteBatch.DrawString(menuFont, "Current Vehicle:  " + scooters[player.SelectedScooter].name,
-                        new Vector2(screen.Left + 40, screen.Top + 545), Color.Tan);
+                        new Vector2(screen.Left + offset, screen.Bottom - (offset * 2)), Color.Tan);
                     spriteBatch.DrawString(menuFont, "You have $" + player.Money.ToString(),
-                        new Vector2(screen.Left + 40, screen.Top + 570), Color.Tan);
+                        new Vector2(screen.Left + offset, screen.Bottom - (offset * 1)), Color.Tan);
 
                     if (Menus[(int)Menu.TuneShop].SelectedButton != 10)
                     {
@@ -448,39 +461,39 @@ namespace SSORF.Management
                     }
 
                     spriteBatch.DrawString(menuFont, "Press " + button,
-                        new Vector2(screen.Left + 610, screen.Top + 550), Color.Tan);
+                        new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 2)), Color.Tan);
                     spriteBatch.DrawString(menuFont, "to return to Main Menu",
-                        new Vector2(screen.Left + 590, screen.Top + 570), Color.Tan);
+                        new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 1)), Color.Tan);
                     break;
 
                 case Menu.Dealership :
                     spriteBatch.DrawString(menuFont, "Current Vehicle:  " + scooters[player.SelectedScooter].name,
-                        new Vector2(screen.Left + 250, screen.Top + 550), Color.Black);
+                        new Vector2(screen.Left + offset, screen.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(menuFont, "You have $" + player.Money.ToString(),
-                        new Vector2(screen.Left + 350, screen.Top + 570), Color.Black);
+                        new Vector2(screen.Left + offset, screen.Bottom - (offset * 1)), Color.Black);
 
                     if (Menus[(int)Menu.Dealership].SelectedButton < 6)
                     {
-                        drawVehicleSpecs(spriteBatch, new Vector2(screen.Left + 350, screen.Top + 150), 
+                        drawVehicleSpecs(spriteBatch, new Vector2(screen.Left + (offset * 16), screen.Top + (offset * 5)), 
                             Menus[(int)Menu.Dealership].SelectedButton - 1);
                     }
                     spriteBatch.DrawString(menuFont, "Press " + button,
-                        new Vector2(screen.Left + 610, screen.Top + 550), Color.Black);
+                        new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(menuFont, "to return to Main Menu",
-                        new Vector2(screen.Left + 590, screen.Top + 570), Color.Black);
+                        new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 1)), Color.Black);
                     break;
 
 
                 case Menu.VehicleSelect:
 
                     if (Menus[(int)Menu.VehicleSelect].SelectedButton != VSBackButton)
-                        drawVehicleSpecs(spriteBatch, new Vector2(screen.Left + 280, screen.Top + 190), scooterIDnums[Menus[(int)Menu.VehicleSelect].SelectedButton - 1],
+                        drawVehicleSpecs(spriteBatch, new Vector2(screen.Left + (offset * 13), screen.Top + (offset * 6.5f)), scooterIDnums[Menus[(int)Menu.VehicleSelect].SelectedButton - 1],
                             player.UpgradeTotals[scooterIDnums[Menus[(int)Menu.VehicleSelect].SelectedButton - 1]]);
 
                     spriteBatch.DrawString(menuFont, "Press " + button,
-                        new Vector2(screen.Left + 320, screen.Top + 550), Color.Black);
+                        new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(menuFont, "to return to Main Menu",
-                        new Vector2(screen.Left + 300, screen.Top + 570), Color.Black);
+                        new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 1)), Color.Black);
 
                     break;
                     
@@ -499,29 +512,29 @@ namespace SSORF.Management
 #endif
                     string controls = "DRIVING CONTROLS \n\nForward:  \nReverse:  \nSteering:  \nPause:  ";
                     string buttons = "\n\n" + forward + "\n" + reverse + "\n" + steering + "\n" + pause;
-                    spriteBatch.DrawString(menuFont, controls, new Vector2(screen.Left + 120, screen.Top + 290), Color.Black);
-                    spriteBatch.DrawString(menuFont, buttons, new Vector2(screen.Left + 220, screen.Top + 290), Color.Black);
+                    spriteBatch.DrawString(menuFont, controls, new Vector2(screen.Left + (offset * 5), screen.Top + (screen.Bottom / 2) - (offset * 1)), Color.Black);
+                    spriteBatch.DrawString(menuFont, buttons, new Vector2(screen.Left + (offset * 8), screen.Top + (screen.Bottom / 2) - (offset * 1)), Color.Black);
 
-                    spriteBatch.Draw(fixedImage, new Vector2(screen.Left + 75, screen.Top + 120), Color.White);
-                    spriteBatch.Draw(SoundOption, new Vector2(screen.Left + 75, screen.Top + 220), Color.White);
+                    spriteBatch.Draw(fixedImage, new Vector2(screen.Left + (offset * 2), screen.Top + (offset * 3)), Color.White);
+                    spriteBatch.Draw(SoundOption, new Vector2(screen.Left + (offset * 2), screen.Top + (offset * 6)), Color.White);
 
                     spriteBatch.DrawString(menuFont, "Press " + button,
-                        new Vector2(screen.Left + 320, screen.Top + 550), Color.Black);
+                        new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(menuFont, "to return to Main Menu",
-                        new Vector2(screen.Left + 300, screen.Top + 570), Color.Black);
+                        new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 1)), Color.Black);
 
                     break;
 
                 case Menu.Missions:
                     spriteBatch.DrawString(menuFont, "Current Vehicle:  " + scooters[player.SelectedScooter].name,
-                        new Vector2(screen.Left + 40, screen.Top + 525), Color.Black);
+                        new Vector2(screen.Left + offset, screen.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(menuFont, "You have $" + player.Money.ToString(),
-                        new Vector2(screen.Left + 40, screen.Top + 550), Color.Black);
+                        new Vector2(screen.Left + offset, screen.Bottom - (offset * 1)), Color.Black);
 
                     spriteBatch.DrawString(menuFont, "Press " + button,
-                        new Vector2(screen.Left + 590, screen.Top + 500), Color.Black);
+                        new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(menuFont, "to return to Main Menu",
-                        new Vector2(screen.Left + 570, screen.Top + 520), Color.Black);
+                        new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 1)), Color.Black);
 
                     break;
 
@@ -584,17 +597,17 @@ namespace SSORF.Management
             Menus[(int)Menu.VehicleSelect] = new States.SubMenu((short)(totalVehiclesOwned + 1));
             Menus[(int)Menu.VehicleSelect].BackGround = content.Load<Texture2D>("Images\\Garage1");
 
-            int y = 100;
+            int y = offset * 4;
             for (int i = 0; i < totalVehiclesOwned; i++)
             {
 
                 Menus[(int)Menu.VehicleSelect].ButtonImage[i] = content.Load<Texture2D>("Images\\vehicle" + scooterIDnums[i].ToString());
-                Menus[(int)Menu.VehicleSelect].ButtonPosition[i] = new Vector2(screen.Left + 20, screen.Top + y);
-                y += 45;
+                Menus[(int)Menu.VehicleSelect].ButtonPosition[i] = new Vector2(screen.Left + offset, screen.Top + y);
+                y += offset;
             }
 
             Menus[(int)Menu.VehicleSelect].ButtonImage[VSBackButton - 1] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.VehicleSelect].ButtonPosition[VSBackButton - 1] = new Vector2(screen.Left + 20, screen.Top + 550);
+            Menus[(int)Menu.VehicleSelect].ButtonPosition[VSBackButton - 1] = new Vector2(screen.Left + offset, screen.Bottom - (offset * 4));
         }
 
         public void drawUpgradeSpecs(SpriteBatch spriteBatch)
@@ -603,42 +616,42 @@ namespace SSORF.Management
 
             spriteBatch.DrawString(menuFont,
                 upgrades[Menus[(int)Menu.TuneShop].SelectedButton - 1].name,
-                new Vector2(screen.Left + 200, screen.Top + 100), Color.Tan);
+                new Vector2(screen.Left + (offset * 10), screen.Top + (offset * 3)), Color.Tan);
 
             spriteBatch.DrawString(menuFont, 
                 upgrades[Menus[(int)Menu.TuneShop].SelectedButton - 1].description1,
-                new Vector2(screen.Left + 200, screen.Top + 140), Color.Tan);
+                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 4)), Color.Tan);
 
             spriteBatch.DrawString(menuFont, 
                 upgrades[Menus[(int)Menu.TuneShop].SelectedButton - 1].description2,
-                new Vector2(screen.Left + 200, screen.Top + 160), Color.Tan);
+                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 4.6f)), Color.Tan);
 
             spriteBatch.DrawString(menuFont, 
                 "Power:  " + upgrades[Menus[(int)Menu.TuneShop].SelectedButton - 1].power.ToString(),
-                new Vector2(screen.Left + 200, screen.Top + 200), Color.Tan);
+                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 5.4f)), Color.Tan);
 
             spriteBatch.DrawString(menuFont,
                 "Weight:  " + upgrades[Menus[(int)Menu.TuneShop].SelectedButton - 1].weight.ToString("+#;-#;0") + "%",
-                new Vector2(screen.Left + 200, screen.Top + 220), Color.Tan);
+                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 6)), Color.Tan);
 
             spriteBatch.DrawString(menuFont, 
                 "Cost:  $" + upgrades[Menus[(int)Menu.TuneShop].SelectedButton - 1].cost.ToString(),
-                new Vector2(screen.Left + 200, screen.Top + 240), Color.Tan);
+                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 6.6f)), Color.Tan);
         }
 
         public void drawVehicleSpecs(SpriteBatch spriteBatch, Vector2 location, int ID)
         {
             spriteBatch.DrawString(menuFont, scooters[ID].name,
                 location, Color.Black);
-            location.Y += 20;
+            location.Y += offset;
 
             spriteBatch.DrawString(menuFont, "Power:  " + scooters[ID].outputPower.ToString(),
                 location, Color.Black);
-            location.Y += 20;
+            location.Y += offset;
 
             spriteBatch.DrawString(menuFont, "Weight:  " + scooters[ID].weight.ToString() + "kg",
                 location, Color.Black);
-            location.Y += 20;
+            location.Y += offset;
 
             spriteBatch.DrawString(menuFont, "Cost:  $" + scooters[ID].cost.ToString(),
                 location, Color.Black);
@@ -649,15 +662,15 @@ namespace SSORF.Management
         {
             spriteBatch.DrawString(menuFont, scooters[ID].name,
                 location, Color.Black);
-            location.Y += 20;
+            location.Y += offset;
 
             spriteBatch.DrawString(menuFont, "Power:  " + (scooters[ID].outputPower + upgradeTotals.power).ToString(),
                 location, Color.Black);
-            location.Y += 20;
+            location.Y += offset;
 
             spriteBatch.DrawString(menuFont, "Weight:  " + (scooters[ID].weight + upgradeTotals.weight).ToString() + "kg",
                 location, Color.Black);
-            location.Y += 20;
+            location.Y += offset;
 
             spriteBatch.DrawString(menuFont, "Cost:  $" + scooters[ID].cost.ToString(),
                 location, Color.Black);
