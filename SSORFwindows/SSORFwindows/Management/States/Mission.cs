@@ -67,6 +67,8 @@ namespace SSORF.Management.States
         //string debugMessage = "";
 
         private Rectangle bounds;
+        int offset = SSORF.Management.StateManager.bounds.Height / 20;
+        int offsetW = SSORF.Management.StateManager.bounds.Width / 20;
         #endregion
 
         //empty constructor for making missions without parameters
@@ -584,8 +586,8 @@ namespace SSORF.Management.States
 
             //display camera and scooter coordinates for testing
 
-            spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left + 11, bounds.Top + 21), Color.LightGreen);
-            spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left + 10, bounds.Top + 20), Color.Black);
+            spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left, bounds.Top), Color.LightGreen);
+            spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left + 1, bounds.Top + 1), Color.Black);
 
             //spriteBatch.DrawString(smallFont, "Main Thread Active: " + Thread.CurrentThread.IsAlive, new Vector2(bounds.Left + 11, bounds.Top + 41), Color.SteelBlue);
             //spriteBatch.DrawString(smallFont, "Main Thread Active: " + Thread.CurrentThread.IsAlive, new Vector2(bounds.Left + 10, bounds.Top + 40), Color.Black);
@@ -613,42 +615,45 @@ namespace SSORF.Management.States
             switch (state)
             { 
                 case MissionState.Starting :
-                    spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString("#.##"), new Vector2(bounds.Left + 400, bounds.Top + 30), Color.Black);
-                    spriteBatch.DrawString(smallFont, "Check Points Remaining: " + (numCheckPoints - currentCheckPoint).ToString(), new Vector2(bounds.Left + 10, bounds.Top + 30), Color.Black);
-                    spriteBatch.DrawString(smallFont, "Get ready to race!!!", new Vector2(bounds.Left + 300, bounds.Top + 550), Color.Black);
-                    spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0"), new Vector2(bounds.Left + 50, bounds.Bottom - 200), Color.Red);
+                    spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString("#.##"), new Vector2(bounds.Right - (bounds.Right / 4), bounds.Top + offset), Color.Black);
+                    spriteBatch.DrawString(smallFont, "Check Points Remaining: " + (numCheckPoints - currentCheckPoint).ToString(), new Vector2(bounds.Left + offsetW, bounds.Top + offset), Color.Black);
+                    spriteBatch.DrawString(smallFont, "Get ready to race!!!", new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 2)), Color.Black);
+                    spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0"), new Vector2(bounds.Left + offsetW, bounds.Bottom - (offset * 3)), Color.Red);
                     if (countDown.Seconds > 0)
-                        spriteBatch.DrawString(largeFont, countDown.Seconds.ToString(), new Vector2(bounds.Left + 450, bounds.Top + 100), Color.Black);
+                        spriteBatch.DrawString(largeFont, countDown.Seconds.ToString(), new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2), bounds.Top + (offset * 2)), Color.Black);
                     else
-                        spriteBatch.DrawString(largeFont, "GO!", new Vector2(bounds.Left + 400, bounds.Top + 100), Color.Black);
+                        spriteBatch.DrawString(largeFont, "GO!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2), bounds.Top + (offset * 2)), Color.Black);
                 break;
 
                 case MissionState.Paused:
-                spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString("#.##"), new Vector2(bounds.Left + 400, bounds.Top + 30), Color.Black);
-                    spriteBatch.DrawString(largeFont, "PAUSED", new Vector2(bounds.Left + 400, bounds.Top + 100), Color.Black);
-                    spriteBatch.DrawString(smallFont, "Press [" + endKey + "] to quit mission", new Vector2(bounds.Left + 280, bounds.Bottom - 70), Color.Black);
-                    spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to return to mission", new Vector2(bounds.Left + 280, bounds.Bottom - 50), Color.Black);
-                    spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0"), new Vector2(bounds.Left + 50, bounds.Bottom - 200), Color.Red);
+                    spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString("#.##"), new Vector2(bounds.Right - (bounds.Right / 4), bounds.Top + offset), Color.Black);
+                    spriteBatch.DrawString(largeFont, "PAUSED", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2), bounds.Top + (offset * 2)), Color.Yellow);
+                    spriteBatch.DrawString(smallFont, "Press [" + endKey + "] to quit mission", new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 2.5f)), Color.Black);
+                    spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to return to mission", new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 2)), Color.Black);
+                    spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0"), new Vector2(bounds.Left + offsetW, bounds.Bottom - (offset * 3)), Color.Red);
                 break;
 
                 case MissionState.Playing :
-                    spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString("#.##"), new Vector2(bounds.Left + 400, bounds.Top + 30), Color.Black);
-                    spriteBatch.DrawString(smallFont, "Check Points Remaining: " + (numCheckPoints - currentCheckPoint).ToString(), new Vector2(bounds.Left + 30, bounds.Top + 30), Color.Black);
-                    spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to pause mission", new Vector2(bounds.Left + 280, bounds.Bottom - 50), Color.Black);
-                    spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0") + " mph", new Vector2(bounds.Left + 50, bounds.Bottom - 200), Color.Red);
+                    spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString("#.##"), new Vector2(bounds.Right - (bounds.Right / 4), bounds.Top + offset), Color.Black);
+                    spriteBatch.DrawString(smallFont, "Check Points Remaining: " + (numCheckPoints - currentCheckPoint).ToString(), new Vector2(bounds.Left + offsetW, bounds.Top + offset), Color.Black);
+                    spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to pause mission", new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 2)), Color.Black);
+                    spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0") + " mph", new Vector2(bounds.Left + offsetW, bounds.Bottom - (offset * 3)), Color.Red);
                 break;
 
                 case MissionState.Ending :
                 if (missionComplete)
                 {
-                    spriteBatch.DrawString(largeFont, "FINISH!", new Vector2(bounds.Left + 400, bounds.Top + 100), Color.Black);
-                    spriteBatch.DrawString(smallFont, "You earned $" + prizeMoney.ToString(), new Vector2(bounds.Left + 200, bounds.Bottom - 130), Color.Black);
-                    spriteBatch.DrawString(smallFont, "With " + timeLimit.TotalSeconds.ToString("#.##") + " seconds to spare!!!", new Vector2(bounds.Left + 200, bounds.Bottom - 110), Color.Black);
+                    spriteBatch.DrawString(largeFont, "FINISH!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2), bounds.Top + (offset * 2)), Color.Green);
+                    spriteBatch.DrawString(largeFont, "FINISH!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2) + 1, bounds.Top + (offset * 2) + 1), Color.White);
+                    spriteBatch.DrawString(smallFont, "You earned $" + prizeMoney.ToString(), new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 5.5f)), Color.Yellow);
+                    spriteBatch.DrawString(smallFont, "With " + timeLimit.TotalSeconds.ToString("#.##") + " seconds to spare!!!", new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 5)), Color.Yellow);
+                    spriteBatch.DrawString(smallFont, "You earned $" + prizeMoney.ToString(), new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2) + 1, bounds.Bottom - (offset * 5.5f) + 1), Color.White);
+                    spriteBatch.DrawString(smallFont, "With " + timeLimit.TotalSeconds.ToString("#.##") + " seconds to spare!!!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2) + 1, bounds.Bottom - (offset * 5) + 1), Color.White);
                 }
                 else
-                    spriteBatch.DrawString(largeFont, "FAIL!", new Vector2(bounds.Left + 450, bounds.Top + 100), Color.Black);
+                    spriteBatch.DrawString(largeFont, "FAIL!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2), bounds.Top + (offset * 2)), Color.Red);
 
-                    spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to return to menu", new Vector2(bounds.Left + 240, bounds.Bottom - 50), Color.Black);
+                spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to return to menu", new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 2)), Color.White);
                 break;
             
             }
