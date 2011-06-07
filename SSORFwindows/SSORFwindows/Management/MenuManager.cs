@@ -125,7 +125,7 @@ namespace SSORF.Management
                 y += offset;
             }
             Menus[(int)Menu.Dealership].ButtonImage[8] = content.Load<Texture2D>("Images\\TuneShopButton");
-            Menus[(int)Menu.Dealership].ButtonPosition[8] = new Vector2(screen.Right - (Menus[(int)Menu.Dealership].ButtonImage[8].Bounds.Right + offset), screen.Top + offset);
+            Menus[(int)Menu.Dealership].ButtonPosition[8] = new Vector2(screen.Right - (Menus[(int)Menu.Dealership].ButtonImage[8].Bounds.Right), screen.Top);
             Menus[(int)Menu.Dealership].ButtonImage[9] = content.Load<Texture2D>("Images\\BackButton");
             Menus[(int)Menu.Dealership].ButtonPosition[9] = new Vector2(screen.Left + (offset * 2), screen.Bottom - (Menus[(int)Menu.Dealership].ButtonImage[9].Bounds.Height + (offset * 3)));
             
@@ -167,30 +167,30 @@ namespace SSORF.Management
             //this is ugly as fuck i know, for loops were just pissing me off
             row = 1;
             column = 1;
-            Menus[(int)Menu.Missions].ButtonPosition[0] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.Missions].ButtonPosition[1] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.Missions].ButtonPosition[2] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.Missions].ButtonPosition[3] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.Missions].ButtonPosition[4] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.Missions].ButtonPosition[5] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column = 1;
+            Menus[(int)Menu.Missions].ButtonPosition[0] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[1] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[2] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[3] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[4] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[5] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column = 1;
             row++;
-            Menus[(int)Menu.Missions].ButtonPosition[6] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.Missions].ButtonPosition[7] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.Missions].ButtonPosition[8] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.Missions].ButtonPosition[9] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.Missions].ButtonPosition[10] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column = 1;
+            Menus[(int)Menu.Missions].ButtonPosition[6] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[7] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[8] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[9] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[10] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column = 1;
             row++;
-            Menus[(int)Menu.Missions].ButtonPosition[11] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.Missions].ButtonPosition[12] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.Missions].ButtonPosition[13] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.Missions].ButtonPosition[14] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.Missions].ButtonPosition[15] = new Vector2(screen.Left + (screen.Right / 5) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column = 1;
+            Menus[(int)Menu.Missions].ButtonPosition[11] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[12] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[13] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[14] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.Missions].ButtonPosition[15] = new Vector2(screen.Left + (screen.Right / 10) + (offset * column * 3), screen.Top + (screen.Bottom / 6) + (offset * row * 2)); column = 1;
             //Menus[(int)Menu.Missions].ButtonImage[0] = content.Load<Texture2D>("Images\\button1");
             //Menus[(int)Menu.Missions].ButtonPosition[0] = new Vector2(screen.Left + 100, 250);
             //Menus[(int)Menu.Missions].ButtonImage[1] = content.Load<Texture2D>("Images\\button2");
             //Menus[(int)Menu.Missions].ButtonPosition[1] = new Vector2(screen.Left + 450, 300);
             Menus[(int)Menu.Missions].ButtonImage[16] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.Missions].ButtonPosition[16] = new Vector2(screen.Left + ((screen.Right / 2) - (Menus[(int)Menu.Missions].ButtonImage[16].Bounds.X /2)), screen.Bottom - (Menus[(int)Menu.Missions].ButtonImage[16].Bounds.Bottom + (offset * 3)));
+            Menus[(int)Menu.Missions].ButtonPosition[16] = new Vector2(screen.Left + ((screen.Right / 2.5f) - (Menus[(int)Menu.Missions].ButtonImage[16].Bounds.X /2)), screen.Bottom - (Menus[(int)Menu.Missions].ButtonImage[16].Bounds.Bottom + (offset * 3)));
             #endregion
 
             #region Load Credits
@@ -474,7 +474,7 @@ namespace SSORF.Management
 
                     if (Menus[(int)Menu.Dealership].SelectedButton < 6)
                     {
-                        drawVehicleSpecs(spriteBatch, new Vector2(screen.Left + (offset * 16), screen.Top + (offset * 5)), 
+                        drawVehicleSpecs(spriteBatch, new Vector2(screen.Left + (offset * 16), screen.Top + (screen.Bottom / 4)), 
                             Menus[(int)Menu.Dealership].SelectedButton - 1);
                     }
                     spriteBatch.DrawString(menuFont, "Press " + button,
@@ -487,7 +487,7 @@ namespace SSORF.Management
                 case Menu.VehicleSelect:
 
                     if (Menus[(int)Menu.VehicleSelect].SelectedButton != VSBackButton)
-                        drawVehicleSpecs(spriteBatch, new Vector2(screen.Left + (offset * 13), screen.Top + (offset * 6.5f)), scooterIDnums[Menus[(int)Menu.VehicleSelect].SelectedButton - 1],
+                        drawVehicleSpecs(spriteBatch, new Vector2(screen.Left + (offset * 13), screen.Top + (screen.Bottom / 2) - offset), scooterIDnums[Menus[(int)Menu.VehicleSelect].SelectedButton - 1],
                             player.UpgradeTotals[scooterIDnums[Menus[(int)Menu.VehicleSelect].SelectedButton - 1]]);
 
                     spriteBatch.DrawString(menuFont, "Press " + button,
