@@ -134,8 +134,8 @@ namespace SSORF.Management
                     {   // switch to mission, load it, then update it
                         State = GameState.MissionScreen;
                         currentMission = new States.Mission(player, 
-                            menu.ScooterSpecs[player.SelectedScooter], Game, menu.selectedMission);
-                        currentMission.load(Game.Content, menu.selectedMission);
+                            menu.ScooterSpecs[player.SelectedScooter], Game, menu.selectedMission, menu.easyMode);
+                        currentMission.load(Game.Content, menu.selectedMission, menu.easyMode);
                         currentMission.update(gameTime);
                         menu.selectedMission = 0;
                     }

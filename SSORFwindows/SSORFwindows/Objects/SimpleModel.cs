@@ -14,17 +14,17 @@ namespace SSORF.Objects
     public class SimpleModel
     {
         private Model model;
-        private Matrix worldMtx = Matrix.Identity;
+        public Matrix WorldMtx = Matrix.Identity;
 
         public void rotate(float yaw)
         {
-            worldMtx = Matrix.CreateRotationY(yaw);
+            WorldMtx = Matrix.CreateRotationY(yaw);
 
         }
 
         public void draw(Matrix View, Matrix Proj, Vector3 position)
         {
-            worldMtx *= Matrix.CreateTranslation(position);
+            WorldMtx *= Matrix.CreateTranslation(position);
             Matrix[] transforms = new Matrix[model.Bones.Count];
             model.CopyAbsoluteBoneTransformsTo(transforms);
 
@@ -45,8 +45,29 @@ namespace SSORF.Objects
 
         }//end draw
 
+        public void draw(Matrix View, Matrix Proj)
+        {
+            Matrix[] transforms = new Matrix[model.Bones.Count];
+            model.CopyAbsoluteBoneTransformsTo(transforms);
+
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                foreach (BasicEffect effect in mesh.Effects)
+                {
+                    effect.EnableDefaultLighting();
+                    effect.Projection = Proj;
+                    effect.View = View;
+                    //effect.World = mesh.ParentBone.Transform * worldMtx;
+
+                    effect.World = transforms[mesh.ParentBone.Index] * WorldMtx;
+
+                }
+                mesh.Draw();
+            }
+        }
+
         public Model Mesh { get { return model; } set { model = value; } }
-        public Matrix WorldMtx { get { return worldMtx; } set { worldMtx = value; } }
+        public Vector3 Position { get { return WorldMtx.Translation; } }
 
     }
 }

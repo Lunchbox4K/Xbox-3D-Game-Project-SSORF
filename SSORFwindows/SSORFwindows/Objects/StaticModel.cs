@@ -280,6 +280,12 @@ namespace SSORF.Objects
             set { orientation = value; }
         }
 
+        public Vector3 Forward
+        {
+            get { return orientation.Forward; }
+            set { orientation.Forward = value; }
+        }
+
         public string ModelAsset
         {
             get { return modelAsset; }

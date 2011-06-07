@@ -59,6 +59,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="Models\arrow.fbx">
+      <Name>arrow</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>2.5</ProcessorParameters_Scale>
+      <ProcessorParameters_RotationX>-20</ProcessorParameters_RotationX>
+    </Compile>
     <Compile Include="Models\scooter0.fbx">
       <Name>scooter0</Name>
       <Importer>FbxImporter</Importer>
@@ -768,6 +775,32 @@
       <Name>lvl3_mm</Name>
       <Importer>TextureImporter</Importer>
       <Processor>LocationMapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\driver.fbx">
+      <Name>driver</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\easy.png">
+      <Name>easy</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\hard.png">
+      <Name>hard</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\difficulty.png">
+      <Name>difficulty</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

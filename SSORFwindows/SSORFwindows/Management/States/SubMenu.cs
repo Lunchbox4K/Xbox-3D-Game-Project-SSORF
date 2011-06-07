@@ -31,6 +31,7 @@ namespace SSORF.Management.States
         //could use a button class for these two arrays instead but may not be necessary
         private Texture2D[] buttonImage;
         private Vector2[] buttonPosition;
+        public bool[] buttonHighlight;
 
         public SubMenu(short NumButtons)
         {
@@ -39,6 +40,7 @@ namespace SSORF.Management.States
             numButtons = NumButtons;
             buttonImage = new Texture2D[numButtons];
             buttonPosition = new Vector2[numButtons];
+            buttonHighlight = new bool[numButtons];
         }
 
         public void update(GameTime gameTime)
@@ -46,15 +48,15 @@ namespace SSORF.Management.States
 
             //If xbox use the D-Pad to navigate menus
 #if XBOX
-            if (gamePadState.current.DPad.Left == ButtonState.Pressed &&
-                gamePadState.previous.DPad.Left == ButtonState.Released)
+            if (gamePadState.current.DPad.Right == ButtonState.Pressed &&
+                gamePadState.previous.DPad.Right == ButtonState.Released)
                 if (selectedButton == 1)
                     selectedButton = numButtons;
                 else
                     selectedButton -= 1;
 
-            if (gamePadState.current.DPad.Right == ButtonState.Pressed &&
-                gamePadState.previous.DPad.Right == ButtonState.Released)
+            if (gamePadState.current.DPad.Left == ButtonState.Pressed &&
+                gamePadState.previous.DPad.Left == ButtonState.Released)
                 if (selectedButton == numButtons)
                     selectedButton = 1;
                 else
@@ -113,10 +115,26 @@ namespace SSORF.Management.States
             spriteBatch.Draw(backGround, Vector2.Zero, Color.White);
             spriteBatch.End();
             spriteBatch.Begin();
-            for(int i = 0; i < numButtons; i++)
-                spriteBatch.Draw(buttonImage[i], buttonPosition[i], Color.White);
+            for (int i = 0; i < numButtons; i++) 
+                    spriteBatch.Draw(buttonImage[i], buttonPosition[i], Color.White);
             spriteBatch.End();
         }
+
+        public void drawWithHighlights(SpriteBatch spriteBatch, Matrix scale)
+        {
+            spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
+            spriteBatch.Draw(backGround, Vector2.Zero, Color.White);
+            spriteBatch.End();
+            spriteBatch.Begin();
+            for (int i = 0; i < numButtons; i++)
+                if (buttonHighlight[i] == true)
+                    spriteBatch.Draw(buttonImage[i], buttonPosition[i], Color.Gray);
+                else
+                    spriteBatch.Draw(buttonImage[i], buttonPosition[i], Color.Black);
+            spriteBatch.End();
+        }
+
+
 
         //Accessors and mutators
         public Texture2D BackGround { get { return backGround; } set { backGround = value; } }

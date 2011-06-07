@@ -50,13 +50,14 @@ namespace SSORF.Management
         private Texture2D CursorImage;
         private Texture2D fixedImage;
         private Texture2D SoundOption;
+        private Texture2D DifficultyOption;
         //used to display upgrade data
         private UpgradeData[] upgrades;
         private ScooterData[] scooters;
 
         //used to display scooter models in vehicle select
         Matrix view, proj;
-        private Objects.SimpleModel[] scooterModels = new Objects.SimpleModel[5];
+        private SSORF.Objects.SimpleModel[] scooterModels = new Objects.SimpleModel[5];
         private float scooterYaw = 0.0f;
         private short[] scooterIDnums = new short[8];
         private short VSBackButton;
@@ -64,6 +65,7 @@ namespace SSORF.Management
         GraphicsDevice graphics;
 
         public Matrix scale;
+        public bool easyMode;
 
         #endregion
 
@@ -202,7 +204,7 @@ namespace SSORF.Management
 
             #region Load Options
             
-            Menus[(int)Menu.Options] = new States.SubMenu(5); //mission menu has 3 buttons
+            Menus[(int)Menu.Options] = new States.SubMenu(7); 
             Menus[(int)Menu.Options].BackGround = content.Load<Texture2D>("Images\\Options Form");
             //Menus[(int)Menu.Options].ButtonImage[0] = content.Load<Texture2D>("Images\\Music Button");
             //Menus[(int)Menu.Options].ButtonPosition[0] = new Vector2(screen.Left + 75, 150);
@@ -214,14 +216,19 @@ namespace SSORF.Management
             Menus[(int)Menu.Options].ButtonPosition[2] = new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 6.5f));
             Menus[(int)Menu.Options].ButtonImage[3] = content.Load<Texture2D>("Images\\Off Button");
             Menus[(int)Menu.Options].ButtonPosition[3] = new Vector2(screen.Left + (offset * 10), screen.Top + (offset * 6.5f));
-            Menus[(int)Menu.Options].ButtonImage[4] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.Options].ButtonPosition[4] = new Vector2(screen.Left + offset, screen.Bottom - (offset * 2));
+            Menus[(int)Menu.Options].ButtonImage[4] = content.Load<Texture2D>("Images\\easy");
+            Menus[(int)Menu.Options].ButtonPosition[4] = new Vector2(screen.Left + offset * 7, screen.Bottom - (offset * 9.5f));
+            Menus[(int)Menu.Options].ButtonImage[5] = content.Load<Texture2D>("Images\\hard");
+            Menus[(int)Menu.Options].ButtonPosition[5] = new Vector2(screen.Left + offset * 10, screen.Bottom - (offset * 9.5f));
+            Menus[(int)Menu.Options].ButtonImage[6] = content.Load<Texture2D>("Images\\BackButton");
+            Menus[(int)Menu.Options].ButtonPosition[6] = new Vector2(screen.Left + offset, screen.Bottom - (offset * 2));
             #endregion
 
             //load messageBox background
             messageBox.Background = content.Load<Texture2D>("Images\\messagebox");
             fixedImage = content.Load<Texture2D>("Images\\Music Button");
             SoundOption = content.Load<Texture2D>("Images\\Sound");
+            DifficultyOption = content.Load<Texture2D>("Images\\difficulty");
             //load cursor image and set current menu to main menu
             CursorImage = content.Load<Texture2D>("Images\\cursor");
             CurrentMenu = Menu.Main;
@@ -231,6 +238,11 @@ namespace SSORF.Management
                             MathHelper.ToRadians(45.0f),
                             1.33f, 1.0f, 1000.0f);
             view = Matrix.CreateLookAt(Vector3.Zero, new Vector3(0, 0, -20), Vector3.Up);
+
+
+            Menus[(int)Menu.Options].buttonHighlight[0] = true;
+            Menus[(int)Menu.Options].buttonHighlight[3] = true;
+            Menus[(int)Menu.Options].buttonHighlight[4] = true;
         }
 
         public void update(GameTime gameTime, Objects.Player player)
@@ -396,14 +408,44 @@ namespace SSORF.Management
                     #region update Options
                     case Menu.Options:
                         if (Menus[(int)Menu.Options].buttonPressed == 1)
+                        {
                             AudioManager.setMusicPlaying(true);
+                            Menus[(int)Menu.Options].buttonHighlight[0] = false;
+                            Menus[(int)Menu.Options].buttonHighlight[1] = true;
+                        }
                         if (Menus[(int)Menu.Options].buttonPressed == 2)
+                        {
                             AudioManager.setMusicPlaying(false);
-                         if (Menus[(int)Menu.Options].buttonPressed == 3)
-                             AudioManager.setSoundPlaying(true);
+                            Menus[(int)Menu.Options].buttonHighlight[0] = true;
+                            Menus[(int)Menu.Options].buttonHighlight[1] = false;
+                        }
+                        if (Menus[(int)Menu.Options].buttonPressed == 3)
+                        {
+                            AudioManager.setSoundPlaying(true);
+                            Menus[(int)Menu.Options].buttonHighlight[2] = false;
+                            Menus[(int)Menu.Options].buttonHighlight[3] = true;
+                        }
                         if (Menus[(int)Menu.Options].buttonPressed == 4)
+                        {
                             AudioManager.setSoundPlaying(false);
+                            Menus[(int)Menu.Options].buttonHighlight[2] = true;
+                            Menus[(int)Menu.Options].buttonHighlight[3] = false;
+                        }
                         if (Menus[(int)Menu.Options].buttonPressed == 5)
+                        {
+                            AudioManager.setSoundPlaying(true);
+                            easyMode = true;
+                            Menus[(int)Menu.Options].buttonHighlight[4] = false;
+                            Menus[(int)Menu.Options].buttonHighlight[5] = true;
+                        }
+                        if (Menus[(int)Menu.Options].buttonPressed == 6)
+                        {
+                            AudioManager.setSoundPlaying(false);
+                            easyMode = false;
+                            Menus[(int)Menu.Options].buttonHighlight[4] = true;
+                            Menus[(int)Menu.Options].buttonHighlight[5] = false;
+                        }
+                        if (Menus[(int)Menu.Options].buttonPressed == 7)
                         {
                             CurrentMenu = Menu.Main;
                             Menus[(int)Menu.Options].selectedButton = 1;
@@ -427,15 +469,24 @@ namespace SSORF.Management
             Rectangle screen = graphics.Viewport.Bounds;
 
             //spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, scale);
+            if (CurrentMenu == Menu.Options)
+                Menus[(int)CurrentMenu].drawWithHighlights(spriteBatch, scale);
+            else
             Menus[(int)CurrentMenu].draw(spriteBatch, scale);
             spriteBatch.Begin();
+
+
+
             #region draw menu messages and vehicle specs
 
-            string button;
+            string backButton;
+            string selectButton;
 #if XBOX
-            button = "    Y";
+            backButton = "    Y";
+            selectButton = "  [A]   ";
 #else
-            button = "BackSpace";
+            backButton = "BackSpace";
+            selectButton = "SpaceBar ";
 #endif
 
 
@@ -446,6 +497,8 @@ namespace SSORF.Management
                         new Vector2(screen.Left + offset, screen.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(menuFont, "You have $" + player.Money.ToString(),
                         new Vector2(screen.Left + offset, screen.Bottom - (offset * 1)), Color.Black);
+                    spriteBatch.DrawString(menuFont, "Press " + selectButton + "to make a selection",
+                        new Vector2(screen.Left + offset * 10, screen.Bottom - (offset * 16)), Color.Black);
                     break;
                 
                 //display upgrade data
@@ -460,7 +513,7 @@ namespace SSORF.Management
                         drawUpgradeSpecs(spriteBatch);
                     }
 
-                    spriteBatch.DrawString(menuFont, "Press " + button,
+                    spriteBatch.DrawString(menuFont, "Press " + backButton,
                         new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 2)), Color.Tan);
                     spriteBatch.DrawString(menuFont, "to return to Main Menu",
                         new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 1)), Color.Tan);
@@ -477,7 +530,7 @@ namespace SSORF.Management
                         drawVehicleSpecs(spriteBatch, new Vector2(screen.Left + (offset * 16), screen.Top + (offset * 5)), 
                             Menus[(int)Menu.Dealership].SelectedButton - 1);
                     }
-                    spriteBatch.DrawString(menuFont, "Press " + button,
+                    spriteBatch.DrawString(menuFont, "Press " + backButton,
                         new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(menuFont, "to return to Main Menu",
                         new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 1)), Color.Black);
@@ -490,7 +543,7 @@ namespace SSORF.Management
                         drawVehicleSpecs(spriteBatch, new Vector2(screen.Left + (offset * 13), screen.Top + (offset * 6.5f)), scooterIDnums[Menus[(int)Menu.VehicleSelect].SelectedButton - 1],
                             player.UpgradeTotals[scooterIDnums[Menus[(int)Menu.VehicleSelect].SelectedButton - 1]]);
 
-                    spriteBatch.DrawString(menuFont, "Press " + button,
+                    spriteBatch.DrawString(menuFont, "Press " + backButton,
                         new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(menuFont, "to return to Main Menu",
                         new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 1)), Color.Black);
@@ -512,13 +565,19 @@ namespace SSORF.Management
 #endif
                     string controls = "DRIVING CONTROLS \n\nForward:  \nReverse:  \nSteering:  \nPause:  ";
                     string buttons = "\n\n" + forward + "\n" + reverse + "\n" + steering + "\n" + pause;
-                    spriteBatch.DrawString(menuFont, controls, new Vector2(screen.Left + (offset * 5), screen.Top + (screen.Bottom / 2) - (offset * 1)), Color.Black);
-                    spriteBatch.DrawString(menuFont, buttons, new Vector2(screen.Left + (offset * 8), screen.Top + (screen.Bottom / 2) - (offset * 1)), Color.Black);
+                    spriteBatch.DrawString(menuFont, controls, new Vector2(screen.Left + (offset * 15), screen.Top + (screen.Bottom / 2) - (offset * 6)), Color.Black);
+                    spriteBatch.DrawString(menuFont, buttons, new Vector2(screen.Left + (offset * 18), screen.Top + (screen.Bottom / 2) - (offset * 6)), Color.Black);
+                    
+                    if(Menus[(int)Menu.Options].SelectedButton == 5)
+                        spriteBatch.DrawString(menuFont, "More time, less prize money", new Vector2(screen.Left + (offset * 15), screen.Top + (offset * 11)), Color.Black);
+                    else if (Menus[(int)Menu.Options].SelectedButton == 6)
+                        spriteBatch.DrawString(menuFont, "Less time, more prize money", new Vector2(screen.Left + (offset * 15), screen.Top + (offset * 11)), Color.Black);
 
                     spriteBatch.Draw(fixedImage, new Vector2(screen.Left + (offset * 2), screen.Top + (offset * 3)), Color.White);
                     spriteBatch.Draw(SoundOption, new Vector2(screen.Left + (offset * 2), screen.Top + (offset * 6)), Color.White);
+                    spriteBatch.Draw(DifficultyOption, new Vector2(screen.Left + (offset * 2), screen.Top + (offset * 9)), Color.White);
 
-                    spriteBatch.DrawString(menuFont, "Press " + button,
+                    spriteBatch.DrawString(menuFont, "Press " + backButton,
                         new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(menuFont, "to return to Main Menu",
                         new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 1)), Color.Black);
@@ -531,7 +590,7 @@ namespace SSORF.Management
                     spriteBatch.DrawString(menuFont, "You have $" + player.Money.ToString(),
                         new Vector2(screen.Left + offset, screen.Bottom - (offset * 1)), Color.Black);
 
-                    spriteBatch.DrawString(menuFont, "Press " + button,
+                    spriteBatch.DrawString(menuFont, "Press " + backButton,
                         new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(menuFont, "to return to Main Menu",
                         new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 1)), Color.Black);
