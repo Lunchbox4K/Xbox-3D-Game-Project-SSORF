@@ -112,8 +112,7 @@ namespace SSORF.Management
                         resetEngineSounds();
                         engineSounds.Play();
                     }
-                    else if (engineSounds.IsPlaying == false &&
-                        engineSounds.IsPrepared)
+                    else if (engineSounds.IsPlaying == false && engineSounds.IsPrepared)
                         engineSounds.Play();
                 }
                 else
@@ -172,6 +171,26 @@ namespace SSORF.Management
             audioEngine.Update();
         }
 
+        /// <summary>
+        /// Play a sound from the sound bank as long as sound is on
+        /// </summary>
+        /// <param name="cueName">the name of the cue to play</param>
+        public static void playSound(String cueName)
+        {
+            if(isSoundPlaying)
+                soundBank.PlayCue(cueName);
+        }
+
+        /// <summary>
+        /// Play a music file from the sound bank as long as music is on
+        /// </summary>
+        /// <param name="cueName">the name of the cue to play</param>
+        public static void playMusic(String cueName)
+        {
+            if (isMusicPlaying)
+                soundBank.PlayCue(cueName);
+        }
+        
         //Gets a cue from the sound bank
         public static Cue getCue(String cueName)
         {
