@@ -15,77 +15,121 @@ using Microsoft.Xna.Framework.Media;
 
 namespace SSORF.Management.States
 {
-    //Starting is used for 3..2..1..go and Ending would 
-    //normally be used when all checkpoints are cleared
-
     public enum MissionState
     { Starting, Playing, Ending, Paused }
 
-    class Mission
+    class Mission : GameComponent
     {
+        //---------------------------------------------------------------------
+        // Members
+        //---------------------------------------------------------------------
         #region members
 
-        private bool isLoaded = false;
+        //Debug
+        private SSORF.Objects.fpsCalculator fps;
 
-        public Game rootGame; 
+        //Mission States State
+        private bool isLoaded = false;
         public bool Active = true;
-        Objects.Player player;
-        //was the mission completed successfully?
         private bool missionComplete = false;
         private MissionState state = MissionState.Starting;
-        //used for 3..2..1..go
-        TimeSpan countDown = new TimeSpan(0,0,4);
-        TimeSpan timeLimit;
-        int prizeMoney;
+        private TimeSpan countDown = new TimeSpan(0, 0, 4);
+        private TimeSpan timeLimit;         //used for 3..2..1..go
+
+        //Player Logic
+        private Objects.Player player;
+
+        //$$$$
+        private int prizeMoney;
+
+        //Models and Objects
         private Objects.Vehicle scooter = new Objects.Vehicle();
+        private List<SSORF.Objects.StaticModel> playerModels;
+
         private Objects.StaticModel Check;
         private Objects.ModelCollection CheckPoints;
+        private Objects.SimpleModel arrow;
+        private Objects.StaticModel driver;
+
+        //Checkpoint Logic
         private Vector3[] CheckPointCoords;
         private short numCheckPoints = 0;
         private short currentCheckPoint = 0;
         private float checkPointYaw = 0.0f;
-        Objects.ThirdPersonCamera camera = new Objects.ThirdPersonCamera();
-        Objects.SimpleModel arrow;
-        Objects.StaticModel driver;
+
+        //Ye Olde Camera
+        private Objects.ThirdPersonCamera camera = new Objects.ThirdPersonCamera();
+
+
+        //use these fonts to print strings
+        private SpriteFont largeFont;
+        private SpriteFont smallFont;
+
+        //Level and Level Models (using LevelProperties)\
+        //  Includes general level model view culling
+        private SSORFlibrary.LevelLayout levelProperties;
+        private SSORF.Objects.Level level;
+
+        //Collision Detection
+        SSORF.Objects.CollisionDetection collisions;
+        SSORF.Objects.Collision[] collisionList;
+
+
+
+        private Rectangle bounds;
+        int offset = SSORF.Management.StateManager.bounds.Height / 20;
+        int offsetW = SSORF.Management.StateManager.bounds.Width / 20;
+
+        //Game Pad Properties   (XBOX / WINDOWS)
 #if XBOX
         bool gamepadInUse = true;
 #elif WINDOWS
         bool gamepadInUse = false;
 #endif
 
-        //use these fonts to print strings
-        private SpriteFont largeFont;
-        private SpriteFont smallFont;
-        //Level
-        SSORFlibrary.LevelLayout levelProperties;
-        SSORF.Objects.Level level;
-
-        SSORF.Objects.fpsCalculator fps;
-        SSORF.Objects.CollisionDetection collisions;
-        SSORF.Objects.Collision[] collisionList;
-        List<SSORF.Objects.StaticModel> playerModels;
-        //string debugMessage = "";
-
-        private Rectangle bounds;
-        int offset = SSORF.Management.StateManager.bounds.Height / 20;
-        int offsetW = SSORF.Management.StateManager.bounds.Width / 20;
         #endregion
+        //---------------------------------------------------------------------
+        // Constructor
+        //---------------------------------------------------------------------
+        #region Constructor
 
         //empty constructor for making missions without parameters
-        public Mission()
-        { }
-
-        public Mission(Objects.Player playerInfo, SSORFlibrary.ScooterData ScooterSpecs, Game game, short missionID, bool easy)
+        public Mission(Game game)
+            : base(game)
         {
+
+        }
+
+        public Mission(Game game, Objects.Player playerInfo, SSORFlibrary.ScooterData ScooterSpecs, short missionID, bool easy)
+            : base(game)
+        {
+            //Debug Display
             fps = new Objects.fpsCalculator();
+
             player = playerInfo;
-            rootGame = game;
             scooter.load(game.Content, ScooterSpecs, player.UpgradeTotals[ScooterSpecs.IDnum]);
             playerModels = new List<Objects.StaticModel>();
             playerModels.Add(scooter.Geometry);
             camera.ProjMtx = Matrix.CreatePerspectiveFieldOfView(
                             MathHelper.ToRadians(45.0f),
                             game.GraphicsDevice.Viewport.AspectRatio, 1.0f, 2000.0f);
+
+            //Load Default Levels
+            LoadDefaultLevel(ref missionID, ref easy);
+
+            //Initialize the variable in the constructor
+            collisions = new Objects.CollisionDetection();
+            collisions.setPlayerModels(playerModels);
+        }
+
+        /// <summary>
+        /// Loads the one of the default levels using a given Mission ID and sets
+        /// the difficulty to normal or easy based on the easy bool
+        /// </summary>
+        /// <param name="missionID"></param>
+        /// <param name="easy"></param>
+        private void LoadDefaultLevel(ref short missionID, ref bool easy)
+        {
             //Set Level
             levelProperties = new SSORFlibrary.LevelLayout();
             levelProperties.instanced_models = new List<SSORFlibrary.LocationMapAsset>();
@@ -230,21 +274,23 @@ namespace SSORF.Management.States
             }
             #endregion
 
-            levelProperties.location_map = "Images\\Terrain\\lvl"+missionID.ToString()+"_mm";
+            levelProperties.location_map = "Images\\Terrain\\lvl" + missionID.ToString() + "_mm";
             levelProperties.level_effect = "Effects\\TerrainTextureEffect";
             levelProperties.viewTree_refreshRate = 8;
-            level = new Objects.Level(game, levelProperties);
-
-            //Initialize the variable in the constructor
-            collisions = new Objects.CollisionDetection();
-            collisions.setPlayerModels(playerModels);
+            level = new Objects.Level(base.Game, levelProperties);
         }
+
+        #endregion
+        //---------------------------------------------------------------------
+        // Content Loading and Unloading
+        //---------------------------------------------------------------------
+        #region Load/Unload
 
         //missionId can be used to load checkpoint coordinates for that mission
         //from a file, as well as the filenames/locations of levelObjects, etc.
         public void load(ContentManager content, short missionID, bool easy)
         {
-            
+
             //load fonts
             largeFont = content.Load<SpriteFont>("missionFont");
             smallFont = content.Load<SpriteFont>("font");
@@ -258,14 +304,14 @@ namespace SSORF.Management.States
             //Grabs the raw static and instanced model data from the level for processing
             // Will probably grab a list of checkpoints if the list is created in the level class
             collisions.setModels(level.StaticModels, level.InstancedModels, level.ModelInstances);
-           
+
 
             Check = new Objects.StaticModel(content, "Models\\check",
                         Vector3.Zero, Matrix.Identity, 1f);
-            
+
             Check.LoadModel();
 
-            
+
             //with missionID we can have a different starting positions, checkpoints, etc. for each mission
             //We need to load the data for each mission from file using the missionID
 
@@ -286,7 +332,7 @@ namespace SSORF.Management.States
 
             float startingYaw = (level.playerStart.W / 255.0f) * MathHelper.TwoPi;
 
-            scooter.setStartingPosition(startingYaw, 
+            scooter.setStartingPosition(startingYaw,
                 new Vector3(level.playerStart.X, level.playerStart.Y, level.playerStart.Z), 0);
 
             arrow = new Objects.SimpleModel();
@@ -301,7 +347,7 @@ namespace SSORF.Management.States
 
             camera.update(scooter.Geometry.Location, scooter.Yaw);
 
-            bounds = rootGame.GraphicsDevice.Viewport.TitleSafeArea;
+            bounds = base.Game.GraphicsDevice.Viewport.TitleSafeArea;
 
             //Starts the collision detector
             collisions.start();
@@ -321,16 +367,16 @@ namespace SSORF.Management.States
             isLoaded = false;
         }
 
-        public void update(GameTime gameTime)
+        #endregion
+        //---------------------------------------------------------------------
+        // Update Functions
+        //---------------------------------------------------------------------
+        #region update
+
+        private void updateDebug(GameTime gameTime)
         {
-            //Updates the bounding spheres location and velocity
-            //Waites for the thread functions sleep command outside
-            //  the data lock.
-            List<Objects.StaticModel> tmpPlayerModelList = 
-                new List<Objects.StaticModel>();
-            tmpPlayerModelList.Add(scooter.Geometry);
-            collisions.setPlayerModels(tmpPlayerModelList);
-            collisionList = collisions.waitToGetCollisions;
+            fps.update(gameTime);
+
             #region debug message stuff
             //debugMessage = "";
             //BoundingSphere[] staticSpheres = collisions.waitToGetStaticSpheres;
@@ -363,39 +409,21 @@ namespace SSORF.Management.States
             //debugMessage += "\n";
             //}
             #endregion
-            fps.update(gameTime);
+        }
 
-            //Update Level
-            level.update(gameTime, camera.ViewMtx, camera.ProjMtx);
-
-            //What we update depends on MissionState
-            switch (state)
-            { 
-                //when starting update countdown
-                case MissionState.Starting :
-                    countDown -= gameTime.ElapsedGameTime;
-
-                    if (countDown.Seconds < 1 && countDown.Milliseconds < 500)
-                        state = MissionState.Playing;
-
-                    checkPointYaw += 0.05f;
-                    for (int i = currentCheckPoint; i < numCheckPoints; i++)
-                        CheckPoints.Geometry.Orientation = Matrix.CreateRotationY(checkPointYaw);
-
-                break;
-
-                case MissionState.Paused :
-                    //no updates while paused
+        private void updateGamePaused(GameTime gameTime)
+        {
+            //no updates while paused
 #if XBOX
-                    if (gamePadState.current.Buttons.Y == ButtonState.Pressed)
-                        AudioManager.ResumeAudio();
-                        state = MissionState.Ending;
-                    if (gamePadState.current.Buttons.Start == ButtonState.Pressed &&
-                        gamePadState.previous.Buttons.Start == ButtonState.Released)
-                    {
-                        AudioManager.PauseAudio();
-                        state = MissionState.Playing;
-                    }
+            if (gamePadState.current.Buttons.Y == ButtonState.Pressed)
+                AudioManager.ResumeAudio();
+            state = MissionState.Ending;
+            if (gamePadState.current.Buttons.Start == ButtonState.Pressed &&
+                gamePadState.previous.Buttons.Start == ButtonState.Released)
+            {
+                AudioManager.PauseAudio();
+                state = MissionState.Playing;
+            }
 #else
                
                 if (keyBoardState.current.IsKeyDown(Keys.Q))
@@ -410,117 +438,117 @@ namespace SSORF.Management.States
                     state = MissionState.Playing;
                 }     
 #endif
-                break;
+        }
 
-                //if we are playing update scooter/camera using player input
-                case MissionState.Playing :
+        private void updateGamePlaying(GameTime gameTime)
+        {
 
-                //Used to store coordinates of object closest to the scooter, using scooter location as origin
-                Vector3 closestObjectOffSet = Vector3.Zero;
+            //Used to store coordinates of object closest to the scooter, using scooter location as origin
+            Vector3 closestObjectOffSet = Vector3.Zero;
 
-                //if scooter exceeds min/max X or Z set edge of map as closest object
-                if(scooter.Geometry.Location.X > 780)
-                    closestObjectOffSet = 
-                        new Vector3(790, scooter.Geometry.Location.Y, scooter.Geometry.Location.Z) - 
-                        scooter.Geometry.Location;
-                else if (scooter.Geometry.Location.X < -780)
-                    closestObjectOffSet = 
-                        new Vector3(-790, scooter.Geometry.Location.Y, scooter.Geometry.Location.Z) - 
-                        scooter.Geometry.Location;
-                else if(scooter.Geometry.Location.Z > 780)
-                    closestObjectOffSet =
-                        new Vector3(scooter.Geometry.Location.X, scooter.Geometry.Location.Y, 790) -
-                        scooter.Geometry.Location;
-                else if (scooter.Geometry.Location.Z < -780)
-                    closestObjectOffSet =
-                        new Vector3(scooter.Geometry.Location.X, scooter.Geometry.Location.Y, -790) -
-                        scooter.Geometry.Location;
+            //if scooter exceeds min/max X or Z set edge of map as closest object
+            if (scooter.Geometry.Location.X > 780)
+                closestObjectOffSet =
+                    new Vector3(790, scooter.Geometry.Location.Y, scooter.Geometry.Location.Z) -
+                    scooter.Geometry.Location;
+            else if (scooter.Geometry.Location.X < -780)
+                closestObjectOffSet =
+                    new Vector3(-790, scooter.Geometry.Location.Y, scooter.Geometry.Location.Z) -
+                    scooter.Geometry.Location;
+            else if (scooter.Geometry.Location.Z > 780)
+                closestObjectOffSet =
+                    new Vector3(scooter.Geometry.Location.X, scooter.Geometry.Location.Y, 790) -
+                    scooter.Geometry.Location;
+            else if (scooter.Geometry.Location.Z < -780)
+                closestObjectOffSet =
+                    new Vector3(scooter.Geometry.Location.X, scooter.Geometry.Location.Y, -790) -
+                    scooter.Geometry.Location;
 
-                //Check collision distance
-                for (int i = 0; i < collisionList.Length; i++)
+            //Check collision distance
+            for (int i = 0; i < collisionList.Length; i++)
+            {
+                //find location of object using scooter model as origin
+                Vector3 collisionOffSet = collisionList[i].objectSphere.Center - scooter.Geometry.Location;
+
+                //if distance from player to object is less than either bounding sphere....
+                if (collisionOffSet.Length() < collisionList[i].objectSphere.Radius ||
+                    collisionOffSet.Length() < collisionList[i].playerSphere.Radius)
                 {
-                    //find location of object using scooter model as origin
-                    Vector3 collisionOffSet = collisionList[i].objectSphere.Center - scooter.Geometry.Location;
+                    //check to see if it is the closest object in the case of multiple collisions
+                    if (closestObjectOffSet == Vector3.Zero)
+                        closestObjectOffSet = collisionOffSet;
+                    else if (collisionOffSet.Length() < closestObjectOffSet.Length())
+                        closestObjectOffSet = collisionOffSet;
 
-                    //if distance from player to object is less than either bounding sphere....
-                    if (collisionOffSet.Length() < collisionList[i].objectSphere.Radius ||
-                        collisionOffSet.Length() < collisionList[i].playerSphere.Radius)
-                    {
-                        //check to see if it is the closest object in the case of multiple collisions
-                        if (closestObjectOffSet == Vector3.Zero)
-                            closestObjectOffSet = collisionOffSet;
-                        else if (collisionOffSet.Length() < closestObjectOffSet.Length())
-                            closestObjectOffSet = collisionOffSet;
-
-                        break;
-                    }
-
-
+                    break;
                 }
 
-                if (gamepadInUse)
-                {
-                    scooter.update(gameTime, -gamePadState.current.ThumbSticks.Left.X, gamePadState.current.Triggers.Right, gamePadState.current.Triggers.Left, closestObjectOffSet);
-                }
-                else
-                {
-                    float tVal = 0;
-                    float bVal = 0;
-                    float sVal = 0;
-                    if (keyBoardState.current.IsKeyDown(Keys.Up))
-                        tVal = 1;
-                    if (keyBoardState.current.IsKeyDown(Keys.Down))
-                        bVal = 1;
-                    if (keyBoardState.current.IsKeyDown(Keys.Left))
-                        sVal = 1;
-                    if (keyBoardState.current.IsKeyDown(Keys.Right))
-                        sVal = -1;
 
-                    scooter.update(gameTime, sVal, tVal, bVal, closestObjectOffSet);
-                }
+            }
 
-                scooter.setNormal(level.TerrainCollision);
-                    camera.update(scooter.Geometry.Location, scooter.Yaw);
+            if (gamepadInUse)
+            {
+                scooter.update(gameTime, -gamePadState.current.ThumbSticks.Left.X, gamePadState.current.Triggers.Right, gamePadState.current.Triggers.Left, closestObjectOffSet);
+            }
+            else
+            {
+                float tVal = 0;
+                float bVal = 0;
+                float sVal = 0;
+                if (keyBoardState.current.IsKeyDown(Keys.Up))
+                    tVal = 1;
+                if (keyBoardState.current.IsKeyDown(Keys.Down))
+                    bVal = 1;
+                if (keyBoardState.current.IsKeyDown(Keys.Left))
+                    sVal = 1;
+                if (keyBoardState.current.IsKeyDown(Keys.Right))
+                    sVal = -1;
 
-                    Vector3 checkOffSet = CheckPointCoords[currentCheckPoint] - scooter.Geometry.Location;
-                    checkOffSet.Normalize();
-                    arrow.WorldMtx = Matrix.CreateTranslation(scooter.Geometry.Location + (Vector3.Up * 40));
+                scooter.update(gameTime, sVal, tVal, bVal, closestObjectOffSet);
+            }
 
-                    arrow.WorldMtx.Forward = checkOffSet;
-                    arrow.WorldMtx.Forward *= new Vector3(1,0,1);
-                    arrow.WorldMtx.Right = (arrow.WorldMtx * Matrix.CreateRotationY(MathHelper.ToRadians(-90))).Forward;
-                    arrow.WorldMtx.Right *= new Vector3(1,0,1);
+            scooter.setNormal(level.TerrainCollision);
+            camera.update(scooter.Geometry.Location, scooter.Yaw);
 
-                    driver.Location = scooter.Geometry.Location;
-                    driver.Orientation = scooter.Geometry.Orientation;
-                    timeLimit -= gameTime.ElapsedGameTime;
-                    if (timeLimit.Milliseconds < 0)
-                        state = MissionState.Ending;
+            Vector3 checkOffSet = CheckPointCoords[currentCheckPoint] - scooter.Geometry.Location;
+            checkOffSet.Normalize();
+            arrow.WorldMtx = Matrix.CreateTranslation(scooter.Geometry.Location + (Vector3.Up * 40));
 
-                    checkPointYaw += 0.05f;
-                    for (int i = currentCheckPoint; i < numCheckPoints; i++)
-                        CheckPoints.Geometry.Orientation = Matrix.CreateRotationY(checkPointYaw);
+            arrow.WorldMtx.Forward = checkOffSet;
+            arrow.WorldMtx.Forward *= new Vector3(1, 0, 1);
+            arrow.WorldMtx.Right = (arrow.WorldMtx * Matrix.CreateRotationY(MathHelper.ToRadians(-90))).Forward;
+            arrow.WorldMtx.Right *= new Vector3(1, 0, 1);
 
-                    //Collision Detection
+            driver.Location = scooter.Geometry.Location;
+            driver.Orientation = scooter.Geometry.Orientation;
+            timeLimit -= gameTime.ElapsedGameTime;
+            if (timeLimit.Milliseconds < 0)
+                state = MissionState.Ending;
 
-                    if (CheckPoints.CheckCollision(currentCheckPoint, scooter.Geometry))
-                        currentCheckPoint += 1;
-                    
+            checkPointYaw += 0.05f;
+            for (int i = currentCheckPoint; i < numCheckPoints; i++)
+                CheckPoints.Geometry.Orientation = Matrix.CreateRotationY(checkPointYaw);
 
-                    if (currentCheckPoint == numCheckPoints)
-                    {
-                        player.Money += prizeMoney;
-                        missionComplete = true;
-                        state = MissionState.Ending;
-                    }
+            //Collision Detection
+
+            if (CheckPoints.CheckCollision(currentCheckPoint, scooter.Geometry))
+                currentCheckPoint += 1;
+
+
+            if (currentCheckPoint == numCheckPoints)
+            {
+                player.Money += prizeMoney;
+                missionComplete = true;
+                state = MissionState.Ending;
+            }
 
 #if XBOX
-                    if (gamePadState.current.Buttons.Start == ButtonState.Pressed &&
-                        gamePadState.current.Buttons.Start == ButtonState.Released)
-                    {
-                        AudioManager.ResumeAudio();
-                        state = MissionState.Paused;
-                    }
+            if (gamePadState.current.Buttons.Start == ButtonState.Pressed &&
+                gamePadState.current.Buttons.Start == ButtonState.Released)
+            {
+                AudioManager.ResumeAudio();
+                state = MissionState.Paused;
+            }
 #else
 
                     if (keyBoardState.current.IsKeyDown(Keys.Enter) && 
@@ -530,14 +558,60 @@ namespace SSORF.Management.States
                         state = MissionState.Paused;
                     }    
 #endif
-                break;
+        }
+
+        private void updateCollisions(GameTime gameTime)
+        {
+            List<Objects.StaticModel> tmpPlayerModelList =
+                new List<Objects.StaticModel>();
+            tmpPlayerModelList.Add(scooter.Geometry);
+            collisions.setPlayerModels(tmpPlayerModelList);
+            collisionList = collisions.waitToGetCollisions;
+        }
+
+        public void update(GameTime gameTime)
+        {
+
+            updateCollisions(gameTime);
+
+            updateDebug(gameTime);
+
+            //Update Level
+            level.update(gameTime, camera.ViewMtx, camera.ProjMtx);
+
+            //What we update depends on MissionState
+            switch (state)
+            {
+                //when starting update countdown
+                case MissionState.Starting:
+                    countDown -= gameTime.ElapsedGameTime;
+
+                    if (countDown.Seconds < 1 && countDown.Milliseconds < 500)
+                        state = MissionState.Playing;
+
+                    checkPointYaw += 0.05f;
+                    for (int i = currentCheckPoint; i < numCheckPoints; i++)
+                        CheckPoints.Geometry.Orientation = Matrix.CreateRotationY(checkPointYaw);
+
+                    break;
+
+                case MissionState.Paused:
+                    updateGamePaused(gameTime);
+                    break;
+
+                //if we are playing update scooter/camera using player input
+                case MissionState.Playing:
+
+                    updateGamePlaying(gameTime);
+
+                    break;
 
 
                 //If mission has ended wait for user to confirm returning to menu
-                case MissionState.Ending :
-                //Pause audio so we dont hear engine noise etc.
-                if (AudioManager.getSoundPlaying() || AudioManager.getMusicPlaying())
-                    AudioManager.PauseAudio();
+                case MissionState.Ending:
+                    //Pause audio so we dont hear engine noise etc.
+                    if (AudioManager.getSoundPlaying() || AudioManager.getMusicPlaying())
+                        AudioManager.PauseAudio();
 #if XBOX
                     if (gamePadState.current.Buttons.Start == ButtonState.Pressed)
                     {
@@ -552,12 +626,16 @@ namespace SSORF.Management.States
                         Active = false;
                     }             
 #endif
-                break;
+                    break;
             }
 
         }
 
-
+        #endregion
+        //---------------------------------------------------------------------
+        // Draw Functions
+        //---------------------------------------------------------------------
+        #region Draw
 
         public void draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
@@ -572,17 +650,17 @@ namespace SSORF.Management.States
                 arrow.draw(camera.ViewMtx, camera.ProjMtx);
 
             CheckPoints.draw(gameTime, camera, currentCheckPoint, (short)(currentCheckPoint + 1));
-           
 
-            
+
+
             //These setting allow us to print strings without screwing with the
             //3D rendering, but Carl told me it won't work with transparent objects
 
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, 
-                SamplerState.AnisotropicClamp, DepthStencilState.Default, 
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend,
+                SamplerState.AnisotropicClamp, DepthStencilState.Default,
                 RasterizerState.CullCounterClockwise);
 
-            
+
 
             //display camera and scooter coordinates for testing
 
@@ -613,8 +691,8 @@ namespace SSORF.Management.States
 #endif
             //This switch statement prints different instructions depending on MissionState
             switch (state)
-            { 
-                case MissionState.Starting :
+            {
+                case MissionState.Starting:
                     spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString("#.##"), new Vector2(bounds.Right - (bounds.Right / 4), bounds.Top + offset), Color.Black);
                     spriteBatch.DrawString(smallFont, "Check Points Remaining: " + (numCheckPoints - currentCheckPoint).ToString(), new Vector2(bounds.Left + offsetW, bounds.Top + offset), Color.Black);
                     spriteBatch.DrawString(smallFont, "Get ready to race!!!", new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 2)), Color.Black);
@@ -623,7 +701,7 @@ namespace SSORF.Management.States
                         spriteBatch.DrawString(largeFont, countDown.Seconds.ToString(), new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2), bounds.Top + (offset * 2)), Color.Black);
                     else
                         spriteBatch.DrawString(largeFont, "GO!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2), bounds.Top + (offset * 2)), Color.Black);
-                break;
+                    break;
 
                 case MissionState.Paused:
                     spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString("#.##"), new Vector2(bounds.Right - (bounds.Right / 4), bounds.Top + offset), Color.Black);
@@ -631,46 +709,47 @@ namespace SSORF.Management.States
                     spriteBatch.DrawString(smallFont, "Press [" + endKey + "] to quit mission", new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 2.5f)), Color.Black);
                     spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to return to mission", new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0"), new Vector2(bounds.Left + offsetW, bounds.Bottom - (offset * 3)), Color.Red);
-                break;
+                    break;
 
-                case MissionState.Playing :
+                case MissionState.Playing:
                     spriteBatch.DrawString(smallFont, "Time Left: " + timeLimit.TotalSeconds.ToString("#.##"), new Vector2(bounds.Right - (bounds.Right / 4), bounds.Top + offset), Color.Black);
                     spriteBatch.DrawString(smallFont, "Check Points Remaining: " + (numCheckPoints - currentCheckPoint).ToString(), new Vector2(bounds.Left + offsetW, bounds.Top + offset), Color.Black);
                     spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to pause mission", new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(largeFont, Math.Abs(scooter.Speed * 2.23f).ToString("0") + " mph", new Vector2(bounds.Left + offsetW, bounds.Bottom - (offset * 3)), Color.Red);
-                break;
+                    break;
 
-                case MissionState.Ending :
-                if (missionComplete)
-                {
-                    spriteBatch.DrawString(largeFont, "FINISH!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2), bounds.Top + (offset * 2)), Color.Green);
-                    spriteBatch.DrawString(largeFont, "FINISH!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2) + 1, bounds.Top + (offset * 2) + 1), Color.White);
-                    spriteBatch.DrawString(smallFont, "You earned $" + prizeMoney.ToString(), new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 5.5f)), Color.Yellow);
-                    spriteBatch.DrawString(smallFont, "With " + timeLimit.TotalSeconds.ToString("#.##") + " seconds to spare!!!", new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 5)), Color.Yellow);
-                    spriteBatch.DrawString(smallFont, "You earned $" + prizeMoney.ToString(), new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2) + 1, bounds.Bottom - (offset * 5.5f) + 1), Color.White);
-                    spriteBatch.DrawString(smallFont, "With " + timeLimit.TotalSeconds.ToString("#.##") + " seconds to spare!!!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2) + 1, bounds.Bottom - (offset * 5) + 1), Color.White);
-                }
-                else
-                    spriteBatch.DrawString(largeFont, "FAIL!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2), bounds.Top + (offset * 2)), Color.Red);
+                case MissionState.Ending:
+                    if (missionComplete)
+                    {
+                        spriteBatch.DrawString(largeFont, "FINISH!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2), bounds.Top + (offset * 2)), Color.Green);
+                        spriteBatch.DrawString(largeFont, "FINISH!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2) + 1, bounds.Top + (offset * 2) + 1), Color.White);
+                        spriteBatch.DrawString(smallFont, "You earned $" + prizeMoney.ToString(), new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 5.5f)), Color.Yellow);
+                        spriteBatch.DrawString(smallFont, "With " + timeLimit.TotalSeconds.ToString("#.##") + " seconds to spare!!!", new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 5)), Color.Yellow);
+                        spriteBatch.DrawString(smallFont, "You earned $" + prizeMoney.ToString(), new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2) + 1, bounds.Bottom - (offset * 5.5f) + 1), Color.White);
+                        spriteBatch.DrawString(smallFont, "With " + timeLimit.TotalSeconds.ToString("#.##") + " seconds to spare!!!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2) + 1, bounds.Bottom - (offset * 5) + 1), Color.White);
+                    }
+                    else
+                        spriteBatch.DrawString(largeFont, "FAIL!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2), bounds.Top + (offset * 2)), Color.Red);
 
-                spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to return to menu", new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 2)), Color.White);
-                break;
-            
+                    spriteBatch.DrawString(smallFont, "Press [" + returnKey + "] to return to menu", new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 2)), Color.White);
+                    break;
+
             }
 
             spriteBatch.End();
 
         }
 
-        //accessors and mutators
-        //public Objects.SimpleModel Geometry { get { return geometry; } set { geometry = value; } }
+        #endregion
+        //---------------------------------------------------------------------
+        // Accessors and Mutators
+        //---------------------------------------------------------------------
+        #region Accessors/Mutators
 
-        public Objects.ThirdPersonCamera Camera { get { return camera; } 
-            set { camera = value; } }
+        public Objects.ThirdPersonCamera Camera { get { return camera; } set { camera = value; } }
 
-        public bool IsLoaded
-        {
-            get { return isLoaded; }
-        }
+        public bool IsLoaded { get { return isLoaded; } }
+
+        #endregion
     }
 }
