@@ -50,56 +50,80 @@ namespace SSORF.Management.States
 #if XBOX
             if (gamePadState.current.DPad.Right == ButtonState.Pressed &&
                 gamePadState.previous.DPad.Right == ButtonState.Released)
+            {
                 if (selectedButton == 1)
                     selectedButton = numButtons;
                 else
                     selectedButton -= 1;
+                AudioManager.playSound(AudioManager.CLICK_CUE);
+            }
 
             if (gamePadState.current.DPad.Left == ButtonState.Pressed &&
                 gamePadState.previous.DPad.Left == ButtonState.Released)
+            {
                 if (selectedButton == numButtons)
                     selectedButton = 1;
                 else
                     selectedButton += 1;
+                AudioManager.playSound(AudioManager.CLICK_CUE);
+            }
 
             if (gamePadState.current.Buttons.A == ButtonState.Pressed && gamePadState.previous.Buttons.A == ButtonState.Released)
+            {
                 buttonPressed = selectedButton;
+                AudioManager.playSound(AudioManager.CLICK_CUE);
+            }
 #else
             //if we are at the last button go back to the first
-            if (keyBoardState.current.IsKeyDown(Keys.Left) && 
+            if (keyBoardState.current.IsKeyDown(Keys.Left) &&
                 keyBoardState.previous.IsKeyUp(Keys.Left))
+            {
                 if (selectedButton == 1)
                     selectedButton = numButtons;
                 else
                     selectedButton -= 1;
+                AudioManager.playSound(AudioManager.CLICK_CUE);
+            }
 
             //if we are at the first button we can jump to the last one
             if (keyBoardState.current.IsKeyDown(Keys.Right) &&
                 keyBoardState.previous.IsKeyUp(Keys.Right))
+            {
                 if (selectedButton == numButtons)
                     selectedButton = 1;
                 else
                     selectedButton += 1;
+                AudioManager.playSound(AudioManager.CLICK_CUE);
+            }
 
             //if we are at the last button go back to the first
             if (keyBoardState.current.IsKeyDown(Keys.Up) &&
                 keyBoardState.previous.IsKeyUp(Keys.Up))
+            {
                 if (selectedButton == 1)
                     selectedButton = numButtons;
                 else
                     selectedButton -= 1;
+                AudioManager.playSound(AudioManager.CLICK_CUE);
+            }
 
             //if we are at the first button we can jump to the last one
             if (keyBoardState.current.IsKeyDown(Keys.Down) &&
                 keyBoardState.previous.IsKeyUp(Keys.Down))
+            {
                 if (selectedButton == numButtons)
                     selectedButton = 1;
                 else
                     selectedButton += 1;
+                AudioManager.playSound(AudioManager.CLICK_CUE);
+            }
 
             //space bar will activate the button
             if (keyBoardState.previous.IsKeyUp(Keys.Space) && keyBoardState.current.IsKeyDown(Keys.Space))
+            {
                 buttonPressed = selectedButton;
+                AudioManager.playSound(AudioManager.CLICK_CUE);
+            }
 #endif
             //update the cursor position so it is to the left of the button
             updateCursor();
