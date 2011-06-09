@@ -260,6 +260,7 @@ namespace SSORF.Management
                     {
                         Menus[(int)CurrentMenu].SelectedButton = 1;
                         CurrentMenu = Menu.Main;
+                        AudioManager.playSound(AudioManager.CLICK_CUE);
                     }
 #else
                 if (keyBoardState.current.IsKeyDown(Keys.Back) &&
@@ -267,6 +268,7 @@ namespace SSORF.Management
                 {
                     Menus[(int)CurrentMenu].SelectedButton = 1;
                     CurrentMenu = Menu.Main;
+                    AudioManager.playSound(AudioManager.CLICK_CUE);
                 }
 #endif
                 switch (CurrentMenu)

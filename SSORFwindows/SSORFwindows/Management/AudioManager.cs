@@ -13,9 +13,10 @@ namespace SSORF.Management
         private static Cue missionMusic;
         private static Cue engineSounds;
 
-        private const String MENU_CUE = "Exciting Ride";
-        private const String MISSION_CUE = "Journey";
-        private const String ENGINE_CUE = "Engine";
+        public const String MENU_CUE = "Exciting Ride";
+        public const String MISSION_CUE = "Journey";
+        public const String ENGINE_CUE = "Engine";
+        public const String CLICK_CUE = "Click";
 
         //Start music off so people dont kill me
         private static Boolean isMusicPlaying = false;
