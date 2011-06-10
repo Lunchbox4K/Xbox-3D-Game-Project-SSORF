@@ -13,8 +13,8 @@ namespace SSORF.Management
         private static Cue missionMusic;
         private static Cue engineSounds;
 
-        public const String MENU_CUE = "Exciting Ride";
-        public const String MISSION_CUE = "Journey";
+        public const String MENU_CUE = "Menu Music";
+        public const String MISSION_CUE = "Mission Music";
         public const String ENGINE_CUE = "Engine";
         public const String CLICK_CUE = "Click";
 
@@ -82,6 +82,10 @@ namespace SSORF.Management
                             resetMissionMusic();
                             missionMusic.Play();
                         }
+                        else if (missionMusic.IsPaused)
+                        {
+                            missionMusic.Resume();
+                        }
                     }
                     if (menuMusic.IsPlaying)
                         menuMusic.Stop(AudioStopOptions.AsAuthored);
@@ -143,7 +147,7 @@ namespace SSORF.Management
             isSoundPlaying = false;
 
             if (missionMusic.IsPlaying)
-                missionMusic.Stop(AudioStopOptions.AsAuthored);
+                missionMusic.Pause();
             if (menuMusic.IsPlaying)
                 menuMusic.Stop(AudioStopOptions.AsAuthored);
             if (engineSounds.IsPlaying)
