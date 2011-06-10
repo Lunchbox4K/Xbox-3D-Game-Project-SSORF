@@ -16,8 +16,8 @@ Global Settings
     Header File = Background Music.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 1905136372;
-    Last Modified High = 30156540;
+    Last Modified Low = 1974068849;
+    Last Modified High = 30156547;
 
     Category
     {
@@ -360,7 +360,7 @@ Global Settings
         High Freq Cut = 0;
         Loop = 0;
         PC Format Tag = 2;
-        Samples Per Block = 128;
+        Samples Per Block = 32;
     }
 }
 
@@ -373,19 +373,15 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = 80%;
-    Xbox Bank Last Modified Low = 0;
-    Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 1905216377;
-    PC Bank Last Modified High = 30156540;
-    Bank Last Revised Low = 1038346794;
-    Bank Last Revised High = 30156540;
+    Bank Last Revised Low = 1892524185;
+    Bank Last Revised High = 30156547;
 
     Wave
     {
         Name = JewelBeat - Exciting Ride;
         File = JewelBeat - Exciting Ride.wav;
-        Build Settings Last Modified Low = 1038326793;
-        Build Settings Last Modified High = 30156540;
+        Build Settings Last Modified Low = 1892514185;
+        Build Settings Last Modified High = 30156547;
 
         Cache
         {
@@ -407,8 +403,8 @@ Wave Bank
     {
         Name = JewelBeat - Journey Through Time;
         File = JewelBeat - Journey Through Time.wav;
-        Build Settings Last Modified Low = 1038336794;
-        Build Settings Last Modified High = 30156540;
+        Build Settings Last Modified Low = 1892514185;
+        Build Settings Last Modified High = 30156547;
 
         Cache
         {
@@ -430,8 +426,8 @@ Wave Bank
     {
         Name = startup;
         File = startup.wav;
-        Build Settings Last Modified Low = 1038346794;
-        Build Settings Last Modified High = 30156540;
+        Build Settings Last Modified Low = 1892514185;
+        Build Settings Last Modified High = 30156547;
         Compression Preset Name = <none>;
 
         Cache
@@ -454,8 +450,8 @@ Wave Bank
     {
         Name = atspeed;
         File = atspeed.wav;
-        Build Settings Last Modified Low = 1038346794;
-        Build Settings Last Modified High = 30156540;
+        Build Settings Last Modified Low = 1892514185;
+        Build Settings Last Modified High = 30156547;
         Compression Preset Name = <none>;
 
         Cache
@@ -478,8 +474,8 @@ Wave Bank
     {
         Name = SFX_ViperGTS_EngineLoop;
         File = SFX\SFX_ViperGTS_EngineLoop.wav;
-        Build Settings Last Modified Low = 1038346794;
-        Build Settings Last Modified High = 30156540;
+        Build Settings Last Modified Low = 1892514185;
+        Build Settings Last Modified High = 30156547;
 
         Cache
         {
@@ -501,8 +497,8 @@ Wave Bank
     {
         Name = CLICK4C;
         File = CLICK4C.WAV;
-        Build Settings Last Modified Low = 1038346794;
-        Build Settings Last Modified High = 30156540;
+        Build Settings Last Modified Low = 1892514185;
+        Build Settings Last Modified High = 30156547;
         Compression Preset Name = <none>;
 
         Cache
@@ -525,8 +521,8 @@ Wave Bank
     {
         Name = CLICK7A;
         File = CLICK7A.WAV;
-        Build Settings Last Modified Low = 1038346794;
-        Build Settings Last Modified High = 30156540;
+        Build Settings Last Modified Low = 1892514185;
+        Build Settings Last Modified High = 30156547;
         Compression Preset Name = <none>;
 
         Cache
@@ -549,8 +545,8 @@ Wave Bank
     {
         Name = CLICK8A;
         File = CLICK8A.WAV;
-        Build Settings Last Modified Low = 1038346794;
-        Build Settings Last Modified High = 30156540;
+        Build Settings Last Modified Low = 1892514185;
+        Build Settings Last Modified High = 30156547;
         Compression Preset Name = <none>;
 
         Cache
@@ -568,6 +564,98 @@ Wave Bank
             Last Modified High = 30156531;
         }
     }
+
+    Wave
+    {
+        Name = Neolith;
+        File = Neolith.wav;
+        Build Settings Last Modified Low = 1892514185;
+        Build Settings Last Modified High = 30156547;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 48000;
+            Bits Per Sample = 1;
+            Play Region Offset = 46;
+            Play Region Length = 32108544;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 4107150682;
+            Last Modified High = 30156541;
+        }
+    }
+
+    Wave
+    {
+        Name = Riptide;
+        File = Riptide.wav;
+        Build Settings Last Modified Low = 1892514185;
+        Build Settings Last Modified High = 30156547;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 48000;
+            Bits Per Sample = 1;
+            Play Region Offset = 46;
+            Play Region Length = 64000512;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 4139742546;
+            Last Modified High = 30156541;
+        }
+    }
+
+    Wave
+    {
+        Name = Welcome to the Show;
+        File = Welcome to the Show.wav;
+        Build Settings Last Modified Low = 1892524185;
+        Build Settings Last Modified High = 30156547;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 48000;
+            Bits Per Sample = 1;
+            Play Region Offset = 46;
+            Play Region Length = 54282240;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 978030069;
+            Last Modified High = 30156542;
+        }
+    }
+
+    Wave
+    {
+        Name = Take the Lead;
+        File = Take the Lead.wav;
+        Build Settings Last Modified Low = 1892524185;
+        Build Settings Last Modified High = 30156547;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 48000;
+            Bits Per Sample = 1;
+            Play Region Offset = 46;
+            Play Region Length = 43130880;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 3402772204;
+            Last Modified High = 30156546;
+        }
+    }
 }
 
 Sound Bank
@@ -577,8 +665,8 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 2420987515;
-    Bank Last Modified High = 30156539;
+    Bank Last Modified Low = 525155976;
+    Bank Last Modified High = 30156547;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -1035,6 +1123,194 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = Welcome to the Show;
+        Volume = -900;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = Welcome to the Show;
+                    Entry Index = 10;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = Neolith;
+        Volume = -800;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = Neolith;
+                    Entry Index = 8;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = Riptide;
+        Volume = -800;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = Riptide;
+                    Entry Index = 9;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = Take the Lead;
+        Volume = -800;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = Take the Lead;
+                    Entry Index = 11;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = Exciting Ride;
@@ -1181,6 +1457,62 @@ Sound Bank
             Index = 7;
             Weight Min = 0;
             Weight Max = 0;
+        }
+    }
+
+    Cue
+    {
+        Name = Menu Music;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = Welcome to the Show;
+            Index = 8;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = Mission Music;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = Neolith;
+            Index = 9;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+
+        Sound Entry
+        {
+            Name = Riptide;
+            Index = 10;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+
+        Sound Entry
+        {
+            Name = Take the Lead;
+            Index = 11;
+            Weight Min = 0;
+            Weight Max = 255;
         }
     }
 }
