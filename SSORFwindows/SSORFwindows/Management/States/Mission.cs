@@ -457,12 +457,14 @@ namespace SSORF.Management.States
             //no updates while paused
 #if XBOX
             if (gamePadState.current.Buttons.Y == ButtonState.Pressed)
+            {
                 AudioManager.ResumeAudio();
-            state = MissionState.Ending;
+                state = MissionState.Ending;
+            }
             if (gamePadState.current.Buttons.Start == ButtonState.Pressed &&
                 gamePadState.previous.Buttons.Start == ButtonState.Released)
             {
-                AudioManager.PauseAudio();
+                AudioManager.ResumeAudio();
                 state = MissionState.Playing;
             }
 #else
@@ -587,7 +589,7 @@ namespace SSORF.Management.States
             if (gamePadState.current.Buttons.Start == ButtonState.Pressed &&
                 gamePadState.current.Buttons.Start == ButtonState.Released)
             {
-                AudioManager.ResumeAudio();
+                AudioManager.PauseAudio();
                 state = MissionState.Paused;
             }
 #else
@@ -652,7 +654,7 @@ namespace SSORF.Management.States
                 case MissionState.Ending:
                     //Pause audio so we dont hear engine noise etc.
                     if (AudioManager.getSoundPlaying() || AudioManager.getMusicPlaying())
-                        AudioManager.PauseAudio();
+                        AudioManager.MissionEnding();
 #if XBOX
                     if (gamePadState.current.Buttons.Start == ButtonState.Pressed)
                     {

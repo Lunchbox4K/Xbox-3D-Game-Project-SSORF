@@ -177,6 +177,15 @@ namespace SSORF.Management
         }
 
         /// <summary>
+        /// Stops the engine sounds but lets the music continue playing when the mission ends
+        /// </summary>
+        public static void MissionEnding()
+        {
+            if (engineSounds.IsPlaying)
+                engineSounds.Stop(AudioStopOptions.AsAuthored);
+        }
+
+        /// <summary>
         /// Play a sound from the sound bank as long as sound is on
         /// </summary>
         /// <param name="cueName">the name of the cue to play</param>
