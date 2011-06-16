@@ -50,6 +50,16 @@ namespace SSORF.Management.States
         private Objects.ModelCollection CheckPoints;
         private Objects.SimpleModel arrow;
         private Objects.StaticModel driver;
+
+        private Objects.SimpleModel skybox;
+
+        private Objects.SimpleModel store;
+        private Objects.SimpleModel storesign;
+        private Objects.SimpleModel storesign2;
+
+        bool storelevel;
+        bool usingskybox;
+
         string driverFile;
 
         //Checkpoint Logic
@@ -205,6 +215,7 @@ namespace SSORF.Management.States
             #region missions 9-12 use level 3 (parking lot)
             else if (missionID < 13)
             {
+                storelevel = true;
                 if (easy)
                     prizeMoney = missionID * 75;
                 else
@@ -295,7 +306,7 @@ namespace SSORF.Management.States
         //from a file, as well as the filenames/locations of levelObjects, etc.
         public void load(ContentManager content, short missionID, bool easy)
         {
-
+            usingskybox = false;
             //load fonts
             largeFont = content.Load<SpriteFont>("missionFont");
             smallFont = content.Load<SpriteFont>("font");
@@ -342,6 +353,31 @@ namespace SSORF.Management.States
 
             arrow = new Objects.SimpleModel();
             arrow.Mesh = content.Load<Model>("Models\\arrow");
+            if (usingskybox)
+            {
+                skybox = new Objects.SimpleModel();
+                skybox.Mesh = content.Load<Model>("Models\\skybox");
+
+                skybox.WorldMtx = Matrix.CreateTranslation(new Vector3(0, -150, 0));
+            }
+
+
+            if (storelevel)
+            {
+                storesign = new Objects.SimpleModel();
+                storesign.Mesh = content.Load<Model>("Models\\storesign");
+                storesign.rotate(MathHelper.PiOver2);
+                storesign.WorldMtx.Translation = new Vector3(-700, -30, -400);
+
+                storesign2 = new Objects.SimpleModel();
+                storesign2.Mesh = content.Load<Model>("Models\\storesign");
+                storesign2.rotate(MathHelper.PiOver2);
+                storesign2.WorldMtx.Translation = new Vector3(700, -10, -400);
+
+                store = new Objects.SimpleModel();
+                store.Mesh = content.Load<Model>("Models\\storefront");
+                store.WorldMtx = Matrix.CreateTranslation(new Vector3(0, -12, -700));
+            }
 
             //arrow.LoadModel();
 
@@ -542,7 +578,7 @@ namespace SSORF.Management.States
 
             if (currentCheckPoint == numCheckPoints)
             {
-                player.Money += prizeMoney;
+                player.Money += prizeMoney + (int)(timeLimit.TotalSeconds) * 10;
                 missionComplete = true;
                 state = MissionState.Ending;
             }
@@ -644,13 +680,23 @@ namespace SSORF.Management.States
 
         public void draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            fps.draw(gameTime);
+            //fps.draw(gameTime);
+            if(usingskybox)
+                skybox.draw(camera.ViewMtx, camera.ProjMtx);
+
+            if (storelevel)
+            {
+                store.draw(camera.ViewMtx, camera.ProjMtx);
+                storesign.draw(camera.ViewMtx, camera.ProjMtx);
+                storesign2.draw(camera.ViewMtx, camera.ProjMtx);
+            }
             //Draw Level
             level.draw(gameTime, spriteBatch, camera.ViewMtx, camera.ProjMtx);
 
             scooter.Geometry.drawModel(gameTime, camera.ViewMtx, camera.ProjMtx);
 
             driver.drawModel(gameTime, camera.ViewMtx, camera.ProjMtx);
+
             if (state == MissionState.Playing)
                 arrow.draw(camera.ViewMtx, camera.ProjMtx);
 
@@ -669,8 +715,8 @@ namespace SSORF.Management.States
 
             //display camera and scooter coordinates for testing
 
-            spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left, bounds.Top), Color.LightGreen);
-            spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left + 1, bounds.Top + 1), Color.Black);
+            //spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left, bounds.Top), Color.LightGreen);
+           // spriteBatch.DrawString(smallFont, "FPS: " + fps.FPS, new Vector2(bounds.Left + 1, bounds.Top + 1), Color.Black);
 
             //spriteBatch.DrawString(smallFont, "Main Thread Active: " + Thread.CurrentThread.IsAlive, new Vector2(bounds.Left + 11, bounds.Top + 41), Color.SteelBlue);
             //spriteBatch.DrawString(smallFont, "Main Thread Active: " + Thread.CurrentThread.IsAlive, new Vector2(bounds.Left + 10, bounds.Top + 40), Color.Black);
@@ -732,6 +778,12 @@ namespace SSORF.Management.States
                         spriteBatch.DrawString(smallFont, "With " + timeLimit.TotalSeconds.ToString("#.##") + " seconds to spare!!!", new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 5)), Color.Yellow);
                         spriteBatch.DrawString(smallFont, "You earned $" + prizeMoney.ToString(), new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2) + 1, bounds.Bottom - (offset * 5.5f) + 1), Color.White);
                         spriteBatch.DrawString(smallFont, "With " + timeLimit.TotalSeconds.ToString("#.##") + " seconds to spare!!!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2) + 1, bounds.Bottom - (offset * 5) + 1), Color.White);
+                        int bonus = (int)(timeLimit.TotalSeconds) * 10;
+                        spriteBatch.DrawString(smallFont, "BONUS: " + "$" + bonus.ToString(), new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 4.5f)), Color.DarkGreen);
+                        spriteBatch.DrawString(smallFont, "BONUS: " + "$" + bonus.ToString(), new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2) + 1, bounds.Bottom - (offset * 4.5f) + 1), Color.LightGreen);
+
+                        spriteBatch.DrawString(smallFont, "TOTAL: " + "$" + (bonus + prizeMoney).ToString(), new Vector2(bounds.Left + (bounds.Right / 2) - offsetW * 2, bounds.Bottom - (offset * 4)), Color.Green);
+                        spriteBatch.DrawString(smallFont, "TOTAL: " + "$" + (bonus + prizeMoney).ToString(), new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2) + 1, bounds.Bottom - (offset * 4) + 1), Color.White);
                     }
                     else
                         spriteBatch.DrawString(largeFont, "FAIL!", new Vector2(bounds.Left + (bounds.Right / 2) - (offsetW * 2), bounds.Top + (offset * 2)), Color.Red);

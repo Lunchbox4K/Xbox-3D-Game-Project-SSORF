@@ -38,8 +38,8 @@
     <Item>
       <IDnum>3</IDnum>
       <name>Racing Chip</name>
-      <description1>Racing chip good.</description1>
-      <description2>You Buy.</description2>
+      <description1>Racing chip improves engine response</description1>
+      <description2>and increases power.</description2>
       <power>10</power>
       <weight>0</weight>
       <grip>0.0</grip>
@@ -97,8 +97,8 @@
       <description2>Improves grip and handling.</description2>
       <power>0</power>
       <weight>0.0</weight>
-      <grip>2</grip>
-      <cost>400</cost>
+      <grip>3</grip>
+      <cost>500</cost>
       <button>MTbutton</button>
     </Item>
     <Item>
@@ -108,8 +108,8 @@
       <description2>Improves grip and handling.</description2>
       <power>0</power>
       <weight>6.0</weight>
-      <grip>4</grip>
-      <cost>800</cost>
+      <grip>5</grip>
+      <cost>1000</cost>
       <button>STbutton</button>
     </Item>
     <Item>

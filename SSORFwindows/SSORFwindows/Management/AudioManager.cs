@@ -19,9 +19,9 @@ namespace SSORF.Management
         public const String CLICK_CUE = "Click";
 
         //Start music off so people dont kill me
-        private static Boolean isMusicPlaying = false;
+        private static Boolean isMusicPlaying = true;
         private static Boolean isSoundPlaying = true;
-        private static Boolean isMusicOn = false;
+        private static Boolean isMusicOn = true;
         private static Boolean isSoundOn = true;
 
         /// <summary>
