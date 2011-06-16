@@ -50,6 +50,7 @@ namespace SSORF.Management.States
         private Objects.ModelCollection CheckPoints;
         private Objects.SimpleModel arrow;
         private Objects.StaticModel driver;
+        string driverFile;
 
         //Checkpoint Logic
         private Vector3[] CheckPointCoords;
@@ -120,6 +121,10 @@ namespace SSORF.Management.States
             //Initialize the variable in the constructor
             collisions = new Objects.CollisionDetection();
             collisions.setPlayerModels(playerModels);
+            if (ScooterSpecs.IDnum == 7)
+                driverFile = "Models\\lowdriver";
+            else
+                driverFile = "Models\\driver";
         }
 
         /// <summary>
@@ -340,7 +345,7 @@ namespace SSORF.Management.States
 
             //arrow.LoadModel();
 
-            driver = new Objects.StaticModel(content, "Models\\driver", scooter.Geometry.Location, scooter.Geometry.Orientation, 1.0f);
+            driver = new Objects.StaticModel(content, driverFile, scooter.Geometry.Location, scooter.Geometry.Orientation, 1.0f);
             driver.LoadModel();
 
             #endregion

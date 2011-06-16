@@ -19,6 +19,7 @@ namespace SSORFlibrary
         public string description2;
         public float power;
         public float weight;
+        public float grip;
         public short cost;
         public string button;
     }

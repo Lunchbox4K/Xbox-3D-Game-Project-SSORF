@@ -8,88 +8,130 @@
       <description1>Your ass will feel every bump with this hard plastic seat,</description1>
       <description2>but the lost weight is worth it (sort of).</description2>
       <power>0.0</power>
-      <weight>-6.0</weight>
-      <cost>60</cost>
+      <weight>-8.0</weight>
+      <grip>0.0</grip>
+      <cost>40</cost>
       <button>POSbutton</button>
     </Item>
     <Item>
       <IDnum>1</IDnum>
-      <name>Battery Charger Removal</name>
-      <description1>Remove the charging unit to decrease</description1>
-      <description2>the weight of your scooter.</description2>
-      <power>0.0</power>
-      <weight>-8.0</weight>
-      <cost>70</cost>
-      <button>BCbutton</button>
-    </Item>
-    <Item>
-      <IDnum>2</IDnum>
       <name>Titanium Parts</name>
       <description1>Replace a few steel parts with</description1>
       <description2>titanium parts to reduce weight.</description2>
       <power>0.0</power>
-      <weight>-6.0</weight>
+      <weight>-8.0</weight>
+      <grip>0.0</grip>
       <cost>40</cost>
       <button>TPbutton</button>
     </Item>
     <Item>
+      <IDnum>2</IDnum>
+      <name>Battery Charger Removal</name>
+      <description1>Remove the charging unit to decrease</description1>
+      <description2>the weight of your scooter.</description2>
+      <power>0.0</power>
+      <weight>-10.0</weight>
+      <grip>0.0</grip>
+      <cost>60</cost>
+      <button>BCbutton</button>
+    </Item>
+    <Item>
       <IDnum>3</IDnum>
+      <name>Racing Chip</name>
+      <description1>Racing chip good.</description1>
+      <description2>You Buy.</description2>
+      <power>10</power>
+      <weight>0</weight>
+      <grip>0.0</grip>
+      <cost>100</cost>
+      <button>RCbutton</button>
+    </Item>
+    <Item>
+      <IDnum>4</IDnum>
       <name>Nickel Metal Battery</name>
       <description1>Get the same amount of power with less weight</description1>
       <description2>by switching to a nickel battery.</description2>
       <power>0.0</power>
-      <weight>-10.0</weight>
-      <cost>100</cost>
+      <weight>-12.0</weight>
+      <grip>0.0</grip>
+      <cost>80</cost>
       <button>NMbutton</button>
     </Item>
     <Item>
-      <IDnum>4</IDnum>
+      <IDnum>5</IDnum>
       <name>Lithium Polymer Battery</name>
       <description1>You can fit two of these batteries in a standard </description1>
       <description2>battery compartment for more power.</description2>
-      <power>12.0</power>
+      <power>15.0</power>
       <weight>0.0</weight>
-      <cost>150</cost>
+      <grip>0.0</grip>
+      <cost>180</cost>
       <button>LPbutton</button>
     </Item>
     <Item>
-      <IDnum>5</IDnum>
+      <IDnum>6</IDnum>
       <name>Larger Motor</name>
       <description1>Increases power and weight but the increase</description1>
       <description2>in power is worth the trade-off.</description2>
-      <power>40.0</power>
+      <power>45.0</power>
       <weight>15.0</weight>
-      <cost>250</cost>
+      <grip>0.0</grip>
+      <cost>300</cost>
       <button>LMbutton</button>
     </Item>
     <Item>
-      <IDnum>6</IDnum>
+      <IDnum>7</IDnum>
       <name>Brushless Motor</name>
       <description1>Increases power efficiency with a computer controlled</description1>
       <description2>motor rather than mechanical brushes.</description2>
-      <power>30</power>
+      <power>35</power>
       <weight>0</weight>
-      <cost>350</cost>
+      <grip>0.0</grip>
+      <cost>400</cost>
       <button>BMbutton</button>
     </Item>
     <Item>
-      <IDnum>7</IDnum>
+      <IDnum>8</IDnum>
+      <name>Medium Tires</name>
+      <description1>Put some REAL tires on yer scooter for a change.</description1>
+      <description2>Improves grip and handling.</description2>
+      <power>0</power>
+      <weight>0.0</weight>
+      <grip>2</grip>
+      <cost>400</cost>
+      <button>MTbutton</button>
+    </Item>
+    <Item>
+      <IDnum>9</IDnum>
+      <name>Soft Tires</name>
+      <description1>Even more grip than medium tires</description1>
+      <description2>Improves grip and handling.</description2>
+      <power>0</power>
+      <weight>6.0</weight>
+      <grip>4</grip>
+      <cost>800</cost>
+      <button>STbutton</button>
+    </Item>
+    <Item>
+      <IDnum>10</IDnum>
       <name>Flux Capacitor</name>
       <description1>Flux dispersal allows the vehicle to have smooth passage</description1>
       <description2>through the space time continuum.</description2>
       <power>0.0</power>
       <weight>-50.0</weight>
+      <grip>0.0</grip>
       <cost>5000</cost>
       <button>FCbutton</button>
     </Item>
     <Item>
-      <IDnum>8</IDnum>
+      <IDnum>11</IDnum>
       <name>Mr.Fusion</name>
       <description1>This futuristic home energy reactor converts household</description1>
       <description2>waste into power to produce 1.21 gigawatts.</description2>
-      <power>1000.0</power>
+      <power>1210.0</power>
       <weight>0.0</weight>
-      <cost>10000</cost>
+      <grip>0.0</grip>
+      <cost>12000</cost>
       <button>MFbutton</button>
     </Item>
   </Asset>
