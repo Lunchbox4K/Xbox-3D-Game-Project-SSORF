@@ -4,7 +4,7 @@
     <Item>
       <IDnum>0</IDnum>
       <name>Ameego RT Express</name>
-      <outputPower>35</outputPower>
+      <outputPower>36</outputPower>
       <brakePower>1.6</brakePower>
       <weight>58</weight>
       <cost>800</cost>
@@ -19,25 +19,40 @@
     <Item>
       <IDnum>1</IDnum>
       <name>Razcal UltraLite</name>
-      <outputPower>20</outputPower>
+      <outputPower>32</outputPower>
       <brakePower>1.6</brakePower>
-      <weight>38</weight>
+      <weight>32</weight>
       <cost>1200</cost>
       <wheelMaxAngle>1.45</wheelMaxAngle>
       <wheelRadius>.1</wheelRadius>
       <wheelBaseLength>.89</wheelBaseLength>
       <gripRating>2.94</gripRating>
-      <coefficientDrag>1.2</coefficientDrag>
-      <frontalArea>2.3</frontalArea>
+      <coefficientDrag>.9</coefficientDrag>
+      <frontalArea>2.0</frontalArea>
       <rollingResistance>.5</rollingResistance>
     </Item>
     <Item>
       <IDnum>2</IDnum>
+      <name>Blayde Z Executive</name>
+      <outputPower>65</outputPower>
+      <brakePower>2</brakePower>
+      <weight>48</weight>
+      <cost>1800</cost>
+      <wheelMaxAngle>1.45</wheelMaxAngle>
+      <wheelRadius>.1</wheelRadius>
+      <wheelBaseLength>1.5</wheelBaseLength>
+      <gripRating>4</gripRating>
+      <coefficientDrag>.99</coefficientDrag>
+      <frontalArea>3.7</frontalArea>
+      <rollingResistance>.5</rollingResistance>
+    </Item>
+    <Item>
+      <IDnum>3</IDnum>
       <name>CitiBugg Helper</name>
-      <outputPower>50</outputPower>
+      <outputPower>55</outputPower>
       <brakePower>1.6</brakePower>
       <weight>29</weight>
-      <cost>2000</cost>
+      <cost>2800</cost>
       <wheelMaxAngle>1.45</wheelMaxAngle>
       <wheelRadius>.1</wheelRadius>
       <wheelBaseLength>.8</wheelBaseLength>
@@ -47,24 +62,9 @@
       <rollingResistance>.5</rollingResistance>
     </Item>
     <Item>
-      <IDnum>3</IDnum>
-      <name>Horizen AC Himalayan</name>
-      <outputPower>90</outputPower>
-      <brakePower>2.2</brakePower>
-      <weight>148</weight>
-      <cost>4500</cost>
-      <wheelMaxAngle>1.45</wheelMaxAngle>
-      <wheelRadius>.1</wheelRadius>
-      <wheelBaseLength>1.1</wheelBaseLength>
-      <gripRating>3.6</gripRating>
-      <coefficientDrag>.9</coefficientDrag>
-      <frontalArea>3</frontalArea>
-      <rollingResistance>.5</rollingResistance>
-    </Item>
-    <Item>
       <IDnum>4</IDnum>
       <name>AV SportRyder</name>
-      <outputPower>85</outputPower>
+      <outputPower>90</outputPower>
       <brakePower>2</brakePower>
       <weight>149</weight>
       <cost>4000</cost>
@@ -74,6 +74,51 @@
       <gripRating>4</gripRating>
       <coefficientDrag>.81</coefficientDrag>
       <frontalArea>3.5</frontalArea>
+      <rollingResistance>.5</rollingResistance>
+    </Item>
+    <Item>
+      <IDnum>5</IDnum>
+      <name>Horizen AC Himalayan</name>
+      <outputPower>95</outputPower>
+      <brakePower>2.2</brakePower>
+      <weight>148</weight>
+      <cost>4500</cost>
+      <wheelMaxAngle>1.45</wheelMaxAngle>
+      <wheelRadius>.1</wheelRadius>
+      <wheelBaseLength>1.3</wheelBaseLength>
+      <gripRating>4.2</gripRating>
+      <coefficientDrag>.9</coefficientDrag>
+      <frontalArea>3</frontalArea>
+      <rollingResistance>.5</rollingResistance>
+    </Item>
+    <Item>
+      <IDnum>6</IDnum>
+      <name>Shop Ryder Flag Ship</name>
+      <outputPower>124</outputPower>
+      <brakePower>2</brakePower>
+      <weight>124</weight>
+      <cost>5995</cost>
+      <wheelMaxAngle>1.45</wheelMaxAngle>
+      <wheelRadius>.1</wheelRadius>
+      <wheelBaseLength>1.4</wheelBaseLength>
+      <gripRating>3</gripRating>
+      <coefficientDrag>.7</coefficientDrag>
+      <frontalArea>4.5</frontalArea>
+      <rollingResistance>.5</rollingResistance>
+    </Item>
+    <Item>
+      <IDnum>7</IDnum>
+      <name>Wellty FENIX</name>
+      <outputPower>256</outputPower>
+      <brakePower>2</brakePower>
+      <weight>138</weight>
+      <cost>9999</cost>
+      <wheelMaxAngle>1.45</wheelMaxAngle>
+      <wheelRadius>.1</wheelRadius>
+      <wheelBaseLength>1.6</wheelBaseLength>
+      <gripRating>4.0</gripRating>
+      <coefficientDrag>.5</coefficientDrag>
+      <frontalArea>3.0</frontalArea>
       <rollingResistance>.5</rollingResistance>
     </Item>
   </Asset>

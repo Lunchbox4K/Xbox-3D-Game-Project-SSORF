@@ -58,7 +58,7 @@ namespace SSORF.Management
 
         //used to display scooter models in vehicle select
         Matrix view, proj;
-        private SSORF.Objects.SimpleModel[] scooterModels = new Objects.SimpleModel[5];
+        private SSORF.Objects.SimpleModel[] scooterModels = new Objects.SimpleModel[8];
         private float scooterYaw = 0.0f;
         private short[] scooterIDnums = new short[8];
         private short VSBackButton;
@@ -84,7 +84,7 @@ namespace SSORF.Management
             scooters = content.Load<ScooterData[]>("scooters");
 
             //load scooter models
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 8; i++)
             {
                 scooterModels[i] = new Objects.SimpleModel();
                 scooterModels[i].Mesh = content.Load<Model>("Models\\scooter" + i.ToString());
@@ -137,9 +137,9 @@ namespace SSORF.Management
 
             #region Load TuneShop (buy upgrades)
 
-            Menus[(int)Menu.TuneShop] = new States.SubMenu(10); //tune shop has 4 buttons
+            Menus[(int)Menu.TuneShop] = new States.SubMenu(13); //tune shop has 4 buttons
             Menus[(int)Menu.TuneShop].BackGround = content.Load<Texture2D>("Images\\TuneShopTest");
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 12; i++)
             {
                 Menus[(int)Menu.TuneShop].ButtonImage[i] = content.Load<Texture2D>("Images\\" + upgrades[i].button);
             }
@@ -148,18 +148,21 @@ namespace SSORF.Management
             int column = 1;
             Menus[(int)Menu.TuneShop].ButtonPosition[0] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
             Menus[(int)Menu.TuneShop].ButtonPosition[1] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.TuneShop].ButtonPosition[2] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column = 1;
+            Menus[(int)Menu.TuneShop].ButtonPosition[2] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.TuneShop].ButtonPosition[3] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column = 1;
             row++;
-            Menus[(int)Menu.TuneShop].ButtonPosition[3] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
             Menus[(int)Menu.TuneShop].ButtonPosition[4] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.TuneShop].ButtonPosition[5] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column = 1;
-            row++;
+            Menus[(int)Menu.TuneShop].ButtonPosition[5] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
             Menus[(int)Menu.TuneShop].ButtonPosition[6] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.TuneShop].ButtonPosition[7] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
-            Menus[(int)Menu.TuneShop].ButtonPosition[8] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column = 1;
+            Menus[(int)Menu.TuneShop].ButtonPosition[7] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column = 1;
+            row++;
+            Menus[(int)Menu.TuneShop].ButtonPosition[8] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.TuneShop].ButtonPosition[9] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.TuneShop].ButtonPosition[10] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column++;
+            Menus[(int)Menu.TuneShop].ButtonPosition[11] = new Vector2(screen.Left + (offset * 3) + (offset * column * 3), screen.Top + (offset * 6) + (offset * row * 2)); column = 1;
 
-            Menus[(int)Menu.TuneShop].ButtonImage[9] = content.Load<Texture2D>("Images\\BackButton");
-            Menus[(int)Menu.TuneShop].ButtonPosition[9] = new Vector2(screen.Left + offset, screen.Top + (offset * 2));
+            Menus[(int)Menu.TuneShop].ButtonImage[12] = content.Load<Texture2D>("Images\\BackButton");
+            Menus[(int)Menu.TuneShop].ButtonPosition[12] = new Vector2(screen.Left + offset, screen.Top + (offset * 2));
             #endregion
 
             #region Load MissionsMenu
@@ -342,7 +345,7 @@ namespace SSORF.Management
 
                         // < 3 should get changed to < 9 when we have rest of scooters 
                         if (Menus[(int)Menu.Dealership].buttonPressed > 0 &&
-                           Menus[(int)Menu.Dealership].buttonPressed < 6) 
+                           Menus[(int)Menu.Dealership].buttonPressed < 9) 
                         {
                             message = player.PurchaseScooter(
                                 scooters[Menus[(int)Menu.Dealership].buttonPressed - 1]);
@@ -357,14 +360,14 @@ namespace SSORF.Management
 
                     #region update TuneShop
                     case Menu.TuneShop:
-                        if (Menus[(int)Menu.TuneShop].buttonPressed == 10)
+                        if (Menus[(int)Menu.TuneShop].buttonPressed == 13)
                         {
                             CurrentMenu = Menu.Dealership;
                             Menus[(int)Menu.TuneShop].selectedButton = 1;
                         }
 
                         if (Menus[(int)Menu.TuneShop].buttonPressed > 0 &&
-                            Menus[(int)Menu.TuneShop].buttonPressed < 10)
+                            Menus[(int)Menu.TuneShop].buttonPressed < 13)
                         {
                             message = player.PurchaseUpgrade(scooters[player.SelectedScooter],
                                 upgrades[Menus[(int)Menu.TuneShop].buttonPressed - 1]);
@@ -495,7 +498,7 @@ namespace SSORF.Management
 
             switch (CurrentMenu)
             {
-                case Menu.Main :
+                case Menu.Main:
                     spriteBatch.DrawString(menuFont, "Current Vehicle:  " + scooters[player.SelectedScooter].name,
                         new Vector2(screen.Left + offset, screen.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(menuFont, "You have $" + player.Money.ToString(),
@@ -503,15 +506,15 @@ namespace SSORF.Management
                     spriteBatch.DrawString(menuFont, "Press " + selectButton + "to make a selection",
                         new Vector2(screen.Left + offset * 10, screen.Bottom - (offset * 16)), Color.Black);
                     break;
-                
+
                 //display upgrade data
-                case Menu.TuneShop :
+                case Menu.TuneShop:
                     spriteBatch.DrawString(menuFont, "Current Vehicle:  " + scooters[player.SelectedScooter].name,
                         new Vector2(screen.Left + offset, screen.Bottom - (offset * 2)), Color.Tan);
                     spriteBatch.DrawString(menuFont, "You have $" + player.Money.ToString(),
                         new Vector2(screen.Left + offset, screen.Bottom - (offset * 1)), Color.Tan);
 
-                    if (Menus[(int)Menu.TuneShop].SelectedButton != 10)
+                    if (Menus[(int)Menu.TuneShop].SelectedButton != 13)
                     {
                         drawUpgradeSpecs(spriteBatch);
                     }
@@ -522,15 +525,15 @@ namespace SSORF.Management
                         new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 1)), Color.Tan);
                     break;
 
-                case Menu.Dealership :
+                case Menu.Dealership:
                     spriteBatch.DrawString(menuFont, "Current Vehicle:  " + scooters[player.SelectedScooter].name,
                         new Vector2(screen.Left + offset, screen.Bottom - (offset * 2)), Color.Black);
                     spriteBatch.DrawString(menuFont, "You have $" + player.Money.ToString(),
                         new Vector2(screen.Left + offset, screen.Bottom - (offset * 1)), Color.Black);
 
-                    if (Menus[(int)Menu.Dealership].SelectedButton < 6)
+                    if (Menus[(int)Menu.Dealership].SelectedButton < 9)
                     {
-                        drawVehicleSpecs(spriteBatch, new Vector2(screen.Left + (offset * 16), screen.Top + (screen.Bottom / 4)), 
+                        drawVehicleSpecs(spriteBatch, new Vector2(screen.Left + (offset * 16), screen.Top + (screen.Bottom / 4)),
                             Menus[(int)Menu.Dealership].SelectedButton - 1);
                     }
                     spriteBatch.DrawString(menuFont, "Press " + backButton,
@@ -552,7 +555,7 @@ namespace SSORF.Management
                         new Vector2(screen.Left + (screen.Right / 2) - (offset * 2), screen.Bottom - (offset * 1)), Color.Black);
 
                     break;
-                    
+
                 case Menu.Options:
                     string forward, reverse, steering, pause;
 #if XBOX
@@ -570,8 +573,8 @@ namespace SSORF.Management
                     string buttons = "\n\n" + forward + "\n" + reverse + "\n" + steering + "\n" + pause;
                     spriteBatch.DrawString(menuFont, controls, new Vector2(screen.Left + (offset * 15), screen.Top + (screen.Bottom / 2) - (offset * 6)), Color.Black);
                     spriteBatch.DrawString(menuFont, buttons, new Vector2(screen.Left + (offset * 18), screen.Top + (screen.Bottom / 2) - (offset * 6)), Color.Black);
-                    
-                    if(Menus[(int)Menu.Options].SelectedButton == 5)
+
+                    if (Menus[(int)Menu.Options].SelectedButton == 5)
                         spriteBatch.DrawString(menuFont, "More time, less prize money", new Vector2(screen.Left + (offset * 15), screen.Top + (offset * 11)), Color.Black);
                     else if (Menus[(int)Menu.Options].SelectedButton == 6)
                         spriteBatch.DrawString(menuFont, "Less time, more prize money", new Vector2(screen.Left + (offset * 15), screen.Top + (offset * 11)), Color.Black);
@@ -629,7 +632,7 @@ namespace SSORF.Management
                 scooterModels[scooterIDnums[Menus[(int)CurrentMenu].SelectedButton - 1]].draw(view, proj, new Vector3(35,-30,-100));
             }
 
-            else if (CurrentMenu == Menu.Dealership && Menus[(int)CurrentMenu].SelectedButton < 6)
+            else if (CurrentMenu == Menu.Dealership && Menus[(int)CurrentMenu].SelectedButton < 9)
             {
                 scooterYaw += 0.02f;
                 scooterModels[Menus[(int)CurrentMenu].SelectedButton - 1].rotate(scooterYaw);
@@ -678,27 +681,31 @@ namespace SSORF.Management
 
             spriteBatch.DrawString(menuFont,
                 upgrades[Menus[(int)Menu.TuneShop].SelectedButton - 1].name,
-                new Vector2(screen.Left + (offset * 10), screen.Top + (offset * 3)), Color.Tan);
+                new Vector2(screen.Left + (offset * 10), screen.Top + (offset * 2.5f)), Color.Tan);
 
-            spriteBatch.DrawString(menuFont, 
+            spriteBatch.DrawString(menuFont,
                 upgrades[Menus[(int)Menu.TuneShop].SelectedButton - 1].description1,
-                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 4)), Color.Tan);
+                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 3.5f)), Color.Tan);
 
-            spriteBatch.DrawString(menuFont, 
+            spriteBatch.DrawString(menuFont,
                 upgrades[Menus[(int)Menu.TuneShop].SelectedButton - 1].description2,
-                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 4.6f)), Color.Tan);
+                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 4.1f)), Color.Tan);
 
-            spriteBatch.DrawString(menuFont, 
+            spriteBatch.DrawString(menuFont,
                 "Power:  " + upgrades[Menus[(int)Menu.TuneShop].SelectedButton - 1].power.ToString(),
-                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 5.4f)), Color.Tan);
+                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 4.9f)), Color.Tan);
 
             spriteBatch.DrawString(menuFont,
                 "Weight:  " + upgrades[Menus[(int)Menu.TuneShop].SelectedButton - 1].weight.ToString("+#;-#;0") + "%",
-                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 6)), Color.Tan);
+                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 5.5f)), Color.Tan);
 
-            spriteBatch.DrawString(menuFont, 
+            spriteBatch.DrawString(menuFont,
+                "Grip:  +" + upgrades[Menus[(int)Menu.TuneShop].SelectedButton - 1].grip.ToString(),
+                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 6.1f)), Color.Tan);
+
+            spriteBatch.DrawString(menuFont,
                 "Cost:  $" + upgrades[Menus[(int)Menu.TuneShop].SelectedButton - 1].cost.ToString(),
-                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 6.6f)), Color.Tan);
+                new Vector2(screen.Left + (offset * 7), screen.Top + (offset * 6.9f)), Color.Tan);
         }
 
         public void drawVehicleSpecs(SpriteBatch spriteBatch, Vector2 location, int ID)
@@ -715,11 +722,16 @@ namespace SSORF.Management
                 location, Color.Black);
             location.Y += offset;
 
+
+            spriteBatch.DrawString(menuFont, "Grip Rating:  " + scooters[ID].gripRating.ToString(),
+                location, Color.Black);
+            location.Y += offset;
+
             spriteBatch.DrawString(menuFont, "Cost:  $" + scooters[ID].cost.ToString(),
                 location, Color.Black);
         }
 
-        public void drawVehicleSpecs(SpriteBatch spriteBatch, Vector2 location, 
+        public void drawVehicleSpecs(SpriteBatch spriteBatch, Vector2 location,
             int ID, Objects.upgradeSpecs upgradeTotals)
         {
             spriteBatch.DrawString(menuFont, scooters[ID].name,
@@ -734,10 +746,13 @@ namespace SSORF.Management
                 location, Color.Black);
             location.Y += offset;
 
+            spriteBatch.DrawString(menuFont, "Grip Rating:  " + (scooters[ID].gripRating + upgradeTotals.grip).ToString(),
+                location, Color.Black);
+            location.Y += offset;
+
             spriteBatch.DrawString(menuFont, "Cost:  $" + scooters[ID].cost.ToString(),
                 location, Color.Black);
         }
-
 
         public ScooterData[] ScooterSpecs
         {

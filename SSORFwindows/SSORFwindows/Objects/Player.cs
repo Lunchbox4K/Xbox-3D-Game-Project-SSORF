@@ -11,6 +11,7 @@ namespace SSORF.Objects
         {
             public float power;
             public float weight;
+            public float grip;
         }
 
     class Player
@@ -22,10 +23,10 @@ namespace SSORF.Objects
         {true,false,false,false,false,false,false,false};
         //Player starts with amigo RTX (ID = 0)
 
-        private bool[,] upgradesPurchased = new bool[8,9];
+        private bool[,] upgradesPurchased = new bool[8,12];
 
         //An array of stat changes corresponding to 
-        private upgradeSpecs[] scooterUpgrades = new upgradeSpecs[6];
+        private upgradeSpecs[] scooterUpgrades = new upgradeSpecs[9];
 
         //Id number of the selected scooter
         private short selectedScooter = 0;
@@ -43,7 +44,7 @@ namespace SSORF.Objects
         public string PurchaseUpgrade(SSORFlibrary.ScooterData scooter, SSORFlibrary.UpgradeData upgrade)
         {
             //if upgrade already purchased for that scooter return message
-            if (upgradesPurchased[selectedScooter,upgrade.IDnum] == true)
+            if (upgradesPurchased[selectedScooter, upgrade.IDnum] == true)
                 return "This upgrade has already been purchased!";
             //if player has insufficent funds return message
             if (PurchaseItem(upgrade.cost) == false)
@@ -52,6 +53,7 @@ namespace SSORF.Objects
             //otherwise add upgrade values to total upgrade specs for that scooter
             scooterUpgrades[selectedScooter].power += upgrade.power;
             scooterUpgrades[selectedScooter].weight += (scooter.weight * (upgrade.weight / 100f));
+            scooterUpgrades[selectedScooter].grip += upgrade.grip;
             upgradesPurchased[selectedScooter, upgrade.IDnum] = true;
             return "Upgrade purchased";
         }
