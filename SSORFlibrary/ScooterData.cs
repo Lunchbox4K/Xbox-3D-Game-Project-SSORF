@@ -16,6 +16,10 @@ namespace SSORFlibrary
 
         public short IDnum;
         public string name;
+        public string description1;
+        public string description2;
+        public string description3;
+        public string description4;
         public float outputPower;
         public float brakePower;
         public float weight;
@@ -32,6 +36,10 @@ namespace SSORFlibrary
         {
             this.IDnum = source.IDnum;
             this.name = source.name;
+            this.description1 = source.description1;
+            this.description2 = source.description2;
+            this.description3 = source.description3;
+            this.description4 = source.description4;
             this.outputPower = source.outputPower;
             this.brakePower = source.brakePower;
             this.weight = source.weight;

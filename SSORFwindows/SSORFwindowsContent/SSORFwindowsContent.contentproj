@@ -479,7 +479,8 @@
     <Compile Include="Models\storefront.fbx">
       <Name>storefront</Name>
       <Importer>FbxImporter</Importer>
-      <Processor>InstancedModelProcessor</Processor>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>0.8</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -527,7 +528,7 @@
     <Compile Include="Models\storesign.fbx">
       <Name>storesign</Name>
       <Importer>FbxImporter</Importer>
-      <Processor>InstancedModelProcessor</Processor>
+      <Processor>ModelProcessor</Processor>
     </Compile>
     <Compile Include="Models\streetlight.fbx">
       <Name>streetlight</Name>
@@ -804,16 +805,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\bench_split.fbx">
-      <Name>bench_split</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\car_split.fbx">
-      <Name>car_split</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Models\lowdriver.fbx">
       <Name>lowdriver</Name>
       <Importer>FbxImporter</Importer>
@@ -850,6 +841,14 @@
       <Name>STbutton</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\skybox.fbx">
+      <Name>skybox</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <ProcessorParameters_Scale>5.3</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

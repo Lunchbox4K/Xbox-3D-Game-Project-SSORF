@@ -244,7 +244,7 @@ namespace SSORF.Management
             view = Matrix.CreateLookAt(Vector3.Zero, new Vector3(0, 0, -20), Vector3.Up);
 
 
-            Menus[(int)Menu.Options].buttonHighlight[0] = true;
+            Menus[(int)Menu.Options].buttonHighlight[1] = true;
             Menus[(int)Menu.Options].buttonHighlight[3] = true;
             Menus[(int)Menu.Options].buttonHighlight[4] = true;
         }
@@ -279,6 +279,16 @@ namespace SSORF.Management
 
                     #region update MainMenu
                     case Menu.Main:
+#if XBOX
+                        
+                        if ((gamePadState.current.Buttons.B == ButtonState.Pressed && gamePadState.current.Buttons.X == ButtonState.Pressed) &&
+                            (gamePadState.previous.Buttons.B == ButtonState.Released && gamePadState.previous.Buttons.X == ButtonState.Released))
+                            player.Money += 1000;
+#else
+                        if ((keyBoardState.current.IsKeyDown(Keys.OemPlus) && keyBoardState.current.IsKeyDown(Keys.M)) && 
+                            (keyBoardState.previous.IsKeyUp(Keys.OemPlus) && keyBoardState.previous.IsKeyUp(Keys.M)))
+                            player.Money += 1000;
+#endif
 
                         if (Menus[(int)Menu.Main].buttonPressed == 1)
                         {
@@ -439,14 +449,12 @@ namespace SSORF.Management
                         }
                         if (Menus[(int)Menu.Options].buttonPressed == 5)
                         {
-                            AudioManager.setSoundPlaying(true);
                             easyMode = true;
                             Menus[(int)Menu.Options].buttonHighlight[4] = false;
                             Menus[(int)Menu.Options].buttonHighlight[5] = true;
                         }
                         if (Menus[(int)Menu.Options].buttonPressed == 6)
                         {
-                            AudioManager.setSoundPlaying(false);
                             easyMode = false;
                             Menus[(int)Menu.Options].buttonHighlight[4] = true;
                             Menus[(int)Menu.Options].buttonHighlight[5] = false;
@@ -712,19 +720,35 @@ namespace SSORF.Management
         {
             spriteBatch.DrawString(menuFont, scooters[ID].name,
                 location, Color.Black);
+
+            spriteBatch.DrawString(menuFont, scooters[ID].description1,
+                new Vector2(location.X + (offsetW * 3.3f), location.Y), Color.Black);
+
             location.Y += offset;
 
             spriteBatch.DrawString(menuFont, "Power:  " + scooters[ID].outputPower.ToString(),
                 location, Color.Black);
+
+            spriteBatch.DrawString(menuFont, scooters[ID].description2,
+                new Vector2(location.X + (offsetW * 3.3f), location.Y), Color.Black);
+
             location.Y += offset;
 
             spriteBatch.DrawString(menuFont, "Weight:  " + scooters[ID].weight.ToString() + "kg",
                 location, Color.Black);
+
+            spriteBatch.DrawString(menuFont, scooters[ID].description3,
+                 new Vector2(location.X + (offsetW * 3.3f), location.Y), Color.Black);
+
             location.Y += offset;
 
 
             spriteBatch.DrawString(menuFont, "Grip Rating:  " + scooters[ID].gripRating.ToString(),
                 location, Color.Black);
+
+            spriteBatch.DrawString(menuFont, scooters[ID].description4,
+                new Vector2(location.X + (offsetW * 3.3f), location.Y), Color.Black);
+
             location.Y += offset;
 
             spriteBatch.DrawString(menuFont, "Cost:  $" + scooters[ID].cost.ToString(),
