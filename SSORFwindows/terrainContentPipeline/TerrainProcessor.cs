@@ -9,15 +9,10 @@ using System.ComponentModel;
 namespace _3dOnlineGamePipeline
 {
     /// <summary>
-    /// This class will be instantiated by the XNA Framework Content Pipeline
-    /// to apply custom processing to content data, converting an object of
-    /// type TInput to TOutput. The input and output types may be the same if
-    /// the processor wishes to alter data without changing its type.
-    ///
-    /// This should be part of a Content Pipeline Extension Library project.
-    ///
-    /// TODO: change the ContentProcessor attribute to specify the correct
-    /// display name for this processor.
+    /// This XNA Content Pipeline processes data from a greyscale bitmap
+    /// image and processes into a 3D terrain model with collision support.
+    /// 
+    /// Issues: This creates a single model, large scale workes fine with resonable resolutions.
     /// </summary>
     [ContentProcessor]
     public class TerrainProcessor : ContentProcessor<Texture2DContent, ModelContent>
@@ -42,13 +37,15 @@ namespace _3dOnlineGamePipeline
         #region Process
         public override ModelContent Process(Texture2DContent input, ContentProcessorContext context)
         {
-            //Load the height map into a readable bitmap
+            //# Load the height map into a processable float array
+
             PixelBitmapContent<float> bmpHaightMap;
-            MeshBuilder builder = MeshBuilder.StartMesh("terrain");
             input.ConvertBitmapType(typeof(PixelBitmapContent<float>)); //Convert to float readable
             bmpHaightMap = (PixelBitmapContent<float>)input.Mipmaps[0];
-            //Start building the mesh
-            
+
+            //# Start building the mesh
+
+            MeshBuilder builder = MeshBuilder.StartMesh("terrain");
 
             //Create Terrain Verticies
             for (int i = 0; i < bmpHaightMap.Height; i++)
@@ -65,17 +62,18 @@ namespace _3dOnlineGamePipeline
 
             //Create Material and point it the Terrain Texture.
             BasicMaterialContent material = new BasicMaterialContent();
-            material.SpecularColor = new Vector3(.4f,.4f,.4f);
-            if(!string.IsNullOrEmpty(textLoc))
-            {
-                string directory = Path.GetDirectoryName(input.Identity.SourceFilename);
-                string texture = Path.Combine(directory, textLoc);
+            material.SpecularColor = new Vector3(.4f, .4f, .4f);
+            //if(!string.IsNullOrEmpty(textLoc))
+            //{
+            //    string directory = Path.GetDirectoryName(input.Identity.SourceFilename);
+            //    string texture = Path.Combine(directory, textLoc);
 
-                material.Texture = new ExternalReference<TextureContent>(texture);
-            }
+            //    material.Texture = new ExternalReference<TextureContent>(texture);
+            //}
+            builder.SetMaterial(material);
+
 
             //Create a vertex channel for holding texture coords
-            builder.SetMaterial(material);
             int texCoordId = builder.CreateVertexChannel<Vector2>(
                 VertexChannelNames.TextureCoordinate(0));
             // Create the individual triangles that make up our terrain.
@@ -91,6 +89,8 @@ namespace _3dOnlineGamePipeline
                     addVertex(builder, texCoordId, bmpHaightMap.Width, j, i + 1);
                 }
             MeshContent terrainMesh = builder.FinishMesh();
+
+            //Convert to model and return.
             ModelContent model = context.Convert<MeshContent, ModelContent>(terrainMesh,
                                                               "ModelProcessor");
             model.Tag = new TerrainInfoContent(terrainMesh, scale,
@@ -100,8 +100,16 @@ namespace _3dOnlineGamePipeline
         }
         #endregion
 
-        #region Helper
-
+        #region Helper Functions
+        
+        /// <summary>
+        /// Adds a single vertex. Squared texture so width accounts for length.
+        /// </summary>
+        /// <param name="builder">Builder to add vertex to.</param>
+        /// <param name="texCoordId">Vertex index for texture coordinate</param>
+        /// <param name="w">Heightmap width</param>
+        /// <param name="j">Width index</param>
+        /// <param name="i">Height index</param>
         private void addVertex(MeshBuilder builder, int texCoordId, int w, int j, int i)
         {
             builder.SetVertexChannelData(texCoordId, new Vector2(j, i) * TexCoordScale);
